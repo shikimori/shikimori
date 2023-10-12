@@ -145,11 +145,11 @@ private
 
     if ranked_ids
       AnimesCollection::RecommendationsQuery.call(
-        klass: klass,
+        klass:,
         filters: compiled_filters,
-        user: user,
+        user:,
         limit: PAGE_LIMIT,
-        ranked_ids: ranked_ids
+        ranked_ids:
       )
     else
       AnimesCollection::NoPage.new
@@ -158,18 +158,18 @@ private
 
   def season_query
     AnimesCollection::SeasonQuery.call(
-      klass: klass,
+      klass:,
       filters: compiled_filters,
-      user: user,
+      user:,
       limit: SEASON_LIMIT
     )
   end
 
   def page_query
     AnimesCollection::PageQuery.call(
-      klass: klass,
+      klass:,
       filters: compiled_filters,
-      user: user,
+      user:,
       limit: PAGE_LIMIT
     )
   end
@@ -177,7 +177,7 @@ private
   def recommend_ranked_ids
     Recommendations::Fetcher.call(
       user: user&.decorated? ? user.object : user,
-      klass: klass,
+      klass:,
       metric: h.params[:metric],
       threshold: h.params[:threshold].to_i
     )

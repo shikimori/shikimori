@@ -4,8 +4,8 @@ class AnimesCollection::PageQuery
   def call
     AnimesCollection::Page.new(
       collection: process(query),
-      page: page,
-      pages_count: pages_count
+      page:,
+      pages_count:
     )
   end
 

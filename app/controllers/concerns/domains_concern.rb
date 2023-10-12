@@ -3,8 +3,8 @@ module DomainsConcern
 
   included do
     helper_method :shikimori?, :old_host?, :new_host?
-    # before_action :force_301_redirect_with_magic_link
-    # before_action :force_301_redirect_for_guests
+    before_action :force_301_redirect_with_magic_link
+    before_action :force_301_redirect_for_guests
     before_action :force_seo_redirect, if: :old_host?
   end
 
@@ -27,6 +27,7 @@ module DomainsConcern
     return unless domain_redirects_appliable?
     return unless user_signed_in?
     return if !request.get? || request.xhr?
+    return unless current_user.admin?
 
     redirect_to request.protocol + ShikimoriDomain::PROPER_HOST +
       users_magic_link_path(
