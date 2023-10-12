@@ -1,4 +1,7 @@
 class RobotsController < ShikimoriController
+  skip_before_action :force_301_redirect_for_guests
+  skip_before_action :force_seo_redirect
+
   def shikimori # rubocop:disable all
     render plain: <<~ROBOTS
       User-agent: *
