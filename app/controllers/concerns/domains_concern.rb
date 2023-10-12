@@ -47,7 +47,7 @@ module DomainsConcern
 
   def force_seo_redirect
     return if Rails.env.test?
-    return unless request.user_agent.match?(/google|yandex/i)
+    return unless request.user_agent&.match?(/google|yandex/i)
 
     redirect_to request.url.sub(request.host, ShikimoriDomain::PROPER_HOST),
       status: :moved_permanently,
