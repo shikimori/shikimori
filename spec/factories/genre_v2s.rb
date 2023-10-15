@@ -5,11 +5,11 @@ FactoryBot.define do
     entry_type { Types::GenreV2::EntryType['Anime'] }
     kind { Types::GenreV2::Kind[:genre] }
     description { '' }
-    sequence(:mal_id) { |n| n }
     is_censored { false }
     is_active { true }
     position { 99 }
     seo { 99 }
+    mal_id { nil }
 
     Types::GenreV2::Kind.values.each do |v|
       trait(v.to_sym) { kind { v } }

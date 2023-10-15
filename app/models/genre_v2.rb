@@ -1,6 +1,5 @@
 class GenreV2 < ApplicationRecord
-  validates :name, :russian, :mal_id,
-    presence: true
+  validates :name, :russian, presence: true
 
   enumerize :entry_type,
     in: Types::GenreV2::EntryType.values
@@ -10,15 +9,6 @@ class GenreV2 < ApplicationRecord
 
   boolean_attribute :active
   boolean_attribute :censored
-
-  DOUJINSHI_IDS = [61]
-
-  EROTICA_IDS = [539, 540]
-  HENTAI_IDS = [12, 59] # + DOUJINSHI_IDS
-  # YAOI_IDS = [33, 65]
-  # YURI_IDS = [34, 75]
-
-  CENSORED_IDS = EROTICA_IDS + HENTAI_IDS # + YAOI_IDS + YURI_IDS
 
   def to_param
     "#{id}-#{name.tr ' ', '-'}"
