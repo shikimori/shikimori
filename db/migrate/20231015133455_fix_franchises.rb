@@ -3,6 +3,7 @@ class FixFranchises < ActiveRecord::Migration[7.0]
     Animes::UpdateFranchises.new.call(
       Anime.where(
         franchise: %w[
+          rent_a_girlfriend
           yakusoku_no_neverland
           fire_force
           temple
