@@ -7,12 +7,12 @@ class Users::MagicLinksController < ShikimoriController
       sign_in user
     end
 
-    redirect_to redirect_url
+    redirect_to redirect_url, allow_other_host: true
   rescue ActiveRecord::RecordNotFound, Users::LoginToken::InvalidOrExpiredTokenError
-    redirect_to redirect_url
+    redirect_to redirect_url, allow_other_host: true
   rescue StandardError => error
     notify_erorr error
-    redirect_to redirect_url
+    redirect_to redirect_url, allow_other_host: true
   end
 
 private

@@ -28,7 +28,14 @@ class CommentsController < ShikimoriController
 
   # все комментарии сущности до определённого коммента
   def fetch
-    comment = Comment.find params[:comment_id]
+    comment = Comment.find_by id: params[:comment_id]
+
+    unless comment
+      @collection = []
+      render :collection, formats: :json
+      return
+    end
+
     topic = params[:topic_type].constantize.find params[:topic_id]
 
     authorize! :read, topic

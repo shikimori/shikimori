@@ -22,7 +22,16 @@ class Menus::CollectionMenu < ViewObjectBase
   end
 
   def genres
-    "#{klass.base_class.name}GenresRepository".constantize.instance.to_a
+    collection = "#{klass.base_class.name}GenresRepository"
+      .constantize
+      .instance
+      .to_a
+
+    if h.current_user&.staff?
+      collection
+    else
+      collection.reject { |genre| genre.banned? || genre.probably_banned? }
+    end
   end
 
   def genres_v2

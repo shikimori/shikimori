@@ -2,7 +2,7 @@ describe DbEntry::CensoredPolicy do
   subject { described_class.censored? entry }
   let(:entry) do
     build :anime,
-      rating: rating,
+      rating:,
       genre_ids: [genre.id]
   end
   let(:rating) { Types::Anime::Rating[:pg] }
@@ -23,6 +23,16 @@ describe DbEntry::CensoredPolicy do
 
   context 'censored genre' do
     let(:genre_id) { Genre::HENTAI_IDS.sample }
+    it { is_expected.to eq true }
+  end
+
+  context 'banned genre' do
+    let(:genre_id) { Genre::BANNED_IDS.sample }
+    it { is_expected.to eq true }
+  end
+
+  context 'probably_banned genre' do
+    let(:genre_id) { Genre::PROBABLY_BANNED_IDS.sample }
     it { is_expected.to eq true }
   end
 end

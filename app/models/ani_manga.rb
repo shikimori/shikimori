@@ -62,6 +62,14 @@ module AniManga
       attributes['image_file_name']
   end
 
+  def banned?
+    genres.any?(&:banned?)
+  end
+
+  def probably_banned?
+    genres.any?(&:probably_banned?)
+  end
+
 private
 
   def sync_topics_is_censored

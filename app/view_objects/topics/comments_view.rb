@@ -12,8 +12,8 @@ class Topics::CommentsView < Topics::FoldedCommentsView
 
   def fetch_url
     h.fetch_comments_url(
-      comment_id: comments.first.id,
-      topic_type: topic_type,
+      comment_id: comments.first&.id || 0,
+      topic_type:,
       topic_id: @topic.id,
       skip: 'SKIP',
       limit: fold_limit

@@ -6,6 +6,8 @@ header.head
   - if @itemtype
     h1
       = @resource.headline
+      - if @resource.banned?
+        .b-anime_status_tag.review-negative.ml-2 banned
   - else
     h2
       a.back[
@@ -14,6 +16,8 @@ header.head
         data-text=t('back')
       ]
       = @resource.headline
+      - if @resource.banned?
+        .b-anime_status_tag.review-negative.ml-2 banned
 
   /- if params[:section] != 'cosplay'
   /- else

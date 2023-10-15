@@ -227,6 +227,8 @@ GEM
     brpoplpush-redis_script (0.1.3)
       concurrent-ruby (~> 1.0, >= 1.0.5)
       redis (>= 1.0, < 6)
+    bugsnag (6.26.0)
+      concurrent-ruby (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
     capistrano (3.17.3)
@@ -448,7 +450,6 @@ GEM
       spring
     hashdiff (1.0.1)
     hashie (4.1.0)
-    honeybadger (5.2.1)
     htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -854,6 +855,7 @@ DEPENDENCIES
   binding_of_caller
   bootsnap
   browser
+  bugsnag
   cancancan!
   capistrano
   capistrano-bundler
@@ -896,7 +898,6 @@ DEPENDENCIES
   guard-rspec
   guard-rubocop
   guard-spring
-  honeybadger
   htmldiff-lcs!
   htmlentities
   i18n

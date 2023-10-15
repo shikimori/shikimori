@@ -1,5 +1,5 @@
 describe IncompleteDate do
-  let(:date) { described_class.new day: day, month: month, year: year }
+  let(:date) { described_class.new day:, month:, year: }
 
   let(:day) { 8 }
   let(:month) { 9 }
@@ -29,6 +29,14 @@ describe IncompleteDate do
         context 'is_short_month' do
           let(:is_short_month) { true }
           it { is_expected.to eq '8 сент. 1972' }
+        end
+
+        context 'invalid date' do
+          let(:day) { 29 }
+          let(:month) { 2 }
+          let(:year) { nil }
+
+          it { is_expected.to be_nil }
         end
       end
 
@@ -79,7 +87,7 @@ describe IncompleteDate do
   end
 
   describe '#blank?, #present?, #uncertain?, #presence' do
-    subject { IncompleteDate.new year: year, month: month, day: day }
+    subject { IncompleteDate.new year:, month:, day: }
     let(:year) { 1992 }
     let(:month) { 10 }
     let(:day) { 21 }

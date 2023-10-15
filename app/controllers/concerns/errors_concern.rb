@@ -107,7 +107,7 @@ private
         params[:ignore302] == '1'
       redirect_to @new_url, status: :moved_permanently
     else
-      render 'pages/page_moved.html', layout: false, status: :not_found, formats: :html
+      render 'pages/page_moved', layout: false, status: :not_found, formats: %i[html]
     end
   end
 
@@ -129,7 +129,7 @@ private
 
   def standard_error _error
     og page_title: t('error')
-    render 'pages/page503.html', layout: false, status: :service_unavailable, formats: :html
+    render 'pages/page503', layout: false, status: :service_unavailable, formats: :html
   end
 
   def error_json_response?

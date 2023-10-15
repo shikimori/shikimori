@@ -1,10 +1,13 @@
 module ShikimoriDomain
-  HOSTS = %w[shikimori.me shikimori.one shikimori.org] + (
+  FOREVER_BANNED_HOST = 'shikimori.org'
+  OLD_HOST = 'shikimori.me'
+  NEW_HOST = 'shikimori.one'
+
+  HOSTS = [NEW_HOST, OLD_HOST, FOREVER_BANNED_HOST] + (
     Rails.env.development? ? %w[shikimori.local shiki.local localhost] : []
   )
-  BANNED_HOST = 'shikimori.org'
-  OLD_HOST = 'shikimori.one'
-  NEW_HOST = 'shikimori.me'
+
+  BANNED_HOSTS = [FOREVER_BANNED_HOST, OLD_HOST]
 
   PROPER_HOST = Rails.env.production? ?
     NEW_HOST :

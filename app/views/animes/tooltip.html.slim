@@ -1,4 +1,4 @@
-- cache [@resource, params[:minified], genres_v2?, :v1], expires_in: 1.week do
+- cache [@resource, params[:minified], genres_v2?, @resource.banned? && !current_user&.staff?, :v3], expires_in: 1.week do
   = render 'animes/content',
     anime: @resource,
     with_image: params[:minified] ? false : true
