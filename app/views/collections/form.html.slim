@@ -15,6 +15,16 @@ header.head.misc
     = f.input :collection_id
     = f.input :user_id
 
+- if !@resource.censored? && @resource.links.any? { |v| v.linked.respond_to?(:censored?) && v.linked.censored? }
+  .b-warning.is-background
+    .warning
+      ' В коллекции присутствует 18+
+      = t("frontend.collections.kind.#{@resource.kind}").downcase
+      | , но у коллекции нет 18+ метки
+    .hint
+      ' При сохранении коллекции 18+
+      = t("frontend.collections.kind.#{@resource.kind}").downcase
+      |  удалится, если не поставить 18+ метку
 #collection_form[
   data-collection=CollectionSerializer.new(@resource, scope: self).to_json
   data-autocomplete_url=((@resource.ranobe? ? autocomplete_ranobe_index_url(censored: @resource.censored?) : send(:"autocomplete_#{@resource.kind.pluralize}_url", censored: @resource.censored?)) if @resource.persisted?)
