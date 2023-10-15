@@ -46,4 +46,50 @@ http_interactions:
       encoding: ASCII-8BIT
       string: 123.345.789.123, 234.456.678.189
   recorded_at: Wed, 23 Mar 2022 20:12:51 GMT
-recorded_with: VCR 6.1.0
+- request:
+    method: get
+    uri: https://shikimori.one/what_is_my_ip
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 15 Oct 2023 16:14:10 GMT
+      Content-Type:
+      - text/plain
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Origin
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=BjXJIrRGfbQRntuACGHcJz%2FhmPyPNNUy%2B3YNNYWMtc0b0hltWC26bYX37nZBxMn%2FlMDfdBRtteRMqG4YoDgRAa0R2nHMCs6awo%2FyITBR40oQ8qX6tniAu6w6Y7lcZHec"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 81695a81d80fd916-HEL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: 123.345.789.123, 234.456.678.189
+  recorded_at: Sun, 15 Oct 2023 16:14:10 GMT
+recorded_with: VCR 6.2.0
