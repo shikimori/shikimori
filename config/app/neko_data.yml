@@ -1309,6 +1309,7 @@
         - 53148
         - 40429
         - 51680
+        - 46422
       :generator: &61
         person_id: 6831
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -22350,6 +22351,11 @@
         - 50528
         - 50612
         - 48549
+        - 51318
+        - 51369
+        - 52976
+        - 44942
+        - 49618
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *4
   neko_id: :gar
@@ -23798,6 +23804,11 @@
         - 1168
         - 35730
         - 268
+        - 162
+        - 229
+        - 53050
+        - 40100
+        - 42206
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *4
   neko_id: :genki
@@ -24543,7 +24554,6 @@
         - 26351
         - 30379
         - 21881
-        - 2001
         - 23587
         - 30344
         - 21409
@@ -24763,6 +24773,15 @@
         - 53126
         - 10165
         - 12119
+        - 32979
+        - 48417
+        - 40100
+        - 42206
+        - 471
+        - 472
+        - 685
+        - 516
+        - 2288
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *4
   neko_id: :kuudere
@@ -30192,6 +30211,10 @@
         - 53587
         - 2559
         - 52274
+        - 516
+        - 48417
+        - 48633
+        - 53050
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *4
   neko_id: :tsundere
