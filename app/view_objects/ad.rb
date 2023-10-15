@@ -320,29 +320,33 @@ private
     Types::Ad::Type[:special_x894] => SPECIAL_X894,
     Types::Ad::Type[:yd_300x600] => {
       provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-2374107-2',
-      # yandex_id: 'R-A-438288-1',
+      yandex_id: 'R-A-438288-5', # .one
+      # yandex_id: 'R-A-2374107-2', # .me
+      # # yandex_id: 'R-A-438288-1', # .one old
       placement: Types::Ad::Placement[:menu],
       platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:yd_240x400] => {
       provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-2374107-5',
-      # yandex_id: 'R-A-438288-2',
+      yandex_id: 'R-A-438288-6', # .one
+      # yandex_id: 'R-A-2374107-5', # .me
+      # # yandex_id: 'R-A-438288-2', # .one old
       placement: Types::Ad::Placement[:menu],
       platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:yd_1170x200] => {
       provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-2374107-3',
-      # yandex_id: 'R-A-438288-3',
+      yandex_id: 'R-A-438288-3', # .one old
+      # yandex_id: 'R-A-2374107-3', # me
+      # yandex_id: 'R-A-438288-3', # .one old
       placement: Types::Ad::Placement[:content],
       platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:yd_970x90] => {
       provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-2374107-4',
-      # yandex_id: 'R-A-438288-4',
+      yandex_id: 'R-A-438288-7', # .one
+      # yandex_id: 'R-A-2374107-4', # .me
+      # # yandex_id: 'R-A-438288-4', # .one old
       placement: Types::Ad::Placement[:content],
       platform: Types::Ad::Platform[:desktop]
     }
@@ -411,13 +415,13 @@ private
     Types::Ad::Meta[:menu_240x400] => [
       # Types::Ad::Type[:special_x300], # IMBA - remove 2023-10-18 15:00
       # # Types::Ad::Type[:mt_240x400],
-      # Types::Ad::Type[:yd_240x400]
+      Types::Ad::Type[:yd_240x400]
       # # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
       # Types::Ad::Type[:special_x300], # IMBA - remove 2023-10-18 15:00
       # # Types::Ad::Type[:mt_300x600],
-      # Types::Ad::Type[:yd_300x600]
+      Types::Ad::Type[:yd_300x600]
       # # Types::Ad::Type[:advrtr_240x400],
       # # Types::Ad::Type[:advrtr_300x250]
     ],
@@ -429,7 +433,7 @@ private
       # # Types::Ad::Type[:special_x894], # startgame.rsv.ru - remove 2023-08-23 23:59
       # # Types::Ad::Type[:mt_728x90],
       # # Types::Ad::Type[:advrtr_x728]
-      # Types::Ad::Type[:yd_970x90]
+      Types::Ad::Type[:yd_970x90]
     ],
     Types::Ad::Meta[:footer] => [
       # Types::Ad::Type[:mt_footer_300x250]
