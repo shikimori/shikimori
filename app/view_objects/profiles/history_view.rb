@@ -138,12 +138,12 @@ private
     )
   end
 
-  def poster_url poster, db_entry, derivative
+  def poster_url poster, _db_entry, derivative
     return unless poster
 
     ImageUrlGenerator.instance.cdn_poster_url(
-      poster: poster,
-      derivative: derivative
+      poster:,
+      derivative:
     )
   end
 

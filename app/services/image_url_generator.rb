@@ -30,7 +30,7 @@ class ImageUrlGenerator
 
   def cdn_poster_url poster:, derivative:, is_path: false # rubocop:disable Metrics/AbcSize
     image_index = poster.id % Shikimori::STATIC_SUBDOMAINS.size
-    image_path = derivative ?
+    image_path = derivative && poster.image_data['derivatives'] ?
       poster.image(derivative).url :
       poster.image.url
 
