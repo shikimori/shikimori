@@ -19,7 +19,7 @@ describe AnimeGenresV2Repository do
     let(:mal_id) { 999_999_999 }
 
     context 'has entry' do
-      let!(:entry) { create :genre_v2, mal_id: mal_id }
+      let!(:entry) { create :genre_v2, mal_id: }
       it { expect(query.by_mal_id(mal_id)).to eq entry }
     end
 
@@ -30,7 +30,7 @@ describe AnimeGenresV2Repository do
     end
 
     context 'new entry' do
-      let(:create_entry) { create :genre_v2, mal_id: mal_id }
+      let(:create_entry) { create :genre_v2, mal_id: }
 
       it do
         create_entry

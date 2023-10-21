@@ -5,6 +5,14 @@ class DbImport::Anime < DbImport::ImportBase
     external_links
   ]
   IGNORED_FIELDS = DbImport::ImportBase::IGNORED_FIELDS + %i[members favorites]
+  LGBT_GENRES = [
+    'Boys Love',
+    'Girls Love'
+  ]
+  CENSORED_GENRES = %w[
+    Hentai
+    Erotica
+  ]
 
 private
 
@@ -14,7 +22,7 @@ private
 
   def assign_genres genres
     unless :genre_ids.in? desynced_fields
-      entry.genre_v2_ids = genres.map { |v| import_genre(v).id }
+      entry.genre_v2_ids = remap_genres(genres).map { |v| import_genre(v).id }
     end
 
     assign_is_censored
@@ -28,8 +36,11 @@ private
     entry.ranked = 0 if entry.is_censored
   end
 
-  def import_genre data # rubocop:disable Metrics/AbcSize
-    genre = genres_repository.by_mal_id data[:id]
+  def import_genre data # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    ap data
+    genre = data[:id] ?
+      genres_repository.by_mal_id(data[:id]) :
+      genres_repository.by_name(data[:name])
     raise ArgumentError, "mismatched genre: #{data.to_json}" unless genre.name == data[:name]
 
     genre
@@ -152,5 +163,14 @@ private
 
     more_info = MalParser::Entry::MoreInfo.call entry.id, entry.anime? ? :anime : :manga
     entry.update more_info:
+  end
+
+  def remap_genres genres
+    if genres.any? { |v| v[:name].in?(LGBT_GENRES) } &&
+        genres.any? { |v| v[:name].in?(CENSORED_GENRES) }
+      genres.reject { |v| v[:name].in?(LGBT_GENRES) || v[:name].in?(CENSORED_GENRES) }
+    else
+      genres
+    end
   end
 end
