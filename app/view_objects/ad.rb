@@ -21,17 +21,13 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
 
   def allowed? # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     return true if @is_forced
-    return false if h.old_host?
+    return false if h.old_host? && provider != :special
 
-    if h.controller.instance_variable_get controller_key(banner&.dig(:placement))
+    if h.controller.instance_variable_get controller_key(placement)
       false
     else
       policy&.allowed? && (!@rules || @rules.show?)
     end
-  end
-
-  def provider
-    banner[:provider]
   end
 
   def placeholder?
@@ -40,8 +36,16 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
     Rails.env.development? && !special?
   end
 
+  def provider
+    banner&.dig :provider
+  end
+
   def platform
-    banner[:platform]
+    banner&.dig :platform
+  end
+
+  def placement
+    banner&.dig :placement
   end
 
   def ad_params
