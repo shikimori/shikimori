@@ -21,17 +21,13 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
 
   def allowed? # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     return true if @is_forced
-    return false if h.old_host?
+    return false if h.old_host? && provider != :special
 
-    if h.controller.instance_variable_get controller_key(banner&.dig(:placement))
+    if h.controller.instance_variable_get controller_key(placement)
       false
     else
       policy&.allowed? && (!@rules || @rules.show?)
     end
-  end
-
-  def provider
-    banner[:provider]
   end
 
   def placeholder?
@@ -40,8 +36,16 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
     Rails.env.development? && !special?
   end
 
+  def provider
+    banner&.dig :provider
+  end
+
   def platform
-    banner[:platform]
+    banner&.dig :platform
+  end
+
+  def placement
+    banner&.dig :placement
   end
 
   def ad_params
@@ -230,12 +234,12 @@ private
       src_2x: '/assets/globals/events/2023-09-18/menu_3@2x.png',
       url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner3&utm_campaign=18_09&erid=2VtzqwERJg9'
     }, {
-      src: '/assets/globals/events/2023-09-18/menu_1.png',
-      src_2x: '/assets/globals/events/2023-09-18/menu_1@2x.png',
+      src: '/assets/globals/events/2023-09-18/menu_4.png',
+      src_2x: '/assets/globals/events/2023-09-18/menu_4@2x.png',
       url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner4&utm_campaign=18_09&erid=2VtzqwFvJQH'
     }, {
-      src: '/assets/globals/events/2023-09-18/menu_1.png',
-      src_2x: '/assets/globals/events/2023-09-18/menu_1@2x.png',
+      src: '/assets/globals/events/2023-09-18/menu_5.png',
+      src_2x: '/assets/globals/events/2023-09-18/menu_5@2x.png',
       url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner5&utm_campaign=18_09&erid=2Vtzqx6sEdP'
     }],
     rules: {
@@ -296,20 +300,45 @@ private
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
     url: 'https://startgame.rsv.ru/auth?utm_source=site&utm_medium=app&utm_campaign=rk75&utm_content=shikimori&utm_term=test',
-    images: (1..1).map do |i|
-      {
-        src: "/assets/globals/events/2023-08-22/wide_#{i}.jpg"
-        # src_2x: "/assets/globals/events/2023-08-18/wide_#{i}@2x.webp"
-      }
-    end,
+    images: [{
+      src: '/assets/globals/events/2023-10-20/wide_1.png',
+      # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
+      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner1&utm_campaign=20_10&erid=2Vtzqxdgbh6'
+    }, {
+      src: '/assets/globals/events/2023-10-20/wide_2.png',
+      # src_2x: '/assets/globals/events/2023-10-20/wide_2@2x.png',
+      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner2&utm_campaign=20_10&erid=2VtzqvBPU3e'
+    }, {
+      src: '/assets/globals/events/2023-10-20/wide_3.png',
+      # src_2x: '/assets/globals/events/2023-10-20/wide_3@2x.png',
+      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner3&utm_campaign=20_10&erid=2VtzqxJT7Q8'
+    }, {
+      src: '/assets/globals/events/2023-10-20/wide_4.png',
+      # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
+      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner4&utm_campaign=20_10&erid=2Vtzqxdjd2U'
+    }, {
+      src: '/assets/globals/events/2023-10-20/wide_5.png',
+      # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
+      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner5&utm_campaign=20_10&erid=2VtzqvPHifv'
+    }, {
+      src: '/assets/globals/events/2023-10-20/wide_6.png',
+      # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
+      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner6&utm_campaign=20_10&erid=2VtzquYNoLQ'
+    }],
+    # images: (1..1).map do |i|
+    #   {
+    #     src: "/assets/globals/events/2023-08-22/wide_#{i}.jpg"
+    #     # src_2x: "/assets/globals/events/2023-08-18/wide_#{i}@2x.webp"
+    #   }
+    # end,
     # images: [{
     #   src: '/assets/globals/events/2023-06-02/inner_1.webp',
     #   url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner1&utm_campaign=02_06&erid=2Vtzqv5UkDh'
     # }],
-    rules: {
-      cookie: 'i9',
-      shows_per_week: 480 # 380 # 420 # 540
-    },
+    # rules: {
+    #   cookie: 'i9',
+    #   shows_per_week: 480 # 380 # 420 # 540
+    # },
     placement: Types::Ad::Placement[:content],
     platform: Types::Ad::Platform[:desktop]
   }
@@ -413,13 +442,13 @@ private
     #   # Types::Ad::Type[:advrtr_240x400]
     # ],
     Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300], # IMBA - remove 2023-10-18 15:00
+      Types::Ad::Type[:special_x300], # IMBA - remove 2023-11-18 15:00
       # # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x400]
       # # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300], # IMBA - remove 2023-10-18 15:00
+      Types::Ad::Type[:special_x300], # IMBA - remove 2023-11-18 15:00
       # # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600]
       # # Types::Ad::Type[:advrtr_240x400],
@@ -430,7 +459,7 @@ private
       # # Types::Ad::Type[:advrtr_x728]
     ],
     Types::Ad::Meta[:horizontal_x90] => [
-      # # Types::Ad::Type[:special_x894], # startgame.rsv.ru - remove 2023-08-23 23:59
+      Types::Ad::Type[:special_x894], # IMBA - remove 2023-10-28 15:00
       # # Types::Ad::Type[:mt_728x90],
       # # Types::Ad::Type[:advrtr_x728]
       Types::Ad::Type[:yd_970x90]
