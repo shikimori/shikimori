@@ -331,10 +331,10 @@ private
     #   src: '/assets/globals/events/2023-06-02/inner_1.webp',
     #   url: 'https://imba.shop/catalog/anime-energy?utm_source=shikimori&utm_medium=banner1&utm_campaign=02_06&erid=2Vtzqv5UkDh'
     # }],
-    rules: {
-      cookie: 'i9',
-      shows_per_week: 480 # 380 # 420 # 540
-    },
+    # rules: {
+    #   cookie: 'i9',
+    #   shows_per_week: 480 # 380 # 420 # 540
+    # },
     placement: Types::Ad::Placement[:content],
     platform: Types::Ad::Platform[:desktop]
   }
