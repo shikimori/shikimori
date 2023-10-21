@@ -1527,6 +1527,7 @@
         - 7786
         - 23661
         - 53720
+        - 17961
       :generator: &69
         person_id: 1938
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -30273,6 +30274,7 @@
         - 48417
         - 48633
         - 53050
+        - 24475
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *4
   neko_id: :tsundere
