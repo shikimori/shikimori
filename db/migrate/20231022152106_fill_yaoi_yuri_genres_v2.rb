@@ -4,13 +4,14 @@ class FillYaoiYuriGenresV2 < ActiveRecord::Migration[7.0]
       klass
         .where("genre_v2_ids && '{#{(GenreV2::EROTICA_IDS + GenreV2::HENTAI_IDS).join(',')}}'")
         .each do |db_entry|
-          puts "#{klass.name}##{db_entry.id}"
-          db_entry.update!(
-            genre_v2_ids: migrate_genres(
-              db_entry.genres_v2,
-              "#{klass}GenresV2Repository".constantize.instance
-            )
+          new_genre_ids = migrate_genres(
+            db_entry.genres_v2,
+            "#{klass}GenresV2Repository".constantize.instance
           )
+          if new_genre_ids != db_entry.genres_v2.pluck(:id)
+            puts "#{klass.name}##{db_entry.id} #{db_entry.genres_v2.pluck(:id).join(',')} => #{new_genre_ids.join(',')}"
+            db_entry.update! genre_v2_ids: new_genre_ids
+          end
         end
     end
   end
