@@ -2,7 +2,7 @@ class FillYaoiYuriGenresV2 < ActiveRecord::Migration[7.0]
   def up
     [Anime, Manga].each do |klass|
       klass
-        .where("genre_v2_ids && '{#{GenreV2::CENSORED_IDS.join(',')}}'")
+        .where("genre_v2_ids && '{#{(GenreV2::EROTICA_IDS + GenreV2::HENTAI_IDS).join(',')}}'")
         .each do |db_entry|
           puts "#{klass.name}##{db_entry.id}"
           db_entry.update!(
