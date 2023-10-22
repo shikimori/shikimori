@@ -1,4 +1,6 @@
 .comment-block
   .body.b-text_with_paragraphs
-    div = @resource.kind_text
+    / .b-anime_status_tag class="genre-#{@resource.kind}"
+    /   = @resource.kind_text
+    / | &nbsp;
     == BbCodes::Text.call @resource.description

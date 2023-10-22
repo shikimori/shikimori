@@ -3,6 +3,9 @@
 @import mixins/marker
 
 .b-anime_status_tag
+  & + .b-anime_status_tag
+    margin-left: 6px
+
   &.released
     +static_marker(#fff, $released_tag)
 
@@ -30,6 +33,7 @@
   &.studio,
   &.review,
     +static_marker(#123, #e8ebf0)
+
   // copied from b-review_opinion_marker
   &.review-positive
     +static_marker(#fff, #549e14, #bee893, darken(#bee893, 6%))
@@ -39,6 +43,8 @@
     +static_marker(#fff, #fc575e, #e8a092, darken(#e8a092, 6%))
 
   &.other,
+  &.misc-data,
+  &.unpublished-collection
     +static_marker(#fff, #678)
 
   &.contest
@@ -77,9 +83,6 @@
   &.broadcast
     +static_marker(#fff, #f477ad)
 
-  &.unpublished-collection
-    +static_marker(#fff, #678)
-
   &.is_written_before_release,
   &.opened-collection
     +static_marker(#fff, darken(#81cfea, 5%))
@@ -89,6 +92,3 @@
 
   &.promo
     +static_marker(#fff, #f7b42c)
-
-  &.misc-data
-    +static_marker(#fff, #678)
