@@ -140,7 +140,7 @@ describe DbImport::Anime do
         end
       end
 
-      context 'hentai/erotica', :focus do
+      context 'hentai/erotica' do
         let(:censored_genre_mal) do
           { id: 1_987_654, name: described_class::CENSORED_GENRES.sample, kind: 'genre' }
         end
@@ -154,7 +154,7 @@ describe DbImport::Anime do
           expect(entry.reload.genres_v2).to have(1).item
           expect(entry.genres_v2[0]).to have_attributes(
             mal_id: nil,
-            name: genre_1.name == 'Boys Love' ? yaoi.name : yuri_.name,
+            name: lgbt_genre_mal[:name] == 'Boys Love' ? yaoi.name : yuri.name,
             entry_type: 'Anime'
           )
         end

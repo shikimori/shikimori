@@ -5,10 +5,10 @@ class DbImport::Anime < DbImport::ImportBase
     external_links
   ]
   IGNORED_FIELDS = DbImport::ImportBase::IGNORED_FIELDS + %i[members favorites]
-  LGBT_GENRES = [
-    'Boys Love',
-    'Girls Love'
-  ]
+  LGBT_GENRES = {
+    yaoi: 'Boys Love',
+    yuri: 'Girls Love'
+  }
   CENSORED_GENRES = %w[
     Hentai
     Erotica
@@ -37,7 +37,8 @@ private
   end
 
   def import_genre data # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    ap data
+    return data if data.is_a? GenreV2
+
     genre = data[:id] ?
       genres_repository.by_mal_id(data[:id]) :
       genres_repository.by_name(data[:name])
@@ -165,12 +166,19 @@ private
     entry.update more_info:
   end
 
-  def remap_genres genres
-    if genres.any? { |v| v[:name].in?(LGBT_GENRES) } &&
-        genres.any? { |v| v[:name].in?(CENSORED_GENRES) }
-      genres.reject { |v| v[:name].in?(LGBT_GENRES) || v[:name].in?(CENSORED_GENRES) }
-    else
-      genres
+  def remap_genres genres # rubocop:disable all
+    if genres.any? { |v| v[:name].in?(CENSORED_GENRES) }
+      cleaned_genres = genres.reject do |v|
+        v[:name].in?(LGBT_GENRES.values) || v[:name].in?(CENSORED_GENRES)
+      end
+
+      if genres.any? { |v| v[:name] == LGBT_GENRES[:yaoi] }
+        return cleaned_genres + [genres_repository.by_name('Yaoi')]
+      elsif genres.any? { |v| v[:name] == LGBT_GENRES[:yuri] }
+        return cleaned_genres + [genres_repository.by_name('Yuri')]
+      end
     end
+
+    genres
   end
 end
