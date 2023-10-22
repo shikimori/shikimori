@@ -444,6 +444,12 @@ ru:
           other: жанры
       genrev2:
         <<: *genre_cardinal
+      demographic:
+        subjective:
+          other: аудитория
+      theme:
+        subjective:
+          other: темы
       page:
         subjective:
           one: страница

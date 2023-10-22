@@ -4,8 +4,8 @@ module Types
     EntryType = Types::String.enum(*ENTRY_TYPES)
 
     KINDS = %i[
-      genre
       demographic
+      genre
       theme
     ]
     Kind = Types::Strict::Symbol

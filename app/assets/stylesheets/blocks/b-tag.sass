@@ -1,7 +1,15 @@
 @import globals
+@import mixins/static_marker
 
 $margin-left: 3px
 $margin-right: 9px
+
+=hover_background
+  margin-left: 0
+  margin-right: $margin-right - $margin-left
+  padding-left: $margin-left
+  padding-right: $margin-left
+  text-decoration: none
 
 .b-tag
   border-bottom: 1px dashed #bbb
@@ -23,14 +31,10 @@ $margin-right: 9px
 
     &.active,
     &:hover
+      +hover_background
       background-color: $link-4
       border-bottom-color: transparent
       color: #fff
-      margin-left: 0
-      margin-right: $margin-right - $margin-left
-      padding-left: $margin-left
-      padding-right: $margin-left
-      text-decoration: none
 
     &:active
       background-color: $link-3
@@ -48,3 +52,10 @@ $margin-right: 9px
   a
     transition: none
     color: inherit
+
+  &.genre-demographic
+    +hover_background
+    background-color: #678
+    border-bottom: none
+    color: #fff
+    display: inline

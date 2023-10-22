@@ -1,13 +1,6 @@
 describe Animes::Query do
   describe '#fetch' do
-    subject do
-      described_class.fetch(
-        scope: scope,
-        params: params,
-        user: user,
-        is_apply_excludes: is_apply_excludes
-      )
-    end
+    subject { described_class.fetch scope:, params:, user:, is_apply_excludes: }
     let(:scope) { [Anime.all, Anime].sample }
     let(:params) { {} }
     let(:user) { nil }

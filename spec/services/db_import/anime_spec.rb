@@ -2,19 +2,19 @@ describe DbImport::Anime do
   let(:service) { described_class.new data }
   let(:data) do
     {
-      id: id,
+      id:,
       name: 'Test test 2',
       season: 'fall_2012',
-      rating: rating,
-      genres: genres,
-      studios: studios,
-      related: related,
+      rating:,
+      genres:,
+      studios:,
+      related:,
       recommendations: similarities,
       characters: characters_data,
-      synopsis: synopsis,
-      external_links: external_links,
-      image: image,
-      is_more_info: is_more_info
+      synopsis:,
+      external_links:,
+      image:,
+      is_more_info:
     }
   end
   let(:id) { 987_654_321 }
@@ -23,7 +23,7 @@ describe DbImport::Anime do
   let(:studios) { [] }
   let(:related) { {} }
   let(:similarities) { [] }
-  let(:characters_data) { { characters: characters, staff: staff } }
+  let(:characters_data) { { characters:, staff: } }
   let(:characters) { [] }
   let(:staff) { [] }
   let(:synopsis) { '' }
@@ -65,7 +65,7 @@ describe DbImport::Anime do
         create :external_link,
           entry: anime,
           kind: :anime_db,
-          imported_at: imported_at
+          imported_at:
       end
 
       describe 'imported' do
@@ -113,6 +113,53 @@ describe DbImport::Anime do
         expect(entry.reload.genres_v2).to have(1).item
       end
     end
+
+    context 'girls/boys love' do
+      let(:genres) do
+        [
+          lgbt_genre_mal,
+          censored_genre_mal
+        ].compact
+      end
+      let(:lgbt_genre_mal) do
+        { id: 1_987_654, name: described_class::LGBT_GENRES.values.sample, kind: 'genre' }
+      end
+
+      context 'no hentai/erotica' do
+        let(:censored_genre_mal) { nil }
+        it do
+          expect { subject }.to change(GenreV2, :count).by 1
+          expect(entry.reload.genres_v2).to have(1).item
+          expect(entry.genres_v2[0]).to have_attributes(
+            mal_id: genres[0][:id],
+            name: genres[0][:name],
+            russian: genres[0][:name],
+            kind: genres[0][:kind],
+            entry_type: 'Anime'
+          )
+        end
+      end
+
+      context 'hentai/erotica' do
+        let(:censored_genre_mal) do
+          { id: 1_987_654, name: described_class::CENSORED_GENRES.sample, kind: 'genre' }
+        end
+
+        let!(:yaoi_manga) { create :genre_v2, name: 'Yaoi', entry_type: 'Manga' }
+        let!(:yaoi) { create :genre_v2, name: 'Yaoi', entry_type: 'Anime' }
+        let!(:yuri) { create :genre_v2, name: 'Yuri', entry_type: 'Anime' }
+
+        it do
+          expect { subject }.to_not change GenreV2, :count
+          expect(entry.reload.genres_v2).to have(1).item
+          expect(entry.genres_v2[0]).to have_attributes(
+            mal_id: nil,
+            name: lgbt_genre_mal[:name] == 'Boys Love' ? yaoi.name : yuri.name,
+            entry_type: 'Anime'
+          )
+        end
+      end
+    end
   end
 
   describe '#assign_studios' do
@@ -133,7 +180,7 @@ describe DbImport::Anime do
         create :studio,
           id: studios.first[:id],
           name: studio_name,
-          desynced: desynced
+          desynced:
       end
       let(:studio_name) { studios.first[:name] }
       let(:desynced) { [] }
@@ -353,10 +400,10 @@ describe DbImport::Anime do
       it do
         expect(DbImport::MalImage)
           .to have_received(:call)
-          .with entry: entry, image_url: image
+          .with entry:, image_url: image
         expect(DbImport::MalPoster)
           .to have_received(:call)
-          .with entry: entry, image_url: image
+          .with entry:, image_url: image
       end
     end
   end
@@ -409,7 +456,7 @@ describe DbImport::Anime do
     end
 
     context 'more_info is already set' do
-      let!(:anime) { create :anime, id: id, more_info: 'zxc' }
+      let!(:anime) { create :anime, id:, more_info: 'zxc' }
 
       it do
         expect(entry).to eq anime

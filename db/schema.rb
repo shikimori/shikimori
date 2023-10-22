@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_15_133455) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_22_152106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
@@ -616,7 +616,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_133455) do
     t.string "name", null: false
     t.string "russian", null: false
     t.string "kind", null: false
-    t.bigint "mal_id", null: false
+    t.bigint "mal_id"
     t.boolean "is_active", default: true, null: false
     t.boolean "is_censored", default: false, null: false
     t.integer "position", default: 99, null: false

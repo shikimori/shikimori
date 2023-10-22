@@ -1,25 +1,27 @@
 describe Animes::Filters::Policy do
   let(:params) do
     {
-      achievement: achievement,
-      censored: censored,
-      franchise: franchise,
-      genre: genre,
-      ids: ids,
-      kind: kind,
-      mylist: mylist,
-      publisher: publisher,
-      rating: rating,
-      studio: studio,
-      search: search,
-      q: q,
-      phrase: phrase
+      achievement:,
+      censored:,
+      franchise:,
+      genre:,
+      genre_v2:,
+      ids:,
+      kind:,
+      mylist:,
+      publisher:,
+      rating:,
+      studio:,
+      search:,
+      q:,
+      phrase:
     }
   end
   let(:achievement) { nil }
   let(:censored) { nil }
   let(:franchise) { nil }
   let(:genre) { nil }
+  let(:genre_v2) { nil }
   let(:ids) { nil }
   let(:kind) { nil }
   let(:mylist) { nil }
@@ -219,7 +221,7 @@ describe Animes::Filters::Policy do
 
   describe 'genre' do
     let(:hentai_genres) do
-      Genre::HENTAI_IDS + Genre::YAOI_IDS + Genre::YURI_IDS
+      Genre::HENTAI_IDS + Genre::EROTICA_IDS + Genre::YAOI_IDS + Genre::YURI_IDS
     end
     context 'hentai, yaoi or yuri' do
       let(:genre) do
@@ -241,6 +243,38 @@ describe Animes::Filters::Policy do
           "!#{hentai_genres.sample}",
           "#{hentai_genres.max}1",
           (hentai_genres.max + 1).to_s
+        ].sample
+      end
+
+      it { expect(no_hentai).to eq true }
+      it { expect(no_music).to eq true }
+    end
+  end
+
+  describe 'genre_v2' do
+    let(:hentai_genre_v2s) do
+      GenreV2::HENTAI_IDS + Genre::EROTICA_IDS # + GenreV2::YAOI_IDS + GenreV2::YURI_IDS
+    end
+    context 'hentai, yaoi or yuri' do
+      let(:genre_v2) do
+        [
+          hentai_genre_v2s.sample.to_s,
+          "#{hentai_genre_v2s.sample},!#{hentai_genre_v2s.sample}",
+          "!#{hentai_genre_v2s.sample},#{hentai_genre_v2s.sample}"
+        ].sample
+      end
+
+      it { expect(no_hentai).to eq false }
+      it { expect(no_music).to eq true }
+    end
+
+    context 'other' do
+      let(:genre_v2) do
+        [
+          'z',
+          "!#{hentai_genre_v2s.sample}",
+          "#{hentai_genre_v2s.max}1",
+          (hentai_genre_v2s.max + 1).to_s
         ].sample
       end
 

@@ -12,6 +12,7 @@ const DEFAULT_DATA = {
   franchise: [],
   achievement: [],
   genre: [],
+  genre_v2: [],
   studio: [],
   publisher: [],
   duration: [],
@@ -23,13 +24,27 @@ const DEFAULT_DATA = {
   licensor: []
 };
 
-const GET_FILTERS = ['duration', 'rating', 'score', 'options', 'mylist', ORDER_FIELD, 'licensor'];
+// поля, передаваемые в GET параметрах
+const GET_FILTERS = [
+  'genre_v2',
+  'duration',
+  'rating',
+  'score',
+  'options',
+  'mylist',
+  ORDER_FIELD,
+  'licensor'
+];
+
+// поля, разбитые на несколько фильтров
+const SPLIT_FIELDS = ['genre_v2'];
 
 export default function(basePath, currentUrl, changeCallback) {
   const $root = $('.b-collection-filters');
 
   // вытаскивание из класса элемента типа и значения
-  const extractLiInfo = function($li) {
+  const extractLiInfo = liNode => {
+    const $li = $(liNode);
     const field = $li.data('field');
     const value = $li.data('value');
     if (!field || !value) { return null; }
@@ -83,19 +98,27 @@ export default function(basePath, currentUrl, changeCallback) {
   };
 
   // клики по меню
-  $('.anime-params', $root).on('click', 'li', function(e) {
+  $('.anime-params', $root).on('click', 'li', e => {
     if (inNewTab(e)) { return; } // игнор средней кнопки мыши
     if (e.target.classList.contains('b-question')) { return; } // игнор при клике на инфо блок
     // return if $(e.target).hasClass('filter') # игнор при клике на фильтр
 
-    const isAlreadySelected = this.classList.contains('selected');
-
-    const liInfo = extractLiInfo($(this));
+    const isAlreadySelected = e.currentTarget.classList.contains('selected');
+    const liInfo = extractLiInfo(e.currentTarget);
     if (!liInfo) { return; }
 
     if (!isAlreadySelected) {
-      if ('type' in e.target && (e.target.type === 'checkbox')) {
+      if (e.target.type === 'checkbox') {
         filters.add(liInfo.field, liInfo.value);
+      } else if (SPLIT_FIELDS.includes(liInfo.field)) {
+        const valuesToRemove = $(e.currentTarget)
+          .closest('.anime-params')
+          .find('input[type=checkbox]:checked')
+          .closest('li')
+          .toArray()
+          .map(li => extractLiInfo(li).value);
+
+        filters.set(liInfo.field, liInfo.value, valuesToRemove);
       } else {
         filters.set(liInfo.field, liInfo.value);
       }
@@ -123,7 +146,7 @@ export default function(basePath, currentUrl, changeCallback) {
 
     $paramsBlock
       .find('li')
-      .map(function() { return extractLiInfo($(this)); })
+      .map(function() { return extractLiInfo(this); })
       .each(function(index, liInfo) {
         if (toDisable) {
           filters.params[liInfo.field] = [];
@@ -163,11 +186,12 @@ export default function(basePath, currentUrl, changeCallback) {
     params: null,
 
     // установка значения параметра
-    set(field, value) {
-      const self = this;
-      this.params[field].forEach(value2 => self.remove(field, value2));
-
-      return this.add(field, value);
+    set(field, value, valuesToRemove = this.params[field]) {
+      this.params[field].forEach(value2 => {
+        if (!valuesToRemove.includes(value2)) { return; }
+        this.remove(field, value2);
+      });
+      this.add(field, value);
     },
 
     // выбор элемента
@@ -307,13 +331,10 @@ export default function(basePath, currentUrl, changeCallback) {
   filters.parse(currentUrl);
 
   // раскрываем фильтры, если какой-то из них выбран
-  if (filters.params.genre.length) {
-    $root.find('.genres .b-spoiler').spoiler().trigger('spoiler:open');
-  }
-
-  if (filters.params.licensor.length) {
-    $root.find('.licensors .b-spoiler').spoiler().trigger('spoiler:open');
-  }
+  $root
+    .find('input[type=checkbox]:checked')
+    .closest('.b-spoiler')
+    .spoiler().trigger('spoiler:open');
 
   return filters;
 }

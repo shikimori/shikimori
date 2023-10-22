@@ -2,8 +2,8 @@ class CacheHelperInstance
   include Singleton
   include Draper::ViewHelpers
 
-  def self.cache_keys *args
-    instance.cache_keys(*args)
+  def self.cache_keys(*)
+    instance.cache_keys(*)
   end
 
   # I18N_HASH = {
@@ -33,7 +33,7 @@ class CacheHelperInstance
 
   def cache_keys *args
     args
-      .map do |v|
+      .filter_map do |v|
         if v.respond_to? :cache_key_with_version
           v.cache_key_with_version
         elsif v.respond_to? :cache_key
@@ -41,8 +41,7 @@ class CacheHelperInstance
         else
           v
         end
-      end
-      .compact + [
+      end + [
         I18n.locale,
         # I18N_HASH[I18n.locale],
         request_domain

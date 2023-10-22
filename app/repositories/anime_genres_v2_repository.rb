@@ -5,6 +5,12 @@ class AnimeGenresV2Repository < RepositoryBase
       raise(ActiveRecord::RecordNotFound)
   end
 
+  def by_name name
+    collection.values.find { |genre| genre.name == name } ||
+      (reset && collection.values.find { |genre| genre.name == name }) ||
+      raise(ActiveRecord::RecordNotFound)
+  end
+
 private
 
   def scope

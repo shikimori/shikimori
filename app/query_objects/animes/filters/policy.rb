@@ -16,6 +16,9 @@ class Animes::Filters::Policy
   HENTAI_GENRES_IDS = Genre::CENSORED_IDS + Genre::DOUJINSHI_IDS
   HENTAI_GENRES_REGEXP = /(?:\A|,)(?:#{HENTAI_GENRES_IDS.join '|'})\b/
 
+  HENTAI_GENRES_V2_IDS = GenreV2::CENSORED_IDS # + Genre::DOUJINSHI_IDS
+  HENTAI_GENRES_V2_REGEXP = /(?:\A|,)(?:#{HENTAI_GENRES_V2_IDS.join '|'})\b/
+
   class << self
     def exclude_hentai? params
       # TODO: удалить после 2023-01-01
@@ -27,6 +30,7 @@ class Animes::Filters::Policy
 
       !adult_rating?(params[:rating]) &&
         !hentai_genre?(params[:genre]) &&
+        !hentai_genre_v2?(params[:genre_v2]) &&
         !doujin_kind?(params[:kind])
     end
 
@@ -44,6 +48,10 @@ class Animes::Filters::Policy
 
     def hentai_genre? genre
       genre.is_a?(String) && genre.match?(HENTAI_GENRES_REGEXP)
+    end
+
+    def hentai_genre_v2? genre
+      genre.is_a?(String) && genre.match?(HENTAI_GENRES_V2_REGEXP)
     end
 
     def music_kind? kind

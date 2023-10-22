@@ -269,6 +269,6 @@ private
   end
 
   def russian_genres_key
-    "#{I18n.locale}_#{user_signed_in? ? current_user.preferences.russian_genres? : true}"
+    "#{I18n.locale}_#{genres_sort_key}"
   end
 end

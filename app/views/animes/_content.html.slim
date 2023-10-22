@@ -84,15 +84,12 @@
             counter: :chapters,
             counter_aired: :chapters_aired }
 
-      = info_line i18n_io('Genre', anime.main_genres.one? ? :one : :few) do
-        - anime.main_genres.each do |genre|
-          .linkeable.b-tag[
-            temprop='genre'
-            class=(:bubbled if genre.description)
-            data-predelay='250'
-            data-tooltip_url=tooltip_moderations_genre_url(genre)
-            data-href=anime.collection_url(genre: genre.to_param)
-          ] = localization_span genre
+      - if genres_v2?
+        = info_line i18n_io('Genre', anime.genres_v2.one? ? :one : :few) do
+          = render 'animes/genres_v2_info', entry: anime
+      - else
+        = info_line i18n_io('Genre', anime.main_genres.one? ? :one : :few) do
+          = render 'animes/genres_info', entry: anime, genres: entry.main_genres
 
       - if anime.with_score?
         .rating[
