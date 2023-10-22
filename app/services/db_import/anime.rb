@@ -1,4 +1,4 @@
-class DbImport::Anime < DbImport::ImportBase
+class DbImport::Anime < DbImport::ImportBase # rubocop:disable Metrics/ClassLength
   SPECIAL_FIELDS = %i[
     image synopsis
     genres studios related recommendations characters
