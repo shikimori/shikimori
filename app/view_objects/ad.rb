@@ -299,7 +299,7 @@ private
   }
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
-    url: 'https://startgame.rsv.ru/auth?utm_source=site&utm_medium=app&utm_campaign=rk75&utm_content=shikimori&utm_term=test',
+    # url: 'https://startgame.rsv.ru/auth?utm_source=site&utm_medium=app&utm_campaign=rk75&utm_content=shikimori&utm_term=test',
     images: [{
       src: '/assets/globals/events/2023-10-20/wide_1.png',
       # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
