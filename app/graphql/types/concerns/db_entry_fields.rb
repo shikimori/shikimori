@@ -5,9 +5,17 @@ module Types::Concerns::DbEntryFields
     field :id, GraphQL::Types::ID, null: false
     field :mal_id, GraphQL::Types::ID
     field :name, String, null: false
-    field :russian, String
     field :synonyms, [String], null: false
+
+    field :russian, String
+    def russian
+      object.russian.presence
+    end
+
     field :japanese, String
+    def japanese
+      object.japanese.presence
+    end
 
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
