@@ -1528,6 +1528,7 @@
         - 23661
         - 53720
         - 17961
+        - 35737
       :generator: &69
         person_id: 1938
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -13351,12 +13352,12 @@
     :topic_id: 247360
     :rule: &681
       :algo: duration
-      :filters: &685
+      :filters: &682
         franchise: slam_dunk
         not_anime_ids:
         - 52159
       :threshold: 95%
-      :generator: &686
+      :generator: &683
         ignore_latest_ids:
         - 45649
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -13374,6 +13375,35 @@
   mandatory_attributes: *6
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :slam_dunk
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/slam_dunk.jpg"
+    :border_color:
+    :title_ru: Слэм-данк
+    :text_ru:
+    :title_en: Slam Dunk
+    :text_en:
+    :topic_id: 247360
+    :rule: &684
+      :algo: duration
+      :filters: *682
+      :threshold: 0.01
+      :generator: *683
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *4
+  neko_id: :slam_dunk
+  level: 0
+  image: "/assets/achievements/anime/franchise/slam_dunk.jpg"
+  border_color:
+  title_ru: Слэм-данк
+  text_ru:
+  title_en: Slam Dunk
+  text_en:
+  topic_id: 247360
+  rule: *684
+  mandatory_attributes: *6
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :yozakura_quartet
     :level: 1
     :image: "/assets/achievements/anime/franchise/yozakura_quartet.png"
@@ -13383,9 +13413,9 @@
     :title_en: Yozakura Quartet
     :text_en:
     :topic_id: 247360
-    :rule: &682
+    :rule: &685
       :algo: duration
-      :filters: &683
+      :filters: &686
         franchise: yozakura_quartet
         not_anime_ids:
         - 32861
@@ -13401,7 +13431,7 @@
   title_en: Yozakura Quartet
   text_en:
   topic_id: 247360
-  rule: *682
+  rule: *685
   mandatory_attributes: *6
 - !ruby/object:Neko::Rule
   attributes:
@@ -13414,9 +13444,9 @@
     :title_en: Yozakura Quartet
     :text_en:
     :topic_id: 247360
-    :rule: &684
+    :rule: &687
       :algo: duration
-      :filters: *683
+      :filters: *686
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -13427,35 +13457,6 @@
   title_ru: Вишнёвый квартет
   text_ru:
   title_en: Yozakura Quartet
-  text_en:
-  topic_id: 247360
-  rule: *684
-  mandatory_attributes: *6
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :slam_dunk
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/slam_dunk.jpg"
-    :border_color:
-    :title_ru: Слэм-данк
-    :text_ru:
-    :title_en: Slam Dunk
-    :text_en:
-    :topic_id: 247360
-    :rule: &687
-      :algo: duration
-      :filters: *685
-      :threshold: 0.01
-      :generator: *686
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *4
-  neko_id: :slam_dunk
-  level: 0
-  image: "/assets/achievements/anime/franchise/slam_dunk.jpg"
-  border_color:
-  title_ru: Слэм-данк
-  text_ru:
-  title_en: Slam Dunk
   text_en:
   topic_id: 247360
   rule: *687
@@ -16740,6 +16741,7 @@
       :generator: &862
         ignore_latest_ids:
         - 38088
+        - 49523
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :digimon
@@ -19320,7 +19322,7 @@
     :topic_id: 247360
     :rule: &996
       :algo: duration
-      :filters: &998
+      :filters: &997
         franchise: futari_wa_milky_holmes
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -19338,6 +19340,34 @@
   mandatory_attributes: *6
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :futari_wa_milky_holmes
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/futari_wa_milky_holmes.png"
+    :border_color:
+    :title_ru: Детективное агентство Милки Холмс
+    :text_ru:
+    :title_en: Tantei Opera Milky Holmes
+    :text_en:
+    :topic_id: 247360
+    :rule: &998
+      :algo: duration
+      :filters: *997
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *4
+  neko_id: :futari_wa_milky_holmes
+  level: 0
+  image: "/assets/achievements/anime/franchise/futari_wa_milky_holmes.png"
+  border_color:
+  title_ru: Детективное агентство Милки Холмс
+  text_ru:
+  title_en: Tantei Opera Milky Holmes
+  text_en:
+  topic_id: 247360
+  rule: *998
+  mandatory_attributes: *6
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :touch
     :level: 1
     :image: "/assets/achievements/anime/franchise/touch.jpg"
@@ -19347,7 +19377,7 @@
     :title_en: Touch
     :text_en:
     :topic_id: 247360
-    :rule: &997
+    :rule: &999
       :algo: duration
       :filters: &1000
         franchise: touch
@@ -19368,34 +19398,6 @@
   title_ru: Касание
   text_ru:
   title_en: Touch
-  text_en:
-  topic_id: 247360
-  rule: *997
-  mandatory_attributes: *6
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :futari_wa_milky_holmes
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/futari_wa_milky_holmes.png"
-    :border_color:
-    :title_ru: Детективное агентство Милки Холмс
-    :text_ru:
-    :title_en: Tantei Opera Milky Holmes
-    :text_en:
-    :topic_id: 247360
-    :rule: &999
-      :algo: duration
-      :filters: *998
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *4
-  neko_id: :futari_wa_milky_holmes
-  level: 0
-  image: "/assets/achievements/anime/franchise/futari_wa_milky_holmes.png"
-  border_color:
-  title_ru: Детективное агентство Милки Холмс
-  text_ru:
-  title_en: Tantei Opera Milky Holmes
   text_en:
   topic_id: 247360
   rule: *999
@@ -22415,6 +22417,12 @@
         - 52976
         - 44942
         - 49618
+        - 31443
+        - 36369
+        - 36370
+        - 36371
+        - 42886
+        - 51805
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *4
   neko_id: :gar
@@ -23868,6 +23876,8 @@
         - 53050
         - 40100
         - 42206
+        - 38234
+        - 50410
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *4
   neko_id: :genki
@@ -30275,6 +30285,9 @@
         - 48633
         - 53050
         - 24475
+        - 31636
+        - 36049
+        - 54714
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *4
   neko_id: :tsundere
@@ -30812,6 +30825,8 @@
           - 37517
           - 316
           - 9014
+          - 30385
+          - 31736
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
   default_values: *4
   neko_id: :yuuri
