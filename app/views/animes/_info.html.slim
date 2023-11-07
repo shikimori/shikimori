@@ -51,7 +51,7 @@
   - else
     - if entry.genres.any?
       = info_line i18n_io('Genre', entry.genres.one? ? :one : :few) do
-        = render 'animes/genres_info', entry: entry, genres: genres
+        = render 'animes/genres_info', entry: entry, genres: entry.genres
 
   - if (entry.rating.present? && !entry.rating_none?) || entry.censored_in_russia?
     = info_line Anime.human_attribute_name(:rating) do
