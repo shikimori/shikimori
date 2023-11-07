@@ -5,12 +5,17 @@ class NullObject
   instance_cache :base_object
 
   def respond_to_missing? method_name, include_private = false
-    base_object.respond_to? method_name || super
+    base_object.respond_to?(method_name) || super
   end
 
-  def method_missing method_name, *args, &block
+  def method_missing method_name, *_args
     return false if method_name.to_s.end_with?('?')
+
     nil
+  end
+
+  def nil?
+    true
   end
 
 private
