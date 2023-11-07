@@ -25,6 +25,8 @@ module Types::Concerns::DbEntryFields
     field :url, String, null: false
     delegate :url, to: :decorated_object
 
+    field :topic, Types::TopicType, complexity: 5
+
   private
 
     def decorated_object

@@ -23,7 +23,7 @@ class TopicSerializer < ActiveModel::Serializer
     UserSerializer.new object.user
   end
 
-  def linked # rubocop:disable CyclomaticComplexity, AbcSize
+  def linked # rubocop:disable Metrics/AbcSize
     return unless object.topic.linked
 
     case linked_type
