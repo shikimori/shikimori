@@ -11,12 +11,12 @@ describe Genre do
 
   describe 'instance methods' do
     describe '#title' do
-      subject { genre.title ru_case: ru_case, user: user }
+      subject { genre.title ru_case:, user: }
 
       let(:ru_case) { :subjective }
       let(:user) { nil }
 
-      let(:genre) { build :genre, name: name, kind: kind }
+      let(:genre) { build :genre, name:, kind: }
       let(:kind) { 'anime' }
       let(:name) { 'Romance' }
 
@@ -64,7 +64,7 @@ describe Genre do
       end
 
       context 'default title' do
-        let(:genre) { build :genre, name: name, kind: kind, russian: 'Безумие' }
+        let(:genre) { build :genre, name:, kind:, russian: 'Безумие' }
         let(:name) { 'Dementia' }
 
         it { is_expected.to eq 'Аниме жанра безумие' }

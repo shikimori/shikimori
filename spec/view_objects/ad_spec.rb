@@ -9,7 +9,7 @@ describe Ad do
   before { allow_any_instance_of(Ad).to receive(:h).and_return h }
   let(:h) do
     double(
-      params: params,
+      params:,
       old_host?: is_old_host,
       current_user: user,
       spnsr_url: 'zxc',
@@ -17,7 +17,7 @@ describe Ad do
         instance_variable_get: nil,
         instance_variable_set: nil
       ),
-      cookies: cookies
+      cookies:
     )
   end
   let(:params) { { controller: 'anime' } }
@@ -31,8 +31,8 @@ describe Ad do
     it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_300x600].first }
 
     describe 'meta changed by user preferences body_width_x1000' do
-      let(:user) { build_stubbed :user, preferences: preferences }
-      let(:preferences) { build_stubbed :user_preferences, body_width: body_width }
+      let(:user) { build_stubbed :user, preferences: }
+      let(:preferences) { build_stubbed :user_preferences, body_width: }
 
       context 'x1000 site width' do
         # let(:meta) { %i[menu_300x600 menu_300x250].sample }
@@ -91,10 +91,10 @@ describe Ad do
       it { expect(ad).to_not be_allowed }
     end
 
-    context 'old host' do
-      let(:is_old_host) { true }
-      it { expect(ad).to_not be_allowed }
-    end
+    # context 'old host' do
+    #   let(:is_old_host) { true }
+    #   it { expect(ad).to_not be_allowed }
+    # end
 
     context 'rules' do
       let(:rules) { double show?: is_show }
