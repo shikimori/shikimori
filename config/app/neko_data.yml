@@ -28129,6 +28129,8 @@
         - 9166
         - 48845
         - 21639
+        - 12901
+        - 53237
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *4
   neko_id: :sovietanime
@@ -28989,6 +28991,7 @@
         - 56590
         - 56592
         - 54496
+        - 54582
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *4
   neko_id: :stop_motion
