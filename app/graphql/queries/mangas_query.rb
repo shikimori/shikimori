@@ -7,6 +7,7 @@ class Queries::MangasQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassL
     :poster,
     :all_external_links,
     :stats,
+    :topic,
     person_roles: {
       character: :poster,
       person: :poster

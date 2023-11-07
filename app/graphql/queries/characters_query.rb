@@ -2,8 +2,9 @@ class Queries::CharactersQuery < Queries::BaseQuery
   type [Types::CharacterType], null: false
 
   LIMIT = 50
-  PRELOADS = [
-    :poster
+  PRELOADS = %i[
+    poster
+    topic
   ]
 
   argument :page, Integer, required: false, default_value: 1

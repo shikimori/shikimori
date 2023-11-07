@@ -2,8 +2,9 @@ class Queries::PeopleQuery < Queries::BaseQuery
   type [Types::PersonType], null: false
 
   LIMIT = 50
-  PRELOADS = [
-    :poster
+  PRELOADS = %i[
+    poster
+    topic
   ]
 
   argument :page, Integer, required: false, default_value: 1
@@ -27,9 +28,9 @@ class Queries::PeopleQuery < Queries::BaseQuery
     is_mangaka: nil
   )
     People::Query
-      .fetch(is_producer: is_producer, is_mangaka: is_mangaka, is_seyu: is_seyu)
+      .fetch(is_producer:, is_mangaka:, is_seyu:)
       .lazy_preload(*PRELOADS)
-      .search(search, is_producer: is_producer, is_mangaka: is_mangaka, is_seyu: is_seyu)
+      .search(search, is_producer:, is_mangaka:, is_seyu:)
       .by_id(ids)
       .paginate(page, limit.to_i.clamp(1, LIMIT))
   end
