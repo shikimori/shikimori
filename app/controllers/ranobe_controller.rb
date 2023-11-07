@@ -10,7 +10,7 @@ private
 
     og type: 'book'
     og book_release_date: @resource.released_on.date if @resource.released_on.present?
-    og book_tags: book_tags
+    og book_tags:
   end
 
   def resource_redirect

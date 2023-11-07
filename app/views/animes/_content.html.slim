@@ -89,7 +89,7 @@
           = render 'animes/genres_v2_info', entry: anime
       - else
         = info_line i18n_io('Genre', anime.main_genres.one? ? :one : :few) do
-          = render 'animes/genres_info', entry: anime, genres: entry.main_genres
+          = render 'animes/genres_info', entry: anime, genres: anime.main_genres
 
       - if anime.with_score?
         .rating[
