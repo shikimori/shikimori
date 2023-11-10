@@ -2,8 +2,8 @@ class CacheHelperInstance
   include Singleton
   include Draper::ViewHelpers
 
-  def self.cache_keys(*)
-    instance.cache_keys(*)
+  def self.cache_keys *args
+    instance.cache_keys *args
   end
 
   # I18N_HASH = {

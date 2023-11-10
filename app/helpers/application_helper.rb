@@ -5,8 +5,8 @@ module ApplicationHelper
     super cache_keys(*Array(name)), *args
   end
 
-  def cache_keys(*)
-    CacheHelperInstance.cache_keys(*)
+  def cache_keys *args
+    CacheHelperInstance.cache_keys *args
   end
 
   def itemprop
