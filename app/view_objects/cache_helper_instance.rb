@@ -33,7 +33,7 @@ class CacheHelperInstance
 
   def cache_keys *args
     args
-      # do not replace with filter_map since filter_map exclude "false" values
+      # do not replace with filter_map since filter_map excludes "false" values
       .map do |v| # rubocop:disable Performacnce/MapCompact
         if v.respond_to? :cache_key_with_version
           v.cache_key_with_version

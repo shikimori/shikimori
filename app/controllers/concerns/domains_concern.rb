@@ -22,18 +22,16 @@ module DomainsConcern
       ENV['USER'] == 'morr'
   end
 
-  def force_301_redirect_with_magic_link # rubocop:disable AbcSize
-    # return if Rails.env.test?
-    # return unless domain_redirects_appliable?
-    # return unless user_signed_in?
-    # return if !request.get? || request.xhr?
-    # # return unless current_user.admin?
-    # 
-    # redirect_to request.protocol + ShikimoriDomain::PROPER_HOST +
-    #   users_magic_link_path(
-    #     token: Users::LoginToken.encode(current_user),
-    #     redirect_url: request.url.sub(/.*?#{request.host}/, '')
-    #   ), allow_other_host: true
+  def force_301_redirect_with_magic_link
+    return if Rails.env.test?
+    return unless domain_redirects_appliable?
+    return unless user_signed_in?
+
+    redirect_to request.protocol + ShikimoriDomain::PROPER_HOST +
+      users_magic_link_path(
+        token: Users::LoginToken.encode(current_user),
+        redirect_url: request.url.sub(/.*?#{request.host}/, '')
+      ), allow_other_host: true
   end
 
   def force_301_redirect_for_guests
