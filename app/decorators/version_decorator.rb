@@ -59,8 +59,7 @@ class VersionDecorator < BaseDecorator
       is_can_manage && may_accept_taken?,
       is_can_manage && may_take_accepted?,
       h.can?(:destroy, object) && may_to_deleted?,
-      h.current_user&.id == user_id,
-      I18n.locale
+      h.current_user&.id == user_id
     ]
   end
 
