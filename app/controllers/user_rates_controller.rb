@@ -19,11 +19,12 @@ class UserRatesController < ProfilesController
     @menu = Menus::CollectionMenu.new @library.klass
 
     # additional check fo sort order an trigger Dry::Types::ConstraintError in case of invalid value
-    SortOrder[@library.sort_order]
+    sort_order_type[@library.sort_order]
+
     # just call to init params parsing and potential redirect if params are invalid
     @library.any?
   rescue Dry::Types::ConstraintError
-    redirect_to current_url(order: SortOrder[:rate_score])
+    redirect_to current_url(order: sort_order_type[:rate_score])
   end
 
   def edit
@@ -63,5 +64,11 @@ private
     UserRate.statuses.map do |status_name, _status_id|
       [UserRate.status_name(status_name, target_type), status_name]
     end
+  end
+
+  def sort_order_type
+    params[:list_type] == 'anime' ?
+      Animes::Filters::OrderBy::AnimeField :
+      Animes::Filters::OrderBy::MangaField
   end
 end
