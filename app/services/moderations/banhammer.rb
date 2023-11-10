@@ -43,8 +43,12 @@ class Moderations::Banhammer # rubocop:disable ClassLength
   end
 
   def self.l letter
-    synonyms = SYNONYMS[letter.to_sym] || [letter]
-    "(?:#{synonyms.join('|')}|#{Z})#{INVISIBLE_SYMBOLS}?#{TAG}"
+    if letter == ' '
+      '\ +'
+    else
+      synonyms = SYNONYMS[letter.to_sym] || [letter]
+      "(?:#{synonyms.join('|')}|#{Z})#{INVISIBLE_SYMBOLS}?#{TAG}"
+    end
   end
 
   ABUSIVE_WORDS = YAML.load_file Rails.root.join('config/app/abusive_words.yml')
@@ -92,8 +96,8 @@ private
 
     Ban.create!(
       user: comment.user,
-      comment: comment,
-      duration: duration,
+      comment:,
+      duration:,
       reason: ban_reason(comment),
       moderator: User.find(User::BANHAMMER_ID)
     )
@@ -147,8 +151,7 @@ private
         .count do |group|
           group
             .select(&:present?)
-            .select { |match| valid_match? match }
-            .any?
+            .any? { |match| valid_match? match }
         end
   end
 

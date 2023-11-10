@@ -2,16 +2,16 @@ describe Moderations::Banhammer do
   let(:banhammer) { described_class.instance }
   let(:comment) do
     build_stubbed :comment,
-      user: user,
+      user:,
       body: text,
-      commentable: build_stubbed(:topic, user: user)
+      commentable: build_stubbed(:topic, user:)
   end
   let(:text) { 'хуй' }
   let(:user) { build_stubbed :user }
 
   describe '#release!' do
     let(:user) { create :user, :banhammer }
-    let(:comment) { create :comment, user: user, body: text }
+    let(:comment) { create :comment, user:, body: text }
     subject { banhammer.release! comment }
 
     context 'not abusive' do
@@ -140,6 +140,14 @@ describe Moderations::Banhammer do
     it { expect(banhammer.abusive? 'одинарные |не| трогать|').to eq false }
     it { expect(banhammer.abusive? 'обычное `использование` кода').to eq false }
     it { expect(banhammer.abusive? 'обычное [size=0]использование[/size] size').to eq false }
+
+    context 'empty text' do
+      it { expect(banhammer.abusive? '').to eq false }
+    end
+
+    context 'multiple words' do
+      it { expect(banhammer.abusive? 'еб твою мать').to eq true }
+    end
 
     context 'soft hypen' do # http://www.fileformat.info/info/unicode/char/00AD/index.htm
       it { expect(banhammer.abusive? 'н­ах').to eq true }
