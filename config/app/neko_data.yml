@@ -2705,6 +2705,7 @@
         - 42228
         - 4772
         - 4651
+        - 48425
       :generator: &121
         person_id: 4002
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -14944,7 +14945,7 @@
     :topic_id: 247360
     :rule: &765
       :algo: duration
-      :filters: &767
+      :filters: &766
         franchise: hokuto_no_ken
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -14962,6 +14963,34 @@
   mandatory_attributes: *6
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :hokuto_no_ken
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/hokuto_no_ken.png"
+    :border_color:
+    :title_ru: Кулак Северной звезды
+    :text_ru:
+    :title_en: Hokuto no Ken
+    :text_en:
+    :topic_id: 247360
+    :rule: &767
+      :algo: duration
+      :filters: *766
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *4
+  neko_id: :hokuto_no_ken
+  level: 0
+  image: "/assets/achievements/anime/franchise/hokuto_no_ken.png"
+  border_color:
+  title_ru: Кулак Северной звезды
+  text_ru:
+  title_en: Hokuto no Ken
+  text_en:
+  topic_id: 247360
+  rule: *767
+  mandatory_attributes: *6
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :yuu_yuu_hakusho
     :level: 1
     :image: "/assets/achievements/anime/franchise/yuu_yuu_hakusho.jpg"
@@ -14971,7 +15000,7 @@
     :title_en: Yuu☆Yuu☆Hakusho
     :text_en:
     :topic_id: 247360
-    :rule: &766
+    :rule: &768
       :algo: duration
       :filters: &769
         franchise: yuu_yuu_hakusho
@@ -14989,34 +15018,6 @@
   title_ru: Отчёт о буйстве духов
   text_ru:
   title_en: Yuu☆Yuu☆Hakusho
-  text_en:
-  topic_id: 247360
-  rule: *766
-  mandatory_attributes: *6
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :hokuto_no_ken
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/hokuto_no_ken.png"
-    :border_color:
-    :title_ru: Кулак Северной звезды
-    :text_ru:
-    :title_en: Hokuto no Ken
-    :text_en:
-    :topic_id: 247360
-    :rule: &768
-      :algo: duration
-      :filters: *767
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *4
-  neko_id: :hokuto_no_ken
-  level: 0
-  image: "/assets/achievements/anime/franchise/hokuto_no_ken.png"
-  border_color:
-  title_ru: Кулак Северной звезды
-  text_ru:
-  title_en: Hokuto no Ken
   text_en:
   topic_id: 247360
   rule: *768
@@ -18540,7 +18541,7 @@
     :topic_id: 247360
     :rule: &955
       :algo: duration
-      :filters: &957
+      :filters: &956
         franchise: pripara
         not_anime_ids:
         - 21707
@@ -18568,6 +18569,34 @@
   mandatory_attributes: *6
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :pripara
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/pripara.jpg"
+    :border_color:
+    :title_ru: При Пара
+    :text_ru:
+    :title_en: PriPara
+    :text_en:
+    :topic_id: 247360
+    :rule: &957
+      :algo: duration
+      :filters: *956
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *4
+  neko_id: :pripara
+  level: 0
+  image: "/assets/achievements/anime/franchise/pripara.jpg"
+  border_color:
+  title_ru: При Пара
+  text_ru:
+  title_en: PriPara
+  text_en:
+  topic_id: 247360
+  rule: *957
+  mandatory_attributes: *6
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :ze_tian_ji
     :level: 1
     :image: "/assets/achievements/anime/franchise/ze_tian_ji.jpg"
@@ -18577,7 +18606,7 @@
     :title_en: Ze Tian Ji
     :text_en:
     :topic_id: 247360
-    :rule: &956
+    :rule: &958
       :algo: duration
       :filters: &959
         franchise: ze_tian_ji
@@ -18591,34 +18620,6 @@
   title_ru: Путь выбора
   text_ru:
   title_en: Ze Tian Ji
-  text_en:
-  topic_id: 247360
-  rule: *956
-  mandatory_attributes: *6
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :pripara
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/pripara.jpg"
-    :border_color:
-    :title_ru: При Пара
-    :text_ru:
-    :title_en: PriPara
-    :text_en:
-    :topic_id: 247360
-    :rule: &958
-      :algo: duration
-      :filters: *957
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *4
-  neko_id: :pripara
-  level: 0
-  image: "/assets/achievements/anime/franchise/pripara.jpg"
-  border_color:
-  title_ru: При Пара
-  text_ru:
-  title_en: PriPara
   text_en:
   topic_id: 247360
   rule: *958
