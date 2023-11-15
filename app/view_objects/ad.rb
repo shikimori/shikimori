@@ -459,7 +459,7 @@ private
       # # Types::Ad::Type[:advrtr_x728]
     ],
     Types::Ad::Meta[:horizontal_x90] => [
-      Types::Ad::Type[:special_x894], # IMBA - remove 2023-10-28 15:00
+      # Types::Ad::Type[:special_x894], # IMBA - remove 2023-10-28 15:00
       # # Types::Ad::Type[:mt_728x90],
       # # Types::Ad::Type[:advrtr_x728]
       Types::Ad::Type[:yd_970x90]
