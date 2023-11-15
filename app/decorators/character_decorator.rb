@@ -2,7 +2,7 @@ class CharacterDecorator < PersonDecorator
   instance_cache :changes, :all_animes, :all_mangas, :cosplay?,
     :limited_animes, :limited_mangas, :top_seyu, :all_seyu
 
-  DISPLAYED_SEYU_ROLES = %w[Japanese Mandarin English]
+  DISPLAYED_SEYU_ROLES = %w[Japanese Mandarin English Korean]
   ROLES_PRIORITY = %w[Japanese Mandarin English Other]
 
   def url
