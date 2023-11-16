@@ -17,6 +17,9 @@ class RolesPolicy
     censored_profile
     censored_nickname
 
+    ai_genres
+    censored_genres
+
     cheat_bot
     completed_announced_animes
     ignored_in_achievement_statistics
