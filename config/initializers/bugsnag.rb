@@ -1,6 +1,6 @@
 if defined? Bugsnag
   Bugsnag.configure do |config|
-    config.api_key = '13facc6d8be8f234e594695f9a61b9a9'
+    config.api_key = 'b2baf38009494b2a6acd61a8c940d9ea'
 
     Shikimori::IGNORED_EXCEPTIONS.each do |klass|
       config.ignore_classes << klass
