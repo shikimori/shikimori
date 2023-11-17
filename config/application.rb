@@ -60,7 +60,6 @@ module Shikimori
     CanCan::AccessDenied
     I18n::InvalidLocale
     Unicorn::ClientShutdown
-    Unauthorized
     AgeRestricted
     RknBanned
     MismatchedEntries

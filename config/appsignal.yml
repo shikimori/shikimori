@@ -27,7 +27,6 @@ default: &defaults
     - CanCan::AccessDenied
     - I18n::InvalidLocale
     - Unicorn::ClientShutdown
-    - Unauthorized
     - AgeRestricted
     - MismatchedEntries
     - InvalidEpisodesError
