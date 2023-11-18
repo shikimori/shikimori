@@ -8,7 +8,7 @@
 - else
   - if entry.genres.any?
     = info_line i18n_io('Genre', entry.genres.one? ? :one : :few) do
-      = render 'animes/genres_info',
+      = render 'animes/genres_line',
         entry: entry,
         genres: local_assigns[:is_main_genres] ? entry.main_genres : entry.genres
 
