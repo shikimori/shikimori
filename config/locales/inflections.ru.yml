@@ -646,6 +646,9 @@ ru:
         few: жанры
       genrev2:
         <<: *genre_ordinal
+      theme:
+        one: тема
+        few: темы
       user:
         one: пользователь
         few: пользователи

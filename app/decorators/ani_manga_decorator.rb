@@ -9,6 +9,7 @@ class AniMangaDecorator < DbEntryDecorator
   instance_cache :news_topics, :critiques_count, :reviews_count, :cosplay?,
     :current_rate, :changes, :versions, :versions_page,
     :roles, :related, :friend_rates, :recent_rates, :chronology,
+    :genres_v2_wo_themes, :genres_v2_themes,
     :external_links, :available_external_links,
     :watch_online_external_links, :menu_external_links,
     :topic_views
@@ -68,8 +69,16 @@ class AniMangaDecorator < DbEntryDecorator
     rates.where(user_id: h.current_user.id).first
   end
 
-  def genres_v2_sorted
-    object.genres_v2.sort_by { |v| [v.position, v.russian] }
+  # def genres_v2_sorted
+  #   object.genres_v2.sort_by { |v| [v.position, v.russian] }
+  # end
+
+  def genres_v2_wo_themes
+    object.genres_v2.reject(&:theme?)
+  end
+
+  def genres_v2_themes
+    object.genres_v2.select(&:theme?)
   end
 
   def roles

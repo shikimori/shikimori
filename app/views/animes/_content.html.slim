@@ -84,12 +84,7 @@
             counter: :chapters,
             counter_aired: :chapters_aired }
 
-      - if genres_v2?
-        = info_line i18n_io('Genre', anime.genres_v2.one? ? :one : :few) do
-          = render 'animes/genres_v2_info', entry: anime
-      - else
-        = info_line i18n_io('Genre', anime.main_genres.one? ? :one : :few) do
-          = render 'animes/genres_info', entry: anime, genres: anime.main_genres
+      = render 'animes/genres_lines', entry: anime, is_main_genres: true
 
       - if anime.with_score?
         .rating[
