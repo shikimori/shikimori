@@ -38,7 +38,8 @@ class Animes::FranchiseName
     'Mameshiba 2nd Season' => 'mameshiba',
     'Daisuki! Hello Kitty' => 'hello_kitty',
     'Tennis no Oujisama' => 'tennis_no_ouji_sama',
-    'Cutie Honey' => 'cutey_honey'
+    'Cutie Honey' => 'cutey_honey',
+    'Hello Kitty no Cinderella' => 'hello_kitty'
   }.transform_keys(&:downcase)
 
   def call
