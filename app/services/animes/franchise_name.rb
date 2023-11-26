@@ -37,7 +37,8 @@ class Animes::FranchiseName
     'Monster Strike' => 'monster_strike',
     'Mameshiba 2nd Season' => 'mameshiba',
     'Daisuki! Hello Kitty' => 'hello_kitty',
-    'Tennis no Oujisama' => 'tennis_no_ouji_sama'
+    'Tennis no Oujisama' => 'tennis_no_ouji_sama',
+    'Cutie Honey' => 'cutey_honey'
   }.transform_keys(&:downcase)
 
   def call
