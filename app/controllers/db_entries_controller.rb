@@ -196,8 +196,7 @@ private
       og description: @resource.description_meta
     end
 
-    if (@resource.anime? && @resource.id <= 51_153) ||
-        (@resource.kinda_manga? && @resource.id <= 144_556)
+    if @resource.anime? || @resource.kinda_manga?
       og(
         image: 'http://cdn.anime-recommend.ru/previews' \
           "#{'/manga' if @resource.kinda_manga?}/#{@resource.id}.jpg",
