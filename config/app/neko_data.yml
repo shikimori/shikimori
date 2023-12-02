@@ -25869,6 +25869,7 @@
         - 54916
         - 42441
         - 57217
+        - 57360
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *4
   neko_id: :mahou_shoujo
