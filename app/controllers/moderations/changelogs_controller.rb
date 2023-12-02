@@ -22,12 +22,15 @@ class Moderations::ChangelogsController < ModerationsController
       .split("\n")
       .filter_map do |v|
         id = v.gsub(/changelog_|\.log/, '')
+        next if id == 'messages' && !can?(:manage, Message)
+
         {
           id:,
           name: id.classify.constantize.model_name.human
         }
       rescue NameError
       end
+      .compact
       .sort_by { |changelog| changelog[:name] }
   end
 
@@ -38,6 +41,8 @@ class Moderations::ChangelogsController < ModerationsController
     rescue NameError
       raise ActiveRecord::RecordNotFound
     end
+    raise ActiveRecord::RecordNotFound if @item_klass == Message && !can?(:manage, Message)
+
     @item_type_name = @item_klass.model_name.human
 
     og page_title: @item_type_name
