@@ -51,6 +51,8 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   error code: 422
   def update
     if faye.update @resource, update_params
+      Changelog::LogUpdate.call @resource, faye.actor
+
       if frontent_request?
         render :message, locals: { notice: i18n_t('message.updated') }
       else
@@ -66,6 +68,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   api :DELETE, '/messages/:id', 'Destroy a message'
   description 'Requires `messages` oauth scope'
   def destroy
+    Changelog::LogDestroy.call @resource, faye.actor
     faye.destroy @resource
 
     if frontent_request?

@@ -30,8 +30,8 @@ describe Api::V1::MessagesController do
       {
         kind: MessageType::PRIVATE,
         from_id: user.id,
-        to_id: to_id,
-        body: body
+        to_id:,
+        body:
       }
     end
     let(:to_id) { user.id }
@@ -75,7 +75,7 @@ describe Api::V1::MessagesController do
         format: :json
     end
     let(:message) { create :message, :private, from: user, to: user }
-    let(:params) { { body: body } }
+    let(:params) { { body: } }
 
     context 'success' do
       let(:body) { 'blablabla' }
