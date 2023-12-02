@@ -5994,7 +5994,7 @@
         not_anime_ids:
         - 54171
         - 56442
-      :threshold: 96.3%
+      :threshold: 96.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :bleach
@@ -19322,7 +19322,7 @@
     :topic_id: 247360
     :rule: &996
       :algo: duration
-      :filters: &998
+      :filters: &997
         franchise: kindaichi_shounen_no_jikenbo
       :threshold: 93.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -19340,6 +19340,34 @@
   mandatory_attributes: *6
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :kindaichi_shounen_no_jikenbo
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/kindaichi_shounen_no_jikenbo.jpg"
+    :border_color:
+    :title_ru: Дело ведет юный детектив Киндаити
+    :text_ru:
+    :title_en: Kindaichi Shounen no Jikenbo
+    :text_en:
+    :topic_id: 247360
+    :rule: &998
+      :algo: duration
+      :filters: *997
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *4
+  neko_id: :kindaichi_shounen_no_jikenbo
+  level: 0
+  image: "/assets/achievements/anime/franchise/kindaichi_shounen_no_jikenbo.jpg"
+  border_color:
+  title_ru: Дело ведет юный детектив Киндаити
+  text_ru:
+  title_en: Kindaichi Shounen no Jikenbo
+  text_en:
+  topic_id: 247360
+  rule: *998
+  mandatory_attributes: *6
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :wu_geng_ji
     :level: 1
     :image: "/assets/achievements/anime/franchise/wu_geng_ji.jpg"
@@ -19349,7 +19377,7 @@
     :title_en: Wu Geng Ji
     :text_en:
     :topic_id: 247360
-    :rule: &997
+    :rule: &999
       :algo: duration
       :filters: &1000
         franchise: wu_geng_ji
@@ -19365,34 +19393,6 @@
   title_ru: Легенды и герои
   text_ru:
   title_en: Wu Geng Ji
-  text_en:
-  topic_id: 247360
-  rule: *997
-  mandatory_attributes: *6
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :kindaichi_shounen_no_jikenbo
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/kindaichi_shounen_no_jikenbo.jpg"
-    :border_color:
-    :title_ru: Дело ведет юный детектив Киндаити
-    :text_ru:
-    :title_en: Kindaichi Shounen no Jikenbo
-    :text_en:
-    :topic_id: 247360
-    :rule: &999
-      :algo: duration
-      :filters: *998
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *4
-  neko_id: :kindaichi_shounen_no_jikenbo
-  level: 0
-  image: "/assets/achievements/anime/franchise/kindaichi_shounen_no_jikenbo.jpg"
-  border_color:
-  title_ru: Дело ведет юный детектив Киндаити
-  text_ru:
-  title_en: Kindaichi Shounen no Jikenbo
   text_en:
   topic_id: 247360
   rule: *999
@@ -19502,7 +19502,7 @@
     :topic_id: 247360
     :rule: &1006
       :algo: duration
-      :filters: &1011
+      :filters: &1007
         franchise: futari_wa_milky_holmes
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -19520,6 +19520,34 @@
   mandatory_attributes: *6
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :futari_wa_milky_holmes
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/futari_wa_milky_holmes.png"
+    :border_color:
+    :title_ru: Детективное агентство Милки Холмс
+    :text_ru:
+    :title_en: Tantei Opera Milky Holmes
+    :text_en:
+    :topic_id: 247360
+    :rule: &1008
+      :algo: duration
+      :filters: *1007
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *4
+  neko_id: :futari_wa_milky_holmes
+  level: 0
+  image: "/assets/achievements/anime/franchise/futari_wa_milky_holmes.png"
+  border_color:
+  title_ru: Детективное агентство Милки Холмс
+  text_ru:
+  title_en: Tantei Opera Milky Holmes
+  text_en:
+  topic_id: 247360
+  rule: *1008
+  mandatory_attributes: *6
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :touch
     :level: 1
     :image: "/assets/achievements/anime/franchise/touch.jpg"
@@ -19529,13 +19557,13 @@
     :title_en: Touch
     :text_en:
     :topic_id: 247360
-    :rule: &1007
+    :rule: &1009
       :algo: duration
-      :filters: &1008
+      :filters: &1010
         franchise: touch
         not_anime_ids:
         - 39352
-      :generator: &1009
+      :generator: &1011
         not_ignored_ids:
         - 2491
         - 2492
@@ -19552,7 +19580,7 @@
   title_en: Touch
   text_en:
   topic_id: 247360
-  rule: *1007
+  rule: *1009
   mandatory_attributes: *6
 - !ruby/object:Neko::Rule
   attributes:
@@ -19565,10 +19593,10 @@
     :title_en: Touch
     :text_en:
     :topic_id: 247360
-    :rule: &1010
+    :rule: &1012
       :algo: duration
-      :filters: *1008
-      :generator: *1009
+      :filters: *1010
+      :generator: *1011
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -19579,34 +19607,6 @@
   title_ru: Касание
   text_ru:
   title_en: Touch
-  text_en:
-  topic_id: 247360
-  rule: *1010
-  mandatory_attributes: *6
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :futari_wa_milky_holmes
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/futari_wa_milky_holmes.png"
-    :border_color:
-    :title_ru: Детективное агентство Милки Холмс
-    :text_ru:
-    :title_en: Tantei Opera Milky Holmes
-    :text_en:
-    :topic_id: 247360
-    :rule: &1012
-      :algo: duration
-      :filters: *1011
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *4
-  neko_id: :futari_wa_milky_holmes
-  level: 0
-  image: "/assets/achievements/anime/franchise/futari_wa_milky_holmes.png"
-  border_color:
-  title_ru: Детективное агентство Милки Холмс
-  text_ru:
-  title_en: Tantei Opera Milky Holmes
   text_en:
   topic_id: 247360
   rule: *1012
