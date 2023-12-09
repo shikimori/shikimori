@@ -1310,6 +1310,8 @@
         - 40429
         - 51680
         - 46422
+        - 23083
+        - 20815
       :generator: &61
         person_id: 6831
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -2498,6 +2500,7 @@
         - 618
         - 2998
         - 54017
+        - 56664
       :generator: &113
         person_id: 5812
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -22790,6 +22793,8 @@
         - 36371
         - 42886
         - 51805
+        - 40682
+        - 50160
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *4
   neko_id: :gar
