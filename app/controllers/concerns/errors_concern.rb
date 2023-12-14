@@ -150,6 +150,8 @@ private
   end
 
   def notify_erorr error
+    return if error.class.name.in? Shikimori::IGNORED_EXCEPTIONS
+
     Honeybadger.notify error if defined? Honeybadger
     Appsignal.set_error error if defined? Appsignal
     Bugsnag.notify error if defined? Bugsnag
