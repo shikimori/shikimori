@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/api/doc/graphql', to: 'pages#graphql'
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/api/graphql'
+    mount LetterOpenerWeb::Engine, at: '/letter_opener'
   end
 
   # do not remove atomic grouping
