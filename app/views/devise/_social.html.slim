@@ -1,5 +1,8 @@
 .social
-  p.m5 = t '.social_networks'
+  - if local_assigns[:is_p]
+    p.m5 = t '.social_networks'
+  - else
+    .subheadline = t '.social_networks'
 
   div
     - %i[vkontakte twitter facebook].each do |network|
