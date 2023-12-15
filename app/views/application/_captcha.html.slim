@@ -17,8 +17,8 @@
       renderTurnstile();
     }
   p.mt-2
-    ' Не работает капча Cloudflare? Попробуй
-    a.b-link href=current_url(is_recaptcha: '1') другую капчу
+    ' Не работает капча Cloudflare? Есть
+    a.b-link href=current_url(is_recaptcha: '1') другая капча
     |  от Google.
 - else
   - if @is_captcha_error || !Shikimori::IS_RECAPTCHA_V3
