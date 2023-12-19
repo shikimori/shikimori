@@ -628,7 +628,6 @@
         - 5918
         - 1494
         - 1269
-        - 2688
         - 26
         - 22689
         - 22687
@@ -2198,7 +2197,7 @@
     :level: 1
     :image: "/assets/achievements/anime/author/mamoru_oshii.png"
     :border_color: "#B22222"
-    :title_ru: Мамору Оси
+    :title_ru: Мамору Осии
     :text_ru:
     :title_en: Mamoru Oshii
     :text_en:
@@ -2245,7 +2244,7 @@
   level: 1
   image: "/assets/achievements/anime/author/mamoru_oshii.png"
   border_color: "#B22222"
-  title_ru: Мамору Оси
+  title_ru: Мамору Осии
   text_ru:
   title_en: Mamoru Oshii
   text_en:
@@ -2258,7 +2257,7 @@
     :level: 0
     :image: "/assets/achievements/anime/author/mamoru_oshii.png"
     :border_color: "#B22222"
-    :title_ru: Мамору Оси
+    :title_ru: Мамору Осии
     :text_ru:
     :title_en: Mamoru Oshii
     :text_en:
@@ -2274,7 +2273,7 @@
   level: 0
   image: "/assets/achievements/anime/author/mamoru_oshii.png"
   border_color: "#B22222"
-  title_ru: Мамору Оси
+  title_ru: Мамору Осии
   text_ru:
   title_en: Mamoru Oshii
   text_en:
