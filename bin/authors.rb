@@ -6,7 +6,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 authors_yml = "#{ENV['HOME']}/develop/neko-achievements/priv/rules/_authors.yml"
 
 puts 'loading authors...'
-raw_data = YAML.load_file(authors_yml)
+raw_data = YAML.load_file(authors_yml, aliases: true)
 
 data = raw_data.dup.reject { |rule| rule['level'].zero? }
 
