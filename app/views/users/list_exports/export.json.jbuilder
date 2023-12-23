@@ -1,5 +1,6 @@
 json.array! @collection do |user_rate|
   json.target_title user_rate.target.name
+  json.target_title_ru user_rate.target.russian
   json.target_id user_rate.target_id
   json.target_type user_rate.target_type
   json.score user_rate.score

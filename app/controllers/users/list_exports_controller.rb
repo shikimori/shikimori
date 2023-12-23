@@ -29,7 +29,7 @@ private
 
   def export
     response.headers['Content-Description'] = 'File Transfer'
-    response.headers['Content-Disposition'] = 'attachment; filename='\
+    response.headers['Content-Disposition'] = 'attachment; filename=' \
       "#{@user.to_param}_#{params[:action]}.#{params[:format]}"
 
     render :export

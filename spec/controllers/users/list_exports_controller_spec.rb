@@ -9,7 +9,7 @@ describe Users::ListExportsController do
   describe '#export' do
     %w[animes mangas].each do |type|
       describe type do
-        let!(:user_rate) { create :user_rate, user: user, target: target }
+        let!(:user_rate) { create :user_rate, user:, target: }
         let(:target) { create type.singularize }
 
         %w[xml json].each do |format|
@@ -17,7 +17,7 @@ describe Users::ListExportsController do
             subject! do
               get type,
                 params: { profile_id: user.to_param },
-                format: format
+                format:
             end
 
             it do
