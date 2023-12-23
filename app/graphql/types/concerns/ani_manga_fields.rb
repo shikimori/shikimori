@@ -6,7 +6,6 @@ module Types::Concerns::AniMangaFields
     field :english, String
     field :franchise, String, description: 'Franchise name'
     field :score, Float
-    field :status, Types::Enums::StatusEnum
     field :aired_on, Types::Scalars::IncompleteDate
     field :released_on, Types::Scalars::IncompleteDate
 

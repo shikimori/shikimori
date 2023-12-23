@@ -27,7 +27,7 @@ class Queries::MangasQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassL
     description: "Maximum #{LIMIT}"
   argument :order, Types::Enums::OrderEnum, required: false, default_value: 'ranked'
   argument :kind, Types::Scalars::Manga::KindString, required: false
-  argument :status, Types::Scalars::StatusString, required: false
+  argument :status, Types::Scalars::Manga::StatusString, required: false
   argument :season, Types::Scalars::SeasonString, required: false
   argument :score, Integer,
     required: false,

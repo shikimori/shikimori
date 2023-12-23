@@ -4,6 +4,8 @@ class Types::AnimeType < Types::BaseObject
   include Types::Concerns::DescriptionFields
 
   field :kind, Types::Enums::Anime::KindEnum
+  field :status, Types::Enums::Anime::StatusEnum
+
   field :rating, Types::Enums::Anime::RatingEnum
   field :episodes, Integer, null: false
   field :episodes_aired, Integer, null: false

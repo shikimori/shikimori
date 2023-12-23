@@ -4,6 +4,7 @@ class Types::MangaType < Types::BaseObject
   include Types::Concerns::DescriptionFields
 
   field :kind, Types::Enums::Manga::KindEnum
+  field :status, Types::Enums::Manga::StatusEnum
 
   field :volumes, Integer, null: false
   field :chapters, Integer, null: false

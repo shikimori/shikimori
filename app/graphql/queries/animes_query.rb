@@ -29,7 +29,7 @@ class Queries::AnimesQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassL
     description: "Maximum #{LIMIT}"
   argument :order, Types::Enums::OrderEnum, required: false, default_value: 'ranked'
   argument :kind, Types::Scalars::Anime::KindString, required: false
-  argument :status, Types::Scalars::StatusString, required: false
+  argument :status, Types::Scalars::Anime::StatusString, required: false
   argument :season, Types::Scalars::SeasonString, required: false
   argument :score, Integer,
     required: false,
