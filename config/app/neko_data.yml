@@ -5500,10 +5500,9 @@
         franchise: kaguya_sama
         not_anime_ids:
         - 44270
-      :threshold: 100%
+      :threshold: 95%
       :generator: &259
-        ignore_latest_ids:
-        - 52198
+        threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :kaguya_sama
