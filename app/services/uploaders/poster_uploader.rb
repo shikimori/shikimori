@@ -26,7 +26,7 @@ class Uploaders::PosterUploader < Shrine
   plugin :remove_invalid
 
   Attacher.validate do
-    validate_mime_type %w[image/jpeg image/png image/webp]
+    validate_mime_type %w[image/jpeg image/jpg image/png image/webp]
     validate_max_size 15.megabytes
 
     unless ImageChecker.valid? file.storage.path(file.id)
