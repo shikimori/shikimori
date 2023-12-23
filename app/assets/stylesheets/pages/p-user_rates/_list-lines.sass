@@ -53,6 +53,7 @@
     .num
       text-align: center
       width: 70px
+      position: relative
 
       +iphone-portrait
         display: none
@@ -115,8 +116,18 @@
         display: none
         float: right
 
+      .current-value,
+      .misc-value
+        &.is-hidden
+          opacity: 0
+          pointer-events: none
+
       .new-value
         display: none
+        left: 0
+        position: absolute
+        top: 0
+        width: 100%
 
         input
           border-radius: 4px

@@ -287,6 +287,7 @@ function applyListHandlers($root) {
         if (isMobile()) { return; }
 
         const $currentValue = $('.current-value', currentTarget);
+        const $miscValue = $('.misc-value', currentTarget);
         let $newValue = $('.new-value', currentTarget);
 
         // если нет элемента, то создаём его
@@ -311,22 +312,22 @@ function applyListHandlers($root) {
               action: $currentValue.closest('tr').data('rate_url')
             })
             .parent()
-            .insertAfter($currentValue);
+            .insertAfter($miscValue);
 
           applyNewValueHandlers($newValue);
         }
 
         $newValue.show();
-        $currentValue.hide();
-        $('.misc-value', currentTarget).hide();
+        $currentValue.addClass('is-hidden');
+        $('.misc-value', currentTarget).addClass('is-hidden');
       },
       ({ currentTarget }) => {
         if (isMobile()) { return; }
         if ($('.new-value input', currentTarget).is(':focus')) { return; }
 
         $('.new-value', currentTarget).hide();
-        $('.current-value', currentTarget).show();
-        $('.misc-value', currentTarget).show();
+        $('.current-value', currentTarget).removeClass('is-hidden');
+        $('.misc-value', currentTarget).removeClass('is-hidden');
       }
     )
     .on('click', e => {
