@@ -153,7 +153,7 @@
   - A13677 # Ao no Exorcist Movie Special
   - A9627 # Kakko Kawaii Sengen!
 -
-  - A1369 # Detective Conan OVA 01: Conan vs. Kid vs. Yaiba - Houtou Soud
+  - A1369 # Meitantei Conan OVA 01: Conan vs. Kid vs. Yaiba - Houtou Soud
   - A2335 # Kenyuu Densetsu Yaiba
 -
   - A1371 # Hi no Tori
@@ -165,7 +165,7 @@
   - A14353 # Death Billiards
 -
   - A1412 # Lupin III
-  - A18429 # Lupin III vs. Detective Conan: The Movie
+  - A18429 # Lupin III vs. Meitantei Conan: The Movie
 -
   - A1412 # Lupin III
   - A19479 # Monkey Punch: Manga Katsudou Daishashin - Crime Mate Special
@@ -470,8 +470,8 @@
   - A23269 # Hello!! Kiniro Mosaic
   - A36805 # Kirara Fantasia
 -
-  - A235 # Detective Conan
-  - A6115 # Lupin III vs. Detective Conan
+  - A235 # Meitantei Conan
+  - A6115 # Lupin III vs. Meitantei Conan
 -
   - A23539 # Gudetama
   - A39659 # Chikin Ramen x Gudetama
@@ -581,21 +581,21 @@
   - A28149 # Nihon Animator Mihonichi
 -
   - A28149 # Nihon Animator Mihonichi
-  - A30 # Neon Genesis Evangelion
+  - A30 # Shinseiki Evangelion
 -
   - A28149 # Nihon Animator Mihonichi
-  - A30 # Neon Genesis Evangelion
+  - A30 # Shinseiki Evangelion
   - A3444 # The☆Ultraman
   - A34549 # Ryuu no Haisha
-  - A3785 # Evangelion: 3.0 You Can (Not) Redo
+  - A3785 # Evangelion Movie 3: Q
   - A80 # Kidou Senshi Gundam
   - M63545 # Bikachou Shinshi Kaikoroku
   - M69047 # Ochibi-san
 -
   - A28149 # Nihon Animator Mihonichi
-  - A30 # Neon Genesis Evangelion
+  - A30 # Shinseiki Evangelion
   - A3444 # The☆Ultraman
-  - A3785 # Evangelion: 3.0 You Can (Not) Redo
+  - A3785 # Evangelion Movie 3: Q
   - A80 # Kidou Senshi Gundam
 -
   - A28149 # Nihon Animator Mihonichi
@@ -605,7 +605,7 @@
   - A3444 # The☆Ultraman
 -
   - A28149 # Nihon Animator Mihonichi
-  - A3785 # Evangelion: 3.0 You Can (Not) Redo
+  - A3785 # Evangelion Movie 3: Q
 -
   - A28149 # Nihon Animator Mihonichi
 -
@@ -651,7 +651,7 @@
   - A29820 # Channel 5.5 4th Season
   - A338 # Versailles no Bara
 -
-  - A30 # Neon Genesis Evangelion
+  - A30 # Shinseiki Evangelion
   - A3444 # The☆Ultraman
   - A80 # Kidou Senshi Gundam
 -
@@ -813,7 +813,7 @@
   - A33934 # Trigger-chan
 -
   - A32878 # ēlDLIVE
-  - A33740 # Katekyo Hitman Reborn! x ēlDLIVE Special
+  - A33740 # Katekyou Hitman Reborn! x ēlDLIVE Special
 -
   - A32900 # Mahouka Koukou no Rettousei Movie: Hoshi wo Yobu Shoujo
   - A7261 # Mameshiba
@@ -835,6 +835,9 @@
 -
   - A33190 # Planetarian: Hoshi no Hito
   - A50685 # Kaginado Season 2
+-
+  - A33443 # Luo Xiao Hei Zhan Ji
+  - A54944 # Arknights x Luo Xiao Hei Zhan Ji: Hao Jiu Bu Jian
 -
   - A33542 # Mameshiba Gakuen
   - A7261 # Mameshiba
@@ -879,7 +882,7 @@
   - A35139 # Crayon Shin-chan x Panpaka Pants: Aeon Cinema Manner Movie Co
 -
   - A3444 # The☆Ultraman
-  - A3785 # Evangelion: 3.0 You Can (Not) Redo
+  - A3785 # Evangelion Movie 3: Q
   - A80 # Kidou Senshi Gundam
 -
   - A34566 # Boruto: Naruto Next Generations
@@ -1127,7 +1130,7 @@
   - M14231 # Ring ni Kakero
   - M65169 # Kurumada Suikoden: Hero of Heroes
 -
-  - M1061 # Detective Conan
+  - M1061 # Meitantei Conan
   - M109217 # Lupin III vs. Meitantei Conan
 -
   - M107458 # UraHos!!
