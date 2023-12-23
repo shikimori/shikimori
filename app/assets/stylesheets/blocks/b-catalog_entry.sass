@@ -109,10 +109,11 @@ $max_width: 167px
 
     .misc
       color: #555
-      display: block
+      display: flex
       font-size: 11px
+      gap: 5px
+      justify-content: space-between
       line-height: 17px
-      //max-width: $max_width
 
       &.centered
         text-align: center
@@ -121,7 +122,6 @@ $max_width: 167px
         +ellipsis2
         color: #123
         display: block
-        padding-right: 5px
 
         &.relation
           line-height: 1.4
@@ -135,10 +135,6 @@ $max_width: 167px
 
         &.released
           color: #ca4929
-
-        &.right
-          float: right
-          padding-right: 0
 
         &.role
           overflow: visible
