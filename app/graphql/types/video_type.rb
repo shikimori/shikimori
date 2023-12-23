@@ -1,6 +1,6 @@
 class Types::VideoType < Types::BaseObject
-  field :id, ID
+  field :id, ID, null: false
   field :name, String
-  field :url, String
-  field :kind, Types::Enums::Video::KindEnum
+  field :url, String, null: false
+  field :kind, Types::Enums::Video::KindEnum, null: false
 end
