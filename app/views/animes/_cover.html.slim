@@ -76,11 +76,6 @@ span.misc
     span.role
       = anime.formatted_role
 
-  - elsif cover_notice == :latest_episode
-    span.episode
-      span.number = "#{anime.episode.episode} эпизод"
-      span.type = anime.video_types
-
   - elsif cover_notice == :none
   - else
     - raise ArgumentError, cover_notice
