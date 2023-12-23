@@ -80,7 +80,7 @@ header.head
   - if @oauth_application
     .m10
     a.b-link_button.maxi.dark[
-      href=oauth_authorization_url(client_id: @oauth_application.uid, redirect_uri: @oauth_application.redirect_uri, scope: (params[:scopes] || []).join(' '), response_type: :code)
+      href=oauth_authorization_url(client_id: @oauth_application.uid, redirect_uri: @oauth_application.redirect_uri.split.first, scope: (params[:scopes] || []).join(' '), response_type: :code)
       target='_blank'
     ] Request Authorization Code for "#{@oauth_application.name}"
 
@@ -118,7 +118,7 @@ header.head
         -F client_id="#{@oauth_application&.uid || 'CLIENT_ID'}" \
         -F client_secret="#{@oauth_application&.secret || 'CLIENT_SECRET'}" \
         -F code="#{@authorization_code || 'AUTORIZATION_CODE'}" \
-        -F redirect_uri="#{@oauth_application&.redirect_uri || 'REDIRECT_URI'}"
+        -F redirect_uri="#{@oauth_application&.redirect_uri&.split&.first || 'REDIRECT_URI'}"
 
   - if @oauth_application && @authorization_code
     .m10
@@ -128,7 +128,7 @@ header.head
         data-client_id=@oauth_application.uid
         data-client_secret=@oauth_application.secret
         data-code=@authorization_code
-        data-redirect_uri=@oauth_application.redirect_uri
+        data-redirect_uri=@oauth_application.redirect_uri.split.first
       ] Request Access Token
 
     .access-token-response

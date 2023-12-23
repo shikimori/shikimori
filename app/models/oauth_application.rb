@@ -39,9 +39,9 @@ class OauthApplication < Doorkeeper::Application
 
   def scopes= value
     if value.is_a? Array
-      super value.join ' '
+      super(value.join ' ')
     else
-      super value
+      super(value)
     end
   end
 
