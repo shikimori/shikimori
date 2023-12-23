@@ -9,7 +9,7 @@ class JsExports::ExportBase
       .singularize
 
     klass.include Singleton
-    klass.const_set 'PLACEHOLDER', /data-track_#{name}="(\d+)"/mix
+    klass.const_set :PLACEHOLDER, /data-track_#{name}="(\d+)"/mix
 
     super
   end
