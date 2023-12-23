@@ -73,9 +73,8 @@ span.misc
     span.relation = t "relation.#{anime.relation}"
 
   - elsif cover_notice == :role
-    span.misc.centered
-      span.role
-        = anime.formatted_role
+    span.role
+      = anime.formatted_role
 
   - elsif cover_notice == :latest_episode
     span.episode
