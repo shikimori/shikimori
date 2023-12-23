@@ -21,6 +21,9 @@ class Api::V1::UsersController < Api::V1Controller
   api :GET, '/users', 'List users'
   param :page, :pagination, required: false
   param :limit, :number, required: false, desc: "#{USERS_LIMIT} maximum"
+  param :search, String,
+    required: false,
+    allow_blank: true
   def index
     @limit = [[params[:limit].to_i, 1].max, USERS_LIMIT].min
 
