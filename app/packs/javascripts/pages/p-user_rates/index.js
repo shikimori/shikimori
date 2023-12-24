@@ -312,7 +312,7 @@ function applyListHandlers($root) {
               action: $currentValue.closest('tr').data('rate_url')
             })
             .parent()
-            .insertAfter($miscValue);
+            .insertAfter($miscValue.length ? $miscValue : $currentValue);
 
           applyNewValueHandlers($newValue);
         }
