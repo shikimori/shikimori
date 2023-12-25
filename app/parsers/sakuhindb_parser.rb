@@ -3,6 +3,10 @@ class SakuhindbParser
 
   CONFIG_PATH = Rails.root.join 'config/app/sakuhindb_parser.yml'
 
+  ANIME_URL = 'https://en.music.sakuhindb.com/e/created_time/anime.html'
+  ANIME_MOVIE_URL = 'https://en.music.sakuhindb.com/e/created_time/anime_movie.html'
+  SEARCH_URL_TEMPLATE = 'https://en.sakuhindb.com/anime/search.asp?todo=&key=%<search>s&lang=e'
+
   def initialize
     config = YAML.load_file CONFIG_PATH
 
@@ -51,7 +55,7 @@ private
       raise "Can't parse line: #{lines.to_json}" if anime.nil?
 
       {
-        anime: anime,
+        anime:,
         kind: normalize_kind(lines[2]),
         title: title == lines[4] ? nil : title,
         youtube: lines[4]
@@ -90,10 +94,10 @@ private
   end
 
   def fetch_raw_lines
-    content1 = open('https://en.music.sakuhindb.com/e/created_time/anime.html').read
+    content1 = fetch_content ANIME_URL
     doc1 = Nokogiri::HTML content1
 
-    content2 = open('https://en.music.sakuhindb.com/e/created_time/anime_movie.html').read
+    content2 = fetch_content ANIME_MOVIE_URL
     doc2 = Nokogiri::HTML content2
 
     doc1.css('select[name=vid] option').map { |v| v.attr 'value' } +
@@ -101,11 +105,12 @@ private
   end
 
   def alt_name name
-    content = open("https://en.sakuhindb.com/anime/search.asp?todo=&key=#{Addressable::URI.encode_component name}&lang=e").read
+    content = fetch_content(
+      format(SEARCH_URL_TEMPLATE, search: Addressable::URI.encode_component(name))
+    )
     File.write('/tmp/test.html', content)
     doc = Nokogiri::HTML content
-    link = doc.css('.va_top td a').first
-    link ? link.text : nil
+    doc.css('.va_top td a').first&.text
   end
 
   def utf_hack str
@@ -126,7 +131,7 @@ private
         if str.starts_with? '%A5'
           nil
         else
-          HTMLEntities.new.decode utf_hack(URI.decode(str))
+          HTMLEntities.new.decode utf_hack(CGI.unescape(str))
         end
       end
     else
@@ -142,5 +147,11 @@ private
       when 'movie' then 'pv'
       else raise "unknown kind: #{kind}"
     end
+  end
+
+  def fetch_content url
+    OpenURI
+      .open_uri(url, Proxy.prepaid_proxy)
+      .read
   end
 end
