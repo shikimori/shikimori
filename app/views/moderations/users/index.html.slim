@@ -12,9 +12,18 @@ header.head
             - if params[field].present?
               .misc-links
                 a.b-js-link[
-                  href=current_url(field => nil)
+                  href=current_url(field => nil, **(field == :created_on ? { created_on_condition: nil }: {}))
                 ] clear
-          .b-input
+          .b-input.d-flex
+            - if field == :created_on
+              select.mr-4 name='created_on_condition'
+                option value='eq' selected=(params[:created_on_condition] == 'eq')
+                  | =
+                option value='gte' selected=(params[:created_on_condition] == 'gte')
+                  | >=
+                option value='lte' selected=(params[:created_on_condition] == 'lte')
+                  | <=
+
             input[
               class=('date-filter' if %i[created_on].include?(field))
               type="text"

@@ -7,7 +7,7 @@ class Moderations::UsersController < ModerationsController
 
     scope = Users::Query.fetch
       .search(params[:phrase])
-      .created_on(params[:created_on])
+      .created_on(params[:created_on], params[:created_on_condition])
       .email(params[:email])
 
     if can? :manage, Ban
