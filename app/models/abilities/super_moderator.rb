@@ -6,7 +6,7 @@ class Abilities::SuperModerator
     roles_abilities
 
     can :manage, Ban
-    can :access_list, User
+    can %i[access_list mass_ban], User
     can :reset_email, User do |user|
       !user.staff?
     end

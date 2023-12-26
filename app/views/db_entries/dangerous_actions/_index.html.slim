@@ -1,5 +1,5 @@
 - if can?(:merge, resource) || can?(:destroy, resource)
-  .dangerous-actions
+  .b-dangerous-actions
     = spoiler t('.dangerous_actions') + ' (супер модератор)' do
       .to-process data-dynamic='tabs'
         .block

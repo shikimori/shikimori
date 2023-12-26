@@ -1,0 +1,16 @@
+@import mixins/responsive
+
+.b-dangerous-actions
+  .collapsed
+    background-color: lighten(#fedddf, 2%)
+    border-color: darken(#fedddf, 1%)
+    color: #fc575e
+
+    +gte_laptop
+      &:hover
+        background-color: #fedddf
+        border-color: darken(#fec2c5, 2%)
+
+    &:active
+      background-color: darken(#fedddf, 2%)
+      border-color: darken(#fec2c5, 3%)

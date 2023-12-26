@@ -21,7 +21,7 @@ class Abilities::Admin
     ], User
 
     can :manage, User
-    can :access_list, User
+    can %i[access_list mass_ban], User
     cannot :reset_email, User, &:staff?
 
     can :manage, ListImport

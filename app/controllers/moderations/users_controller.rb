@@ -1,10 +1,22 @@
 class Moderations::UsersController < ModerationsController
   PER_PAGE = 44
+  MAX_BAN_USERS_LIMIT = 200
 
-  def index # rubocop:disable AbcSize
+  def index
     og noindex: true, nofollow: true
     og page_title: i18n_t('page_title')
 
+    if params[:mass_ban]
+      users_scope.update_all read_only_at: 10.years.from_now
+      return redirect_to current_url(mass_ban: nil)
+    end
+
+    @collection = users_scope.paginate(@page, PER_PAGE)
+  end
+
+private
+
+  def users_scope # rubocop:disable Metrics/AbcSize
     scope = Users::Query.fetch
       .search(params[:phrase])
       .created_on(params[:created_on], params[:created_on_condition])
@@ -17,6 +29,6 @@ class Moderations::UsersController < ModerationsController
         .last_sign_in_ip(params[:last_sign_in_ip])
     end
 
-    @collection = scope.paginate(@page, PER_PAGE)
+    scope
   end
 end

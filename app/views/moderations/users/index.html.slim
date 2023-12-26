@@ -60,3 +60,14 @@ header.head
         filter: 'b-user',
         next_url: current_url(page: @collection.next_page),
         prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)
+
+- if can? :mass_ban, User
+  .b-dangerous-actions
+    = spoiler t('db_entries.dangerous_actions.index.dangerous_actions') do
+      - if @collection.size > controller::class::MAX_BAN_USERS_LIMIT
+        .subheadline.red Массовый бан можно выдавать только выборкам размером < #{controller::class::MAX_BAN_USERS_LIMIT} пользователей
+      - else
+        a.b-link_button.light-red[
+          href=current_url(mass_ban: 1)
+          data-confirm=t('actions.confirm_simple')
+        ] Выдать бан на 10 лет #{@collection.size} #{i18n_i 'user', @collection.size, :dative} выборки

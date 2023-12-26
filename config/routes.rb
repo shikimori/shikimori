@@ -142,7 +142,9 @@ Rails.application.routes.draw do
   resources :spnsrs, only: %i[show]
 
   namespace :moderations do
-    resources :users, only: %i[index]
+    resources :users, only: %i[index] do
+      post '/' => :index, on: :collection
+    end
     resources :roles, only: %i[index show update destroy] do
       get :search, on: :member
       get :versions, on: :member

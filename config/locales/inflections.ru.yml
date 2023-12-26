@@ -534,6 +534,10 @@ ru:
           few: пользователя
           many: пользователей
           other: пользователи
+        dative:
+          one: пользователю
+          few: пользователям
+          many: пользователям
       subtitle:
         subjective:
           one: субтитр
