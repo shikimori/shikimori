@@ -42,6 +42,7 @@ header.head
       type="text"
       placeholder=t('search.name')
       value=params[:phrase]
+      class=('has-value' if params[:phrase].present?)
     ]
     .clear
 
@@ -65,7 +66,10 @@ header.head
 - if can? :mass_ban, User
   .b-dangerous-actions
     = spoiler t('db_entries.dangerous_actions.index.dangerous_actions') do
-      a.b-link_button.light-red[
-        href=current_url(mass_ban: 1)
-        data-confirm=t('actions.confirm_simple')
-      ] Выдать бан на 10 лет #{@collection.size} #{i18n_i 'user', @collection.size, :dative} выборки
+      .d-flex
+        p.b-nothing_here.text-red.mr-5
+          b Перезагрузи страницу, если использовал поиск по никнейму!
+        a.b-link_button.light-red[
+          href=current_url(mass_ban: 1)
+          data-confirm=t('actions.confirm_simple')
+        ] Выдать бан на 10 лет #{@collection.size} #{i18n_i 'user', @collection.size, :dative} выборки
