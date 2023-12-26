@@ -8,7 +8,7 @@ class Moderations::UsersController < ModerationsController
   MASS_REGISTRATION_INTERVAL = 1.month
   MASS_REGISTRATION_THRESHOLD = 5
 
-  def index # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def index # rubocop:disable Metrics/AbcSize
     og noindex: true, nofollow: true
     og page_title: i18n_t('page_title')
 
@@ -16,13 +16,13 @@ class Moderations::UsersController < ModerationsController
       authorize! :mass_ban, User
 
       if users_scope.size >= MAX_BAN_USERS_LIMIT
-        return redirect_to current_url(mass_ban: nil),
-          alert: MASS_BAN_ERROR_ALERT
+        return redirect_to current_url(mass_ban: nil), alert: MASS_BAN_ERROR_ALERT
       end
-      users_scope.update_all read_only_at: 10.years.from_now
+
       NamedLogger.mass_ban.info(
         "User=#{current_user.id} IDS=#{users_scope.pluck(:id).join(',')}"
       )
+      users_scope.update_all read_only_at: 10.years.from_now
       return redirect_to current_url(mass_ban: nil), notice: MASS_BAN_NOTICE
     end
 
