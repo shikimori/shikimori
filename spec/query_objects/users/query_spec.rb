@@ -7,22 +7,26 @@ describe Users::Query do
 
   let!(:user_1) do
     create :user,
+      nickname: 'user_1',
       current_sign_in_at: 10.days.ago,
       current_sign_in_ip: '127.0.0.1'
   end
   let!(:user_2) do
     create :user,
+      nickname: 'user_2',
       current_sign_in_at: 20.days.ago,
       last_sign_in_ip: '127.0.0.1',
       created_at: 2.days.ago
   end
   let!(:user_3) do
     create :user,
+      nickname: 'user_3',
       current_sign_in_at: 70.days.ago,
       created_at: 3.days.ago.beginning_of_day
   end
   let!(:user_4) do
     create :user,
+      nickname: 'user_4',
       current_sign_in_at: 50.days.ago,
       created_at: 3.days.ago.end_of_day
   end
@@ -41,7 +45,7 @@ describe Users::Query do
     context 'present search phrase' do
       before do
         allow(Elasticsearch::Query::User).to receive(:call).with(
-          phrase: phrase,
+          phrase:,
           limit: Collections::Query::SEARCH_LIMIT
         ).and_return(
           user_3.id => 1.23,
@@ -124,16 +128,33 @@ describe Users::Query do
   end
 
   describe '#created_on' do
-    subject { query.created_on date }
+    subject { query.created_on date, condition }
 
-    context 'present date' do
+    context 'no date' do
+      let(:date) { ['', nil].sample }
+      let(:condition) { 'eq' }
+      it { is_expected.to eq all_users }
+    end
+
+    context 'eq' do
+      let(:condition) { 'eq' }
+
       let(:date) { 3.days.ago.to_date.to_s }
       it { is_expected.to eq [user_3, user_4] }
     end
 
-    context 'no date' do
-      let(:date) { ['', nil].sample }
-      it { is_expected.to eq all_users }
+    context 'lte' do
+      let(:condition) { 'lte' }
+
+      let(:date) { 2.days.ago.to_date.to_s }
+      it { is_expected.to eq [user_3, user_4, user_2] }
+    end
+
+    context 'gte' do
+      let(:condition) { 'gte' }
+
+      let(:date) { 2.days.ago.to_date.to_s }
+      it { is_expected.to eq [user_2, user_1] }
     end
   end
 end

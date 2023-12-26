@@ -1,6 +1,10 @@
 class Users::Query < QueryObjectBase
   SEARCH_LIMIT = 999
 
+  ConditionType = Types::Strict::Symbol
+    .constructor(&:to_sym)
+    .enum(:eq, :gte, :lte)
+
   def self.fetch
     new User.order(id: :desc)
   end
@@ -10,7 +14,7 @@ class Users::Query < QueryObjectBase
 
     chain Search::User.call(
       scope: @scope,
-      phrase: phrase,
+      phrase:,
       ids_limit: SEARCH_LIMIT
     )
   end
@@ -39,17 +43,27 @@ class Users::Query < QueryObjectBase
     chain @scope.where(last_sign_in_ip: ip)
   end
 
-  def created_on date
+  def created_on date, condition # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     return self if date.blank?
 
-    chain @scope
+    scope = @scope
       .except(:order)
-      .where(
-        'created_at >= ? and created_at <= ?',
-        Time.zone.parse(date).beginning_of_day,
-        Time.zone.parse(date).end_of_day
-      )
       .order(:created_at)
+
+    chain(
+      case ConditionType[condition]
+        when ConditionType[:eq]
+          scope.where 'created_at >= ? and created_at <= ?',
+            Time.zone.parse(date).beginning_of_day,
+            Time.zone.parse(date).end_of_day
+
+        when ConditionType[:gte]
+          scope.where 'created_at >= ?', Time.zone.parse(date).beginning_of_day
+
+        when ConditionType[:lte]
+          scope.where 'created_at <= ?', Time.zone.parse(date).end_of_day
+      end
+    )
   end
 
   def order_by_ids ids
