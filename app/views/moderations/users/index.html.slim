@@ -40,7 +40,7 @@ header.head
       p.m8
         ' Более #{controller::class::MASS_REGISTRATION_THRESHOLD} регистраций
         ' на один ip-адрес за последний месяц.
-        | Забаненные аккаунты не учитываются
+        | Уже забаненные аккаунты не учитываются.
 
       - if @mass_ips.any?
         ul.b-list.block
