@@ -3,7 +3,7 @@ header.head
   = render 'application/breadcrumbs'
 
 - if can? :manage, Ban
-  .cc-2
+  .cc-2_3
     .c-column
       form.b-form.block method='get' params=current_url
         .cc-3
@@ -36,14 +36,19 @@ header.head
 
         input.button type='submit'
     .c-column
-      .subheadline Массовые регистрации (> 5 аккаунтов на IP) за месяц
+      .subheadline Массовые регистрации
+      p.m8
+        ' Более #{controller::class::MASS_REGISTRATION_THRESHOLD} регистраций
+        ' на один ip-адрес за последний месяц.
+        | Забаненные аккаунты не учитываются
+
       - if @mass_ips.any?
-        ul.b-list
+        ul.b-list.block
           - @mass_ips.each do |ip|
             li
               a href=moderations_users_url(current_sign_in_ip: ip, created_on: controller.class::MASS_REGISTRATION_INTERVAL.ago.to_date, created_on_condition: Users::Query::ConditionType[:gte]) = ip 
       - else
-        .b-nothing_here Нет
+        p: b Нет регистраций
 
 .b-collection_search.block[
   data-search_url=current_url
