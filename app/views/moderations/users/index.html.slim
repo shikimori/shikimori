@@ -61,7 +61,7 @@ header.head
         filter: 'b-user',
         next_url: current_url(page: @collection.next_page),
         prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?),
-        ignore_appear: true
+        ignore_appear: @page == 1
 
 - if can? :mass_ban, User
   .b-dangerous-actions

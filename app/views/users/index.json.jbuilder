@@ -19,7 +19,8 @@ if @collection&.next_page?
       prev_url: (
         current_url(page: @collection.prev_page) if @collection.prev_page?
       ),
-      pages_limit: 10
+      pages_limit: 10,
+      ignore_appear: @page == 1
     },
     formats: :html
   )
