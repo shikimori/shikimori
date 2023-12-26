@@ -3,36 +3,47 @@ header.head
   = render 'application/breadcrumbs'
 
 - if can? :manage, Ban
-  form.b-form.block method='get' params=current_url
-    .cc-3
-      - %i[id email current_sign_in_ip last_sign_in_ip created_on].each do |field|
-        .c-column.block_m
-          .subheadline
-            = field
-            - if params[field].present?
-              .misc-links
-                a.b-js-link[
-                  href=current_url(field => nil, **(field == :created_on ? { created_on_condition: nil }: {}))
-                ] clear
-          .b-input.d-flex
-            - if field == :created_on
-              select.mr-4 name='created_on_condition'
-                option value='eq' selected=(params[:created_on_condition] == 'eq' || params[:created_on_condition].blank?)
-                  | =
-                option value='gte' selected=(params[:created_on_condition] == 'gte')
-                  | >=
-                option value='lte' selected=(params[:created_on_condition] == 'lte')
-                  | <=
+  .cc-2
+    .c-column
+      form.b-form.block method='get' params=current_url
+        .cc-3
+          - %i[id email created_on current_sign_in_ip last_sign_in_ip].each do |field|
+            .c-column.block_m
+              .subheadline
+                = field
+                - if params[field].present?
+                  .misc-links
+                    a.b-js-link[
+                      href=current_url(field => nil, **(field == :created_on ? { created_on_condition: nil }: {}))
+                    ] clear
+              .b-input.d-flex
+                - if field == :created_on
+                  select.mr-4 name='created_on_condition'
+                    option value='eq' selected=(params[:created_on_condition] == 'eq' || params[:created_on_condition].blank?)
+                      | =
+                    option value='gte' selected=(params[:created_on_condition] == 'gte')
+                      | >=
+                    option value='lte' selected=(params[:created_on_condition] == 'lte')
+                      | <=
 
-            input[
-              class=('date-filter' if %i[created_on].include?(field))
-              type="text"
-              name=field
-              placeholder=(%i[created_on].include?(field) ? t('date_field') : field)
-              value=params[field]
-            ]
+                input[
+                  class=('date-filter' if %i[created_on].include?(field))
+                  type="text"
+                  name=field
+                  placeholder=(%i[created_on].include?(field) ? t('date_field') : field)
+                  value=params[field]
+                ]
 
-    input.button type='submit'
+        input.button type='submit'
+    .c-column
+      .subheadline Массовые регистрации (> 5 аккаунтов на IP) за месяц
+      - if @mass_ips.any?
+        ul.b-list
+          - @mass_ips.each do |ip|
+            li
+              a href=moderations_users_url(current_sign_in_ip: ip, created_on: controller.class::MASS_REGISTRATION_INTERVAL.ago.to_date, created_on_condition: Users::Query::ConditionType[:gte]) = ip 
+      - else
+        .b-nothing_here Нет
 
 .b-collection_search.block[
   data-search_url=current_url
