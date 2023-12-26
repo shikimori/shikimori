@@ -12,7 +12,7 @@ class Moderations::UsersController < ModerationsController
     if params[:mass_ban]
       authorize! :mass_ban, User
 
-      if users_scope.size > MAX_BAN_USERS_LIMIT
+      if users_scope.size >= MAX_BAN_USERS_LIMIT
         return redirect_to current_url(mass_ban: nil),
           alert: MASS_BAN_ERROR_ALERT
       end
