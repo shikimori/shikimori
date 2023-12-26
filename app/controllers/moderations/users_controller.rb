@@ -22,7 +22,9 @@ class Moderations::UsersController < ModerationsController
       NamedLogger.mass_ban.info(
         "User=#{current_user.id} IDS=#{users_scope.pluck(:id).join(',')}"
       )
-      users_scope.update_all read_only_at: 10.years.from_now
+      User
+        .where(id: users_scope.reject(&:staff?).pluck(:id))
+        .update_all(read_only_at: 10.years.from_now)
       return redirect_to current_url(mass_ban: nil), notice: MASS_BAN_NOTICE
     end
 
