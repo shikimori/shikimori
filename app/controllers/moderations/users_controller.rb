@@ -55,6 +55,7 @@ private
     Users::Query
       .fetch
       .created_on(MASS_REGISTRATION_INTERVAL.ago.to_date.to_s, Users::Query::ConditionType[:gte])
+      .where(read_only_at: nil)
       .group_by(&:current_sign_in_ip)
       .sort_by { |_ip, users| users.size }
       .map { |ip, users| [ip, users.size, users] }
