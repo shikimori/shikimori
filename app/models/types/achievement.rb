@@ -12,8 +12,6 @@ module Types
         animelist
 
         otaku
-        fujoshi
-        yuuri
 
         tsundere
         yandere
