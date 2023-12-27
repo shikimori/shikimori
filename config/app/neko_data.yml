@@ -3839,7 +3839,6 @@
         - 5918
         - 12141
         - 3599
-        - 3595
         - 1973
         - 2997
         - 496
@@ -7158,6 +7157,7 @@
         - 55647
         - 55871
         - 56015
+        - 57556
       :threshold: 95.9%
       :generator: &347
         ignore_latest_ids:
@@ -10516,6 +10516,7 @@
         ignore_latest_ids:
         - 35645
         - 48573
+        - 57622
         not_ignored_ids:
         - 36684
         - 36685
@@ -26741,6 +26742,7 @@
         - 1758
         - 1752
         - 49179
+        - 51536
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *4
   neko_id: :moe
