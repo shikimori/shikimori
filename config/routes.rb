@@ -720,6 +720,7 @@ Rails.application.routes.draw do
   get 'cosplay' => 'cosplayers#index', as: :cosplayers
   get 'cosplay/:cosplayer(/:gallery)' => 'cosplayers#show', as: :cosplayer
 
+  get '/achievements/common/yuuri' => 'pages#page404'
   resources :achievements, only: [] do
     get '' => :index, as: '', on: :collection
     get '/:group' => :group, as: 'group', on: :collection
