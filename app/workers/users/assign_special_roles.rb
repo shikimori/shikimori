@@ -43,7 +43,7 @@ private
     "#{klass.name}GenresV2Repository"
       .constantize
       .instance
-      .select(&:probably_banned?)
+      .select(&:ai?)
   end
 
   def user_rates klass

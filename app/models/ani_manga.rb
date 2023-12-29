@@ -66,8 +66,8 @@ module AniManga
     genres.any?(&:banned?)
   end
 
-  def probably_banned?
-    genres.any?(&:probably_banned?)
+  def ai?
+    genres.any?(&:ai?)
   end
 
 private

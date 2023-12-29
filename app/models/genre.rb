@@ -17,9 +17,9 @@ class Genre < ApplicationRecord
   SHOUJO_AI_IDS = [26, 73]
 
   BANNED_IDS = YAOI_IDS + YURI_IDS
-  PROBABLY_BANNED_IDS = SHOUJO_AI_IDS + SHOUNEN_AI_IDS
+  AI_IDS = SHOUJO_AI_IDS + SHOUNEN_AI_IDS
 
-  CENSORED_IDS = EROTICA_IDS + HENTAI_IDS + BANNED_IDS + PROBABLY_BANNED_IDS
+  CENSORED_IDS = EROTICA_IDS + HENTAI_IDS + BANNED_IDS + AI_IDS
 
   MAIN_GENRES = [
     'Seinen',
@@ -85,7 +85,7 @@ class Genre < ApplicationRecord
     id.in? BANNED_IDS
   end
 
-  def probably_banned?
-    id.in? PROBABLY_BANNED_IDS
+  def ai?
+    id.in? AI_IDS
   end
 end

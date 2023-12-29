@@ -32,7 +32,7 @@ describe DbEntry::CensoredPolicy do
   end
 
   context 'probably_banned genre' do
-    let(:genre_id) { Genre::PROBABLY_BANNED_IDS.sample }
+    let(:genre_id) { Genre::AI_IDS.sample }
     it { is_expected.to eq true }
   end
 end
