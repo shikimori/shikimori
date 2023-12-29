@@ -1,7 +1,11 @@
 describe Users::AssignSpecialRoles do
   let(:worker) { described_class.new }
-  before { stub_const 'Users::AssignSpecialRoles::MIN_USER_RATES_IN_LIST', 2 }
-  before { stub_const 'Users::AssignSpecialRoles::MIN_AI_TITLES_IN_LIST', 2 }
+  before do
+    stub_const 'Users::AssignSpecialRoles::MIN_USER_RATES_IN_LIST', 2
+    stub_const 'Users::AssignSpecialRoles::MIN_AI_TITLES_IN_LIST', 2
+  end
+  include_context :reset_repository, AnimeGenresV2Repository
+  include_context :reset_repository, MangaGenresV2Repository
 
   let!(:user_rate_1_1) do
     create :user_rate, user: user_1, status: :completed, target: anime_1

@@ -5,6 +5,8 @@ describe Menus::CollectionMenu do
   let(:view) { Menus::CollectionMenu.new klass }
 
   describe '#sorted_genres' do
+    include_context :reset_repository, AnimeGenresRepository
+
     let!(:genre_1) { create :genre, :anime, position: 1 }
     let!(:genre_2) { create :genre, :anime, position: 2 }
     let!(:genre_3) { create :genre, :manga, position: 3 }
