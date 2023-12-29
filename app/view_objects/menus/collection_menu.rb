@@ -29,6 +29,8 @@ class Menus::CollectionMenu < ViewObjectBase
 
     if h.current_user&.staff?
       collection
+    elsif h.current_user&.ai_genres?
+      collection.reject(&:banned?)
     else
       collection.reject { |genre| genre.banned? || genre.probably_banned? }
     end
