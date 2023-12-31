@@ -221,6 +221,7 @@
         - 1030
         - 1029
         - 1047
+        - 20441
       :generator: &13
         person_id: 1870
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -20302,6 +20303,7 @@
         not_anime_ids:
         - 3915
         - 4154
+        - 4578
         - 5344
         - 5475
         - 6889
@@ -20310,11 +20312,10 @@
         - 8921
         - 29739
         - 39707
-      :threshold: 90.2%
+      :threshold: 91.2%
       :generator: &1048
         not_ignored_ids:
         - 3008
-        - 4578
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :time_bokan
@@ -24141,6 +24142,7 @@
         - 42206
         - 38234
         - 50410
+        - 54041
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *4
   neko_id: :genki
