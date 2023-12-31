@@ -17,8 +17,8 @@ private
 
   def topic_attributes
     super.merge(
-      action: action,
-      value: value
+      action:,
+      value:
     )
   end
 

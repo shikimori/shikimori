@@ -2,7 +2,7 @@ class Users::MarkForeverBannedAsCheatBots
   include Sidekiq::Worker
 
   FOREVER_BAN_INTERVAL = 2.years
-  ACTIVE_INTERVAL = 6.months
+  ACTIVE_INTERVAL = 1.month
 
   def perform
     User
