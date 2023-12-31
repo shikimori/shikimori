@@ -2,7 +2,8 @@ class Abilities::ForumModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 
-  MAXIMUM_COMMENTS_TO_DELETE = 250
+  MAXIMUM_COMMENTS_TO_DELETE = 500
+  MAXIMUM_COMMENTS_TO_DELETE_FOR_FOREVER_BANNED = 2000
   MAXIMUM_SUMMARIES_TO_DELETE = 25
   MAXIMUM_REVIEWS_TO_DELETE = 15
   MAXIMUM_TOPIC_COMMENTS_TO_DELETE = 1_000
@@ -47,7 +48,11 @@ class Abilities::ForumModerator
     ], User
 
     can :delete_all_comments, User do |model|
-      Comment.where(user_id: model.id).count < MAXIMUM_COMMENTS_TO_DELETE
+      comments_count = Comment.where(user_id: model.id).count
+
+      comments_count < MAXIMUM_COMMENTS_TO_DELETE || (
+        model.forever_banned? && comments_count < MAXIMUM_COMMENTS_TO_DELETE_FOR_FOREVER_BANNED
+      )
     end
     can :delete_all_summaries, User do |model|
       Comment.where(user_id: model.id).count < MAXIMUM_SUMMARIES_TO_DELETE
