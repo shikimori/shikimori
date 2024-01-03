@@ -1,6 +1,6 @@
 class Moderations::UsersController < ModerationsController
   PER_PAGE = 44
-  MAX_BAN_USERS_LIMIT = 200
+  MAX_BAN_USERS_LIMIT = 400
   MASS_BAN_ERROR_ALERT =
     "Массовый бан можно выдавать только выборкам размером < #{MAX_BAN_USERS_LIMIT} пользователей"
   MASS_BAN_NOTICE = 'Пользователи забанены на 10 лет. Запись о банах внесена в логи.'
