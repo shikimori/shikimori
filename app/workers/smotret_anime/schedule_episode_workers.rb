@@ -7,9 +7,9 @@ class SmotretAnime::ScheduleEpisodeWorkers
     .enum(:a, :b, :c)
 
   GROUP_SQL = {
-    Group[:a] => 'score > 7',
-    Group[:b] => 'score <= 7 and score > 6',
-    Group[:c] => 'score <= 6'
+    Group[:a] => 'score_2 > 7',
+    Group[:b] => 'score_2 <= 7 and score_2 > 6',
+    Group[:c] => 'score_2 <= 6'
   }
 
   def perform group

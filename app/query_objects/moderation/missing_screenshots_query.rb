@@ -17,7 +17,7 @@ class Moderation::MissingScreenshotsQuery
         on user_rates.target_id = animes.id
           and user_rates.target_type = 'Anime'
       where
-        animes.score > 6.5
+        animes.score_2 > 6.5
         and animes.rating != 'g'
         and animes.rating != 'rx'
         and (

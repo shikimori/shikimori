@@ -120,6 +120,10 @@ class Api::V1::MangasController < Api::V1Controller # rubocop:disable ClassLengt
     required: false,
     allow_blank: true,
     desc: 'Minimal manga score'
+  param :score_2, :number,
+    required: false,
+    allow_blank: true,
+    desc: 'Minimal Shiki manga score'
   param :genre, :undef,
     required: false,
     allow_blank: true,

@@ -1,5 +1,5 @@
 class AnimeSerializer < ActiveModel::Serializer
-  attributes :id, :name, :russian, :image, :url, :kind, :score,
+  attributes :id, :name, :russian, :image, :url, :kind, :score, :score_2,
     :status, :episodes, :episodes_aired, :aired_on, :released_on
 
   def aired_on

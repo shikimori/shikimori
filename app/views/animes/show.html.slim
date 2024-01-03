@@ -81,16 +81,16 @@
                 itemprop='aggregateRating'
                 itemtype='http://schema.org/AggregateRating'
               ]
-                .subheadline.m5 = Anime.human_attribute_name(:score)
+                .subheadline.m5 = Anime.human_attribute_name(:score_2)
                 .scores
                   meta itemprop='bestRating' content='10'
-                  meta itemprop='ratingValue' content=@resource.score
+                  meta itemprop='ratingValue' content=@resource.score_2
                   - if @resource.cached_rates_count > 0
                     meta[
                       itemprop='ratingCount'
                       content=@resource.cached_rates_count
                     ]
-                  = render 'blocks/rate', score: @resource.score
+                  = render 'blocks/rate', score: @resource.score_2
 
             - if @resource.anime? && @resource.contest_winners.any?
               = render 'db_entries/contest_winners',
