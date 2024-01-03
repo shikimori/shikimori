@@ -2,7 +2,7 @@ class PaginatedCollection < SimpleDelegator
   attr_reader :page, :limit
 
   def initialize collection, page, limit
-    super collection
+    super(collection)
     @page = page
     @limit = limit
   end

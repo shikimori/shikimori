@@ -8,7 +8,7 @@ class Moderations::UsersController < ModerationsController
   MASS_REGISTRATION_INTERVAL = 1.month
   MASS_REGISTRATION_THRESHOLD = 5
 
-  def index # rubocop:disable Metrics/AbcSize
+  def index # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     og noindex: true, nofollow: true
     og page_title: i18n_t('page_title')
 
