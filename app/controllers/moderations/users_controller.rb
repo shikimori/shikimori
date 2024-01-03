@@ -29,6 +29,7 @@ class Moderations::UsersController < ModerationsController
     end
 
     @collection = users_scope.paginate(@page, PER_PAGE)
+    @collection_size = @collection.except(:limit, :offset).size
     @mass_ips = fetch_mass_ips
   end
 
