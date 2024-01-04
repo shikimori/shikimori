@@ -57,7 +57,7 @@ class Manga < DbEntry
   has_many :people, through: :person_roles
 
   has_many :rates, -> { where target_type: Manga.name },
-    class_name: UserRate.name,
+    class_name: 'UserRate',
     foreign_key: :target_id,
     dependent: :destroy
   has_many :user_rate_logs, -> { where target_type: Manga.name },
@@ -65,7 +65,7 @@ class Manga < DbEntry
     dependent: :destroy
 
   has_many :related,
-    class_name: RelatedManga.name,
+    class_name: 'RelatedManga',
     foreign_key: :source_id,
     dependent: :destroy
   has_many :related_animes, -> { where.not related_mangas: { anime_id: nil } },
@@ -76,7 +76,7 @@ class Manga < DbEntry
     source: :manga
 
   has_many :similar, -> { order :id },
-    class_name: SimilarManga.name,
+    class_name: 'SimilarManga',
     foreign_key: :src_id,
     dependent: :destroy
   has_many :similar_mangas,
@@ -124,22 +124,22 @@ class Manga < DbEntry
   before_post_process { translit_paperclip_file_name :image }
 
   has_many :external_links, -> { where(source: :shikimori).order(:id) },
-    class_name: ExternalLink.name,
+    class_name: 'ExternalLink',
     as: :entry,
     inverse_of: :entry
   has_many :all_external_links, -> { order :id },
-    class_name: ExternalLink.name,
+    class_name: 'ExternalLink',
     as: :entry,
     inverse_of: :entry,
     dependent: :destroy
   has_one :anidb_external_link,
     -> { where(kind: Types::ExternalLink::Kind[:anime_db]) },
-    class_name: ExternalLink.name,
+    class_name: 'ExternalLink',
     as: :entry,
     inverse_of: :entry
   has_one :readmanga_external_link,
     -> { where(kind: Types::ExternalLink::Kind[:readmanga]) },
-    class_name: ExternalLink.name,
+    class_name: 'ExternalLink',
     as: :entry,
     inverse_of: :entry
 

@@ -53,7 +53,7 @@ class Anime < DbEntry
         .map { |v| { id: v + '_fs', name: v, kind: Types::Fansubber::Kind[:fansubber] } }
       deleted = (previous_changes['fansubbers'][0] - previous_changes['fansubbers'][1])
         .select { |v| Anime.where("fansubbers && '{#{Anime.sanitize v, true}}'").none? }
-        .map { |v| { id: v + '_fs', name: v, kind: Types::Fansubber::Kind[:fansubber], _destroyed: true } }
+        .map { |v| { id: v + '_fs', name: v, kind: Types::Fansubber::Kind[:fansubber], _destroyed: true } } # rubocop:disable Layout/LineLength
 
       items += added + deleted
     end
@@ -63,7 +63,7 @@ class Anime < DbEntry
         .map { |v| { id: v + '_fd', name: v, kind: Types::Fansubber::Kind[:fandubber] } }
       deleted = (previous_changes['fandubbers'][0] - previous_changes['fandubbers'][1])
         .select { |v| Anime.where("fandubbers && '{#{Anime.sanitize v, true}}'").none? }
-        .map { |v| { id: v + '_fd', name: v, kind: Types::Fansubber::Kind[:fandubber], _destroyed: true } }
+        .map { |v| { id: v + '_fd', name: v, kind: Types::Fansubber::Kind[:fandubber], _destroyed: true } } # rubocop:disable Layout/LineLength
 
       items += added + deleted
     end
@@ -81,7 +81,7 @@ class Anime < DbEntry
 
   has_many :rates,
     -> { where target_type: Anime.name },
-    class_name: UserRate.name,
+    class_name: 'UserRate',
     foreign_key: :target_id,
     dependent: :destroy
   has_many :user_rate_logs, -> { where target_type: Anime.name },
@@ -94,26 +94,26 @@ class Anime < DbEntry
 
   has_many :anons_news_topics,
     -> { where(action: AnimeHistoryAction::Anons).order(created_at: :desc) },
-    class_name: Topics::NewsTopic.name,
+    class_name: 'Topics::NewsTopic',
     as: :linked
 
   has_many :episode_news_topics,
     -> { where(action: AnimeHistoryAction::Episode).order(created_at: :desc) },
-    class_name: Topics::NewsTopic.name,
+    class_name: 'Topics::NewsTopic',
     as: :linked
 
   has_many :ongoing_news_topics,
     -> { where(action: AnimeHistoryAction::Ongoing).order(created_at: :desc) },
-    class_name: Topics::NewsTopic.name,
+    class_name: 'Topics::NewsTopic',
     as: :linked
 
   has_many :released_news_topics,
     -> { where(action: AnimeHistoryAction::Released).order(created_at: :desc) },
-    class_name: Topics::NewsTopic.name,
+    class_name: 'Topics::NewsTopic',
     as: :linked
 
   has_many :related,
-    class_name: RelatedAnime.name,
+    class_name: 'RelatedAnime',
     foreign_key: :source_id,
     dependent: :destroy
   has_many :related_animes, -> { where.not related_animes: { anime_id: nil } },
@@ -124,7 +124,7 @@ class Anime < DbEntry
     source: :manga
 
   has_many :similar, -> { order :id },
-    class_name: SimilarAnime.name,
+    class_name: 'SimilarAnime',
     foreign_key: :src_id,
     dependent: :destroy
   has_many :similar_animes,
@@ -142,11 +142,15 @@ class Anime < DbEntry
 
   has_many :screenshots, -> { where(status: nil).order(:position, :id) },
     inverse_of: :anime
-  has_many :all_screenshots, class_name: Screenshot.name, dependent: :destroy
+  has_many :all_screenshots,
+    class_name: 'Screenshot',
+    dependent: :destroy
 
   has_many :videos, -> { where(state: 'confirmed') },
     inverse_of: :anime
-  has_many :all_videos, class_name: Video.name, dependent: :destroy
+  has_many :all_videos,
+    class_name: 'Video',
+    dependent: :destroy
 
   has_many :recommendation_ignores, -> { where target_type: Anime.name },
     foreign_key: :target_id,
@@ -164,25 +168,27 @@ class Anime < DbEntry
     foreign_key: :target_id,
     dependent: :destroy
 
-  has_many :links, class_name: AnimeLink.name, dependent: :destroy
+  has_many :links,
+    class_name: 'AnimeLink',
+    dependent: :destroy
 
   has_many :external_links, -> { where(source: :shikimori).order(:id) },
-    class_name: ExternalLink.name,
+    class_name: 'ExternalLink',
     as: :entry,
     inverse_of: :entry
   has_many :all_external_links, -> { order :id },
-    class_name: ExternalLink.name,
+    class_name: 'ExternalLink',
     as: :entry,
     inverse_of: :entry,
     dependent: :destroy
   has_one :anidb_external_link,
     -> { where kind: Types::ExternalLink::Kind[:anime_db] },
-    class_name: ExternalLink.name,
+    class_name: 'ExternalLink',
     as: :entry,
     inverse_of: :entry
   has_one :smotret_anime_external_link,
     -> { where kind: Types::ExternalLink::Kind[:smotret_anime] },
-    class_name: ExternalLink.name,
+    class_name: 'ExternalLink',
     as: :entry,
     inverse_of: :entry
 
