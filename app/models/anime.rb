@@ -13,9 +13,6 @@ class Anime < DbEntry
     name japanese synonyms kind episodes rating aired_on released_on status
     genre_ids duration description_en image poster external_links is_censored
   ]
-  EXCLUDED_ONGOINGS = %w[
-    18941 1960 2406 4459 1199 32353 6149 966 8687 8336 10506
-  ]
 
   FORBIDDEN_ADULT_IDS = [
     # banned by roskomnadzor

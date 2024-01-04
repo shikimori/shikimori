@@ -45,8 +45,8 @@ describe Animes::OngoingsQuery do
       end
     end
 
-    context 'Anime::EXCLUDED_ONGOINGS filter' do
-      let!(:ongoing_1) { create :anime, :ongoing, id: Anime::EXCLUDED_ONGOINGS.first }
+    context 'Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS filter' do
+      let!(:ongoing_1) { create :anime, :ongoing, id: Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS.first }
       let!(:ongoing_2) { create :anime, :ongoing }
 
       it { expect(result).to eq [ongoing_2] }

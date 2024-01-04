@@ -196,7 +196,7 @@ class TorrentsParser
     (ongoings + anons + released).select do |anime|
       !anime.kind_special? &&
         anime.options.exclude?(Types::Anime::Options[:disabled_torrents_sync])
-        # && !Anime::EXCLUDED_ONGOINGS.include?(v.id)
+        # && !Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS.include?(v.id)
     end
   end
 

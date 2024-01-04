@@ -9,8 +9,6 @@ class Manga < DbEntry
   include ContestsConcern
   include FavouritesConcern
 
-  EXCLUDED_ONGOINGS = [-1]
-
   DESYNCABLE = %w[
     name japanese synonyms kind volumes chapters aired_on released_on status
     genre_ids description_en image poster external_links is_censored

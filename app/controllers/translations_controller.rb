@@ -120,27 +120,27 @@ private
 
     groups['Top 100 TV'] = Anime
       .where(id: Anime.where(kind: :tv).where.not(ranked: 0).order(:ranked).limit(100). pluck(:id))
-      .where.not(id: Anime::EXCLUDED_ONGOINGS)
+      .where.not(id: Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS)
       .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .order(:ranked)
 
     groups['Top 50 OVA'] = Anime
       .where(id: Anime.where.not(kind: [:tv, :movie]).where.not(ranked: 0).order(:ranked).limit(50).pluck(:id))
-      .where.not(id: Anime::EXCLUDED_ONGOINGS)
+      .where.not(id: Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS)
       .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where.not(id: added_ids(groups))
       .order(:ranked)
 
     groups['Top 50 Movies'] = Anime
       .where(id: Anime.where(kind: :movie).where.not(ranked: 0).order(:ranked).limit(50).pluck(:id))
-      .where.not(id: Anime::EXCLUDED_ONGOINGS)
+      .where.not(id: Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS)
       .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where.not(id: added_ids(groups))
       .order(:ranked)
 
     groups['Избранное модераторами'] = @club
       .animes
-      .where.not(id: Anime::EXCLUDED_ONGOINGS)
+      .where.not(id: Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS)
       .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where.not(id: added_ids(groups))
       .order(:ranked)
@@ -165,7 +165,7 @@ private
 
     groups['Miyazaki Hayao'] = Person.find(1870)
       .animes
-      .where('animes.id not in (?)', Anime::EXCLUDED_ONGOINGS)
+      .where('animes.id not in (?)', Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS)
       .where('animes.id not in (?)', TRANSLATE_ANIME_IGNORE_IDS)
       .where('animes.kind != ?', 'music')
       .where(is_censored: false)
@@ -215,7 +215,7 @@ private
 
     groups['Фильмы этого года'] = Animes::Query.new(Anime.all)
       .by_season(DateTime.now.year.to_s)
-      .where.not(id: Anime::EXCLUDED_ONGOINGS)
+      .where.not(id: Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS)
       .where.not(id: added_ids(groups))
       .where('score >= 7.5 or status = ?', :anons)
       .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
@@ -226,14 +226,14 @@ private
 
     groups['Сериалы'] = Anime
       .where(id: ANIME_TV_SERIES_IDS)
-      .where.not(id: Anime::EXCLUDED_ONGOINGS)
+      .where.not(id: Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS)
       .where.not(id: added_ids(groups))
       .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .order(:ranked)
 
     groups['Сиквелы'] = Anime
       .where(id: [477,861,793,16,71,73,3667,5355,6213,4654,1519,889,2159,5342])
-      .where.not(id: Anime::EXCLUDED_ONGOINGS)
+      .where.not(id: Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS)
       .where.not(id: added_ids(groups))
       .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where(is_censored: false)
@@ -301,7 +301,7 @@ private
 
     groups['Подборка 1'] = Anime
       .where(id: ANIME_FEATURED_IDS)
-      .where.not(id: Anime::EXCLUDED_ONGOINGS)
+      .where.not(id: Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS)
       .where.not(id: added_ids(groups))
       .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where(is_censored: false)
@@ -338,7 +338,7 @@ private
     @klass
       .where("kind = 'tv' or (kind = 'ona' and score >= 7.0) or (kind = 'ova' and score >= 7.5) or kind = 'movie'")
       .where("score = 0 or score > 6.2")
-      .where.not(id: Anime::EXCLUDED_ONGOINGS)
+      .where.not(id: Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS)
       .where.not(rating: :g)
       .where.not("genre_ids && '{15}'")
       .where.not("name like 'Duel Masters%'")

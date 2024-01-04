@@ -73,7 +73,7 @@ private
       .references(:anime_calendars)
       .where(status: :ongoing)
       .where(kind: %i[tv ona])
-      .where.not(id: Anime::EXCLUDED_ONGOINGS + [15_547])
+      .where.not(id: Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS + [15_547])
       .where(Arel.sql(ONGOINGS_SQL))
       .where(
         'episodes_aired != 0 or (aired_on_computed is not null and aired_on_computed > ?)',
@@ -88,7 +88,7 @@ private
       .references(:anime_calendars)
       .where(status: :anons)
       .where(kind: %i[tv ona])
-      .where.not(id: Anime::EXCLUDED_ONGOINGS)
+      .where.not(id: Animes::OngoingsQuery::EXCLUDED_ONGOING_IDS)
       .where(
         "(
           anime_calendars.start_at is not null and
