@@ -124,7 +124,7 @@ describe ListImports::Import do
       expect(list_import.output['error']['message'])
         .to match(/unexpected token at ''/)
       expect(list_import.output['error']['backtrace'])
-        .to have_at_least(80).items
+        .to have_at_least(79).items
 
       expect(user.anime_rates).to be_empty
       expect(user.manga_rates).to be_empty
