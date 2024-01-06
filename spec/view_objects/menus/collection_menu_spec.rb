@@ -18,7 +18,7 @@ describe Menus::CollectionMenu do
     context 'anime' do
       it do
         expect(view.kinds.first).to be_kind_of Titles::KindTitle
-        expect(view.kinds.map(&:text)).to eq %w[tv movie ova ona special music]
+        expect(view.kinds.map(&:text)).to eq %w[tv movie ova ona special tv_special music pv cm]
       end
     end
 
