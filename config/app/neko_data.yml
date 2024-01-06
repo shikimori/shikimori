@@ -12270,7 +12270,8 @@
         - 53517
         - 53976
         - 55134
-      :threshold: 92.6%
+        - 57441
+      :threshold: 92.9%
       :generator: &623
         ignore_latest_ids:
         - 38770
@@ -25770,6 +25771,8 @@
         - 57360
         - 15479
         - 57390
+        - 51716
+        - 52985
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *4
   neko_id: :mahou_shoujo
