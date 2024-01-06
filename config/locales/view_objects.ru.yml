@@ -110,23 +110,24 @@ ru:
 
     kind:
       anime:
-        long:
+        long: &anime_long
           movie: Полнометражные аниме
           music: Аниме клипы
           ona: ONA
           ova/ona: OVA/ONA
           ova: OVA
-          special: Спешлы
+          special: Аниме спецвыпуски
           tv: Аниме сериалы
           tv_13: Короткие аниме сериалы
           tv_24: Средние аниме сериалы
           tv_48: Длинные аниме сериалы
+          tv_special: Аниме TV спецвыпуски
+          pv: Аниме проморолики
+          cm: Аниме реклама
         short:
+          <<: *anime_long
           movie: Фильмы
           music: Клипы
-          ona: ONA
-          ova/ona: OVA/ONA
-          ova: OVA
           special: Спешлы
           tv: Сериалы
           tv_13: Короткие сериалы

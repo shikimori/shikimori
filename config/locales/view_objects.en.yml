@@ -121,10 +121,11 @@ en:
           tv_13: Short TV Series
           tv_24: Average TV Series
           tv_48: Long TV Series
+          tv_special: TV Specials
+          pv: Promotional Videos
+          cm: Commercial Messages
         short:
           <<: *anime_long
-
-
 
 
 

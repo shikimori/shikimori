@@ -7,7 +7,7 @@ class Animes::Filters::ByKind < Animes::Filters::FilterBase
     .enum(*KINDS_EXTENDED)
 
   SQL_QUERIES = {
-    KindExtended[:tv_13] => (
+    KindExtended[:tv_13] => ( # rubocop:disable Style/RedundantParentheses
       <<~SQL.squish
         (
           %<table_name>s.kind = 'tv' and (
@@ -17,7 +17,7 @@ class Animes::Filters::ByKind < Animes::Filters::FilterBase
         )
       SQL
     ),
-    KindExtended[:tv_24] => (
+    KindExtended[:tv_24] => ( # rubocop:disable Style/RedundantParentheses
       <<~SQL.squish
         (
           %<table_name>s.kind = 'tv' and (
@@ -29,15 +29,16 @@ class Animes::Filters::ByKind < Animes::Filters::FilterBase
         )
       SQL
     ),
-    KindExtended[:tv_48] => <<~SQL.squish
-      (
-        %<table_name>s.kind = 'tv' and (
-          (%<table_name>s.episodes != 0 and %<table_name>s.episodes >= 29) or
-          (%<table_name>s.episodes = 0 and %<table_name>s.episodes_aired >= 29)
+    KindExtended[:tv_48] => ( # rubocop:disable Style/RedundantParentheses
+      <<~SQL.squish
+        (
+          %<table_name>s.kind = 'tv' and (
+            (%<table_name>s.episodes != 0 and %<table_name>s.episodes >= 29) or
+            (%<table_name>s.episodes = 0 and %<table_name>s.episodes_aired >= 29)
+          )
         )
-      )
-    SQL
-
+      SQL
+    )
   }
 
   field :kind
@@ -83,9 +84,10 @@ private
 
   def build_simple_queries terms_by_kind
     includes = terms_by_kind[:simple].reject do |term|
-      term.is_negative ||
+      term.is_negative || (
         term.value == KindExtended[:tv] &&
           terms_by_kind[:complex].any? { |q| EXTENDED.include? q.value }
+      )
     end
     excludes = terms_by_kind[:simple].select(&:is_negative)
 
@@ -101,7 +103,7 @@ private
     terms_by_kind[:complex].each do |term|
       key = term.is_negative ? :excludes : :includes
       complex_queries[key].push(
-        format(SQL_QUERIES[term.value], table_name: table_name)
+        format(SQL_QUERIES[term.value], table_name:)
       )
     end
 

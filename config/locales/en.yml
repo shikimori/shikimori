@@ -8,6 +8,7 @@ en:
       club_page: Club page
       collection: Collection
       comment: Comment
+      message: Message
       contest: Contest
       forum: Forum
       genre: Genre
@@ -472,20 +473,23 @@ en:
         anons: Planned
         ongoing: Airing
         released: Released
-      kind:
+      kind: &anime_kind
         tv: TV Series
         movie: Movie
         music: Music
         ona: ONA
         ova: OVA
         special: Special
+        tv_special: TV Special
+        pv: PV
+        cm: CM
         short:
-          movie: Movie
-          music: Music
-          ona: ONA
-          ova: OVA
-          special: Special
-          tv: TV Series
+          <<: *anime_kind
+
+
+
+
+
       rating:
         g: G
         pg: PG

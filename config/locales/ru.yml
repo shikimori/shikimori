@@ -473,20 +473,23 @@ ru:
         anons: Анонс
         ongoing: Онгоинг
         released: Вышло
-      kind:
+      kind: &anime_kind
         tv: TV Сериал
         movie: Фильм
         music: Клип
         ona: ONA
         ova: OVA
-        special: Спешл
+        special: Спецвыпуск
+        tv_special: TV Спецвыпуск
+        pv: Проморолик
+        cm: Реклама
         short:
-          movie: Фильм
-          music: Клип
-          ona: ONA
-          ova: OVA
+          <<: *anime_kind
           special: Спешл
           tv: Сериал
+          tv_special: TV Спешл
+          pv: Проморолик
+          cm: Реклама
       rating:
         g: G
         pg: PG

@@ -1,6 +1,6 @@
 module Types
   module Anime
-    KINDS = %i[tv movie ova ona special music]
+    KINDS = %i[tv movie ova ona special tv_special music pv cm]
     STATUSES = %i[anons ongoing released]
 
     Kind = Types::Strict::Symbol
