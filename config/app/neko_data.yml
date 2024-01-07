@@ -4089,7 +4089,7 @@
         - 51241
         - 51618
         - 54468
-      :threshold: 90.5%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :shingeki_no_kyojin
@@ -5697,7 +5697,7 @@
       :algo: duration
       :filters: &270
         franchise: mushoku_tensei
-      :threshold: 94.4%
+      :threshold: 97.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :mushoku_tensei
@@ -5815,7 +5815,7 @@
         - 43349
         - 43555
         - 55216
-      :threshold: 96.1%
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :dr_stone
@@ -5937,7 +5937,7 @@
         not_anime_ids:
         - 54171
         - 56442
-      :threshold: 96.7%
+      :threshold: 96.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :bleach
@@ -6699,7 +6699,7 @@
         franchise: danganronpa
         not_anime_ids:
         - 37103
-      :threshold: 97.3%
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :danganronpa
@@ -6938,7 +6938,7 @@
         - 31448
         - 35631
         - 50097
-      :threshold: 94.7%
+      :threshold: 100%
       :generator: &337
         ignore_latest_ids:
         - 48375
@@ -7159,7 +7159,7 @@
         - 55871
         - 56015
         - 57556
-      :threshold: 95.9%
+      :threshold: 97.5%
       :generator: &347
         ignore_latest_ids:
         - 38234
@@ -7601,7 +7601,7 @@
         - 49402
         - 54860
         - 55316
-      :threshold: 92.6%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :ghost_in_the_shell
@@ -8779,7 +8779,7 @@
         franchise: mushishi
         not_anime_ids:
         - 39738
-      :threshold: 92.3%
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :mushishi
@@ -9397,7 +9397,7 @@
         - 38112
         - 38361
         - 46089
-      :threshold: 92.2%
+      :threshold: 94.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :tales_of
@@ -10889,7 +10889,7 @@
       :algo: duration
       :filters: &553
         franchise: rozen_maiden
-      :threshold: 94.1%
+      :threshold: 99.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :rozen_maiden
@@ -11328,7 +11328,7 @@
         - 38653
         - 48617
         - 52282
-      :threshold: 94.9%
+      :threshold: 95.2%
       :generator: &573
         ignore_latest_ids:
         - 48903
@@ -12271,7 +12271,7 @@
         - 53976
         - 55134
         - 57441
-      :threshold: 92.9%
+      :threshold: 93.3%
       :generator: &623
         ignore_latest_ids:
         - 38770
@@ -13783,7 +13783,7 @@
       :algo: duration
       :filters: &704
         franchise: aa_megami_sama
-      :threshold: 95%
+      :threshold: 93.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :aa_megami_sama
@@ -14139,7 +14139,7 @@
         not_anime_ids:
         - 34453
         - 55392
-      :threshold: 85.1%
+      :threshold: 85.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :uma_musume
@@ -14278,7 +14278,7 @@
         - 51842
         - 55393
         - 55517
-      :threshold: 88%
+      :threshold: 88.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :idolmaster
@@ -15529,7 +15529,7 @@
         - 55297
         - 55378
         - 55883
-      :threshold: 92.3%
+      :threshold: 92.4%
       :generator: &798
         not_ignored_ids:
         - 38986
@@ -15564,6 +15564,7 @@
         - 45731
         - 49471
         - 45731
+        - 57754
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :bang_dream
@@ -17747,7 +17748,7 @@
         franchise: soukyuu_no_fafner
         not_anime_ids:
         - 9494
-      :threshold: 92.1%
+      :threshold: 95%
       :generator: &914
         ignore_latest_ids:
         - 41714
@@ -17872,7 +17873,7 @@
         - 399
         - 1381
         - 39333
-      :threshold: 97.5%
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :seikai_no_senki
@@ -20244,7 +20245,7 @@
       :algo: duration
       :filters: &1044
         franchise: di_gi_charat
-      :threshold: 92.9%
+      :threshold: 93.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :di_gi_charat
