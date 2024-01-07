@@ -7,15 +7,17 @@ pageLoad('statistics_index', async () => {
   Highcharts.getOptions().colors.length = 0;
   colors.forEach(color => Highcharts.getOptions().colors.push(color));
 
-  renderCharts(Highcharts);
-  handleEvents(Highcharts);
+  const stats = $('header.head').data('statistics');
+
+  renderCharts(stats, Highcharts);
+  handleEvents(stats,Highcharts);
 
   $('.by_rating .control').first().trigger('click');
   $('.by_genre .control').first().trigger('click');
 });
 
 
-function renderCharts(Highcharts) {
+function renderCharts({ total, byKind, byStudio }, Highcharts) {
   const { colors } = Highcharts.getOptions();
   Object.merge(total.series[0], {
     dataLabels: {
@@ -60,9 +62,9 @@ function renderCharts(Highcharts) {
     I18n.t('frontend.statistics.number'),
     (function() {
       if (this.key.match(/^\d/)) {
-        return I18n.t('frontend.statistics.anime_with_score', {count: this.y, score: this.key});
+        return I18n.t('frontend.statistics.anime_with_score', { count: this.y, score: this.key });
       } else {
-        return I18n.t('frontend.statistics.anime_of_type', {count: this.y, type: this.key});
+        return I18n.t('frontend.statistics.anime_of_type', { count: this.y, type: this.key });
       }
     }), {
       xAxis: null,
@@ -79,16 +81,16 @@ function renderCharts(Highcharts) {
     Highcharts,
     'area',
     'by_kind',
-    by_kind,
+    byKind,
     'normal',
     I18n.t('frontend.statistics.number'),
     (function() {
       return I18n.t(
         'frontend.statistics.anime_in_year', {
-        count: this.y,
-        type: this.series.name,
-        year: this.x
-      }
+          count: this.y,
+          type: this.series.name,
+          year: this.x
+        }
       );
     }),
     {}
@@ -98,21 +100,21 @@ function renderCharts(Highcharts) {
     Highcharts,
     'area',
     'by_studio',
-    by_studio,
+    byStudio,
     'normal',
     I18n.t('frontend.statistics.number'),
     (function() {
       return I18n.t(
         'frontend.statistics.anime_with_rating_in_year', {
-        count: this.y,
-        rating: this.series.name,
-        year: this.x
-      }
+          count: this.y,
+          rating: this.series.name,
+          year: this.x
+        }
       );
     }),
     {
       xAxis: {
-        categories: by_studio.categories,
+        categories: byStudio.categories,
         labels: {
           step: 1
         },
@@ -122,32 +124,32 @@ function renderCharts(Highcharts) {
       }
     }
   );
-};
+}
 
-function handleEvents(Highcharts) {
+function handleEvents({ byGenre, byRating }, Highcharts) {
   // переключение типа диаграммы жанров
   $('.l-page').on('click', '.by_genre .control', function() {
-    const $this = $(this).addClass("selected");
-    $this.siblings().removeClass("selected");
+    const $this = $(this).addClass('selected');
+    $this.siblings().removeClass('selected');
 
     if ('by_genre_chart' in window) {
-      by_genre_chart.destroy();
+      window.by_genre_chart.destroy();
     }
 
     chart(
       Highcharts,
       'area',
       'by_genre',
-      by_genre[$this.data('kind')],
+      byGenre[$this.data('kind')],
       'percent',
       I18n.t('frontend.statistics.share'),
       (function() {
         return I18n.t(
           'frontend.statistics.genres_share', {
-          percent: Highcharts.numberFormat(this.percentage, 2, "."),
-          genre: this.series.name,
-          year: this.x
-        }
+            percent: Highcharts.numberFormat(this.percentage, 2, '.'),
+            genre: this.series.name,
+            year: this.x
+          }
         );
       }), {
         yAxis: {
@@ -162,23 +164,23 @@ function handleEvents(Highcharts) {
     const $this = $(this).addClass('selected');
     $this.siblings().removeClass('selected');
     if ('by_rating_chart' in window) {
-      by_rating_chart.destroy();
+      window.by_rating_chart.destroy();
     }
 
     chart(
       Highcharts,
       'area',
       'by_rating',
-      by_rating[$this.data('kind')],
+      byRating[$this.data('kind')],
       'percent',
       I18n.t('frontend.statistics.share'),
       (function() {
         return I18n.t(
           'frontend.statistics.ratings_share', {
-          percent: Highcharts.numberFormat(this.percentage, 2),
-          rating: this.series.name,
-          year: this.x
-        }
+            percent: Highcharts.numberFormat(this.percentage, 2),
+            rating: this.series.name,
+            year: this.x
+          }
         );
       }), {
         yAxis: {
@@ -187,7 +189,7 @@ function handleEvents(Highcharts) {
       }
     );
   });
-};
+}
 
 // получение данных для графика
 var chart = function(Highcharts, type, id, data, stacking, y_title, tooltip_formatter, options) {
@@ -198,11 +200,11 @@ var chart = function(Highcharts, type, id, data, stacking, y_title, tooltip_form
     },
 
     title: {
-      text: ""
+      text: ''
     },
 
     subtitle: {
-      text: ""
+      text: ''
     },
 
     xAxis: {
@@ -238,13 +240,13 @@ var chart = function(Highcharts, type, id, data, stacking, y_title, tooltip_form
     plotOptions: {
       area: {
         stacking,
-        lineColor: "#666666",
+        lineColor: '#666666',
         lineWidth: 1,
         shadow: false,
         marker: {
           enabled: false,
           lineWidth: 1,
-          lineColor: "#666666"
+          lineColor: '#666666'
         }
       }
     },

@@ -1,17 +1,12 @@
-header.head
+header.head[
+  data-statistics={ total: @total, byKind: @by_kind, byRating: @by_rating, byGenre: @by_genre, byStudio: @by_studio }.to_json
+]
   h1 = og.headline
   p.notice = og.description
 
-javascript:
-  total = #{{@total.to_json}};
-  by_kind = #{{@by_kind.to_json}};
-  by_rating = #{{@by_rating.to_json}};
-  by_genre = #{{@by_genre.to_json}};
-  by_studio = #{{@by_studio.to_json}};
-
 .block
-  .headline.blue = t('.common')
-  p = t('.breakdown_by_type_and_score')
+  .headline.blue = t '.common'
+  p = t '.breakdown_by_type_and_score'
   #image_placeholder
     img[
       src="/images/static/stats.png"
@@ -20,7 +15,7 @@ javascript:
     ]
   #total
 
-  p.m10 = t('.breakdown_by_release_date')
+  p.m10 = t '.breakdown_by_release_date'
   #by_kind
 
 .block
@@ -33,12 +28,12 @@ javascript:
           class="control #{:selected if kind == @kinds.first}"
         ] = t "enumerize.anime.kind.#{kind}"
 
-  p = t('.distribution_of_animes_grouped_by_age_rating')
+  p = t '.distribution_of_animes_grouped_by_age_rating'
   #by_rating style="min-width: 400px; height: 400px; margin: 0 auto"
-  p = t('.interesting_how_audience_changed')
+  p = t '.interesting_how_audience_changed'
 
 .block
-  .headline.red = t('.genres')
+  .headline.red = t '.genres'
   .forum-nav.by_genre
     nav.sections
       - @rating_kinds.each do |kind|
@@ -46,20 +41,20 @@ javascript:
           data-kind=kind
           class="control #{:selected if kind == @kinds.first}"
         ] = t "enumerize.anime.kind.#{kind}"
-  p = t('.how_genre_preferences_changed')
+  p = t '.how_genre_preferences_changed'
   #by_genre
-  p = t('.mecha_almost_disappeared')
+  p = t '.mecha_almost_disappeared'
 
 .block
   .headline.orange = t('.studios')
   .forum-nav.by_studio
     nav.sections
-      - ['tv'].each do |kind|
+      - %w[tv].each do |kind|
         a[
           data-kind=kind
           class="control #{:selected if kind == @kinds.first}"
         ] = t "enumerize.anime.kind.#{kind}"
-  p = t('.breakdown_by_studio')
+  p = t '.breakdown_by_studio'
   /= spoiler('большой график со всеми более-менее крупными студиями двухтысячных годов') do
   #by_studio
   - if show_social?
@@ -70,12 +65,12 @@ javascript:
       a.addthis_button_google_plusone_share
       a.addthis_button_odnoklassniki_ru
       a.addthis_button_compact
-  p = t('.nothing_interesting_here')
-  p = t('.all_minor_studios')
+  p = t '.nothing_interesting_here'
+  p = t '.all_minor_studios'
 
 = render 'spnsrs/ad', ad: Ad.new(:horizontal_x90)
 
-.subheadline = t('.comments')
+.subheadline = t '.comments'
 .to-process[
   data-dynamic='topic'
   data-faye=@topic_view.faye_channels.to_json
