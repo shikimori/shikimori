@@ -28,7 +28,7 @@ class Neko::IsAllowed
   def call
     !banned_in_neko? && (
       allowed_in_neko? || !(
-        @entry.anons? || @entry.kind_music? ||
+        @entry.anons? || excluded_kind? ||
         (recap_kind? && recap_name?) # ||
         # extra_short?
       )
@@ -53,12 +53,16 @@ private
     @entry.kind_special? || @entry.kind_ova? || @entry.kind.movie?
   end
 
-  def recap_name?
+  def recap_name? # rubocop:disable all
     @entry.name.match?(ALL_RECAP_REGEXP) ||
       @entry.english&.match?(EN_RECAP_REGEXP) ||
       @entry.russian&.match?(RU_RECAP_REGEXP) ||
       @entry.description_en&.match?(EN_RECAP_REGEXP) ||
       @entry.description_ru&.match?(RU_RECAP_REGEXP)
+  end
+
+  def excluded_kind?
+    @entry.kind_music? || @entry.kind_pv? || @entry.kind_cm?
   end
 
   # def extra_short?

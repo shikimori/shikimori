@@ -2,13 +2,13 @@ describe Neko::IsAllowed do
   subject { described_class.call anime }
   let(:anime) do
     build :anime, status, kind,
-      id: id,
-      franchise: franchise,
-      name: name,
-      english: english,
-      russian: russian,
-      description_en: description_en,
-      description_ru: description_ru
+      id:,
+      franchise:,
+      name:,
+      english:,
+      russian:,
+      description_en:,
+      description_ru:
       # duration: duration
   end
   let(:id) { nil }
@@ -29,8 +29,8 @@ describe Neko::IsAllowed do
     it { is_expected.to eq false }
   end
 
-  context 'music' do
-    let(:kind) { :music }
+  context 'music/pv/cm' do
+    let(:kind) { %i[music pv cm].sample }
     it { is_expected.to eq false }
   end
 
