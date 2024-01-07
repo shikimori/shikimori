@@ -26631,6 +26631,12 @@
         - 1752
         - 49179
         - 51536
+        - 6959
+        - 4033
+        - 11889
+        - 14835
+        - 35883
+        - 38767
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *4
   neko_id: :moe
