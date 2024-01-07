@@ -48,7 +48,7 @@ function renderCharts(Highcharts) {
   total.series[1].data.forEach(function(v, k) {
     const brightness = (k % 3) / 20;
     const index = parseInt(k / 3);
-    return v.color = Highcharts.Color(colors[index]).brighten(brightness).get();
+    return v.color = new Highcharts.Color(colors[index]).brighten(brightness).get();
   });
 
   chart(

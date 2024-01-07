@@ -31,7 +31,7 @@ function commentsChart(Highcharts) {
           },
           stops: [
             [0, color],
-            [1, Highcharts.Color(color).setOpacity(0).get('rgba')]
+            [1, new Highcharts.Color(color).setOpacity(0).get('rgba')]
           ]
         }
       }
@@ -64,7 +64,7 @@ function usersChart(Highcharts) {
           },
           stops: [
             [0, color],
-            [1, Highcharts.Color(color).setOpacity(0).get('rgba')]
+            [1, new Highcharts.Color(color).setOpacity(0).get('rgba')]
           ]
         }
       }
@@ -101,7 +101,7 @@ function trafficChart(Highcharts) {
         },
         stops: [
           [0, colors[0]],
-          [1, Highcharts.Color(colors[0]).setOpacity(0).get('rgba')]
+          [1, new Highcharts.Color(colors[0]).setOpacity(0).get('rgba')]
         ]
       }
     }, {
@@ -120,7 +120,7 @@ function trafficChart(Highcharts) {
         },
         stops: [
           [0, colors[1]],
-          [1, Highcharts.Color(colors[1]).setOpacity(0).get('rgba')]
+          [1, new Highcharts.Color(colors[1]).setOpacity(0).get('rgba')]
         ]
       }
     }, {
@@ -138,7 +138,7 @@ function trafficChart(Highcharts) {
         },
         stops: [
           [0, colors[2]],
-          [1, Highcharts.Color(colors[2]).setOpacity(0).get('rgba')]
+          [1, new Highcharts.Color(colors[2]).setOpacity(0).get('rgba')]
         ]
       }
     }]

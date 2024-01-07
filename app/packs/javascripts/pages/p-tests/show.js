@@ -28,7 +28,7 @@ pageLoad('tests_show', async () => {
 //           },
 //           stops: [
 //             [0, Highcharts.getOptions().colors[3]],
-//             [1, Highcharts.Color(Highcharts.getOptions().colors[3]).setOpacity(0).get('rgba')]
+//             [1, new Highcharts.Color(Highcharts.getOptions().colors[3]).setOpacity(0).get('rgba')]
 //           ]
 //         }
 //       }, {
@@ -47,7 +47,7 @@ pageLoad('tests_show', async () => {
 //           },
 //           stops: [
 //             [0, Highcharts.getOptions().colors[1]],
-//             [1, Highcharts.Color(Highcharts.getOptions().colors[1]).setOpacity(0).get('rgba')]
+//             [1, new Highcharts.Color(Highcharts.getOptions().colors[1]).setOpacity(0).get('rgba')]
 //           ]
 //         }
 //       }, {
@@ -65,7 +65,7 @@ pageLoad('tests_show', async () => {
 //           },
 //           stops: [
 //             [0, Highcharts.getOptions().colors[0]],
-//             [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+//             [1, new Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
 //           ]
 //         }
 //       }]
