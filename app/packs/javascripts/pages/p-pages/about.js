@@ -145,7 +145,7 @@ function trafficChart(Highcharts) {
   }));
 }
 
-export function dailyChartOptions(options) {
+export function dailyChartOptions(options, { isStacking } = {}) {
   return Object.merge({
     chart: {
       zoomType: 'x',
@@ -181,6 +181,7 @@ export function dailyChartOptions(options) {
     },
     plotOptions: {
       areaspline: {
+        stacking: isStacking ? 'normal' : null,
         lineWidth: 1,
         fillOpacity: 0.5,
         marker: {

@@ -24,7 +24,7 @@ function chart($node, Highcharts) {
       pointInterval: 24 * 3600 * 1000,
       pointStart: new Date(data[0].date).getTime(),
       data: data.map(v => v[field]),
-      visible: true,
+      visible: true
     }))
-  }));
+  }, { isStacking: true }));
 }
