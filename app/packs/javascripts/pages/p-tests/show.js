@@ -3,7 +3,7 @@
 pageLoad('tests_show', async () => {
   // new Wall($('.images-test .shiki-wall'));
 
-  // const Highcharts = await import(/* webpackChunkName: "highcharts" */ 'highcharts');
+  // const Highcharts = await import(/* webpackChunkName: "hs" */ 'highcharts');
   // initPage(Highcharts);
 });
 

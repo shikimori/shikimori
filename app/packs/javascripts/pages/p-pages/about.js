@@ -1,6 +1,6 @@
 pageLoad('pages_about', async () => {
-  const Highcharts = await import(/* webpackChunkName: "highcharts" */ 'highcharts');
-  const { colors } = await import(/* webpackChunkName: "highcharts" */ '@/vendor/highcharts_colors');
+  const Highcharts = await import(/* webpackChunkName: "hs" */ 'highcharts');
+  const { colors } = await import(/* webpackChunkName: "hs" */ '@/vendor/highcharts_colors');
 
   Highcharts.getOptions().colors.length = 0;
   colors.forEach(color => Highcharts.getOptions().colors.push(color));
@@ -15,7 +15,7 @@ function commentsChart(Highcharts) {
   const color = Highcharts.getOptions().colors[3];
 
   $('.comments-chart').highcharts(
-    chartOptions({
+    dailyChartOptions({
       series: [{
         name: I18n.t('frontend.about.comments_per_day'),
         pointInterval: 24 * 3600 * 1000,
@@ -48,7 +48,7 @@ function usersChart(Highcharts) {
   const color = Highcharts.getOptions().colors[4];
 
   $('.users-chart').highcharts(
-    chartOptions({
+    dailyChartOptions({
       series: [{
         name: I18n.t('frontend.about.new_users_per_day'),
         pointInterval: 24 * 3600 * 1000,
@@ -84,7 +84,7 @@ function trafficChart(Highcharts) {
     Highcharts.getOptions().colors[0]
   ];
 
-  return $('.traffic-chart').highcharts(chartOptions({
+  return $('.traffic-chart').highcharts(dailyChartOptions({
     series: [{
       name: I18n.t('frontend.about.views'),
       pointInterval: 24 * 3600 * 1000,
@@ -145,8 +145,8 @@ function trafficChart(Highcharts) {
   }));
 }
 
-const chartOptions = options =>
-  Object.merge({
+export function dailyChartOptions(options) {
+  return Object.merge({
     chart: {
       zoomType: 'x',
       type: 'areaspline'
@@ -163,7 +163,7 @@ const chartOptions = options =>
         hour: '%H:%M',
         day: '%e. %b',
         week: '%e. %b',
-        month: '%b',
+        month: '%b, %Y',
         year: '%Y'
       }
     },
@@ -197,3 +197,4 @@ const chartOptions = options =>
     },
     credits: false
   }, options, { deep: true });
+}

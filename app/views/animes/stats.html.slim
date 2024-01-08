@@ -1,0 +1,7 @@
+= render layout: 'page' do
+  = cache [@resource, params[:action]] do
+    .subheadline Список
+    .block.list_stats-chart data-stats=@list_stats.to_json
+
+    .subheadline Оценки
+    .block.scores_stats-chart data-stats=@scores_stats.to_json

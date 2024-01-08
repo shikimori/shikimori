@@ -1,8 +1,8 @@
 pageLoad('statistics_index', async () => {
   $('#image_placeholder').hide();
 
-  const Highcharts = await import(/* webpackChunkName: "highcharts" */ 'highcharts');
-  const { colors } = await import(/* webpackChunkName: "highcharts" */ '@/vendor/highcharts_colors');
+  const Highcharts = await import(/* webpackChunkName: "hs" */ 'highcharts');
+  const { colors } = await import(/* webpackChunkName: "hs" */ '@/vendor/highcharts_colors');
 
   Highcharts.getOptions().colors.length = 0;
   colors.forEach(color => Highcharts.getOptions().colors.push(color));
@@ -191,8 +191,7 @@ function handleEvents({ byGenre, byRating }, Highcharts) {
   });
 }
 
-// получение данных для графика
-var chart = function(Highcharts, type, id, data, stacking, y_title, tooltip_formatter, options) {
+function chart(Highcharts, type, id, data, stacking, yTitle, tooltipFormatter, options) {
   const defaults = {
     chart: {
       renderTo: id,
@@ -220,7 +219,7 @@ var chart = function(Highcharts, type, id, data, stacking, y_title, tooltip_form
 
     yAxis: {
       title: {
-        text: y_title
+        text: yTitle
       },
 
       labels: {
@@ -231,7 +230,7 @@ var chart = function(Highcharts, type, id, data, stacking, y_title, tooltip_form
     },
 
     tooltip: {
-      formatter: tooltip_formatter,
+      formatter: tooltipFormatter,
       borderRadius: 0,
       borderWidth: 1,
       shadow: false

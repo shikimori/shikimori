@@ -240,6 +240,26 @@ class AnimesController < DbEntriesController
     og page_title: I18n.t('animes.page.episode_notifications')
   end
 
+  def stats
+    raise CanCan::AccessDenied unless current_user&.staff?
+
+    og noindex: true
+    og page_title: I18n.t('db_entries.scores.stats')
+
+    @list_stats, @scores_stats =
+      Rails.cache.fetch([@resource.cache_key, 8.hours.ago.to_date, :anime_stat_histories]) do
+        stats = @resource.anime_stat_histories.sort_by(&:created_on)
+
+        %i[list_stats scores_stats].map do |kind|
+          stats.map do |stat|
+            stat.send(kind).each_with_object({ date: stat.created_on }) do |(key, value), memo|
+              memo[key] = value
+            end
+          end
+        end
+    end
+  end
+
 private
 
   def og_meta
@@ -258,7 +278,7 @@ private
     og type: video_type
     og video_duration: @resource.duration * 60 if @resource.duration&.positive?
     og video_release_date: @resource.released_on.date if @resource.released_on.present?
-    og video_tags: video_tags
+    og video_tags:
   end
 
   def forbid_access_to_banned
@@ -323,7 +343,7 @@ private
         )
       end
 
-      if params[:action] == 'edit_field' && params[:field].present? ||
+      if (params[:action] == 'edit_field' && params[:field].present?) ||
           params[:action] == 'episode_notifications'
         @back_url = @resource.edit_url
         breadcrumb i18n_t('edit'), @resource.edit_url
