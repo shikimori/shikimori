@@ -17,6 +17,7 @@ class SiteStatistics
   SQL
 
   ACHIEVEMENT_USER_IDS = [3824, 210, 16398, 34807, 29386, 84020, 72620, 50587, 100600, 77362, 7642, 9158] # rubocop:disable all
+  THANKS_TO_USSER_IDS = [2, 11, 19, 861, 950, 1945, 864, 6452, 28_133, 23_002, 30_214, 124_689, 76_437] # rubocop:disable all
 
   def traffic
     YandexMetrika.call METRIKA_MONTHS
@@ -79,7 +80,7 @@ class SiteStatistics
 
   def thanks_to
     User
-      .where(id: [2, 11, 19, 861, 950, 1945, 864, 6452, 28_133, 23_002, 30_214, 124_689, 76_437])
+      .where(id: THANKS_TO_USER_IDS)
       .order(:id)
   end
 

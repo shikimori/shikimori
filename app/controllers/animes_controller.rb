@@ -240,8 +240,11 @@ class AnimesController < DbEntriesController
     og page_title: I18n.t('animes.page.episode_notifications')
   end
 
+  ADDITIONAL_STAT_USER_IDS = [34_807]
   def stats
-    raise CanCan::AccessDenied unless current_user&.staff?
+    unless current_user&.staff? || current_user&.id.in?(ADDITIONAL_STAT_USER_IDS)
+      raise CanCan::AccessDenied
+    end
 
     og noindex: true
     og page_title: I18n.t('db_entries.scores.stats')
