@@ -3,10 +3,10 @@ ru:
     cardinal:
       achievement:
         subjective:
-          one: ачивка
-          few: ачивки
-          many: ачивок
-          other: ачивки
+          one: достижение
+          few: достижения
+          many: достижений
+          other: достижения
       author:
         subjective:
           one: автор
@@ -218,10 +218,10 @@ ru:
           other: видео
       tag:
         subjective:
-          one: тег
-          few: тега
-          many: тегов
-          other: теги
+          one: метка
+          few: метки
+          many: меток
+          other: метки
       type:
         subjective:
           one: тип
@@ -325,10 +325,10 @@ ru:
           other: модераторы
       ban:
         subjective:
-          one: бан
-          few: бана
-          many: банов
-          other: баны
+          one: блокировка
+          few: блокировки
+          many: блокировок
+          other: блокировки
       abuse_request:
         subjective:
           one: жалоба
@@ -686,5 +686,5 @@ ru:
         neuter: :@n
         default: m
       user_signed_in:
-        signed_in: залогинен
-        not_signed_in: не залогинен
+        signed_in: польз. авторизован
+        not_signed_in: польз. не авторизован
