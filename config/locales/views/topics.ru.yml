@@ -3,13 +3,13 @@ ru:
     show:
       rss_title: Комментарии топика
     moderation:
-      no_bans: Нет банов
+      no_bans: Нет блокировок
       no_abuse_requests: Нет жалоб
     missing:
-      user_topic: 'Топик #%{id}'
+      user_topic: 'Топик № %{id}'
       no_topic: >-
         Топик был или удалён, или никогда не существовал на сайте,
-        или у тебя нет прав для его просмотра
+        или у вас нет прав для его просмотра
     header:
       mini: &header_mini
         topic_ignored: &ignored в игноре
@@ -24,11 +24,11 @@ ru:
       vote:
         question:
           critique: Эта рецензия полезна?
-          cosplay: Тебе нравится?
+          cosplay: Вас нравится?
           collection: Эта коллекция полезна или интересна?
           review: Этот отзыв полезен?
     comments:
-      your_comment: Твой комментарий
+      your_comment: Ваш комментарий
       return_to_reply: Назад
     inner:
       read_more_link: Читать дальше →
@@ -47,7 +47,7 @@ ru:
         common_topic: Обычный топик
         news_topic: Новостной топик
       critique:
-        pick_target: Выбери, о чём рецензия
+        pick_target: Выберите, о чём рецензия
         go_next: Далее
       rules:
         go_next: Далее
@@ -55,7 +55,7 @@ ru:
         attach: Прикрепить
         topic_video: Видео
       posters:
-        drag_here: Кликай сюда или перетаскивай картинки на область
+        drag_here: Нажмите сюда или перетащите картинки на область
         topic_posters: Картинки
       source:
         hint: Ссылка на страницу, откуда взята новость
