@@ -35,11 +35,11 @@ ru:
         translated: Сколько должно быть озвучено
       external_links:
         imported: Импортировано
-        to_change: Для изменения импортированной ссылки продублируй её слева.
-        to_disable: Для удаления импортированной ссылки жми на крестик.
+        to_change: Для изменения импортированной ссылки продублируйте её слева.
+        to_disable: Для удаления импортированной ссылки жмите на крестик.
         from: из
     contest_winners:
-      top_in: '№%{position} в '
+      top_in: '№ %{position} в '
     edit_field:
       changes_history: История правок
     synchronization:
