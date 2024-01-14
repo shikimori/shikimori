@@ -3,7 +3,7 @@ ru:
     actions:
       add: Добавить
     lib:
-      please_try_again_later: Ошибка. Попробуй ещё раз позже
+      please_try_again_later: Ошибка. Попробуйте ещё раз позже
       loading: Загрузка...
       nothing_found: Ничего не найдено
       rails_ujs_modified:
@@ -11,13 +11,13 @@ ru:
         nickname: Логин
         subject: Название
         title: Название
-        email: E-mail
+        email: Эл. почта
         password: Пароль
         body: Текст
         created_at: ''
         forbidden: ''
         invalid_login_or_password: Неверный логин или пароль
-        you_are_not_authorized: У тебя нет прав для данного действия
+        you_are_not_authorized: У вас нет прав для данного действия
 
       comments_notifier:
         number_of_unread_comments: Число непрочитанных комментариев
@@ -31,18 +31,18 @@ ru:
       jquery_shiki_file:
         too_many_files: 'Слишком много файлов: максимум %{count} за раз'
         too_large_file: 'Файл слишком большой: максимум 4 мегабайта'
-        please_try_again_later: Ошибка. Попробуй еще раз позже
+        please_try_again_later: Ошибка. Попробуйте ещё раз позже
         browser_not_supported: Случилась ошибка, или версия браузера устарела
-        loading_file: загрузка файла %{filename} (%{filesize} Кб)...
-        wait_till_loaded: Дождись загрузки файлов
-        drop_pictures_here: Перетаскивай сюда картинки
+        loading_file: загрузка файла %{filename} (%{filesize} КБ)...
+        wait_till_loaded: Дождитесь загрузки файлов
+        drop_pictures_here: Перетащите сюда картинки
         file_type_not_allowed: Файл не является изображением
 
       file_uploader:
-        uploading_file: загрузка файла %{filename} (%{filesize} kb)
-        uploading_files: загрузка файлов %{uploadedCount} из %{totalCount} (%{kbUploaded} / %{kbTotal} kb)
-        drop_picture_here: Перетаскивай сюда картинку
-        drop_pictures_here: Перетаскивай сюда картинки
+        uploading_file: загрузка файла %{filename} (%{filesize} КБ)
+        uploading_files: загрузка файлов %{uploadedCount} из %{totalCount} (%{kbUploaded} / %{kbTotal} КБ)
+        drop_picture_here: Перетащите сюда картинку
+        drop_pictures_here: Перетащите сюда картинки
         file_type_not_allowed: Файл не является изображением
 
       postloader:
