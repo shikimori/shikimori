@@ -1,10 +1,10 @@
 ru:
   contest_round:
-    title: 'Раунд #%{number}%{additional}'
+    title: 'Раунд № %{number}%{additional}'
 
   ban:
     warn_message: предупреждение. %{reason}.
-    ban_message: бан на %{duration}. %{reason}.
+    ban_message: блокировка на %{duration}. %{reason}.
 
   genre:
     default_title: '%{localized_entry_type} жанра %{name}'
@@ -14,34 +14,34 @@ ru:
 
         demons: '%{localized_entry_type} про демонов'
         drama: '%{localized_entry_type} в жанре драма'
-        ecchi: этти %{localized_entry_type}
-        fantasy: фэнтези %{localized_entry_type}
+        ecchi: этти — %{localized_entry_type}
+        fantasy: фэнтези — %{localized_entry_type}
         games: '%{localized_entry_type} про игры'
 
         horror: '%{localized_entry_type} в жанре ужасы'
-        josei: дзёсэй %{localized_entry_type}
+        josei: дзёсэй — %{localized_entry_type}
 
         magic: '%{localized_entry_type} про магию'
         martial_arts: '%{localized_entry_type} про боевые искусства'
-        mecha: меха %{localized_entry_type}
+        mecha: меха — %{localized_entry_type}
 
         police: '%{localized_entry_type} про полицию'
 
         school: '%{localized_entry_type} про школу'
         sci-fi: '%{localized_entry_type} в жанре фантастика'
-        seinen: сэйнэн %{localized_entry_type}
-        shoujo: сёдзё %{localized_entry_type}
-        shoujo_ai: сёдзё-ай %{localized_entry_type}
-        shounen: сёнен %{localized_entry_type}
-        shounen_ai: сёнен-ай %{localized_entry_type}
+        seinen: сэйнэн — %{localized_entry_type}
+        shoujo: сёдзё — %{localized_entry_type}
+        shoujo_ai: сёдзё-ай — %{localized_entry_type}
+        shounen: сёнен — %{localized_entry_type}
+        shounen_ai: сёнен-ай — %{localized_entry_type}
         space: '%{localized_entry_type} про космос'
         sports: '%{localized_entry_type} про спорт'
         sumurai: '%{localized_entry_type} про самураев'
 
-        thriller: триллер %{localized_entry_type}
+        thriller: триллер — %{localized_entry_type}
         vampire: '%{localized_entry_type} про вампиров'
         yaoi: '%{localized_entry_type} яой'
-        yuri: юри %{localized_entry_type}
+        yuri: юри — %{localized_entry_type}
 
       subjective:
         anime:
@@ -51,7 +51,7 @@ ru:
           romance: романтические аниме про любовь
           historical: исторические аниме
           supernatural: сверхъестественные аниме
-          kids: детские %{localized_entry_type}
+          kids: детские — %{localized_entry_type}
         manga:
           <<: *common
           comedy: комедийная манга
@@ -59,7 +59,7 @@ ru:
           romance: романтическая манга про любовь
           historical: историческая манга
           supernatural: сверхъестественная манга
-          kids: детская %{localized_entry_type}
+          kids: детская — %{localized_entry_type}
         ranobe:
           <<: *common
           comedy: комедийные ранобэ
@@ -77,7 +77,7 @@ ru:
           romance: романтических аниме про любовь
           historical: исторических аниме
           supernatural: сверхъестественных аниме
-          kids: детских %{localized_entry_type}
+          kids: детских — %{localized_entry_type}
         manga:
           <<: *common
           comedy: комедийной манги
@@ -85,7 +85,7 @@ ru:
           romance: романтической манги про любовь
           historical: исторической манги
           supernatural: сверхъестественной манги
-          kids: детской %{localized_entry_type}
+          kids: детской — %{localized_entry_type}
         ranobe:
           <<: *common
           comedy: комедийных ранобэ
@@ -163,12 +163,12 @@ ru:
   message:
     antispam:
       interval: >-
-        Защита от спама. Попробуй снова через %{interval} %{seconds}.
+        Защита от спама. Попробуйте снова через %{interval} %{seconds}.
       per_day: >-
-        Защита от спама. Подожди до завтра.
+        Защита от спама. Подождите до завтра.
 
   list_import:
-    name: 'Импорт списка #%{id}'
+    name: 'Импорт списка № %{id}'
 
   poll:
-    name: 'Опрос #%{id}'
+    name: 'Опрос № %{id}'
