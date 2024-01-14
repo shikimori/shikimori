@@ -2,9 +2,9 @@ en:
   dashboards_controller:
     page_title: Shikimori - anime and manga encyclopedia
     description: >-
-
-
-
+      Shikimori - online encyclopedia of anime and manga.
+      Full list of popular manga in Russian.
+      Shikimori.me - the best anime forum for communication.
 
   topics_controller: &topics_controller
     title: Shikimori Forum
@@ -128,14 +128,14 @@ en:
 
     description:
       anime: |
-
-
-
+        The most complete list of anime in Russian.
+        A list of the best anime by popularity and genre on shikimori.one.
       manga: |
-
-
+        The most complete list of manga in Russian.
+        A list of the best manga by popularity and genre on shikimori.one.
       ranobe: |
-
+        The most complete list of light novel in Russian.
+        A list of the best light novel by popularity and genre at shikimori.one.
 
   recommendations_controller:
     <<: *animes_collection_controller
