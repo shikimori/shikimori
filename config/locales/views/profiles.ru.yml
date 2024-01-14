@@ -6,8 +6,8 @@ ru:
       add_to_friends: Добавить в друзья
       add_to_ignored: Добавить в игнор
       moderation: Модерация
-      ban_history: История банов
-      my_bans: Мои баны
+      ban_history: История блокировок
+      my_bans: Мои блокировки
       my_mail: Почта
       my_profile_settings: Настройки
       no_clubs: Не состоит ни в одном из клубов
@@ -29,26 +29,26 @@ ru:
       no_stats: Нет статистики
 
     status:
-      banned: '@{f:забанена|m:забанен}'
+      banned: '@{f:заблокирована|m:заблокирован}'
 
     page:
       pages:
-        account: Аккаунт
+        account: Учётная запись
         profile: Профиль
         styles: Внешний вид сайта
         list: Список аниме и манги
         notifications: Уведомления
         misc: Прочее
       roles: Роли
-      banned: '@{m:Забанен|f:Забанена}'
+      banned: '@{m:Заблокирован|f:Заблокирована}'
       ban_removal: >-
-        Время снятия бана
+        Время снятия блокировки
         <span datetime="%{iso_date}" data-allow-future-time="true"
         class="ban-time">%{formatted_date}</span>.
       ban_warning_for_moderator: >
         Данной страницей следует пользоваться только в случае невозможности
-        бана по комментарию. Например, если комментарий удалён.
-        Во всех остальных ситуациях баньте через форум в самом комментарии.
+        блокировки по комментарию. Например, если комментарий удалён.
+        Во всех остальных ситуациях блокируйте через форум в самом комментарии.
       unread_messages: непрочитанное от старого к новому
       no_messages: Нет почты
       mark_as_read: Прочитать всё
@@ -59,7 +59,7 @@ ru:
       conversation_with_user: Диалог с %{user}
       before_you_message_me: Перед тем как мне написать
       admin_message: >-
-        <li>Обращайся на "ты".</li>
+        <li>Обращайся на «ты».</li>
         <li>
           Не забудь прочитать
           <a class='b-link' href='/clubs/1093-faq-chasto-zadavaemye-voprosy'>
@@ -87,12 +87,12 @@ ru:
       admin_message_postscriptum: >-
         Отвечать могу очень долго. Или вообще никогда.
 
-      is_ignored_by_user: '%{user} @{f:добавила|m:добавил} тебя в игнор'
-      is_ignored_by_you: Ты @{f:добавила|m:добавил} %{user} в игнор. Сообщения от %{user} скрыты
-      your_message: Твоё сообщение
+      is_ignored_by_user: '%{user} @{f:добавила|m:добавил} вас в игнор'
+      is_ignored_by_you: Вы добавили %{user} в игнор. Сообщения от %{user} скрыты
+      your_message: Ваше сообщение
       rss_title: История пользователя %{nickname}
-      logs: Логи
-      no_recent_logs: Нет недавних измеений истории
+      logs: Журнал действий
+      no_recent_logs: Нет недавних изменений истории
       no_content_changes: Нет правок контента
       favourite:
         anime: Аниме
@@ -111,30 +111,30 @@ ru:
       collections:
         published: Опубликованные
         unpublished: Не опубликованные
-        private: Приватные
+        private: Закрытые
         opened: Открытые
         coauthored: Соавторские
       nickname_changes: Ники пользователя
 
     edit:
       account:
-        change_email_and_password: Изменить e-mail и пароль
-        password_recovery: Сбросить пароль по e-mail
-        connected_accounts: Подключенные сервисы
-        not_connected_accounts: Не подключенные сервисы
-        granted_oauth_apps: Приложения с доступом к аккаунту
+        change_email_and_password: Изменить эл. почту и пароль
+        password_recovery: Сбросить пароль по эл. почте
+        connected_accounts: Подключённые сервисы
+        not_connected_accounts: Не подключённые сервисы
+        granted_oauth_apps: Приложения с доступом к учётной записи
         ignored_users: Игнорируемые пользователи
         nickname: Логин (никнейм)
         username: Имя пользователя
         disable_authentication: Отключить авторизацию через %{provider}
         enable_authentication: Подключить авторизацию через %{provider}
-        is_view_censored_hint: Укажи дату рождения в настройках аккаунта
+        is_view_censored_hint: Укажите дату рождения в настройках учётной записи
         censored_rejected: Отображение 18+ аниме и манги при поиске отключено
         censored_restore: Включить
 
       profile:
         is_enlarged_favourites_in_profile: >-
-          Поставь эту галочку, если картинки избранного в профиле увеличены
+          Поставьте эту галочку, если картинки избранного в профиле увеличены
           <a href='%{edit_styles_url}'>стилями</a>,
           и из-за этого картинки отображаются размытыми.
         display_activity_graph_since: Отображать график активности начиная с даты
@@ -154,29 +154,29 @@ ru:
         export_list: Экспортировать список
         my_list_scores: Оценки в моём списке
         reset_scores: Сбросить все оценки %{kind}
-        confirm_to_reset_scores: 'Подтверди намерение сбросить все выставленные оценки для %{kind_genitive} (@{n:само|f:сама} %{kind_subjective} из списка не удалится).'
-        sure_to_reset_scores: Ты действительно хочешь сбросить все выставленные тобой оценки для %{kind}?
+        confirm_to_reset_scores: 'Подтвердите намерение сбросить все выставленные оценки для %{kind_genitive} (@{n:само|f:сама} %{kind_subjective} из списка не удалится).'
+        sure_to_reset_scores: Вы действительно хотите сбросить все выставленные вами оценки для %{kind}?
 
         my_list_history: История моего списка
         remove_history_of_list_changes: Удалить всю историю изменений списка %{kind}?
-        confirm_to_remove_history_of_list_changes: Подтверди намерение удалить всю историю изменений твоего списка %{kind}.
-        sure_to_remove_history_of_list_changes: Ты действительно хочешь удалить всю историю твоего списка %{kind}?
+        confirm_to_remove_history_of_list_changes: Подтвердите намерение удалить всю историю изменений своего списка %{kind}.
+        sure_to_remove_history_of_list_changes: Вы действительно хотите удалить всю историю своего списка %{kind}?
 
         my_list_contents: Содержимое моего списка
         clear_list_completely: Очистить полностью список %{kind}
-        confirm_to_clear_list_completely: Подтверди намерение очистить твой список %{kind_genitive} и удалить всю историю по %{kind_dative}.
-        sure_to_clear_list_completely: Ты действительно хочешь очистить твой список %{kind} и потерять всю историю?
+        confirm_to_clear_list_completely: Подтвердите намерение очистить свой список %{kind_genitive} и удалить всю историю по %{kind_dative}.
+        sure_to_clear_list_completely: Вы действительно хотите очистить свой список %{kind} и потерять всю историю?
 
       misc:
         ssl_hint: Экспериментальное
         anime_manga_recommendations: Рекомендации аниме и манги
-        restore_rejected_recommendations: Восстановить отклонённые тобой рекомендации %{kind}
-        confirm_to_restore_recommendations: Подтверди намерение восстановить все заблокированные тобой рекомендации для %{kind}.
-        sure_to_restore_recommendations: Ты действительно хочешь восстановить все заблокированные тобой рекомендации для %{kind}?
+        restore_rejected_recommendations: Восстановить отклонённые вами рекомендации %{kind}
+        confirm_to_restore_recommendations: Подтвердите намерение восстановить все заблокированные вами рекомендации для %{kind}.
+        sure_to_restore_recommendations: Вы действительно хотите восстановить все заблокированные вами рекомендации для %{kind}?
         history_of_nickname_changes: История изменения никнеймов
         clear_history: Очистить историю
-        confirm_to_clear_history_of_nickname_changes: Подтверди намерение очистить историю изменения твоих никнеймов.
-        sure_to_clear_history_of_nickname_changes: Ты действительно хочешь очистить историю изменения твоих никнеймов?
+        confirm_to_clear_history_of_nickname_changes: Подтвердите намерение очистить историю изменения своих никнеймов.
+        sure_to_clear_history_of_nickname_changes: Вы действительно хотите очистить историю изменения своих никнеймов?
         ignored_topics: Игнорируемые топики
         ignored_users: Игнорируемые пользователи
         show_list_of_ignored: Посмотреть список
