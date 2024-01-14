@@ -2,21 +2,21 @@ en:
   devise:
     common: &common
       forgot_password: Forgot your password?
-      sign_in: Sign in
-      sign_up: Sign up
+      sign_in: Log in to an existing account
+      sign_up: Create new account
 
     registrations:
       new:
         <<: *common
-        title: Sign in
-        notice: Create a new account.
+        title: Sign up
+        notice: On this page you are be able to register on the website.
 
     sessions:
       form:
         <<: *common
       new:
         title: Sign in
-        notice: Sign in to your account.
+        notice: On this page you are be able to log in to the website.
 
     social:
       social_networks: Sign in through socials
