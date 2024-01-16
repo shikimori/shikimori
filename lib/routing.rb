@@ -13,6 +13,7 @@ module Routing
       (\w\.)?imgur.com |
       (\w\.)?.ibb.co |
       animesher.com |
+      raw.githubusercontent.com |
       \d+\.media.tumblr.com
     )
     \Z
