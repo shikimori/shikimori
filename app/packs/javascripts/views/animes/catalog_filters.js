@@ -322,6 +322,9 @@ export default function(basePath, currentUrl, changeCallback) {
           });
       });
 
+      // hide sortings if there is anything in the search
+      $root.find('.sortings').toggle(!window.globalSearch.phrase);
+
       if (Object.isEmpty(this.params[ORDER_FIELD])) {
         return this.add(ORDER_FIELD, DEFAULT_ORDER);
       }
