@@ -89,7 +89,7 @@ table.b-table.list-lines
                 = "#{user_rate.rewatches} #{i18n_i 'reread', user_rate.rewatches}"
 
           .rate-text
-            - if user_rate.text.present?
+            - if user_rate.text.present? && !profile_view.censored_profile?
               div = user_rate.text_html
 
         td.num class=(:hoverable if is_own_profile)

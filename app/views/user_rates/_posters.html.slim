@@ -12,7 +12,7 @@
       data-target_id=user_rate.target_id
       data-target_name=user_rate.target_name
       data-target_russian=user_rate.target_russian
-      data-text=user_rate.text
+      data-text=(user_rate.text if user_rate.text.present? && !profile_view.censored_profile?)
     ]
       = render target.decorate,
         cover_notice: :year_kind,
