@@ -97,6 +97,10 @@ export default function(basePath, currentUrl, changeCallback) {
     return $li;
   };
 
+  const syncSortings = () => {
+    $root.find('.sortings').toggle(!window.globalSearch.phrase);
+  };
+
   // клики по меню
   $('.anime-params', $root).on('click', 'li', e => {
     if (inNewTab(e)) { return; } // игнор средней кнопки мыши
@@ -323,7 +327,7 @@ export default function(basePath, currentUrl, changeCallback) {
       });
 
       // hide sortings if there is anything in the search
-      $root.find('.sortings').toggle(!window.globalSearch.phrase);
+      syncSortings();
 
       if (Object.isEmpty(this.params[ORDER_FIELD])) {
         return this.add(ORDER_FIELD, DEFAULT_ORDER);
@@ -338,6 +342,11 @@ export default function(basePath, currentUrl, changeCallback) {
     .find('input[type=checkbox]:checked')
     .closest('.b-spoiler')
     .spoiler().trigger('spoiler:open');
+
+  window.globalSearch.$node.on('phrase:change', syncSortings);
+  $(document).one('turbolinks:before-cache', () => (
+    window.globalSearch?.$node.off('phrase:change', syncSortings)
+  ));
 
   return filters;
 }

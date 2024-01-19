@@ -131,6 +131,7 @@ export default class GlobalSearch extends View {
     }
 
     this._toggleGlobalSearch();
+    this.$node.trigger('phrase:change');
   }
 
   get inputSearchPhrase() {
