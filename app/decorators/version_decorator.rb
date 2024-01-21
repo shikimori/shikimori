@@ -59,7 +59,8 @@ class VersionDecorator < BaseDecorator
       is_can_manage && may_accept_taken?,
       is_can_manage && may_take_accepted?,
       h.can?(:destroy, object) && may_to_deleted?,
-      h.current_user&.id == user_id
+      h.current_user&.id == user_id,
+      display_uncensored_for_staff?
     ]
   end
 
@@ -69,5 +70,10 @@ class VersionDecorator < BaseDecorator
       .sort_by { |genre| ids.index genre.id }
       .map { |genre| h.localized_name genre }
       .join(', ')
+  end
+
+  def display_uncensored_for_staff?
+    h.current_user&.staff? && object.is_a?(Versions::RoleVersion) &&
+      (object.item.censored_avatar? || object.item.censored_profile?)
   end
 end

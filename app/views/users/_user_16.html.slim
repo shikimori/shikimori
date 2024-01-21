@@ -1,11 +1,11 @@
 .b-user16
   a[
     href=profile_url(user)
-    title=user.nickname
+    title=user.nickname(local_assigns[:ignore_censored])
   ]
     img[
-      src=user.avatar_url(16)
-      srcset="#{user.avatar_url 32} 2x"
-      alt=user.nickname
+      src=user.avatar_url(16, local_assigns[:ignore_censored])
+      srcset="#{user.avatar_url 32, local_assigns[:ignore_censored]} 2x"
+      alt=user.nickname(local_assigns[:ignore_censored])
     ]
-    span = user.nickname
+    span = user.nickname(local_assigns[:ignore_censored])

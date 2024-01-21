@@ -1,3 +1,4 @@
+@import mixins/brackets_surrounded
 @import mixins/ellipsis2
 @import mixins/float_column
 @import mixins/log_entry
@@ -57,7 +58,8 @@
     &.stopped
       color: $blue
 
-    // poll states
+  .uncensored-item
+    +brackets_surrounded
 
   .b-critique_votes
     font-size: 11px
