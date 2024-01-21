@@ -74,6 +74,6 @@ class VersionDecorator < BaseDecorator
 
   def display_uncensored_for_staff?
     h.current_user&.staff? && object.is_a?(Versions::RoleVersion) &&
-      (object.item.censored_avatar? || object.item.censored_profile?)
+      (object.item.censored_avatar? || object.item.censored_nickname?)
   end
 end
