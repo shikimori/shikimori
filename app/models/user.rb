@@ -427,7 +427,7 @@ class User < ApplicationRecord
   end
 
   def censored_forbidden?
-    age.blank? || age < 18 || !preferences&.view_censored?
+    !preferences&.view_censored?
   end
 
   # for async mails for Devise 4

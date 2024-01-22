@@ -354,16 +354,6 @@ describe User do
 
       it { is_expected.to eq false }
 
-      context 'no age' do
-        let(:birth_on) { nil }
-        it { is_expected.to eq true }
-      end
-
-      context 'age < 18' do
-        let(:birth_on) { 18.years.ago + 1.day }
-        it { is_expected.to eq true }
-      end
-
       context 'no preferences' do
         let(:preferences) { nil }
         it { is_expected.to eq true }

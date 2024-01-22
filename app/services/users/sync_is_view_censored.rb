@@ -1,10 +1,10 @@
 class Users::SyncIsViewCensored
-  method_object :entry
+  method_object :user
 
   def call
-    if @entry.preferences.view_censored?
-      @entry.preferences.update(
-        is_view_censored: @entry.age.present? && @entry.age >= 18
+    if @user.preferences.view_censored?
+      @user.preferences.update(
+        is_view_censored: @user.age.present? && @user.age >= 18
       )
     end
   end
