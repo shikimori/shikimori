@@ -1,5 +1,8 @@
 class Topics::SubscribedUsersQuery
-  method_object :topic
+  method_object %i[
+    topic!
+    is_censored!
+  ]
 
   USER_RATES_SQL = <<~SQL.squish
     #{UserRate.table_name}.target_type = :target_type and
@@ -73,8 +76,14 @@ private
   end
 
   def users_scope
-    User
+    scope = User
       .where('last_online_at > ?', ACTIVITY_INTERVAL.ago)
+
+    if @is_censored
+      scope.joins(:preferences).where(preferences: { is_view_censored: true })
+    else
+      scope
+    end
   end
 
   def subscribed_users_scope any_key, my_key

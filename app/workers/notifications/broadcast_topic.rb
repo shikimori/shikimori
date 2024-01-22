@@ -40,8 +40,7 @@ private
 
     !topic.is_a?(Topics::NewsTopic) ||
       expired?(topic) ||
-      music?(topic) ||
-      censored?(topic)
+      music?(topic)
   end
 
   def music? topic
@@ -61,7 +60,9 @@ private
   end
 
   def subscribed_user_ids topic
-    Topics::SubscribedUsersQuery.call(topic).pluck :id
+    Topics::SubscribedUsersQuery
+      .call(topic:, is_censored: censored?)
+      .pluck(:id)
   end
 
   def prepare_message topic
