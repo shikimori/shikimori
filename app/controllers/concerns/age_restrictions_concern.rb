@@ -6,10 +6,7 @@ module AgeRestrictionsConcern
     return false if %w[rss os].include? request.format
     return false if params[:action] == 'tooltip' && request.xhr?
 
-    !user_signed_in? ||
-      current_user.age.blank? ||
-      current_user.age < 18 ||
-      !current_user.preferences.view_censored?
+    current_user&.censored_forbidden?
   end
 
   def censored_rejected?
