@@ -9,8 +9,10 @@ class NameValidator < ActiveModel::EachValidator
   PREDEFINED_PATHS = %i[
     about
     achievements
+    anime-industry
     animes
     api
+    characters
     contests
     country
     dashboards
@@ -21,19 +23,23 @@ class NameValidator < ActiveModel::EachValidator
     ignores
     info
     mangas
+    messages
+    moderations
     oauth
     oauth2
+    ongoings
     ongoings
     podcast
     polls
     privacy
-    proxy
     proxies
+    proxy
     ranobe
     redirect
     styles
     tableau
     terms
+    tests
     user_agent
     users
   ]
