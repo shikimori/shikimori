@@ -12,12 +12,14 @@ class NameValidator < ActiveModel::EachValidator
     anime-industry
     animes
     api
+    bb_codes
     characters
     contests
     country
     dashboards
     development
     faye
+    feedback
     for_right_holders
     forum
     ignores
@@ -28,7 +30,6 @@ class NameValidator < ActiveModel::EachValidator
     oauth
     oauth2
     ongoings
-    ongoings
     podcast
     polls
     privacy
@@ -36,12 +37,14 @@ class NameValidator < ActiveModel::EachValidator
     proxy
     ranobe
     redirect
+    sitemap
     styles
     tableau
     terms
     tests
     user_agent
     users
+    what_is_my_ip
   ]
   FORBIDDEN_NAMES = /
     \A(?:
@@ -52,7 +55,9 @@ class NameValidator < ActiveModel::EachValidator
     )\Z | (?:
       \.
       (?:#{FixName::ALL_EXTENSIONS.join('|')})
-    \Z)
+    \Z) | (?:
+      \.\Z
+    )
   /mix
 
   def validate_each record, attribute, value
