@@ -61,7 +61,7 @@ private
 
   def subscribed_user_ids topic
     Topics::SubscribedUsersQuery
-      .call(topic:, is_censored: censored?)
+      .call(topic:, is_censored: censored?(topic))
       .pluck(:id)
   end
 

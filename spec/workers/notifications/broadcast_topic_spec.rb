@@ -5,7 +5,7 @@ describe Notifications::BroadcastTopic do
   before do
     allow(Topics::SubscribedUsersQuery)
       .to receive(:call)
-      .with(topic)
+      .with(topic:, is_censored: false)
       .and_return users
   end
 
