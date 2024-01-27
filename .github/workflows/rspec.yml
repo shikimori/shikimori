@@ -6,27 +6,18 @@ on:
   pull_request:
     branches:
       - '*'
-jobs:
-  # rubocop:
-  #   name: Rubocop
-  #   runs-on: 'ubuntu-20.04'
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: ruby/setup-ruby@v1
-  #       with:
-  #         ruby-version: '3.0'
-  #     - run: script/update_rubygems_and_install_bundler
-  #     - run: bundle install --standalone
-  #     - run: bundle binstubs --all
-  #     - run: script/run_rubocop
 
+jobs:
   RSpec:
-    # strategy:
-    #   matrix:
-    #     node-version: [14.x]
-    #     redis-version: [6]
     runs-on: 'ubuntu-22.04'
+    container:
+      image: ghcr.io/shikimori/rspec:v1.0.0
+      credentials:
+        username: ${{github.actor}}
+        password: ${{secrets.GITHUB_TOKEN}}
     services:
+      redis:
+        image: redis:6
       postgres:
         image: postgres:10.5-alpine
         ports:
@@ -35,24 +26,14 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
     env:
+      POSTGRES_TEST_HOST: postgres
       POSTGRES_TEST_USER: postgres
       POSTGRES_TEST_PASSWORD: postgres
       POSTGRES_TEST_DB: github-actions
+      REDIS_HOST: redis
       RAILS_ENV: test
       CI_SERVER: yes
     steps:
-      - name: Install dependencies
-        run: sudo apt-get install -y libvips imagemagick libjpeg-progs
-      - name: Start Redis
-        uses: supercharge/redis-github-action@1.4.0
-        with:
-          redis-version: 6
-          # redis-version: ${{ matrix.redis-version }}
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-          # node-version: ${{ matrix.node-version }}
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Install Ruby and gems

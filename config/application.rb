@@ -173,7 +173,7 @@ module Shikimori
     # fixes numerous errors on production
     config.active_record.yaml_column_permitted_classes = [Time]
 
-    config.redis_host = 'localhost'
+    config.redis_host = ENV['REDIS_HOST'] ? ENV['REDIS_HOST'] : 'localhost'
     config.redis_db = 2
 
     # достали эксепшены с ханибаджера
