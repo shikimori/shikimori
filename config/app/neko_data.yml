@@ -5081,7 +5081,7 @@
         franchise: ao_no_exorcist
         not_anime_ids:
         - 13677
-      :threshold: 96.7%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :ao_no_exorcist
@@ -7174,7 +7174,7 @@
         - 55871
         - 56015
         - 57556
-      :threshold: 97.5%
+      :threshold: 97.7%
       :generator: &351
         ignore_latest_ids:
         - 38234
@@ -10052,7 +10052,8 @@
         - 52897
         - 56064
         - 57199
-      :threshold: 93.7%
+        - 57596
+      :threshold: 93.9%
       :generator: &511
         ignore_latest_ids:
         - 37966
@@ -11268,7 +11269,7 @@
         - 53603
         - 55283
         - 55404
-      :threshold: 86.8%
+      :threshold: 85.9%
       :generator: &575
         ignore_latest_ids:
         - 38714
@@ -14684,7 +14685,7 @@
       :generator: &758
         not_ignored_ids:
         - 1481
-      :threshold: 93.3%
+      :threshold: 92%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :urusei_yatsura
@@ -15174,7 +15175,7 @@
         - 2125
         - 2126
         - 6964
-      :threshold: 98.2%
+      :threshold: 98.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :yuu_yuu_hakusho
@@ -16436,6 +16437,10 @@
         franchise: cardfight_vanguard
         not_anime_ids:
         - 31410
+        - 56118
+        - 56119
+        - 57835
+        - 57846
       :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -17285,7 +17290,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.4%
+      :threshold: 91.5%
       :generator: &895
         ignore_latest_ids:
         - 38850
@@ -17411,7 +17416,7 @@
       :algo: duration
       :filters: &901
         franchise: city_hunter
-      :threshold: 90%
+      :threshold: 90.8%
       :generator: &902
         ignore_latest_ids:
         - 37516
@@ -18775,7 +18780,7 @@
         - 38647
         - 38648
         - 40543
-      :threshold: 89.6%
+      :threshold: 88.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :pripara
@@ -19671,7 +19676,7 @@
       :algo: duration
       :filters: &1021
         franchise: space_cobra
-      :threshold: 98.3%
+      :threshold: 98.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :space_cobra
@@ -20350,7 +20355,7 @@
       :algo: duration
       :filters: &1056
         franchise: di_gi_charat
-      :threshold: 93.9%
+      :threshold: 93.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :di_gi_charat
@@ -24177,6 +24182,8 @@
         - 38234
         - 50410
         - 54041
+        - 180
+        - 181
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *4
   neko_id: :genki
