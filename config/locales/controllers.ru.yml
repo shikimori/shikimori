@@ -64,30 +64,30 @@ ru:
     messages:
       imported:
         anime:
-          one: 'В ваш список импортировано одно аниме:'
-          few: 'В ваш список импортированы %{count} аниме:'
-          many: 'В ваш список импортированы %{count} аниме:'
+          one: 'В твой список импортировано одно аниме:'
+          few: 'В твой список импортированы %{count} аниме:'
+          many: 'В твой список импортированы %{count} аниме:'
         manga:
-          one: 'В ваш список импортирована одна манга:'
-          few: 'В ваш список импортировано %{count} манги:'
-          many: 'В ваш список импортировано %{count} манг:'
+          one: 'В твой список импортирована одна манга:'
+          few: 'В твой список импортировано %{count} манги:'
+          many: 'В твой список импортировано %{count} манг:'
       updated:
         anime:
-          one: 'В вашем списке обновлено одно аниме:'
-          few: 'В вашем списке обновлены %{count} аниме:'
-          many: 'В вашем списке обновлены %{count} аниме:'
+          one: 'В твоём списке обновлено одно аниме:'
+          few: 'В твоём списке обновлены %{count} аниме:'
+          many: 'В твоём списке обновлены %{count} аниме:'
         manga:
-          one: 'В вашем списке обновлена одна манга:'
-          few: 'В вашем списке обновлено %{count} манги:'
-          many: 'В вашем списке обновлено %{count} манг:'
+          one: 'В твоём списке обновлена одна манга:'
+          few: 'В твоём списке обновлено %{count} манги:'
+          many: 'В твоём списке обновлено %{count} манг:'
       not_imported:
         anime:
-          add_manually: 'Пожалуйста, добавьте их в свой список самостоятельно:'
+          add_manually: 'Пожалуйста, добавь их в свой список самостоятельно:'
           one: 'Не удалось импортировать (распознать) одно аниме.'
           few: 'Не удалось импортировать (распознать) %{count} аниме.'
           many: 'Не удалось импортировать (распознать) %{count} аниме.'
         manga:
-          add_manually: 'Пожалуйста, добавьте их в свой список самостоятельно:'
+          add_manually: 'Пожалуйста, добавь их в свой список самостоятельно:'
           one: 'Не удалось импортировать (распознать) одну мангу.'
           few: 'Не удалось импортировать (распознать) %{count} манги.'
           many: 'Не удалось импортировать (распознать) %{count} манг.'
@@ -147,8 +147,8 @@ ru:
 
   recommendation_ignores_controller:
     ignores_cleared:
-      anime: Выполнена очистка вашего списка заблокированных рекомендаций аниме
-      manga: Выполнена очистка вашего списка заблокированных рекомендаций манги
+      anime: Выполнена очистка твоего списка заблокированных рекомендаций аниме
+      manga: Выполнена очистка твоего списка заблокированных рекомендаций манги
 
   collections_controller:
     new_collection: Новая коллекция
@@ -189,8 +189,8 @@ ru:
       title: Новый топик
 
   club_roles_controller:
-    you_have_joined_club: Вы вступили в клуб «%{club_name}»
-    you_have_left_club: Вы покинули клуб «%{club_name}»
+    you_have_joined_club: Ты @{f:вступила|m:вступил} в клуб "%{club_name}"
+    you_have_left_club: Ты @{f:покинула|m:покинул} клуб "%{club_name}"
 
   club_invites_controller:
     invitation_sent: Приглашение отправлено
@@ -198,8 +198,8 @@ ru:
     invitation_rejected: Приглашение отклонено
 
   collection_roles_controller:
-    you_have_added_coauthor: Вы добавили соавтора «%{coauthor}»
-    you_have_removed_coauthor: Вы удалили соавтора «%{coauthor}»
+    you_have_added_coauthor: Ты @{f:добавила|m:добавил} соавтора "%{coauthor}"
+    you_have_removed_coauthor: Ты @{f:удалила|m:удалил} соавтора "%{coauthor}"
 
   contests_controller:
     contests: Турниры
@@ -232,8 +232,8 @@ ru:
   moderations/bans_controller:
     <<: *moderations_controller
     page_title:
-      index: Журнал блокировок
-      show: 'Блокировка № %{id}'
+      index: Журнал банов
+      show: 'Бан № %{id}'
 
   moderations/critiques_controller:
     <<: *moderations_controller
@@ -423,9 +423,9 @@ ru:
     edit_review: Изменение отзыва
     review_by: Отзыв от %{nickname}
     review_is_already_written:
-      anime: Вы уже написали отзыв к этому аниме
-      manga: Вы уже написали отзыв к этой манге
-      ranobe: Вы уже написали отзыв к этому ранобэ
+      anime: Ты уже @{f:написала|m:написал} отзыв к этому аниме
+      manga: Ты уже @{f:написала|m:написал} отзыв к этой манге
+      ranobe: Ты уже @{f:написала|m:написал} отзыв к этому ранобэ
     review:
       created: Отзыв создан
       updated: Отзыв изменён
@@ -440,7 +440,7 @@ ru:
     password: пароль
     email_password: эл. почта и пароль
     failure: >-
-      Вы не можете отключить единственный способ авторизации, пока не зададите
+      Ты не можешь отключить единственный способ авторизации, пока не задашь
       %{auth_methods}
 
   userlist_comparer_controller:
@@ -452,7 +452,7 @@ ru:
 
   users/omniauth_callbacks_controller:
     already_linked: >-
-      Выбранная учётная запись %{provider} уже подключена к другому пользователю сайта
+      Выбранный аккаунт %{provider} уже подключён к другому пользователю сайта
     account_linked: >-
       Подключена авторизация через %{provider}
     authentication_failed: Не удалось авторизоваться
@@ -476,7 +476,7 @@ ru:
     comment_by: Комментарий от %{nickname}
 
   shikimori_controller:
-    you_are_banned: Вы заблокированы до %{datetime}
+    you_are_banned: Ты @{f:забанена|m:забанен} до %{datetime}
 
   achievements_controller:
     title: Достижения
@@ -527,7 +527,7 @@ ru:
     not_ignored: Сообщения от %{nickname} больше не блокируются
 
   api/v1/nickname_changes_controller:
-    cleared: Ваша история имён очищена
+    cleared: Твоя история имён очищена
 
   api/v1/topic_ignores_controller:
     ignored: Топик добавлен в игнор
@@ -535,11 +535,11 @@ ru:
 
   api/v1/user_rates_controller:
     list_and_history_cleared:
-      anime: Выполнена очистка вашего списка аниме и вашей истории по аниме
-      manga: Выполнена очистка вашего списка манги и вашей истории по манге
+      anime: Выполнена очистка твоего списка аниме и твоей истории по аниме
+      manga: Выполнена очистка твоего списка манги и твоей истории по манге
     scores_reset:
-      anime: Выполнен сброс оценок в вашем списке аниме
-      manga: Выполнен сброс оценок в вашем списке манги
+      anime: Выполнен сброс оценок в твоём списке аниме
+      manga: Выполнен сброс оценок в твоём списке манги
 
   api/v1/favorites_controller:
     cant_add:
