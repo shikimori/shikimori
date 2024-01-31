@@ -218,10 +218,10 @@ ru:
           other: видео
       tag:
         subjective:
-          one: метка
-          few: метки
-          many: меток
-          other: метки
+          one: тег
+          few: тега
+          many: тегов
+          other: теги
       type:
         subjective:
           one: тип
@@ -325,10 +325,10 @@ ru:
           other: модераторы
       ban:
         subjective:
-          one: блокировка
-          few: блокировки
-          many: блокировок
-          other: блокировки
+          one: бан
+          few: бана
+          many: банов
+          other: баны
       abuse_request:
         subjective:
           one: жалоба
