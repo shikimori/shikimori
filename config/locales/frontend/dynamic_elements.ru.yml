@@ -6,7 +6,7 @@ ru:
 
       shiki_editable:
         your_request_will_be_considered: >-
-          Ваш запрос будет рассмотрен. Домо аригато.
+          Твой запрос будет рассмотрен. Домо аригато.
 
       topic:
         load_comments: Загрузить ещё %{comment_count} %{of_total_comments} %{comment_word}
@@ -44,7 +44,7 @@ ru:
 
       authorized_action:
         register_to_complete_action: >-
-          Для этого действия вам необходима
+          Для этого действия тебе необходима
           <a href="/users/sign_up">регистрация</a> на сайте.
 
       day_registered_action:
