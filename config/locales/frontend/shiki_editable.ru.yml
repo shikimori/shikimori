@@ -3,7 +3,7 @@ ru:
     shiki_editable:
       message_changed: изменено пользователем
       changed: изменён пользователем
-      click_to_reload: Нажмите для обновления.
+      click_to_reload: Нажми для обновления.
       message_deleted: удалено пользователем
       deleted: удалён пользователем
       review_converted: Отзыв преобразован в <a class='b-link' href='%{url}'>комментарий</a>
