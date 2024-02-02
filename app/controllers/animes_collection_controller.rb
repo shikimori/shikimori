@@ -77,7 +77,7 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
 
     @collection = "Autocomplete::#{@view.klass.name}".constantize
       .call(
-        scope: scope,
+        scope:,
         phrase: search_phrase
       )
       .map(&:decorate)
@@ -167,13 +167,13 @@ private
     title = collection_title(model).title false
 
     if collection_title(model).manga_conjugation_variant?
-      i18n_t 'notice.manga',
-        title: title,
-        order_name: order_name
+      i18n_t('notice.manga',
+        title:,
+        order_name:)
     else
       i18n_t 'notice.non_manga',
-        title: title,
-        order_name: order_name
+        title:,
+        order_name:
     end
   end
 
@@ -206,6 +206,7 @@ private
       kind: params[:kind],
       status: params[:status],
       genres: model[:genre],
+      genres_v2: model[:genre_v2],
       studios: model[:studio],
       publishers: model[:publisher]
     )

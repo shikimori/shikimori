@@ -2,6 +2,8 @@ class Titles::CollectionTitle # rubocop:disable Metrics/ClassLength
   include Translation
   prepend ActiveCacher.instance
 
+  attr_reader :klass, :user, :seasons, :kinds, :statuses, :genres, :genres_v2, :studios, :publishers
+
   def initialize( # rubocop:disable Metrics/ParameterLists
     klass:,
     user:,
@@ -9,6 +11,7 @@ class Titles::CollectionTitle # rubocop:disable Metrics/ClassLength
     kind:,
     status:,
     genres:,
+    genres_v2:,
     studios:,
     publishers:
   )
@@ -20,6 +23,7 @@ class Titles::CollectionTitle # rubocop:disable Metrics/ClassLength
     @studios = Array studios
     @publishers = Array publishers
     @genres = Array genres
+    @genres_v2 = Array genres_v2
     @seasons = parse_param season
   end
 
@@ -39,8 +43,6 @@ class Titles::CollectionTitle # rubocop:disable Metrics/ClassLength
 
 private
 
-  attr_reader :klass, :user, :seasons, :kinds, :statuses, :genres, :studios, :publishers
-
   def fancy_title
     if genres.present?
       genres.first.title(user:)
@@ -55,6 +57,7 @@ private
       studios_text,
       publishers_text,
       genres_text,
+      genres_v2_text,
       seasons_text
     ].compact.join(' ')
 
@@ -123,6 +126,18 @@ private
       .downcase
 
     of_genres = i18n_i 'genre', genres.count, :genitive
+    i18n_t 'of_genres', genres: of_genres, list:
+  end
+
+  def genres_v2_text
+    return if genres_v2.none?
+
+    list = genres_v2
+      .map { |genre| UsersHelper.localized_name genre, user }
+      .to_sentence
+      .downcase
+
+    of_genres = i18n_i 'genre', genres_v2.count, :genitive
     i18n_t 'of_genres', genres: of_genres, list:
   end
 

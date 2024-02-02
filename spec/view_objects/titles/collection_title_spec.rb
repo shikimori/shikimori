@@ -7,6 +7,7 @@ describe Titles::CollectionTitle do
       kind:,
       status:,
       genres:,
+      genres_v2:,
       studios:,
       publishers:
     )
@@ -17,6 +18,7 @@ describe Titles::CollectionTitle do
   let(:kind) { nil }
   let(:status) { nil }
   let(:genres) { nil }
+  let(:genres_v2) { nil }
   let(:studios) { nil }
   let(:publishers) { nil }
 
@@ -108,6 +110,34 @@ describe Titles::CollectionTitle do
 
     describe 'genres' do
       let(:genres) { build :genre, name:, kind: klass.base_class.name.downcase }
+      let(:klass) { Anime }
+
+      context 'magic' do
+        let(:name) { 'Magic' }
+        it { is_expected.to eq 'Аниме про магию' }
+      end
+
+      context 'comedy' do
+        let(:name) { 'Comedy' }
+
+        context 'anime' do
+          it { is_expected.to eq 'Комедийные аниме' }
+        end
+
+        context 'manga' do
+          let(:klass) { Manga }
+          it { is_expected.to eq 'Комедийная манга' }
+        end
+      end
+
+      context 'romance' do
+        let(:name) { 'Romance' }
+        it { is_expected.to eq 'Романтические аниме про любовь' }
+      end
+    end
+
+    describe 'genres' do
+      let(:genres) { build :genre_v2, name:, kind: klass.base_class.name.downcase }
       let(:klass) { Anime }
 
       context 'magic' do

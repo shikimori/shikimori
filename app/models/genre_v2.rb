@@ -46,4 +46,16 @@ class GenreV2 < ApplicationRecord
   def ai?
     id.in? AI_IDS
   end
+
+  def title ru_case: :subjective, user: nil
+    key = name.parameterize.underscore
+    name = UsersHelper.localized_name self, user
+    kind = self.kind.capitalize.constantize.model_name.human
+
+    i18n_t(
+      "title.#{ru_case}.#{self.kind}.#{key}",
+      localized_entry_type: kind,
+      default: i18n_t('default_title', localized_entry_type: kind, name:)
+    ).capitalize
+  end
 end
