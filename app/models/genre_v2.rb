@@ -1,4 +1,6 @@
 class GenreV2 < ApplicationRecord
+  include Translation
+
   validates :name, :russian, presence: true
 
   enumerize :entry_type,
@@ -50,12 +52,12 @@ class GenreV2 < ApplicationRecord
   def title ru_case: :subjective, user: nil
     key = name.parameterize.underscore
     name = UsersHelper.localized_name self, user
-    kind = self.kind.capitalize.constantize.model_name.human
+    entry_type = self.entry_type.constantize.model_name.human
 
     i18n_t(
-      "title.#{ru_case}.#{self.kind}.#{key}",
-      localized_entry_type: kind,
-      default: i18n_t('default_title', localized_entry_type: kind, name:)
+      "title.#{ru_case}.#{self.entry_type}.#{key}",
+      localized_entry_type: entry_type,
+      default: i18n_t('default_title', localized_entry_type: entry_type, name:)
     ).capitalize
   end
 end

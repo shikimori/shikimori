@@ -42,13 +42,11 @@ describe GenreV2 do
       let(:ru_case) { :subjective }
       let(:user) { nil }
 
-      let(:genre_v2) { build :genre_v2, name:, kind: }
-      let(:kind) { 'anime' }
+      let(:genre_v2) { build :genre_v2, name:, entry_type: }
+      let(:entry_type) { Types::GenreV2::EntryType['Anime'] }
       let(:name) { 'Romance' }
 
       context 'anime' do
-        let(:kind) { 'anime' }
-
         context 'Magic' do
           let(:name) { 'Magic' }
           it { is_expected.to eq 'Аниме про магию' }
@@ -66,7 +64,7 @@ describe GenreV2 do
       end
 
       context 'manga' do
-        let(:kind) { 'manga' }
+        let(:entry_type) { Types::GenreV2::EntryType['Manga'] }
 
         context 'Magic' do
           let(:name) { 'Magic' }
