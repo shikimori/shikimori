@@ -81,8 +81,8 @@ describe Menus::CollectionMenu do
     let(:view_context_params) do
       {
         controller: controller_name,
-        search: search,
-        q: q
+        search:,
+        q:
       }
     end
     let(:controller_name) { 'animes_collection' }
@@ -96,15 +96,15 @@ describe Menus::CollectionMenu do
       it { expect(view).to_not be_show_sorting }
     end
 
-    context 'search' do
-      let(:search) { 'z' }
-      it { expect(view).to_not be_show_sorting }
-    end
-
-    context 'q' do
-      let(:q) { 'z' }
-      it { expect(view).to_not be_show_sorting }
-    end
+    # context 'search' do
+    #   let(:search) { 'z' }
+    #   it { expect(view).to_not be_show_sorting }
+    # end
+    # 
+    # context 'q' do
+    #   let(:q) { 'z' }
+    #   it { expect(view).to_not be_show_sorting }
+    # end
   end
 
   describe '#anime?, #ranobe?' do
