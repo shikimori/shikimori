@@ -1,4 +1,4 @@
-class Titles::CollectionTitle
+class Titles::CollectionTitle # rubocop:disable Metrics/ClassLength
   include Translation
   prepend ActiveCacher.instance
 
@@ -31,9 +31,9 @@ class Titles::CollectionTitle
   # 'отображена'? (вместо 'отображены')
   def manga_conjugation_variant?
     if statuses_text.present?
-      /#{Manga.model_name.human}/i === title
+      title.match?(/#{Manga.model_name.human}/i)
     else # kinds_text
-      !kinds.many? && /#{Manga.model_name.human}/i === title
+      !kinds.many? && title.match?(/#{Manga.model_name.human}/i)
     end
   end
 
@@ -43,7 +43,7 @@ private
 
   def fancy_title
     if genres.present?
-      genres.first.title user: user
+      genres.first.title(user:)
     else
       composite_title
     end
@@ -80,7 +80,7 @@ private
   def status_text status
     i18n_t(
       "status.#{klass.name.downcase}.#{kind_count_key}.#{status}",
-        kind: kind_text(kinds.first)
+      kind: kind_text(kinds.first)
     ).downcase
   end
 
@@ -123,7 +123,7 @@ private
       .downcase
 
     of_genres = i18n_i 'genre', genres.count, :genitive
-    i18n_t 'of_genres', genres: of_genres, list: list
+    i18n_t 'of_genres', genres: of_genres, list:
   end
 
   def seasons_text
@@ -152,6 +152,9 @@ private
   end
 
   def parse_param param
-    (param || '').gsub(/-/, ' ').split(',').select { |v| !v.starts_with? '!' }
+    (param || '')
+      .tr('-', ' ')
+      .split(',')
+      .reject { |v| v.starts_with? '!' }
   end
 end

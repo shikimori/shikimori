@@ -15,11 +15,11 @@ describe Notifications::BroadcastTopic do
 
   let(:topic) do
     create topic_type,
-      linked: linked,
-      action: action,
+      linked:,
+      action:,
       broadcast: is_broadcast,
       processed: is_processed,
-      created_at: created_at
+      created_at:
   end
   let(:topic_type) { :topic }
   let(:linked) { nil }

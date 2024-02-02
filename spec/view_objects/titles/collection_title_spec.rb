@@ -1,14 +1,14 @@
 describe Titles::CollectionTitle do
   let(:collection_title) do
     Titles::CollectionTitle.new(
-      klass: klass,
-      user: user,
-      season: season,
-      kind: kind,
-      status: status,
-      genres: genres,
-      studios: studios,
-      publishers: publishers
+      klass:,
+      user:,
+      season:,
+      kind:,
+      status:,
+      genres:,
+      studios:,
+      publishers:
     )
   end
   let(:klass) { Anime }
@@ -62,6 +62,11 @@ describe Titles::CollectionTitle do
           let(:kind) { 'movie' }
           it { is_expected.to eq 'Полнометражные аниме' }
         end
+
+        context '!tv' do
+          let(:kind) { '!tv' }
+          it { is_expected.to eq 'Лучшие аниме' }
+        end
       end
 
       context 'many kinds' do
@@ -102,7 +107,7 @@ describe Titles::CollectionTitle do
     end
 
     describe 'genres' do
-      let(:genres) { build :genre, name: name, kind: klass.base_class.name.downcase }
+      let(:genres) { build :genre, name:, kind: klass.base_class.name.downcase }
       let(:klass) { Anime }
 
       context 'magic' do
