@@ -1,5 +1,12 @@
 class Clubs::Query < QueryObjectBase
-  FAVOURED_IDS = [72, 315, 2046]
+  FAVOURED_IDS = [
+    72,
+    315,
+    2046,
+    1093,
+    811,
+    4321
+  ]
   SEARCH_LIMIT = 999
 
   def self.fetch user, is_skip_restrictions, initial_scope = Club
@@ -53,7 +60,7 @@ class Clubs::Query < QueryObjectBase
 
     chain Search::Club.call(
       scope: @scope,
-      phrase: phrase,
+      phrase:,
       ids_limit: SEARCH_LIMIT
     )
   end

@@ -88,7 +88,7 @@ describe Clubs::Query do
       context 'present search phrase' do
         before do
           allow(Elasticsearch::Query::Club).to receive(:call).with(
-            phrase: phrase,
+            phrase:,
             limit: Clubs::Query::SEARCH_LIMIT
           ).and_return(
             club_censored.id => 987,
