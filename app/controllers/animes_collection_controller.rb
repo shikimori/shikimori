@@ -104,7 +104,7 @@ private
   def prepare_model
     model = {}
 
-    %i[genre studio publisher].each do |kind|
+    %i[genre genre_v2 studio publisher].each do |kind|
       next unless params[kind]
 
       terms = Animes::Filters::Terms.new(

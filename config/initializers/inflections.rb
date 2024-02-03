@@ -13,6 +13,7 @@
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.uncountable %w(ranobe)
   inflect.uncountable %w(seyu)
+  inflect.irregular 'genre_v2', 'genres_v2'
 end
 
 # These inflection rules are supported but not enabled by default:
