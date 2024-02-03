@@ -88,7 +88,7 @@ describe GenreV2 do
       end
 
       context 'default title' do
-        let(:genre_v2) { build :genre_v2, name:, kind:, russian: 'Безумие' }
+        let(:genre_v2) { build :genre_v2, name:, entry_type:, russian: 'Безумие' }
         let(:name) { 'Dementia' }
 
         it { is_expected.to eq 'Аниме жанра безумие' }

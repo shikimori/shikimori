@@ -6,7 +6,7 @@ ru:
     warn_message: предупреждение. %{reason}.
     ban_message: бан на %{duration}. %{reason}.
 
-  genre:
+  genre: &genre
     default_title: '%{localized_entry_type} жанра %{name}'
     title:
       common: &common
@@ -94,6 +94,8 @@ ru:
           historical: исторических ранобэ
           supernatural: сверхъестественных ранобэ
           kids: детских ранобэ
+  genre_v2:
+    <<: *genre
 
   topics/entry_topic:
     title:

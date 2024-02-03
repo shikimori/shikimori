@@ -6,7 +6,7 @@ en:
     warn_message: warned. %{reason}.
     ban_message: banned on %{duration}. %{reason}.
 
-  genre:
+  genre: &genre
     default_title: '%{name} %{localized_entry_type}'
     title:
       common: &common
@@ -94,6 +94,8 @@ en:
 
 
 
+  genre_v2:
+    <<: *genre
 
   topics/entry_topic:
     title:

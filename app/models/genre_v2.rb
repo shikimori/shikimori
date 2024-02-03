@@ -55,7 +55,7 @@ class GenreV2 < ApplicationRecord
     entry_type = self.entry_type.constantize.model_name.human
 
     i18n_t(
-      "title.#{ru_case}.#{self.entry_type}.#{key}",
+      "title.#{ru_case}.#{self.entry_type.downcase}.#{key}",
       localized_entry_type: entry_type,
       default: i18n_t('default_title', localized_entry_type: entry_type, name:)
     ).capitalize
