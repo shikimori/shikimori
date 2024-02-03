@@ -10,8 +10,8 @@ class Titles::CollectionTitle # rubocop:disable Metrics/ClassLength
     season:,
     kind:,
     status:,
-    genres:,
     genres_v2:,
+    genres:,
     studios:,
     publishers:
   )
@@ -44,7 +44,9 @@ class Titles::CollectionTitle # rubocop:disable Metrics/ClassLength
 private
 
   def fancy_title
-    if genres.present?
+    if genres_v2.present?
+      genres_v2.first.title(user:)
+    elsif genres.present?
       genres.first.title(user:)
     else
       composite_title
@@ -56,8 +58,8 @@ private
       statuses_text || kinds_text,
       studios_text,
       publishers_text,
-      genres_text,
       genres_v2_text,
+      genres_text,
       seasons_text
     ].compact.join(' ')
 
@@ -69,7 +71,7 @@ private
   end
 
   def fancy?
-    (seasons + kinds + statuses + genres + studios + publishers).one?
+    (seasons + kinds + statuses + genres + genres_v2 + studios + publishers).one?
   end
 
   def statuses_text
@@ -117,18 +119,6 @@ private
     "#{i18n_i 'publisher', publishers.count, :genitive} #{publishers_list}"
   end
 
-  def genres_text
-    return if genres.none?
-
-    list = genres
-      .map { |genre| UsersHelper.localized_name genre, user }
-      .to_sentence
-      .downcase
-
-    of_genres = i18n_i 'genre', genres.count, :genitive
-    i18n_t 'of_genres', genres: of_genres, list:
-  end
-
   def genres_v2_text
     return if genres_v2.none?
 
@@ -138,6 +128,18 @@ private
       .downcase
 
     of_genres = i18n_i 'genre', genres_v2.count, :genitive
+    i18n_t 'of_genres', genres: of_genres, list:
+  end
+
+  def genres_text
+    return if genres.none?
+
+    list = genres
+      .map { |genre| UsersHelper.localized_name genre, user }
+      .to_sentence
+      .downcase
+
+    of_genres = i18n_i 'genre', genres.count, :genitive
     i18n_t 'of_genres', genres: of_genres, list:
   end
 

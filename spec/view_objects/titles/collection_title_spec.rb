@@ -136,8 +136,8 @@ describe Titles::CollectionTitle do
       end
     end
 
-    describe 'genres' do
-      let(:genres) { build :genre_v2, name:, kind: klass.base_class.name.downcase }
+    describe 'genres_v2' do
+      let(:genres_v2) { build :genre_v2, name:, entry_type: klass.base_class.name }
       let(:klass) { Anime }
 
       context 'magic' do
