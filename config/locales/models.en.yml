@@ -10,6 +10,7 @@ en:
     default_title: '%{name} %{localized_entry_type}'
     title:
       common: &common
+          # kind: 'genre'
         adventure: '%{localized_entry_type} about adventures'
         comedy: comedy %{localized_entry_type}
         demons: '%{localized_entry_type} about demons'
@@ -31,9 +32,11 @@ en:
         sci-fi: sci-fi %{localized_entry_type}
         seinen: seinen %{localized_entry_type}
         shoujo: shoujo %{localized_entry_type}
-        shoujo_ai: shoujo-ai %{localized_entry_type}
+        shoujo_ai: &shoujo_ai shoujo-ai %{localized_entry_type}
+        girls_love: *shoujo_ai
         shounen: shounen %{localized_entry_type}
-        shounen_ai: shounen-ai %{localized_entry_type}
+        shounen_ai: &shounen_ai shounen-ai %{localized_entry_type}
+        boys_love: *shounen_ai
         space: '%{localized_entry_type} about space'
         sports: '%{localized_entry_type} about sport'
         sumurai: '%{localized_entry_type} about samurais'
@@ -42,9 +45,15 @@ en:
         vampire: '%{localized_entry_type} about vampires'
         yaoi: yaoi %{localized_entry_type}
         yuri: yuri %{localized_entry_type}
+        # kind: 'theme'
       subjective: &subjective
         anime:
           <<: *common
+
+
+
+
+
 
 
 
@@ -59,8 +68,18 @@ en:
 
 
 
+
+
+
+
+
         ranobe:
           <<: *common
+
+
+
+
+
 
 
 

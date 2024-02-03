@@ -10,6 +10,7 @@ ru:
     default_title: '%{localized_entry_type} жанра %{name}'
     title:
       common: &common
+        # kind: 'genre'
         adventure: '%{localized_entry_type} о приключениях'
 
         demons: '%{localized_entry_type} про демонов'
@@ -31,9 +32,11 @@ ru:
         sci-fi: '%{localized_entry_type} в жанре фантастика'
         seinen: сэйнэн %{localized_entry_type}
         shoujo: сёдзё %{localized_entry_type}
-        shoujo_ai: сёдзё-ай %{localized_entry_type}
+        shoujo_ai: &shoujo_ai сёдзё-ай %{localized_entry_type}
+        girls_love: *shoujo_ai
         shounen: сёнен %{localized_entry_type}
-        shounen_ai: сёнен-ай %{localized_entry_type}
+        shounen_ai: &shounen_ai сёнен-ай %{localized_entry_type}
+        boys_love: *shounen_ai
         space: '%{localized_entry_type} про космос'
         sports: '%{localized_entry_type} про спорт'
         sumurai: '%{localized_entry_type} про самураев'
@@ -42,31 +45,47 @@ ru:
         vampire: '%{localized_entry_type} про вампиров'
         yaoi: '%{localized_entry_type} яой'
         yuri: юри %{localized_entry_type}
+        # kind: 'theme'
       subjective:
         anime:
           <<: *common
+          # kind: 'genre'
           comedy: комедийные аниме
-          mystery: детективные аниме
+          mystery: аниме тайна | детектив
           romance: романтические аниме про любовь
           historical: исторические аниме
           supernatural: сверхъестественные аниме
           kids: детские %{localized_entry_type}
+          hentai: хентайные аниме
+          erotica: эротические аниме
+          # kind: 'theme'
+          award_winning: Удостоеные наград %{localized_entry_type}
         manga:
           <<: *common
-          comedy: комедийная манга
-          mystery: детективная манга
-          romance: романтическая манга про любовь
-          historical: историческая манга
-          supernatural: сверхъестественная манга
+          # kind: 'genre'
+          comedy: комедийная %{localized_entry_type}
+          mystery: "%{localized_entry_type} тайна | детектив"
+          romance: романтическая %{localized_entry_type} про любовь
+          historical: историческая %{localized_entry_type}
+          supernatural: сверхъестественная %{localized_entry_type}
           kids: детская %{localized_entry_type}
+          hentai: хентайная %{localized_entry_type}
+          erotica: эротическая %{localized_entry_type}
+          # kind: 'theme'
+          award_winning: Удостоенная наград %{localized_entry_type}
         ranobe:
           <<: *common
-          comedy: комедийные ранобэ
-          mystery: детективные ранобэ
-          romance: романтические ранобэ про любовь
-          historical: исторические ранобэ
-          supernatural: сверхъестественные ранобэ
-          kids: детские ранобэ
+          # kind: 'genre'
+          comedy: комедийные %{localized_entry_type}
+          mystery: '%{localized_entry_type} тайна | детектив'
+          romance: романтические %{localized_entry_type} про любовь
+          historical: исторические %{localized_entry_type}
+          supernatural: сверхъестественные %{localized_entry_type}
+          kids: детские %{localized_entry_type}
+          hentai: хентайные %{localized_entry_type}
+          erotica: эротические %{localized_entry_type}
+          # kind: 'theme'
+          award_winning: Удостоеные наград %{localized_entry_type}
       # genitive:
       #   anime:
       #     <<: *common
