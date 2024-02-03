@@ -46,9 +46,59 @@ en:
         yaoi: yaoi %{localized_entry_type}
         yuri: yuri %{localized_entry_type}
         # kind: 'theme'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       subjective: &subjective
-        anime:
+        anime: &subjective_anime
           <<: *common
+
+
+
+
 
 
 
@@ -73,19 +123,12 @@ en:
 
 
 
+
+
+
+
         ranobe:
-          <<: *common
-
-
-
-
-
-
-
-
-
-
-
+          <<: *subjective_anime
       # genitive:
       #   <<: *subjective
 

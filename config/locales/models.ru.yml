@@ -24,7 +24,6 @@ ru:
 
         magic: '%{localized_entry_type} про магию'
         martial_arts: '%{localized_entry_type} про боевые искусства'
-        mecha: меха %{localized_entry_type}
 
         police: '%{localized_entry_type} про полицию'
 
@@ -46,25 +45,75 @@ ru:
         yaoi: '%{localized_entry_type} яой'
         yuri: юри %{localized_entry_type}
         # kind: 'theme'
+        adult_cast: '%{localized_entry_type} про взрослых персонажей'
+        anthropomorphic: '%{localized_entry_type} про антропоморфизм'
+        cgdct: CGDCT %{localized_entry_type}
+        childcare: '%{localized_entry_type} про заботу о детях'
+        combat_sports: '%{localized_entry_type} про единоборства'
+        crossdressing: '%{localized_entry_type} про кроссдрессинг'
+        delinquents: '%{localized_entry_type} про хулиганов'
+        detective: '%{localized_entry_type} детектив'
+        gag_humor: '%{localized_entry_type} про гэг-юмор'
+        gore: '%{localized_entry_type} про жестокость'
+        harem: '%{localized_entry_type} про гарем'
+        high_stakes_game: '%{localized_entry_type} про игры с высокими ставками'
+        idols_female: '%{localized_entry_type} про идолов (жен.)'
+        idols_male: '%{localized_entry_type} про идолов (муж.)'
+        isekai: исэкай %{localized_entry_type} | %{localized_entry_type} про попаданцев
+        iyashikei: иясикэй %{localized_entry_type}
+        love_polygon: '%{localized_entry_type} про любовный многоугольник'
+        magical_sex_shift: '%{localized_entry_type} про магическую смена пола'
+        mahou_shoujo: махо-сёдзё %{localized_entry_type}
+        martial_arts: '%{localized_entry_type} про боевые искусства'
+        mecha: меха %{localized_entry_type}
+        medical: '%{localized_entry_type} про медицину'
+        memoir: '%{localized_entry_type} про мемуары'
+        music: '%{localized_entry_type} про музыку'
+        mythology: '%{localized_entry_type} про мифологию'
+        organized_crime: '%{localized_entry_type} про организованную преступность'
+        otaku_culture: '%{localized_entry_type} про культуру отаку'
+        performing_arts: '%{localized_entry_type} про исполнительское искусство'
+        pets: '%{localized_entry_type} про питомцев'
+        racing: '%{localized_entry_type} про гонки'
+        reincarnation: '%{localized_entry_type} про реинкарнацию'
+        reverse_harem: '%{localized_entry_type} про реверс-гарем'
+        romantic_subtext: '%{localized_entry_type} с романтическим подтекстом'
+        samurai: '%{localized_entry_type} про самураев'
+        school: '%{localized_entry_type} про школу'
+        showbiz: '%{localized_entry_type} про шоу-бизнес'
+        space: '%{localized_entry_type} про космос'
+        strategy_game: '%{localized_entry_type} про стратегические игры'
+        super_power: '%{localized_entry_type} про супер силы'
+        survival: '%{localized_entry_type} про выживание'
+        team_sports: '%{localized_entry_type} про командный спорт'
+        time_travel: '%{localized_entry_type} про путешествие во времени'
+        vampire: '%{localized_entry_type} про вампиров'
+        video_game: '%{localized_entry_type} про видеоигры'
+        villainess: '%{localized_entry_type} со злодейками'
+        visual_arts: '%{localized_entry_type} про изобразительное искусство'
+        workplace: '%{localized_entry_type} про работу'
       subjective:
-        anime:
+        anime: &subjective_anime
           <<: *common
           # kind: 'genre'
-          comedy: комедийные аниме
-          mystery: аниме тайна | детектив
-          romance: романтические аниме про любовь
-          historical: исторические аниме
-          supernatural: сверхъестественные аниме
-          kids: детские %{localized_entry_type}
-          hentai: хентайные аниме
-          erotica: эротические аниме
+          comedy: комедийное %{localized_entry_type}
+          romance: романтическое %{localized_entry_type} про любовь
+          historical: историческое %{localized_entry_type}
+          supernatural: сверхъестественное %{localized_entry_type}
+          kids: детское %{localized_entry_type}
+          hentai: хентайное %{localized_entry_type}
+          erotica: эротическое %{localized_entry_type}
           # kind: 'theme'
-          award_winning: Удостоеные наград %{localized_entry_type}
+          award_winning: удостоеное наград %{localized_entry_type}
+          educational: образовательное %{localized_entry_type}
+          historical: историческое %{localized_entry_type}
+          military: военное %{localized_entry_type}
+          parody: пародийное %{localized_entry_type}
+          psychological: психологическое %{localized_entry_type}
         manga:
           <<: *common
           # kind: 'genre'
           comedy: комедийная %{localized_entry_type}
-          mystery: "%{localized_entry_type} тайна | детектив"
           romance: романтическая %{localized_entry_type} про любовь
           historical: историческая %{localized_entry_type}
           supernatural: сверхъестественная %{localized_entry_type}
@@ -72,20 +121,14 @@ ru:
           hentai: хентайная %{localized_entry_type}
           erotica: эротическая %{localized_entry_type}
           # kind: 'theme'
-          award_winning: Удостоенная наград %{localized_entry_type}
+          award_winning: удостоенная наград %{localized_entry_type}
+          educational: образовательная %{localized_entry_type}
+          historical: историческая %{localized_entry_type}
+          military: военная %{localized_entry_type}
+          parody: пародийная %{localized_entry_type}
+          psychological: психологическая %{localized_entry_type}
         ranobe:
-          <<: *common
-          # kind: 'genre'
-          comedy: комедийные %{localized_entry_type}
-          mystery: '%{localized_entry_type} тайна | детектив'
-          romance: романтические %{localized_entry_type} про любовь
-          historical: исторические %{localized_entry_type}
-          supernatural: сверхъестественные %{localized_entry_type}
-          kids: детские %{localized_entry_type}
-          hentai: хентайные %{localized_entry_type}
-          erotica: эротические %{localized_entry_type}
-          # kind: 'theme'
-          award_winning: Удостоеные наград %{localized_entry_type}
+          <<: *subjective_anime
       # genitive:
       #   anime:
       #     <<: *common
