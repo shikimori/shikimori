@@ -1,4 +1,4 @@
-class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLength
+class AnimesCollectionController < ShikimoriController
   include SearchPhraseConcern
   CENSORED = /\b(?:sex|секс|porno?|порно)\b/mix
 
@@ -113,27 +113,26 @@ private
       )
       model[kind] = terms
         .positives
-        .map { |term| @menu.send(kind.to_s.pluralize).find { |v| v.id == term } }
-        .compact
+        .filter_map { |term| @menu.send(kind.to_s.pluralize).find { |v| v.id == term } }
     end
 
     model
   end
 
   def genres_redirect_check genres
-    return unless params.include?(:genre) && !params[:genre].include?('!')
+    return unless params.include?(:genre) && params[:genre].exclude?('!')
 
     ensure_redirect! current_url(genre: genres.map(&:to_param).sort.join(','))
   end
 
   def studios_redirect_check studios
-    return unless params.include?(:studio) && !params[:studio].include?('!')
+    return unless params.include?(:studio) && params[:studio].exclude?('!')
 
     ensure_redirect! current_url(studio: studios.map(&:to_param).sort.join(','))
   end
 
   def publishers_redirect_check publishers
-    return unless params.include?(:publisher) && !params[:publisher].include?('!')
+    return unless params.include?(:publisher) && params[:publisher].exclude?('!')
 
     ensure_redirect! current_url(publisher: publishers.map(&:to_param).sort.join(','))
   end
@@ -151,7 +150,7 @@ private
   end
 
   def censored_search_check
-    if params[:search] && params[:search] =~ CENSORED && censored_forbidden?
+    if params[:search]&.match?(CENSORED) && censored_forbidden?
       raise AgeRestricted
     end
   end
@@ -177,7 +176,7 @@ private
     end
   end
 
-  def order_name
+  def order_name # rubocop:disable Metrics/MethodLength
     case params[:order]
       when 'name'
         i18n_t 'order.in_alphabetical_order'
@@ -187,8 +186,8 @@ private
         i18n_t 'order.by_released_date'
       when 'id_desc', 'id'
         i18n_t 'order.by_add_date'
-      when 'ranked'
-        i18n_t 'order.by_ranking'
+      # when 'ranked'
+      #   i18n_t 'order.by_ranking'
       when 'ranked_random'
         i18n_t 'order.by_random_ranking'
       when 'ranked_shiki'
