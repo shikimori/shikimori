@@ -42,7 +42,6 @@ ru:
         vampire: '%{localized_entry_type} про вампиров'
         yaoi: '%{localized_entry_type} яой'
         yuri: юри %{localized_entry_type}
-
       subjective:
         anime:
           <<: *common
@@ -68,32 +67,31 @@ ru:
           historical: исторические ранобэ
           supernatural: сверхъестественные ранобэ
           kids: детские ранобэ
-
-      genitive:
-        anime:
-          <<: *common
-          comedy: комедийных аниме
-          mystery: детективных аниме
-          romance: романтических аниме про любовь
-          historical: исторических аниме
-          supernatural: сверхъестественных аниме
-          kids: детских %{localized_entry_type}
-        manga:
-          <<: *common
-          comedy: комедийной манги
-          mystery: детективной манги
-          romance: романтической манги про любовь
-          historical: исторической манги
-          supernatural: сверхъестественной манги
-          kids: детской %{localized_entry_type}
-        ranobe:
-          <<: *common
-          comedy: комедийных ранобэ
-          mystery: детективных ранобэ
-          romance: романтических ранобэ про любовь
-          historical: исторических ранобэ
-          supernatural: сверхъестественных ранобэ
-          kids: детских ранобэ
+      # genitive:
+      #   anime:
+      #     <<: *common
+      #     comedy: комедийных аниме
+      #     mystery: детективных аниме
+      #     romance: романтических аниме про любовь
+      #     historical: исторических аниме
+      #     supernatural: сверхъестественных аниме
+      #     kids: детских %{localized_entry_type}
+      #   manga:
+      #     <<: *common
+      #     comedy: комедийной манги
+      #     mystery: детективной манги
+      #     romance: романтической манги про любовь
+      #     historical: исторической манги
+      #     supernatural: сверхъестественной манги
+      #     kids: детской %{localized_entry_type}
+      #   ranobe:
+      #     <<: *common
+      #     comedy: комедийных ранобэ
+      #     mystery: детективных ранобэ
+      #     romance: романтических ранобэ про любовь
+      #     historical: исторических ранобэ
+      #     supernatural: сверхъестественных ранобэ
+      #     kids: детских ранобэ
   genre_v2:
     <<: *genre
 

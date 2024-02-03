@@ -42,7 +42,6 @@ en:
         vampire: '%{localized_entry_type} about vampires'
         yaoi: yaoi %{localized_entry_type}
         yuri: yuri %{localized_entry_type}
-
       subjective: &subjective
         anime:
           <<: *common
@@ -68,9 +67,8 @@ en:
 
 
 
-
-      genitive:
-        <<: *subjective
+      # genitive:
+      #   <<: *subjective
 
 
 
