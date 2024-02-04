@@ -58,12 +58,18 @@ class GenreV2 < ApplicationRecord
 
     key = name.parameterize.underscore
     name = UsersHelper.localized_name self, user
-    localized_entry_type = entry_type.constantize.model_name.human
+    localized_entry_type = entry_type.constantize.model_name.human.downcase
 
-    i18n_t(
+    text = i18n_t(
       "title.#{ru_case}.#{entry_type.downcase}.#{key}",
       localized_entry_type:,
       default: i18n_t('default_title', localized_entry_type:, name:)
-    ).capitalize
+    )
+
+    if text.starts_with? name
+      text
+    else
+      text.downcase.capitalize
+    end
   end
 end

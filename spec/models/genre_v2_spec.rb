@@ -42,9 +42,10 @@ describe GenreV2 do
       let(:ru_case) { :subjective }
       let(:user) { nil }
 
-      let(:genre_v2) { build :genre_v2, name:, entry_type: }
+      let(:genre_v2) { build :genre_v2, name:, russian:, entry_type: }
       let(:entry_type) { Types::GenreV2::EntryType['Anime'] }
       let(:name) { 'Romance' }
+      let(:russian) { '123' }
 
       context 'anime' do
         context 'Magic' do
@@ -60,6 +61,12 @@ describe GenreV2 do
         context 'Romance' do
           let(:name) { 'Romance' }
           it { is_expected.to eq 'Романтические аниме про любовь' }
+        end
+
+        context 'CGDCT' do
+          let(:name) { 'CGDCT' }
+          let(:russian) { 'CGDCT' }
+          it { is_expected.to eq 'CGDCT аниме' }
         end
       end
 
@@ -82,10 +89,10 @@ describe GenreV2 do
         end
       end
 
-      # context 'genitive case' do
-      #   let(:ru_case) { :genitive }
-      #   it { is_expected.to eq 'Романтических аниме про любовь' }
-      # end
+      context 'genitive case' do
+        let(:ru_case) { :genitive }
+        it { expect { subject }.to raise_error ArgumentError }
+      end
 
       context 'default title' do
         let(:genre_v2) { build :genre_v2, name:, entry_type:, russian: 'Безумие' }

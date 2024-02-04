@@ -56,10 +56,10 @@ describe Genre do
         end
       end
 
-      # context 'genitive case' do
-      #   let(:ru_case) { :genitive }
-      #   it { is_expected.to eq 'Романтических аниме про любовь' }
-      # end
+      context 'genitive case' do
+        let(:ru_case) { :genitive }
+        it { expect { subject }.to raise_error ArgumentError }
+      end
 
       context 'default title' do
         let(:genre) { build :genre, name:, kind:, russian: 'Безумие' }

@@ -98,9 +98,8 @@ ru:
           # kind: 'genre'
           comedy: комедийные %{localized_entry_type}
           romance: романтические %{localized_entry_type} про любовь
-          historical: историческте %{localized_entry_type}
-          supernatural: сверхъестественнте %{localized_entry_type}
-          kids: детскте %{localized_entry_type}
+          supernatural: сверхъестественные %{localized_entry_type}
+          kids: детские %{localized_entry_type}
           hentai: хентайные %{localized_entry_type}
           erotica: эротические %{localized_entry_type}
           # kind: 'theme'
@@ -115,7 +114,6 @@ ru:
           # kind: 'genre'
           comedy: комедийная %{localized_entry_type}
           romance: романтическая %{localized_entry_type} про любовь
-          historical: историческая %{localized_entry_type}
           supernatural: сверхъестественная %{localized_entry_type}
           kids: детская %{localized_entry_type}
           hentai: хентайная %{localized_entry_type}
@@ -130,7 +128,6 @@ ru:
         ranobe:
           comedy: комедийное %{localized_entry_type}
           romance: романтическое %{localized_entry_type} про любовь
-          historical: историческое %{localized_entry_type}
           supernatural: сверхъестественное %{localized_entry_type}
           kids: детское %{localized_entry_type}
           hentai: хентайное %{localized_entry_type}

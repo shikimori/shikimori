@@ -109,7 +109,6 @@ en:
 
 
 
-
         manga:
           <<: *common
 
@@ -126,10 +125,8 @@ en:
 
 
 
-
         ranobe:
           <<: *common
-
 
 
 
