@@ -96,20 +96,20 @@ ru:
         anime: &subjective_anime
           <<: *common
           # kind: 'genre'
-          comedy: комедийное %{localized_entry_type}
-          romance: романтическое %{localized_entry_type} про любовь
-          historical: историческое %{localized_entry_type}
-          supernatural: сверхъестественное %{localized_entry_type}
-          kids: детское %{localized_entry_type}
-          hentai: хентайное %{localized_entry_type}
-          erotica: эротическое %{localized_entry_type}
+          comedy: комедийные %{localized_entry_type}
+          romance: романтические %{localized_entry_type} про любовь
+          historical: историческте %{localized_entry_type}
+          supernatural: сверхъестественнте %{localized_entry_type}
+          kids: детскте %{localized_entry_type}
+          hentai: хентайные %{localized_entry_type}
+          erotica: эротические %{localized_entry_type}
           # kind: 'theme'
-          award_winning: удостоеное наград %{localized_entry_type}
-          educational: образовательное %{localized_entry_type}
-          historical: историческое %{localized_entry_type}
-          military: военное %{localized_entry_type}
-          parody: пародийное %{localized_entry_type}
-          psychological: психологическое %{localized_entry_type}
+          award_winning: удостоеные наград %{localized_entry_type}
+          educational: образовательные %{localized_entry_type}
+          historical: исторические %{localized_entry_type}
+          military: военные %{localized_entry_type}
+          parody: пародийные %{localized_entry_type}
+          psychological: психологические %{localized_entry_type}
         manga:
           <<: *common
           # kind: 'genre'
@@ -128,32 +128,20 @@ ru:
           parody: пародийная %{localized_entry_type}
           psychological: психологическая %{localized_entry_type}
         ranobe:
-          <<: *subjective_anime
-      # genitive:
-      #   anime:
-      #     <<: *common
-      #     comedy: комедийных аниме
-      #     mystery: детективных аниме
-      #     romance: романтических аниме про любовь
-      #     historical: исторических аниме
-      #     supernatural: сверхъестественных аниме
-      #     kids: детских %{localized_entry_type}
-      #   manga:
-      #     <<: *common
-      #     comedy: комедийной манги
-      #     mystery: детективной манги
-      #     romance: романтической манги про любовь
-      #     historical: исторической манги
-      #     supernatural: сверхъестественной манги
-      #     kids: детской %{localized_entry_type}
-      #   ranobe:
-      #     <<: *common
-      #     comedy: комедийных ранобэ
-      #     mystery: детективных ранобэ
-      #     romance: романтических ранобэ про любовь
-      #     historical: исторических ранобэ
-      #     supernatural: сверхъестественных ранобэ
-      #     kids: детских ранобэ
+          comedy: комедийное %{localized_entry_type}
+          romance: романтическое %{localized_entry_type} про любовь
+          historical: историческое %{localized_entry_type}
+          supernatural: сверхъестественное %{localized_entry_type}
+          kids: детское %{localized_entry_type}
+          hentai: хентайное %{localized_entry_type}
+          erotica: эротическое %{localized_entry_type}
+          # kind: 'theme'
+          award_winning: удостоеное наград %{localized_entry_type}
+          educational: образовательное %{localized_entry_type}
+          historical: историческое %{localized_entry_type}
+          military: военное %{localized_entry_type}
+          parody: пародийное %{localized_entry_type}
+          psychological: психологическое %{localized_entry_type}
   genre_v2:
     <<: *genre
 

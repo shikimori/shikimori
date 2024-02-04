@@ -50,6 +50,8 @@ class GenreV2 < ApplicationRecord
   end
 
   def title ru_case: :subjective, user: nil
+    raise ArgumentError unless ru_case == :subjective
+
     key = name.parameterize.underscore
     name = UsersHelper.localized_name self, user
     entry_type = self.entry_type.constantize.model_name.human

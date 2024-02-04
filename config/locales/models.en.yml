@@ -93,7 +93,7 @@ en:
 
 
       subjective: &subjective
-        anime: &subjective_anime
+        anime:
           <<: *common
 
 
@@ -128,19 +128,7 @@ en:
 
 
         ranobe:
-          <<: *subjective_anime
-      # genitive:
-      #   <<: *subjective
-
-
-
-
-
-
-
-
-
-
+          <<: *common
 
 
 
