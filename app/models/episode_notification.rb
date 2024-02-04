@@ -9,7 +9,7 @@ class EpisodeNotification < ApplicationRecord
   after_create :track_episode
 
   def rollback kind
-    send "is_#{kind}=", false
+    send :"is_#{kind}=", false
 
     if nothig_to_rollback?
       save!

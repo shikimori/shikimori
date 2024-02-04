@@ -58,6 +58,8 @@ class Genre < ApplicationRecord
   end
 
   def title ru_case: :subjective, user: nil
+    raise ArgumentError, "ru_case: #{ru_case}" unless ru_case == :subjective
+
     key = english.parameterize.underscore
     name = UsersHelper.localized_name self, user
     kind = self.kind.capitalize.constantize.model_name.human
