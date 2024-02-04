@@ -111,8 +111,8 @@ private
         target_type: @topic.linked_type,
         target_id: @topic.linked_id
       )
-      .group(:user_id)
-      .select(:user_id)
+      .group('users.id')
+      .select('users.id')
 
     User.where(id: scope).order(:id)
   end
