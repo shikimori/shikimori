@@ -14,7 +14,7 @@ private
 
   def verify_google_captcha action
     if Shikimori::IS_RECAPTCHA_V3
-      auto_success = verify_recaptcha action: action,
+      auto_success = verify_recaptcha action:,
         minimum_score: 0.4,
         secret_key: Rails.application.secrets.recaptcha[:v3][:secret_key]
     end
@@ -43,5 +43,7 @@ private
     end
 
     JSON.parse(cf_response.body, symbolize_names: true)[:success]
+  rescue JSON::ParserError
+    true
   end
 end
