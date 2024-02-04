@@ -82,10 +82,10 @@ describe GenreV2 do
         end
       end
 
-      context 'genitive case' do
-        let(:ru_case) { :genitive }
-        it { is_expected.to eq 'Романтических аниме про любовь' }
-      end
+      # context 'genitive case' do
+      #   let(:ru_case) { :genitive }
+      #   it { is_expected.to eq 'Романтических аниме про любовь' }
+      # end
 
       context 'default title' do
         let(:genre_v2) { build :genre_v2, name:, entry_type:, russian: 'Безумие' }

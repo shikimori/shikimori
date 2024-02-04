@@ -45,7 +45,7 @@ private
 
   def fancy_title
     if genres_v2.present?
-      genres_v2.first.title(user:)
+      genres_v2.first.title(user:, entry_type: @klass.name)
     elsif genres.present?
       genres.first.title(user:)
     else

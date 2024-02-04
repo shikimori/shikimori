@@ -49,17 +49,21 @@ class GenreV2 < ApplicationRecord
     id.in? AI_IDS
   end
 
-  def title ru_case: :subjective, user: nil
-    raise ArgumentError unless ru_case == :subjective
+  def title(
+    ru_case: :subjective,
+    entry_type: self.entry_type,
+    user: nil
+  )
+    raise ArgumentError, "ru_case: #{ru_case}" unless ru_case == :subjective
 
     key = name.parameterize.underscore
     name = UsersHelper.localized_name self, user
-    entry_type = self.entry_type.constantize.model_name.human
+    localized_entry_type = entry_type.constantize.model_name.human
 
     i18n_t(
-      "title.#{ru_case}.#{self.entry_type.downcase}.#{key}",
-      localized_entry_type: entry_type,
-      default: i18n_t('default_title', localized_entry_type: entry_type, name:)
+      "title.#{ru_case}.#{entry_type.downcase}.#{key}",
+      localized_entry_type:,
+      default: i18n_t('default_title', localized_entry_type:, name:)
     ).capitalize
   end
 end
