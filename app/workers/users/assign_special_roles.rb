@@ -17,10 +17,13 @@ class Users::AssignSpecialRoles
 private
 
   def process_klass klass
-    users_scope(klass).each do |user|
-      user.roles << Types::User::Roles[:ai_genres]
-      user.save!
-    end
+    users_scope(klass)
+      .update_all(
+        <<~SQL.squish
+          updated_at = #{ApplicationRecord.sanitize Time.zone.now},
+          roles = array_append(roles, '#{Types::User::Roles[:ai_genres]}')
+        SQL
+      )
   end
 
   def users_scope klass
