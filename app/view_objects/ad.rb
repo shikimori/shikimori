@@ -222,28 +222,12 @@ private
     #   }
     # end,
     images: [{
-      src: '/assets/globals/events/2023-09-18/menu_1.png',
-      src_2x: '/assets/globals/events/2023-09-18/menu_1@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner1&utm_campaign=18_09&erid=2VtzqvZoG65'
-    }, {
-      src: '/assets/globals/events/2023-09-18/menu_2.png',
-      src_2x: '/assets/globals/events/2023-09-18/menu_2@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner2&utm_campaign=18_09&erid=2Vtzqua26U9'
-    }, {
-      src: '/assets/globals/events/2023-09-18/menu_3.png',
-      src_2x: '/assets/globals/events/2023-09-18/menu_3@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner3&utm_campaign=18_09&erid=2VtzqwERJg9'
-    }, {
-      src: '/assets/globals/events/2023-09-18/menu_4.png',
-      src_2x: '/assets/globals/events/2023-09-18/menu_4@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner4&utm_campaign=18_09&erid=2VtzqwFvJQH'
-    }, {
-      src: '/assets/globals/events/2023-09-18/menu_5.png',
-      src_2x: '/assets/globals/events/2023-09-18/menu_5@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner5&utm_campaign=18_09&erid=2Vtzqx6sEdP'
+      src: '/assets/globals/events/2024-02-07/menu_1.jpg',
+      src_2x: '/assets/globals/events/2024-02-07/menu_1@2x.jpg',
+      url: 'https://www.wildberries.ru/brands/minix'
     }],
     rules: {
-      cookie: 'i7',
+      cookie: 'i1',
       shows_per_week: 480 # 380 # 420 # 540
     },
     placement: Types::Ad::Placement[:menu],
@@ -442,13 +426,13 @@ private
     #   # Types::Ad::Type[:advrtr_240x400]
     # ],
     Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300], # IMBA - remove 2023-11-18 15:00
+      Types::Ad::Type[:special_x300], # minix - remove 2024-02-25 23:59
       # # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x400]
       # # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300], # IMBA - remove 2023-11-18 15:00
+      Types::Ad::Type[:special_x300], # minix - remove 2024-02-25 23:59
       # # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600]
       # # Types::Ad::Type[:advrtr_240x400],
