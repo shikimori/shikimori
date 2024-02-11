@@ -222,8 +222,8 @@ private
     #   }
     # end,
     images: [{
-      src: '/assets/globals/events/2024-02-07/menu_1.jpg',
-      src_2x: '/assets/globals/events/2024-02-07/menu_1@2x.jpg',
+      src: '/assets/globals/events/2024-02-07/menu_1.jpg?v2',
+      src_2x: '/assets/globals/events/2024-02-07/menu_1@2x.jpg?v2',
       url: 'https://www.wildberries.ru/brands/minix'
     }],
     rules: {
