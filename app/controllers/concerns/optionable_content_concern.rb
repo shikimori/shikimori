@@ -14,6 +14,6 @@ module OptionableContentConcern
   end
 
   def genres_v2?
-    current_user.staff?
+    user_signed_in? && (current_user.admin? || current_user.super_moderator?)
   end
 end
