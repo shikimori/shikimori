@@ -7174,6 +7174,7 @@
         - 55871
         - 56015
         - 57556
+        - 58015
       :threshold: 97.7%
       :generator: &351
         ignore_latest_ids:
@@ -10053,6 +10054,7 @@
         - 56064
         - 57199
         - 57596
+        - 57595
       :threshold: 93.9%
       :generator: &511
         ignore_latest_ids:
@@ -24184,6 +24186,13 @@
         - 54041
         - 180
         - 181
+        - 55644
+        - 51139
+        - 55775
+        - 55153
+        - 44081
+        - 53200
+        - 51498
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *4
   neko_id: :genki
@@ -25157,6 +25166,10 @@
         - 685
         - 516
         - 2288
+        - 49858
+        - 53026
+        - 51535
+        - 54714
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *4
   neko_id: :kuudere
@@ -26677,6 +26690,8 @@
         - 14835
         - 35883
         - 38767
+        - 33280
+        - 38337
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *4
   neko_id: :moe
@@ -30610,6 +30625,7 @@
         - 31636
         - 36049
         - 54714
+        - 33031
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *4
   neko_id: :tsundere
@@ -31047,6 +31063,7 @@
         - 44276
         - 41619
         - 52505
+        - 33031
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *4
   neko_id: :yandere
