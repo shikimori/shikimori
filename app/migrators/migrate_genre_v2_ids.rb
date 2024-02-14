@@ -10,7 +10,9 @@ class MigrateGenreV2Ids
       next if genre_v1.nil? || genre_v1.id == genre_v2.id
 
       log "migrating genre_v2 (#{genre_v2.name}) id=#{genre_v2.id} to id=#{genre_v1.id}"
-      migrate genre_v2:, to_id: genre_v1.id
+      ActiveRecord::Base.transaction do
+        migrate genre_v2:, to_id: genre_v1.id
+      end
     end
   end
 
