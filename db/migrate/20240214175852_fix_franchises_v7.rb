@@ -3,7 +3,7 @@ class FixFranchisesV7 < ActiveRecord::Migration[7.0]
     Animes::UpdateFranchises.new.call(
       Anime.where(
         franchise: %w[
-          planetarian kaginado umisea tian_yu
+          planetarian kaginado umisea tian_yu dragon_ball
         ]
       )
     )
