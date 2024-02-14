@@ -1,7 +1,7 @@
 class MigrateGenreV2Ids
   method_object :klass
 
-  TEMP_ID = 9_876_564_321
+  TEMP_ID = 876_564_321
   ERROR_MESSAGE = 'Something went wrong. Found GenreV2 having TEMP_ID'
 
   def call
@@ -9,7 +9,7 @@ class MigrateGenreV2Ids
       genre_v1 = Genre.find_by(name: genre_v2.name)
       next if genre_v1.nil? || genre_v1.id == genre_v2.id
 
-      ap "Migrating GenreV2 NAME=#{genre_v2.name} ID=#{genre_v2.id} to ID=#{genre_v1.id}"
+      log "migrating genre_v2 (#{genre_v2.name}) id=#{genre_v2.id} to id=#{genre_v1.id}"
       migrate genre_v2:, to_id: genre_v1.id
     end
   end
@@ -23,8 +23,17 @@ private
     conflicting_genre_v2 = genres_v2_repository.find { |v| v.id == to_id }
 
     migrate genre_v2: conflicting_genre_v2, to_id: TEMP_ID if conflicting_genre_v2
+
     genre_v2.update! id: to_id
-    ap "Changed GenreV2 NAME=#{genre_v2.name} ID=#{from_id} to ID=#{to_id}"
+    @klass
+      .where("genre_v2_ids && '{#{from_id}}'")
+      .update_all(
+        <<~SQL.squish
+          genre_v2_ids = array_append(array_remove(genre_v2_ids, '#{from_id}'), '#{to_id}')
+        SQL
+      )
+
+    log "updated genre_v2 (#{genre_v2.name}) id=#{from_id} to id=#{to_id}"
     migrate genre_v2: conflicting_genre_v2, to_id: from_id if conflicting_genre_v2
   end
 
@@ -32,5 +41,11 @@ private
     @genres_v2_repository ||= "#{@klass.name}GenresV2Repository"
       .constantize
       .instance
+  end
+
+  def log phrase
+    return if Rails.env.test?
+
+    puts phrase # rubocop:disable Rails/Output
   end
 end
