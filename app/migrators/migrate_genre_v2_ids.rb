@@ -24,7 +24,19 @@ private
 
     migrate genre_v2: conflicting_genre_v2, to_id: TEMP_ID if conflicting_genre_v2
 
+    migrate_genre_id(genre_v2:, to_id:)
+    migrate_db_entries(from_id:, to_id:)
+    migrate_versions(from_id:, to_id:)
+
+    log "updated genre_v2 (#{genre_v2.name}) id=#{from_id} to id=#{to_id}"
+    migrate genre_v2: conflicting_genre_v2, to_id: from_id if conflicting_genre_v2
+  end
+
+  def migrate_genre_id genre_v2:, to_id:
     genre_v2.update! id: to_id
+  end
+
+  def migrate_db_entries from_id:, to_id:
     @klass
       .where("genre_v2_ids && '{#{from_id}}'")
       .update_all(
@@ -32,9 +44,15 @@ private
           genre_v2_ids = array_append(array_remove(genre_v2_ids, '#{from_id}'), '#{to_id}')
         SQL
       )
+  end
 
-    log "updated genre_v2 (#{genre_v2.name}) id=#{from_id} to id=#{to_id}"
-    migrate genre_v2: conflicting_genre_v2, to_id: from_id if conflicting_genre_v2
+  def migrate_versions from_id:, to_id:
+    Version
+      .where(
+        item_type: GenreV2.name,
+        item_id: from_id
+      )
+      .update_all item_id: to_id
   end
 
   def genres_v2_repository

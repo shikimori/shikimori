@@ -15,6 +15,16 @@ describe MigrateGenreV2Ids do
   let(:genre_v2_ecchi) { create :genre_v2, name: 'Ecchi', id: genre_v1_comedy.id }
   let(:genre_v2_other) { create :genre_v2, name: 'Other', id: 9999 }
 
+  let(:genre_v2_action) { create :genre_v2, name: 'Action', id: genre_v1_action.id }
+  let(:genre_v2_comedy) { create :genre_v2, name: 'Comedy', id: genre_v1_ecchi.id }
+
+  let!(:version_genre_v2_action) do
+    create :version, item: genre_v2_action, item_diff: { 'name' => ['a', 'b'] }
+  end
+  let!(:version_genre_v2_comedy) do
+    create :version, item: genre_v2_comedy, item_diff: { 'name' => ['a', 'b'] }
+  end
+
   subject! { described_class.call Anime }
 
   it do
@@ -26,5 +36,8 @@ describe MigrateGenreV2Ids do
     expect(anime_1.reload.genre_v2_ids.sort).to eq [genre_v1_action.id, genre_v1_comedy.id].sort
     expect(anime_2.reload.genre_v2_ids.sort).to eq [genre_v1_ecchi.id, genre_v2_other.id].sort
     expect(anime_3.reload.genre_v2_ids.sort).to eq [genre_v2_other.id, genre_v1_comedy.id].sort
+
+    expect(version_genre_v2_action.reload.item_id).to eq 3333
+    expect(version_genre_v2_comedy.reload.item_id).to eq 4444
   end
 end
