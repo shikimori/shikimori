@@ -643,7 +643,7 @@
   - A39988 # Isekai Quartet 2
 -
   - A29803 # Overlord
-  - A39993 # Isekai Quartet Relay PV
+  - A39993 # Isekai Quartet Relay PVs
 -
   - A29803 # Overlord
   - A41567 # Isekai Quartet Movie: Another World
@@ -711,7 +711,7 @@
   - A39988 # Isekai Quartet 2
 -
   - A30831 # Kono Subarashii Sekai ni Shukufuku wo!
-  - A39993 # Isekai Quartet Relay PV
+  - A39993 # Isekai Quartet Relay PVs
 -
   - A30831 # Kono Subarashii Sekai ni Shukufuku wo!
   - A41567 # Isekai Quartet Movie: Another World
@@ -743,7 +743,7 @@
   - A39988 # Isekai Quartet 2
 -
   - A31240 # Re:Zero kara Hajimeru Isekai Seikatsu
-  - A39993 # Isekai Quartet Relay PV
+  - A39993 # Isekai Quartet Relay PVs
 -
   - A31240 # Re:Zero kara Hajimeru Isekai Seikatsu
   - A41567 # Isekai Quartet Movie: Another World
@@ -801,7 +801,7 @@
   - A39988 # Isekai Quartet 2
 -
   - A32615 # Youjo Senki
-  - A39993 # Isekai Quartet Relay PV
+  - A39993 # Isekai Quartet Relay PVs
 -
   - A32615 # Youjo Senki
   - A41567 # Isekai Quartet Movie: Another World
@@ -830,11 +830,11 @@
   - A33089 # Kemono Friends
   - A36339 # Nissin no Donbei x Kemono Friends
 -
-  - A33190 # Planetarian: Hoshi no Hito
-  - A48775 # Kaginado
+  - A33091 # Planetarian: Chiisana Hoshi no Yume
+  - A50685 # Kaginado Season 2
 -
   - A33190 # Planetarian: Hoshi no Hito
-  - A50685 # Kaginado Season 2
+  - A48775 # Kaginado
 -
   - A33443 # Luo Xiao Hei Zhan Ji
   - A54944 # Arknights x Luo Xiao Hei Zhan Ji: Hao Jiu Bu Jian
@@ -1044,6 +1044,9 @@
 -
   - A48436 # Gintama: The Final x Mameshiba
   - A7261 # Mameshiba
+-
+  - A48775 # Kaginado
+  - A6547 # Angel Beats!
 -
   - A48842 # Mahoutsukai Reimeiki
   - A51349 # Mahoutsukai Reimeiki Mini Anime
