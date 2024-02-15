@@ -9,7 +9,7 @@ class MigrateGenreV2Ids
       genre_v1 = Genre.find_by(name: genre_v2.name)
       next if genre_v1.nil? || genre_v1.id == genre_v2.id
 
-      log "migrating genre_v2 (#{genre_v2.name}) id=#{genre_v2.id} to id=#{genre_v1.id}"
+      log "migrating #{genre_log_details genre_v2:} => id=#{genre_v1.id}"
       ActiveRecord::Base.transaction do
         migrate genre_v2:, to_id: genre_v1.id
       end
@@ -22,24 +22,32 @@ private
     raise ERROR_MESSAGE if to_id == TEMP_ID && GenreV2.find_by(id: TEMP_ID)
 
     from_id = genre_v2.id
-    conflicting_genre_v2 = genres_v2_repository.find { |v| v.id == to_id }
+    conflicting_genre_v2 = search_conflicting_genre to_id
 
-    migrate genre_v2: conflicting_genre_v2, to_id: TEMP_ID if conflicting_genre_v2
+    if conflicting_genre_v2
+      log "found conflicting #{genre_log_details genre_v2: conflicting_genre_v2}"
+      migrate genre_v2: conflicting_genre_v2, to_id: TEMP_ID
+    end
 
     migrate_genre_id(genre_v2:, to_id:)
-    migrate_db_entries(from_id:, to_id:)
+    migrate_db_entries(genre_v2:, from_id:, to_id:)
     migrate_versions(from_id:, to_id:)
 
-    log "updated genre_v2 (#{genre_v2.name}) id=#{from_id} to id=#{to_id}"
+    log "updated #{genre_log_details genre_v2:, id: from_id} => id=#{to_id}"
     migrate genre_v2: conflicting_genre_v2, to_id: from_id if conflicting_genre_v2
+  end
+
+  def search_conflicting_genre to_id
+    genres_v2_repository.find { |v| v.id == to_id } ||
+      genres_v2_other_repository.find { |v| v.id == to_id }
   end
 
   def migrate_genre_id genre_v2:, to_id:
     genre_v2.update! id: to_id
   end
 
-  def migrate_db_entries from_id:, to_id:
-    @klass
+  def migrate_db_entries genre_v2:, from_id:, to_id:
+    genre_v2.entry_type.constantize
       .where("genre_v2_ids && '{#{from_id}}'")
       .update_all(
         <<~SQL.squish
@@ -63,9 +71,19 @@ private
       .instance
   end
 
+  def genres_v2_other_repository
+    @genres_v2_other_repository ||= "#{(@klass == Anime ? Manga : Anime).name}GenresV2Repository"
+      .constantize
+      .instance
+  end
+
   def log phrase
     return if Rails.env.test?
 
     puts phrase # rubocop:disable Rails/Output
+  end
+
+  def genre_log_details genre_v2:, id: genre_v2.id
+    "genre_v2 (#{genre_v2.entry_type} \"#{genre_v2.name}\") id=#{id}"
   end
 end
