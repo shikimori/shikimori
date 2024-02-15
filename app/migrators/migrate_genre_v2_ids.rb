@@ -4,9 +4,19 @@ class MigrateGenreV2Ids
   TEMP_ID = 876_564_321
   ERROR_MESSAGE = 'Something went wrong. Found GenreV2 having TEMP_ID'
 
+  SPECIAL_MIGRATION_RULES = {
+    'Гонки' => 'Машины',
+    'Авангард' => 'Безумие',
+    'Мифология' => 'Демоны',
+    'Тайна' => 'Детектив',
+    'Стратегические игры' => 'Игры',
+    'Детектив' => 'Полиция',
+    'Кроссдрессинг' => 'Смена пола'
+  }
+
   def call
     genres_v2_repository.each do |genre_v2|
-      genre_v1 = Genre.find_by(name: genre_v2.name)
+      genre_v1 = search_maching_genre_v1(genre_v2:)
       next if genre_v1.nil? || genre_v1.id == genre_v2.id
 
       log "migrating #{genre_log_details genre_v2:} => id=#{genre_v1.id}"
@@ -14,15 +24,30 @@ class MigrateGenreV2Ids
         migrate genre_v2:, to_id: genre_v1.id
       end
     end
+
+    true
   end
 
 private
+
+  def search_maching_genre_v1 genre_v2:
+    genre_v1 = Genre.find_by(name: genre_v2.name)
+
+    return if SPECIAL_MIGRATION_RULES.value? genre_v1&.russian
+
+    genre_v1
+  end
+
+  def search_conflicting_genre_v2 to_id
+    genres_v2_repository.find { |v| v.id == to_id } ||
+      genres_v2_other_repository.find { |v| v.id == to_id }
+  end
 
   def migrate genre_v2:, to_id:
     raise ERROR_MESSAGE if to_id == TEMP_ID && GenreV2.find_by(id: TEMP_ID)
 
     from_id = genre_v2.id
-    conflicting_genre_v2 = search_conflicting_genre to_id
+    conflicting_genre_v2 = search_conflicting_genre_v2 to_id
 
     if conflicting_genre_v2
       log "found conflicting #{genre_log_details genre_v2: conflicting_genre_v2}"
@@ -35,11 +60,6 @@ private
 
     log "updated #{genre_log_details genre_v2:, id: from_id} => id=#{to_id}"
     migrate genre_v2: conflicting_genre_v2, to_id: from_id if conflicting_genre_v2
-  end
-
-  def search_conflicting_genre to_id
-    genres_v2_repository.find { |v| v.id == to_id } ||
-      genres_v2_other_repository.find { |v| v.id == to_id }
   end
 
   def migrate_genre_id genre_v2:, to_id:

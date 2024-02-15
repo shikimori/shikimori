@@ -9,7 +9,7 @@ describe MigrateGenreV2Ids do
   end
   subject { described_class.call Anime }
 
-  describe 'basic logic' do
+  describe 'common rules' do
     let!(:anime_1) do
       create :anime, genre_v2_ids: [genre_v2_anime_action.id, genre_v2_anime_comedy.id]
     end
@@ -67,6 +67,16 @@ describe MigrateGenreV2Ids do
       expect(GenreV2.find_by(name: 'School', entry_type: 'Anime').id).to eq 4
       expect(GenreV2.find_by(name: 'School', entry_type: 'Manga').id).to eq 5
       expect(manga_1.reload.genre_v2_ids).to eq [7, 5]
+    end
+  end
+
+  context 'genres used in special migration rules are not changed' do
+    let!(:genre_v1_anime_cars) { create :genre, :anime, name: 'Cars', russian: 'Машины', id: 1 }
+    let!(:genre_v2_anime_cars) { create :genre_v2, :anime, name: 'Cars', id: 2 }
+
+    it do
+      is_expected.to eq true
+      expect(GenreV2.find_by(name: 'Cars', entry_type: 'Anime').id).to eq 2
     end
   end
 end
