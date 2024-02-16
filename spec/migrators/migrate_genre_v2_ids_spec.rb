@@ -52,7 +52,7 @@ describe MigrateGenreV2Ids do
     end
   end
 
-  context 'conflict with manga genre ids' do
+  context 'conflicts with manga genre ids' do
     let!(:manga_1) do
       create :manga, genre_v2_ids: [genre_v2_manga_other.id, genre_v2_manga_school.id]
     end
@@ -67,6 +67,17 @@ describe MigrateGenreV2Ids do
       expect(GenreV2.find_by(name: 'School', entry_type: 'Anime').id).to eq 4
       expect(GenreV2.find_by(name: 'School', entry_type: 'Manga').id).to eq 5
       expect(manga_1.reload.genre_v2_ids).to eq [7, 5]
+    end
+  end
+
+  context 'ignores genre_v1 of other kind' do
+    let!(:genre_v1_manga_school) { create :genre, :manga, name: 'School', id: 1 }
+    let!(:genre_v1_anime_school) { create :genre, :anime, name: 'School', id: 2 }
+
+    let!(:genre_v2_anime_school) { create :genre_v2, :anime, name: 'School', id: 3 }
+    it do
+      is_expected.to eq true
+      expect(GenreV2.find_by(name: 'School', entry_type: 'Anime').id).to eq 2
     end
   end
 

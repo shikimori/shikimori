@@ -32,9 +32,12 @@ private
 
   def search_maching_genre_v1 genre_v2:
     if SPECIAL_MIGRATION_RULES.key? genre_v2.russian
-      Genre.find_by russian: SPECIAL_MIGRATION_RULES[genre_v2.russian]
+      Genre.find_by(
+        russian: SPECIAL_MIGRATION_RULES[genre_v2.russian],
+        kind: genre_v2.entry_type.downcase
+      )
     else
-      genre_v1 = Genre.find_by name: genre_v2.name
+      genre_v1 = Genre.find_by name: genre_v2.name, kind: genre_v2.entry_type.downcase
 
       if SPECIAL_MIGRATION_RULES.value? genre_v1&.russian
         nil
