@@ -14,8 +14,8 @@ class GenreV2 < ApplicationRecord
 
   EROTICA_IDS = [539, 540]
   HENTAI_IDS = [12, 59]
-  YAOI_IDS = [193, 195]
-  YURI_IDS = [194, 196]
+  YAOI_IDS = [33, 65]
+  YURI_IDS = [34, 75]
 
   SHOUNEN_AI_IDS = [133, 165]
   SHOUJO_AI_IDS = [129, 170]
