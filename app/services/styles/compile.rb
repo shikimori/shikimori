@@ -36,7 +36,7 @@ class Styles::Compile
     ).strip
 
     {
-      compiled_css: compiled_css,
+      compiled_css:,
       imports: styles_map.keys.index_with { |url| styles_map[url].size }
     }
   end
