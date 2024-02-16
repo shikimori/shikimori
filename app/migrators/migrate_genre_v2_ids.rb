@@ -31,11 +31,17 @@ class MigrateGenreV2Ids
 private
 
   def search_maching_genre_v1 genre_v2:
-    genre_v1 = Genre.find_by(name: genre_v2.name)
+    if SPECIAL_MIGRATION_RULES.key? genre_v2.russian
+      Genre.find_by russian: SPECIAL_MIGRATION_RULES[genre_v2.russian]
+    else
+      genre_v1 = Genre.find_by name: genre_v2.name
 
-    return if SPECIAL_MIGRATION_RULES.value? genre_v1&.russian
-
-    genre_v1
+      if SPECIAL_MIGRATION_RULES.value? genre_v1&.russian
+        nil
+      else
+        genre_v1
+      end
+    end
   end
 
   def search_conflicting_genre_v2 to_id
@@ -100,6 +106,7 @@ private
   def log phrase
     return if Rails.env.test?
 
+    NamedLogger.genres_migration.info phrase
     puts phrase # rubocop:disable Rails/Output
   end
 

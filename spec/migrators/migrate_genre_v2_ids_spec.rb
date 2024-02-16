@@ -70,13 +70,27 @@ describe MigrateGenreV2Ids do
     end
   end
 
-  context 'genres used in special migration rules are not changed' do
-    let!(:genre_v1_anime_cars) { create :genre, :anime, name: 'Cars', russian: 'Машины', id: 1 }
-    let!(:genre_v2_anime_cars) { create :genre_v2, :anime, name: 'Cars', id: 2 }
+  context 'special migration rules' do
+    context 'unaffected genres having matched russian name are not changed' do
+      let!(:genre_v1_anime_cars) { create :genre, :anime, name: 'Cars', russian: 'Машины', id: 1 }
+      let!(:genre_v2_anime_cars) { create :genre_v2, :anime, name: 'Cars', id: 2 }
 
-    it do
-      is_expected.to eq true
-      expect(GenreV2.find_by(name: 'Cars', entry_type: 'Anime').id).to eq 2
+      it do
+        is_expected.to eq true
+        expect(GenreV2.find_by(name: 'Cars', entry_type: 'Anime').id).to eq 2
+      end
+    end
+
+    context 'genre ids swap' do
+      let!(:genre_v1_anime_cars) { create :genre, :anime, name: 'Cars', russian: 'Машины', id: 1 }
+      let!(:genre_v2_anime_cars) { create :genre_v2, :anime, name: 'Cars', id: 2 }
+      let!(:genre_v2_anime_racing) { create :genre_v2, :anime, name: 'Racing', russian: 'Гонки', id: 3 }
+
+      it do
+        is_expected.to eq true
+        expect(GenreV2.find_by(name: 'Cars', entry_type: 'Anime').id).to eq 2
+        expect(GenreV2.find_by(name: 'Racing', entry_type: 'Anime').id).to eq 1
+      end
     end
   end
 end
