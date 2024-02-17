@@ -3,16 +3,16 @@ describe DbEntry::CensoredPolicy do
   let(:entry) do
     build :anime,
       rating:,
-      genre_ids: [genre.id]
+      genre_v2_ids: [genre_v2.id]
   end
   let(:rating) { Types::Anime::Rating[:pg] }
   before do
-    allow(AnimeGenresRepository)
+    allow(AnimeGenresV2Repository)
       .to receive(:find)
-      .and_return [genre]
+      .and_return [genre_v2]
   end
-  let(:genre) { build_stubbed :genre, id: genre_id }
-  let(:genre_id) { 999_999 }
+  let(:genre_v2) { build_stubbed :genre_v2, id: genre_v2_id }
+  let(:genre_v2_id) { 999_999 }
 
   it { is_expected.to eq false }
 
@@ -22,17 +22,17 @@ describe DbEntry::CensoredPolicy do
   end
 
   context 'censored genre' do
-    let(:genre_id) { Genre::HENTAI_IDS.sample }
+    let(:genre_v2_id) { GenreV2::HENTAI_IDS.sample }
     it { is_expected.to eq true }
   end
 
   context 'banned genre' do
-    let(:genre_id) { Genre::BANNED_IDS.sample }
+    let(:genre_v2_id) { GenreV2::BANNED_IDS.sample }
     it { is_expected.to eq true }
   end
 
   context 'probably_banned genre' do
-    let(:genre_id) { Genre::AI_IDS.sample }
+    let(:genre_v2_id) { GenreV2::AI_IDS.sample }
     it { is_expected.to eq true }
   end
 end
