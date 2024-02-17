@@ -11,7 +11,8 @@ class Anime < DbEntry
 
   DESYNCABLE = %w[
     name japanese synonyms kind episodes rating aired_on released_on status
-    genre_ids duration description_en image poster external_links is_censored
+    genre_ids genre_v2_ids duration description_en image poster external_links
+    is_censored
   ]
 
   FORBIDDEN_ADULT_IDS = [

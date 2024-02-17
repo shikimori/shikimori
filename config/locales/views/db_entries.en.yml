@@ -7,12 +7,16 @@ en:
       all_summaries: All summaries
       all_comments: All comments
     fields:
-      genre_ids:
+      genre_ids: &genre_ids
         all_genres: All Genres
         current_genres: Current Genres
         down: move down
         remove: remove
         up: move up
+      genre_v2_ids:
+        <<: *genre_ids
+        all_demographics: All Demographic
+        all_themes: All Themes
       image:
         warning: The current picture will be permanently deleted.
         image_size: 'Image size: %{size}'

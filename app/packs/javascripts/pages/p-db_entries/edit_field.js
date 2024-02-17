@@ -82,7 +82,7 @@ pageLoad('.db_entries-edit_field', () => {
       });
   }
 
-  if ($('.edit-page.genre_ids').exists()) {
+  if ($('.edit-page.genre_ids').exists() || $('.edit-page.genre_v2_ids').exists()) {
     const $currentGenres = $('.c-current_genres').children().last();
     const $allGenres = $('.c-all_genres').children().last();
 
