@@ -26,6 +26,7 @@
 
           - %i[licensors kind rating genres genres_v2 status aired_on released_on duration].each do |field|
             - next if field == :rating && @resource.kinda_manga?
+            - next if field == :genres_v2 && !genres_v2?
             = render 'db_entries/edit_field_li',
               resource: @resource,
               field: field,
