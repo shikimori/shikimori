@@ -25,16 +25,16 @@ private
       entry.genre_v2_ids = remap_genres(genres).map { |v| import_genre(v).id }
     end
 
-    assign_is_censored
+    # assign_is_censored
   end
 
-  def assign_is_censored
-    unless :is_censored.in? desynced_fields
-      entry.is_censored = DbEntry::CensoredPolicy.censored? entry
-    end
-
-    entry.ranked = 0 if entry.is_censored
-  end
+  # def assign_is_censored
+  #   unless :is_censored.in? desynced_fields
+  #     entry.is_censored = DbEntry::CensoredPolicy.censored? entry
+  #   end
+  # 
+  #   entry.ranked = 0 if entry.is_censored
+  # end
 
   def import_genre data # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     return data if data.is_a? GenreV2

@@ -13,6 +13,7 @@ module AniManga
     validates :name, presence: true
     validates :description_ru, :description_en, length: { maximum: 16_384 }
 
+    before_save :actualize_is_censored, if: :will_save_change_to_genre_v2_ids?
     after_update :sync_topics_is_censored, if: :saved_change_to_is_censored?
   end
 
@@ -38,7 +39,7 @@ module AniManga
 
   # из списка студий/издателей аниме возвращает единственного настоящего
   %w[studios publishers].each do |kind|
-    define_method "real_#{kind}" do
+    define_method :"real_#{kind}" do
       return [] if send(kind).empty?
       return send(kind).map(&:real) if send(kind).size == 1
 
@@ -71,6 +72,12 @@ module AniManga
   end
 
 private
+
+  def actualize_is_censored
+    return if desynced.include? 'is_censored'
+
+    self.is_censored = DbEntry::CensoredPolicy.censored? self
+  end
 
   def sync_topics_is_censored
     Animes::SyncTopicsIsCensored.call self
