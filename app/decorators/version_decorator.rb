@@ -42,7 +42,10 @@ class VersionDecorator < BaseDecorator
         AnimeVideoAuthor.find_by(id: value).try :name
 
       when 'genre_ids'
-        "[#{genres value}]"
+        "[#{genres value, false}]"
+
+      when 'genre_v2_ids'
+        "[#{genres value, true}]"
 
       else
         value
@@ -64,8 +67,8 @@ class VersionDecorator < BaseDecorator
     ]
   end
 
-  def genres ids
-    "#{item_type}GenresRepository".constantize.instance
+  def genres ids, is_v2
+    "#{item_type}Genres#{'V2' if is_v2}Repository".constantize.instance
       .find(ids)
       .sort_by { |genre| ids.index genre.id }
       .map { |genre| h.localized_name genre }

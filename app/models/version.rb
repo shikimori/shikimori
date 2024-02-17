@@ -203,7 +203,7 @@ private
 
   def apply_change field, changes
     changes[0] = current_value field
-    item.send "#{field}=", truncate_value(field, changes.second)
+    item.send :"#{field}=", truncate_value(field, changes.second)
 
     add_desynced field, item
 
