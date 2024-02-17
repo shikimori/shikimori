@@ -129,8 +129,8 @@ class Proxy < ApplicationRecord
                 [options[:required_text]]
               end
 
-            stripped_content = content.gsub(/[ \n\r]+/, '').downcase
-            unless requires.all? { |v| stripped_content.include?(v.gsub(/[ \n\r]+/, '').downcase) }
+            stripped_content = content.gsub(/[ \n\r]+/, '').downcase rescue ArgumentError
+            unless requires.all? { |v| stripped_content&.include?(v.gsub(/[ \n\r]+/, '')&.downcase) }
               raise "#{proxy} banned or broken"
             end
           end
