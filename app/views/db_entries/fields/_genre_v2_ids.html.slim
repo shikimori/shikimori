@@ -11,18 +11,47 @@
             .b-js-link.remove = t '.remove'
 
   .c-all_genres
-    .m5: b = t '.all_genres'
-    .cc-3
-      - GenreV2.where(entry_type: @resource.object.class.base_class.name).sort_by { |v| localized_name v }.each do |genre_v2|
-        .c-column.genre[
-          id=genre_v2.id
-          class=(:included if @resource.genres_v2.include? genre_v2)
-        ]
-          .name = localization_span genre_v2
-          .b-js-actions
-            .b-js-link.up = t '.up'
-            .b-js-link.down = t '.down'
-            .b-js-link.remove = t '.remove'
+    .block
+      .m5: b = t '.all_demographics'
+      .cc-3
+        - GenreV2.where(entry_type: @resource.object.class.base_class.name, kind: :demographic).sort_by { |v| localized_name v }.each do |genre_v2|
+          .c-column.genre[
+            id=genre_v2.id
+            class=(:included if @resource.genres_v2.include? genre_v2)
+          ]
+            .name = localization_span genre_v2
+            .b-js-actions
+              .b-js-link.up = t '.up'
+              .b-js-link.down = t '.down'
+              .b-js-link.remove = t '.remove'
+
+    .block
+      .m5: b = t '.all_genres'
+      .cc-3
+        - GenreV2.where(entry_type: @resource.object.class.base_class.name, kind: :genre).sort_by { |v| localized_name v }.each do |genre_v2|
+          .c-column.genre[
+            id=genre_v2.id
+            class=(:included if @resource.genres_v2.include? genre_v2)
+          ]
+            .name = localization_span genre_v2
+            .b-js-actions
+              .b-js-link.up = t '.up'
+              .b-js-link.down = t '.down'
+              .b-js-link.remove = t '.remove'
+
+    .block
+      .m5: b = t '.all_themes'
+      .cc-3
+        - GenreV2.where(entry_type: @resource.object.class.base_class.name, kind: :theme).sort_by { |v| localized_name v }.each do |genre_v2|
+          .c-column.genre[
+            id=genre_v2.id
+            class=(:included if @resource.genres_v2.include? genre_v2)
+          ]
+            .name = localization_span genre_v2
+            .b-js-actions
+              .b-js-link.up = t '.up'
+              .b-js-link.down = t '.down'
+              .b-js-link.remove = t '.remove'
 
 .cc-2
   .c-column
@@ -34,7 +63,10 @@
         = f.input :user_id, as: :hidden
         = f.input :reason
 
-      .item_diff data-current_ids=@resource.genres_v2.map(&:id).to_json
+      .item_diff[
+        data-current_ids=@resource.genres_v2.map(&:id).to_json
+        data-field='genre_v2_ids'
+      ]
         = f.input :item_diff, as: :hidden
 
       .buttons

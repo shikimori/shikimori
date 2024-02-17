@@ -84,7 +84,7 @@ pageLoad('.db_entries-edit_field', () => {
 
   if ($('.edit-page.genre_ids').exists() || $('.edit-page.genre_v2_ids').exists()) {
     const $currentGenres = $('.c-current_genres').children().last();
-    const $allGenres = $('.c-all_genres').children().last();
+    const $allGenres = $('.c-all_genres');
 
     $currentGenres.on('click', '.remove', function() {
       const $genre = $(this).closest('.genre').remove();
@@ -132,13 +132,15 @@ pageLoad('.db_entries-edit_field', () => {
     $('form.new_version').on('submit', () => {
       const $itemDiff = $('.item_diff');
 
-      const newIds = $currentGenres
-        .children()
-        .map(function() { return parseInt(this.id); })
+      const newIds = $currentGenres.find('.c-column.genre')
+        .map((_index, node) => parseInt(node.id))
         .toArray();
+
       const currentIds = $itemDiff.data('current_ids');
 
-      const diff = { genre_ids: [currentIds, newIds] };
+      const diff = {
+        [$itemDiff.data('field')]: [currentIds, newIds]
+      };
       $itemDiff.find('input').val(JSON.stringify(diff));
     });
   }
