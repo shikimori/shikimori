@@ -14,6 +14,7 @@ module AniManga
     validates :description_ru, :description_en, length: { maximum: 16_384 }
 
     before_save :actualize_is_censored, if: :will_save_change_to_genre_v2_ids?
+    before_save :actualize_ranked, if: :will_save_change_to_is_censored?
     after_update :sync_topics_is_censored, if: :saved_change_to_is_censored?
   end
 
@@ -77,6 +78,10 @@ private
     return if desynced.include? 'is_censored'
 
     self.is_censored = DbEntry::CensoredPolicy.censored? self
+  end
+
+  def actualize_ranked
+    self.ranked = 0 if is_censored
   end
 
   def sync_topics_is_censored
