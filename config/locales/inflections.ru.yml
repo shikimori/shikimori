@@ -3,10 +3,10 @@ ru:
     cardinal:
       achievement:
         subjective:
-          one: ачивка
-          few: ачивки
-          many: ачивок
-          other: ачивки
+          one: достижение
+          few: достижения
+          many: достижений
+          other: достижения
       author:
         subjective:
           one: автор
@@ -686,5 +686,5 @@ ru:
         neuter: :@n
         default: m
       user_signed_in:
-        signed_in: залогинен
-        not_signed_in: не залогинен
+        signed_in: польз. авторизован
+        not_signed_in: польз. не авторизован

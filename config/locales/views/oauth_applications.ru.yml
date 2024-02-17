@@ -2,16 +2,16 @@ ru:
   doorkeeper:
     oauth_applications:
       index:
-        new: Создать новое OAuth приложение
+        new: Создать новое приложение OAuth
         switch_to:
           all: Все приложения
           my: Мои приложения
         notice:
-          all: Список твоих OAuth приложений
-          user: Список OAuth приложений %{user}
-        no_oauth_applications: Нет OAuth приложений
-        granted_applications: К моему аккаунту есть доступ у приложений
+          all: Список ваших приложений OAuth
+          user: Список приложений OAuth %{user}
+        no_oauth_applications: Нет приложений OAuth
+        granted_applications: К моей учётной записи есть доступ у приложений
         other_applications: Прочие приложения
       show:
-        have_access: У этого приложения есть доступ к твоему аккаунту
+        have_access: У этого приложения есть доступ к вашей учётной записи
         revoke_access: Убрать доступ

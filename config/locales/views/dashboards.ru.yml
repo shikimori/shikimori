@@ -46,7 +46,7 @@ ru:
 
     ranobe:
       title: Ранобэ
-      all_ranobe: все ранобэ
+      all_ranobe: всё ранобэ
       recommended:
         <<: *anime_recommended
       others: Прочее

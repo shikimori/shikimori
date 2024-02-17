@@ -58,15 +58,15 @@ ru:
         type: Тип
         name: Название
       new_torrent: Новый торрент
-      confirm_episode_date: 'Укажи дату выхода эпизода в формате DD.MM.YYYY HH:MM в твоём текущем часовом поясе'
+      confirm_episode_date: 'Укажите дату выхода эпизода в формате DD.MM.YYYY HH:MM в вашем часовом поясе'
       confirm_rollback: Это действие необратимо. Оно удалит топик об эпизоде и уведомления у всех пользователей. Точно откатить?
       episode_notifications: Список эпизодов
-      parse_page: Распарсить страницу
+      parse_page: Анализ страницы
       parse: Выполнить
       torrents:
         torrents_480p: Эпизоды 480p
-        torrents_720p: HD Эпизоды 720p
-        torrents_1080p: FullHD Эпизоды 1080p
+        torrents_720p: HD-эпизоды 720p
+        torrents_1080p: FullHD-эпизоды 1080p
         torrents: Прочие эпизоды
       and_more:
         one: И ещё %{count} человек
@@ -102,7 +102,7 @@ ru:
 
     info:
       anime_additionals: У аниме
-      art: Арт с имиджборд (18+)
+      art: Иллюстрация с имиджборд (18+)
       cosplay: Косплей
       files: Файлы
       first_episode: Первый эпизод

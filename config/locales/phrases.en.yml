@@ -180,5 +180,5 @@ en:
   'yes': 'Yes'
   'no': 'No'
   is_deleted: Deleted
-  facebook: 'Meta Platforms**, а также принадлежащие ей социальная сеть Facebook* : ** признана экстремистской организацией, её деятельность в России запрещена. * запрещена в России'
-  facebook_html: 'Meta Platforms**, а также принадлежащие ей социальная сеть Facebook*:<br>** признана экстремистской организацией, её деятельность в России запрещена.<br>* запрещена в России'
+  facebook: 'Meta Platforms**, as well as its social network Facebook* : ** recognized as an extremist organization, its activities are banned in Russia. * banned in Russia'
+  facebook_html: 'Meta Platforms**, as well as its social network Facebook*:<br>** recognized as an extremist organization, its activities are banned in Russia.<br>* banned in Russia'

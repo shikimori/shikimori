@@ -1,7 +1,7 @@
 ru:
   achievements:
     index:
-      list_of_all_site_achievements: Список всех ачивок сайта
+      list_of_all_site_achievements: Список всех достижений сайта
     group:
       incomplete_achievement: Не завершено
       level: 'Уровень %{level}:'
@@ -11,11 +11,11 @@ ru:
     show:
       level: Уровень %{level}
       threshold: Порог срабатывания
-      users: Пользователей с ачивкой
+      users: Пользователей с достижением
     statistics:
       statistics: Статистика
       list_size: Размер списка
-      users: Пользователей<br>с ачивкой
+      users: Пользователей<br>с достижением
       percent: Процент от<br>общего числа
     info:
       levels: Уровней
@@ -27,8 +27,8 @@ ru:
       show_anime_list: Показать список аниме
       of_duration: от длительности
       hide: Скрыть
-      your_list: Размер твоего списка просмотренного
-      your_progress: Твой прогресс до следующего уровня
-      your_overall_progress: Твой общий прогресс
+      your_list: Размер вашего списка просмотренного
+      your_progress: Ваш прогресс до следующего уровня
+      your_overall_progress: Ваш общий прогресс
     users:
       nothing_here: Нет пользователей
