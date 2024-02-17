@@ -5573,7 +5573,7 @@
         - 35111
         - 35321
         - 40372
-      :threshold: 95%
+      :threshold: 90.6%
       :generator: &264
         ignore_latest_ids:
         - 52742
