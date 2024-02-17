@@ -291,7 +291,8 @@ class Anime < DbEntry
   end
 
   def genres_v2
-    @genres_v2 ||= AnimeGenresV2Repository.find genre_v2_ids
+    @genres_v2 ||= AnimeGenresV2Repository.find(genre_v2_ids)
+      .sort_by { |genre_v2| Types::GenreV2::KINDS.index genre_v2.kind.to_sym }
   end
 
   def studios
