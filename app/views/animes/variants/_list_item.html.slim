@@ -75,7 +75,7 @@
               class=(:bubbled if genre.description)
               data-predelay='250'
               data-tooltip_url=tooltip_moderations_genre_url(genre)
-              data-href=entry.collection_url(genre: genre.to_param)
+              data-href=entry.collection_url(genre_v2: genre.to_param)
             ] = localization_span genre
 
     - unless local_assigns[:no_user_rate]

@@ -33,7 +33,17 @@ header.head
   .c-column
     .subheadline.m5 Жанры аниме
     ul.block.b-list.is-wide
-      - @anime_genres.each do |title, url|
+      - @anime_genres_demographic.each do |title, url|
+        li
+          a.b-link href=url title=title = title
+
+    ul.block.b-list.is-wide
+      - @anime_genres_genre.each do |title, url|
+        li
+          a.b-link href=url title=title = title
+
+    ul.block.b-list.is-wide
+      - @anime_genres_theme.each do |title, url|
         li
           a.b-link href=url title=title = title
 

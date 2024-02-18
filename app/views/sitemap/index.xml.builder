@@ -21,6 +21,13 @@ cache :sitemap, expires_in: 1.day do
         xml.tag! 'priority', '0.70'
       end
     end
+    @anime_demographic.each do |_title, url|
+      xml.url do
+        xml.loc url
+        xml.tag! 'changefreq', 'weekly'
+        xml.tag! 'priority', '0.70'
+      end
+    end
     @anime_genres.each do |_title, url|
       xml.url do
         xml.loc url
