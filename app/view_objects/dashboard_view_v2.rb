@@ -130,7 +130,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
       critiques: [critiques_scope.cache_key, CACHE_VERSION],
       contests: [contests_scope.cache_key, CACHE_VERSION],
       news: [news_scope.cache_key, page, CACHE_VERSION],
-      db_updates: [db_updates_scope.cache_key, page, CACHE_VERSION, h.genres_v2?],
+      db_updates: [db_updates_scope.cache_key, page, CACHE_VERSION],
       version: [Time.zone.today, cache_variant, CACHE_VERSION]
       # migration: h.domain_migration_note
     }

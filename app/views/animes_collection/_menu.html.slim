@@ -220,39 +220,18 @@
               data-direction='top'
             ]
 
-  - if genres_v2?
-    - %i[demographic genre theme].each do |kind|
-      .block
-        .subheadline.m5 = i18n_i kind.to_s.capitalize, :other
-        = text_spoiler t('.show_list'), is_expanded: kind == :demographic do
-          ul.b-block_list.genres_v2.anime-params.m10
-            - menu.send(:"sorted_#{kind}s_v2").each do |genre|
-              - next if genre.censored? && !user_signed_in?
-
-              - if genre.position && genre.position % 900 == 0
-                .m10
-              li[
-                data-field='genre'
-                data-value=genre.to_param
-              ]
-                input type='checkbox' autocomplete='off'
-                = localization_span genre
-                - if genre.description.present?
-                  span.b-question.mobile.bubbled[
-                    title=genre.description
-                    data-predelay='150'
-                    data-href=tooltip_moderations_genre_v2_url(genre)
-                  ]
-  - else
+  - %i[demographic genre theme].each do |kind|
     .block
-      .subheadline.m5 = i18n_i 'Genre', :other
-      = text_spoiler t('.show_list') do
-        ul.b-block_list.genres.anime-params.m10
-          - menu.sorted_genres.each do |genre|
+      .subheadline.m5 = i18n_i kind.to_s.capitalize, :other
+      = text_spoiler t('.show_list'), is_expanded: kind == :demographic do
+        ul.b-block_list.genres_v2.anime-params.m10
+          - menu.send(:"sorted_#{kind}s_v2").each do |genre|
             - next if genre.censored? && !user_signed_in?
+
+            - if genre.position && genre.position % 900 == 0
+              .m10
             li[
-              class=(:m10 if genre.position && genre.position % 10 == 0)
-              data-field='genre_v1'
+              data-field='genre'
               data-value=genre.to_param
             ]
               input type='checkbox' autocomplete='off'
@@ -261,7 +240,7 @@
                 span.b-question.mobile.bubbled[
                   title=genre.description
                   data-predelay='150'
-                  data-href=tooltip_moderations_genre_url(genre)
+                  data-href=tooltip_moderations_genre_v2_url(genre)
                 ]
 
   .block

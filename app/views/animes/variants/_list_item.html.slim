@@ -67,15 +67,15 @@
     - unless local_assigns[:hide_genres]
       .line
         - unless local_assigns[:hide_line_key]
-          .key #{i18n_io 'Genre', (genres_v2? ? entry.genres_v2 : entry.main_genres).one? ? :one : :few}:
+          .key #{i18n_io 'Genre', entry.genres_v2.one? ? :one : :few}:
         .value
-          - (genres_v2? ? entry.genres_v2 : entry.main_genres).each do |genre|
+          - entry.genres_v2.each do |genre|
             .b-tag.linkeable[
               temprop='genre'
               class=(:bubbled if genre.description)
               data-predelay='250'
               data-tooltip_url=tooltip_moderations_genre_url(genre)
-              data-href=entry.collection_url((genres_v2? ? :genre_v2 :genre) => genre.to_param)
+              data-href=entry.collection_url(genre: genre.to_param)
             ] = localization_span genre
 
     - unless local_assigns[:no_user_rate]
