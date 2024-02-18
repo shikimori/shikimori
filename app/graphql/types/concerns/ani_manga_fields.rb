@@ -17,6 +17,9 @@ module Types::Concerns::AniMangaFields
     end
 
     field :genres, [Types::GenreType]
+    def genres
+      object.genres_v2
+    end
 
     field :external_links, [Types::ExternalLinkType], complexity: 10
     def external_links
