@@ -152,6 +152,10 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     required: false,
     allow_blank: true,
     desc: 'List of genre ids separated by comma'
+  param :genre_v2, :undef,
+    required: false,
+    allow_blank: true,
+    desc: 'List of genre v2 ids separated by comma'
   param :studio, :undef,
     required: false,
     allow_blank: true,
@@ -197,7 +201,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
         klass: Anime,
         filters: params,
         user: current_user,
-        limit: limit
+        limit:
       ).collection
     end
 
