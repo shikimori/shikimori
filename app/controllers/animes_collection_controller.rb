@@ -1,4 +1,4 @@
-class AnimesCollectionController < ShikimoriController
+class AnimesCollectionController < ShikimoriController # rubocop:disable Metrics/ClassLength
   include SearchPhraseConcern
   CENSORED = /\b(?:sex|секс|porno?|порно)\b/mix
 
@@ -14,7 +14,7 @@ class AnimesCollectionController < ShikimoriController
 
     censored_search_check
     forbidden_params_redirect_check
-    genres_redirect_check model[:genre]
+    genres_v2_redirect_check model[:genre_v2]
     guest_mylist_check
     one_found_redirect_check
     publishers_redirect_check model[:publisher]
@@ -36,13 +36,14 @@ class AnimesCollectionController < ShikimoriController
       klass: @view.klass,
       season: params[:season],
       kind: params[:kind],
-      genres: model[:genre],
+      genres_v2: model[:genre_v2],
       studios: model[:studio],
       publishers: model[:publisher]
     ).keywords
 
     verify_age_restricted! @view.results.collection
     verify_age_restricted! model[:genre]
+    verify_age_restricted! model[:genre_v2]
 
     if censored_forbidden? &&
         params[:rating]&.split(',')&.include?(DbEntry::CensoredPolicy::ADULT_RATING.to_s)
@@ -119,10 +120,10 @@ private
     model
   end
 
-  def genres_redirect_check genres
-    return unless params.include?(:genre) && params[:genre].exclude?('!')
+  def genres_v2_redirect_check genres_v2
+    return unless params.include?(:genre_v2) && params[:genre_v2].exclude?('!')
 
-    ensure_redirect! current_url(genre: genres.map(&:to_param).sort.join(','))
+    ensure_redirect! current_url(genre_v2: genres_v2.map(&:to_param).sort.join(','))
   end
 
   def studios_redirect_check studios

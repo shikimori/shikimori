@@ -12,7 +12,7 @@ const DEFAULT_DATA = {
   franchise: [],
   achievement: [],
   genre: [],
-  genre_v2: [],
+  genre_v1: [],
   studio: [],
   publisher: [],
   duration: [],
@@ -26,7 +26,7 @@ const DEFAULT_DATA = {
 
 // поля, передаваемые в GET параметрах
 const GET_FILTERS = [
-  'genre_v2',
+  'genre_v1',
   'duration',
   'rating',
   'score',
@@ -37,7 +37,7 @@ const GET_FILTERS = [
 ];
 
 // поля, разбитые на несколько фильтров
-const SPLIT_FIELDS = ['genre_v2'];
+const SPLIT_FIELDS = ['genre'];
 
 export default function(basePath, currentUrl, changeCallback) {
   const $root = $('.b-collection-filters');

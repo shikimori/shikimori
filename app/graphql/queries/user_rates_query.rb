@@ -26,11 +26,11 @@ class Queries::UserRatesQuery < Queries::BaseQuery
 
     scope = QueryObjectBase.new(UserRate)
       .lazy_preload(*PRELOADS)
-      .where(user_id: user_id)
-      .where(target_type: target_type)
+      .where(user_id:)
+      .where(target_type:)
       .order(:id)
 
-    scope = scope.where(status: status) if status.present?
+    scope = scope.where(status:) if status.present?
     scope
       .paginate(page, limit.to_i.clamp(1, LIMIT))
   end

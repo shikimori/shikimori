@@ -232,7 +232,7 @@
               - if genre.position && genre.position % 900 == 0
                 .m10
               li[
-                data-field='genre_v2'
+                data-field='genre'
                 data-value=genre.to_param
               ]
                 input type='checkbox' autocomplete='off'
@@ -252,7 +252,7 @@
             - next if genre.censored? && !user_signed_in?
             li[
               class=(:m10 if genre.position && genre.position % 10 == 0)
-              data-field='genre'
+              data-field='genre_v1'
               data-value=genre.to_param
             ]
               input type='checkbox' autocomplete='off'

@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     (/season/:season)
     (/franchise/:franchise)
     (/achievement/:achievement)
-    (/genre/:genre)
+    (/genre/:genre_v2)
     (/studio/:studio)
     (/publisher/:publisher)
     (/page/:page)

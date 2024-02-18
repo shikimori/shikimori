@@ -1,20 +1,20 @@
 class Titles::AnimeKeywords
   include Translation
 
-  attr_reader :klass, :season, :kind, :genres, :studios, :publishers
+  attr_reader :klass, :season, :kind, :genres_v2, :studios, :publishers
 
   def initialize( # rubocop:disable Metrics/ParameterLists
     klass:,
     season:,
     kind:,
-    genres:,
+    genres_v2:,
     studios:,
     publishers:
   )
     @klass = klass
     @season = season
     @kind = kind
-    @genres = Array genres
+    @genres_v2 = Array genres_v2
     @studios = Array studios
     @publishers = Array publishers
   end
@@ -24,7 +24,7 @@ class Titles::AnimeKeywords
 
     keywords << season_keywords
     keywords << kind_keywords
-    keywords << genre_keywords
+    keywords << genre_v2_keywords
     keywords << studio_keywords
     keywords << publisher_keywords
     keywords << other_keywords
@@ -48,10 +48,10 @@ private
     end
   end
 
-  def genre_keywords
-    return if genres.blank?
+  def genre_v2_keywords
+    return if genres_v2.blank?
 
-    [i18n_i('genre'), genres.map { |v| "#{v.english} #{v.russian}" }.join(' ')]
+    [i18n_i('genre'), genres_v2.map { |v| "#{v.name} #{v.russian}" }.join(' ')]
   end
 
   def studio_keywords
