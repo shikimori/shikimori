@@ -22,22 +22,11 @@ class Menus::CollectionMenu < ViewObjectBase
   end
 
   def genres
-    collection = "#{klass.base_class.name}GenresRepository"
-      .constantize
-      .instance
-      .to_a
-
-    if h.current_user&.staff?
-      collection
-    elsif h.current_user&.ai_genres?
-      collection.reject(&:banned?)
-    else
-      collection.reject { |genre| genre.banned? || genre.ai? }
-    end
+    censore_genres "#{klass.base_class.name}GenresRepository".constantize.instance.to_a
   end
 
   def genres_v2
-    "#{klass.base_class.name}GenresV2Repository".constantize.instance.to_a
+    censore_genres "#{klass.base_class.name}GenresV2Repository".constantize.instance.to_a
   end
 
   def studios
@@ -119,6 +108,16 @@ private
         genre.position || genre.id,
         h.localized_name(genre)
       ]
+    end
+  end
+
+  def censore_genres genres
+    if h.current_user&.staff?
+      genres
+    elsif h.current_user&.ai_genres?
+      genres.reject(&:banned?)
+    else
+      genres.reject { |genre| genre.banned? || genre.ai? }
     end
   end
 end
