@@ -25174,6 +25174,7 @@
         - 53026
         - 51535
         - 54714
+        - 79
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *4
   neko_id: :kuudere
