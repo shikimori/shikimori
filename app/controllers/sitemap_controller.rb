@@ -71,7 +71,7 @@ private
 
   def sitemap_genres kind:
     GenreV2
-      .where(kind:)
+      .where(entry_type: 'Anime', kind:)
       .filter_map do |genre_v2|
         next if genre_v2.censored?
 
