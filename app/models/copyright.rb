@@ -92,5 +92,8 @@ module Copyright
     39299
   ]
 
-  BANNED_POSTER_BY_RKN_MANGA_IDS = []
+  BANNED_POSTER_BY_RKN_MANGA_IDS = [
+    29705,
+    105011
+  ]
 end
