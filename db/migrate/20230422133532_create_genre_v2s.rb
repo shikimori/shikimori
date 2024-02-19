@@ -1,6 +1,6 @@
 class CreateGenreV2s < ActiveRecord::Migration[6.1]
   def change
-    create_table :genre_v2s do |t|
+    create_table :genres_v2 do |t|
       t.string :name, null: false
       t.string :russian, null: false
       t.string :entry_type, null: false
