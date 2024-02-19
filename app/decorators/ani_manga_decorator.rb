@@ -14,9 +14,9 @@ class AniMangaDecorator < DbEntryDecorator
     :watch_online_external_links, :menu_external_links,
     :topic_views
 
-  def poster
-    super if !banned? || h.current_user&.staff?
-  end
+  # def poster
+  #   super if !banned? || h.current_user&.staff?
+  # end
 
   def topic_views
     object
