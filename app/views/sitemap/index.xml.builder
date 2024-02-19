@@ -14,25 +14,18 @@ cache :sitemap, expires_in: 1.day do
         xml.tag! 'priority', '0.20'
       end
     end
-    @anime_seasons.each do |_title, url|
-      xml.url do
-        xml.loc url
-        xml.tag! 'changefreq', 'weekly'
-        xml.tag! 'priority', '0.70'
-      end
-    end
-    @anime_demographic.each do |_title, url|
-      xml.url do
-        xml.loc url
-        xml.tag! 'changefreq', 'weekly'
-        xml.tag! 'priority', '0.70'
-      end
-    end
-    @anime_genres.each do |_title, url|
-      xml.url do
-        xml.loc url
-        xml.tag! 'changefreq', 'weekly'
-        xml.tag! 'priority', '0.70'
+    [
+      @anime_seasons,
+      @anime_genres_demographic,
+      @anime_genres_genre,
+      @anime_genres_theme
+    ].each do |group|
+      group.each do |_title, url|
+        xml.url do
+          xml.loc url
+          xml.tag! 'changefreq', 'weekly'
+          xml.tag! 'priority', '0.70'
+        end
       end
     end
     @anime_misc_genres.each do |_title, url|
