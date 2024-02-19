@@ -11661,7 +11661,7 @@
         franchise: yi_ren_zhi_xia
         not_anime_ids:
         - 37090
-      :threshold: 100%
+      :threshold: 95.7%
       :generator: &596
         ignore_latest_ids:
         - 58056
@@ -26565,7 +26565,6 @@
         - 14045
         - 21649
         - 34834
-        - 6203
         - 19799
         - 22189
         - 15043
@@ -26697,6 +26696,10 @@
         - 38767
         - 33280
         - 38337
+        - 51680
+        - 55310
+        - 10460
+        - 11739
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *4
   neko_id: :moe
