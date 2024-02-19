@@ -64,14 +64,14 @@ class Neko::Rule
   end
 
   def title user # rubocop:disable CyclomaticComplexity
-    send("title_#{franchise? ? locale_key(user) : I18n.locale}") ||
+    send(:"title_#{franchise? ? locale_key(user) : I18n.locale}") ||
       (neko_id.to_s.titleize if franchise? || author?) ||
       (I18n.russian? ? title_ru : title_en) ||
       NO_RULE.title(user)
   end
 
   def text
-    send("text_#{I18n.locale}") ||
+    send(:"text_#{I18n.locale}") ||
       (I18n.russian? ? text_ru : text_en) ||
       NO_RULE.text
   end
@@ -173,7 +173,7 @@ class Neko::Rule
   def cache_key
     [
       Digest::MD5.hexdigest(to_json),
-      Achievement.where(neko_id: neko_id).cache_key,
+      Achievement.where(neko_id:).cache_key,
       CACHE_VERSION
     ]
   end
@@ -243,8 +243,8 @@ private
 
   def default_hint
     I18n.t 'achievements.hint.default',
-      neko_name: neko_name,
-      level: level
+      neko_name:,
+      level:
   end
 
   def locale_key user

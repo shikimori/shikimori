@@ -11,7 +11,7 @@ class Achievements::UsersQuery < QueryObjectBase
 
   def filter neko_id:, level:
     chain @scope.where(
-      id: Achievement.where(neko_id: neko_id, level: level).select(:user_id)
+      id: Achievement.where(neko_id:, level:).select(:user_id)
     )
   end
 end

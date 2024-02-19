@@ -1,4 +1,4 @@
-class Queries::AnimesQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassLength
+class Queries::AnimesQuery < Queries::BaseQuery
   type [Types::AnimeType], null: false
   extras [:lookahead]
 

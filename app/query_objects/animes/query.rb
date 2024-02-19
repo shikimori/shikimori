@@ -1,4 +1,4 @@
-class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
+class Animes::Query < QueryObjectBase
   GENRES_EXCLUDED_BY_SEX = {
     'male' => Genre::YAOI_IDS + Genre::SHOUNEN_AI_IDS,
     'female' => Genre::HENTAI_IDS + Genre::SHOUJO_AI_IDS + Genre::YURI_IDS,
