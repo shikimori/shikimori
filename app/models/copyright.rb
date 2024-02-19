@@ -76,6 +76,8 @@ module Copyright
     1535 # Death Note
   ]
 
+  BANNED_BY_RKN_ANIME_IDS = []
+
   ABUSED_BY_RKN_MANGA_IDS = [
     5467, # Boku no Pico
     124272 # Suicide Boy
@@ -83,4 +85,12 @@ module Copyright
   BANNED_BY_RKN_MANGA_IDS = [
     124272 # Suicide Boy
   ]
+
+  BANNED_POSTER_BY_RKN_ANIME_IDS = [
+    35891,
+    38034,
+    39299
+  ]
+
+  BANNED_POSTER_BY_RKN_MANGA_IDS = []
 end

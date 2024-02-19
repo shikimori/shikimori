@@ -314,15 +314,6 @@ class Anime < DbEntry
     FORBIDDEN_ADULT_IDS.include? id
   end
 
-  def censored?
-    is_censored || rkn_abused?
-    # || (kind_ova? && SUB_ADULT_RATING == rating)
-  end
-
-  def rkn_abused?
-    Copyright::ABUSED_BY_RKN_ANIME_IDS.include? id
-  end
-
 private
 
   def track_changes

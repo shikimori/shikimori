@@ -200,22 +200,6 @@ class Manga < DbEntry
     false
   end
 
-  def censored?
-    is_censored || rkn_abused?
-  end
-
-  def rkn_abused?
-    Copyright::ABUSED_BY_RKN_MANGA_IDS.include? id
-  end
-
-  def rkn_banned?
-    Copyright::BANNED_BY_RKN_MANGA_IDS.include? id
-  end
-
-  def poster
-    rkn_banned? ? nil : super
-  end
-
 private
 
   def set_type
