@@ -46,7 +46,7 @@ private
     "#{klass.name}GenresV2Repository"
       .constantize
       .instance
-      .select(&:ai?)
+      .select { |genre| genre.ai? || genre.banned? }
   end
 
   def user_rates klass
