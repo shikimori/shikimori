@@ -9,7 +9,6 @@ exclude:
 require: []
 domains: []
 reporters:
-- rubocop
 - require_not_found
 formatter:
   rubocop:

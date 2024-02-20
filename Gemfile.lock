@@ -212,7 +212,9 @@ GEM
     attr_extras (7.1.0)
     autoprefixer-rails (10.4.15.0)
       execjs (~> 2)
+    backport (1.2.0)
     bcrypt (3.1.19)
+    benchmark (0.3.0)
     better_errors (2.10.1)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
@@ -325,6 +327,7 @@ GEM
       dry-core (~> 0.5, >= 0.5)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
+    e2mmap (0.1.0)
     elasticsearch (7.6.0)
       elasticsearch-api (= 7.6.0)
       elasticsearch-transport (= 7.6.0)
@@ -466,6 +469,7 @@ GEM
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
+    jaro_winkler (1.5.6)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -473,6 +477,10 @@ GEM
     jsonapi-renderer (0.2.2)
     jwt (2.2.3)
     kgio (2.11.4)
+    kramdown (2.4.0)
+      rexml
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
     kt-paperclip (7.1.1)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -655,6 +663,7 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    rbs (2.8.4)
     recaptcha (5.8.1)
       json
     redis (4.8.1)
@@ -671,6 +680,8 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     retryable (3.0.5)
+    reverse_markdown (2.1.1)
+      nokogiri
     rexml (3.2.6)
     rouge (3.30.0)
     rspec (3.12.0)
@@ -769,6 +780,25 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (>= 3.0, < 5.0)
+    solargraph (0.50.0)
+      backport (~> 1.2)
+      benchmark
+      bundler (~> 2.0)
+      diff-lcs (~> 1.4)
+      e2mmap
+      jaro_winkler (~> 1.5)
+      kramdown (~> 2.3)
+      kramdown-parser-gfm (~> 1.1)
+      parser (~> 3.0)
+      rbs (~> 2.0)
+      reverse_markdown (~> 2.0)
+      rubocop (~> 1.38)
+      thor (~> 1.0)
+      tilt (~> 2.0)
+      yard (~> 0.9, >= 0.9.24)
+    solargraph-rails (1.1.0)
+      activesupport
+      solargraph
     spring (4.1.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -835,6 +865,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     xxhash (0.5.0)
+    yard (0.9.34)
     zeitwerk (2.6.12)
 
 PLATFORMS
@@ -976,6 +1007,8 @@ DEPENDENCIES
   simple_form-magic_submit!
   sixarm_ruby_unaccent
   slim-rails
+  solargraph
+  solargraph-rails
   spring
   spring-commands-rspec
   spring-watcher-listen

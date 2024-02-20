@@ -159,6 +159,9 @@ group :development do
   # gem 'meta_request'
   # gem 'rails_panel'
 
+  gem 'solargraph'
+  gem 'solargraph-rails'
+
   gem 'spring'
   gem 'spring-watcher-listen'
 
