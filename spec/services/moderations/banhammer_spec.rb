@@ -127,6 +127,9 @@ describe Moderations::Banhammer do
     it { expect(banhammer.abusive? 'пиздуй').to eq true }
     it { expect(banhammer.abusive? 'пиздец').to eq true }
     it { expect(banhammer.abusive? 'н[size=15]а[/size]х').to eq true }
+    it { expect(banhammer.abusive? 'н[div=hidden]а[/div]х').to eq true }
+    it { expect(banhammer.abusive? 'БЛ[div=hidden]zzzz[/div]Я').to eq true }
+    it { expect(banhammer.abusive? 'БЛ[div=a hidden ]zzzz[/div]Я').to eq true }
     it { expect(banhammer.abusive? 'х[b][/b][b][/b]ер').to eq true }
     it { expect(banhammer.abusive? '||хуй||').to eq true }
     it { expect(banhammer.abusive? '`хуй`').to eq true }
