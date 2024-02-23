@@ -6,6 +6,7 @@ class DbEntry < ApplicationRecord
     image
     poster
     genres
+    genres_v2
     censored
     desynced
     options
