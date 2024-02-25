@@ -426,13 +426,13 @@ private
     #   # Types::Ad::Type[:advrtr_240x400]
     # ],
     Types::Ad::Meta[:menu_240x400] => [
-      Types::Ad::Type[:special_x300], # minix - remove 2024-02-25 23:59
+      # Types::Ad::Type[:special_x300], # minix - remove 2024-02-25 23:59
       # # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x400]
       # # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      Types::Ad::Type[:special_x300], # minix - remove 2024-02-25 23:59
+      # Types::Ad::Type[:special_x300], # minix - remove 2024-02-25 23:59
       # # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600]
       # # Types::Ad::Type[:advrtr_240x400],
