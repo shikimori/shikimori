@@ -18,7 +18,16 @@ class Moderations::NewsController < ModerationsController
 
   def accept
     authorize! :moderate, @resource
-    @resource.accept if @resource.may_accept?
+
+    if @resource.may_accept?
+      @resource.accept
+
+      NamedLogger.moderation_news.info(
+        topic_id: @resource.id,
+        action: :accept,
+        user_id: current_user.id
+      )
+    end
 
     redirect_back fallback_location: moderations_news_index_url
   end
@@ -26,7 +35,16 @@ class Moderations::NewsController < ModerationsController
   def reject
     authorize! :moderate, @resource
 
-    @resource.reject if @resource.may_reject?
+    if @resource.may_reject?
+      @resource.reject
+
+      NamedLogger.moderation_news.info(
+        topic_id: @resource.id,
+        action: :reject,
+        user_id: current_user.id
+      )
+    end
+
     redirect_back fallback_location: moderations_news_index_url
   end
 
