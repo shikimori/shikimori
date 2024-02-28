@@ -10,6 +10,9 @@ class ImageboardsController < ShikimoriController
   def index
     Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
       url = Base64.decode64 Addressable::URI.unencode(params[:url])
+      # # do not pass user input (url) as CanCan::AccessDenied argument since it leads to XSS
+      # https://shikimori.one/imageboards/PCFET0NUWVBFIGh0bWw+PGh0bWwgbGFuZz0iZW4iPjxoZWFkPjxzY3JpcHQ+YWxlcnQoJ2hhY2tlZCcpPC9zY3JpcHQ+PC9oZWFkPjxib2R5PjwvYm9keT48L2h0bWw+
+      # <!DOCTYPE html><html lang="en"><head><script>alert('hacked')</script></head><body></body></html>
       raise CanCan::AccessDenied unless url.match? VALID_URL
 
       json = PgCache.fetch pg_cache_key, expires_in: EXPIRES_IN do
