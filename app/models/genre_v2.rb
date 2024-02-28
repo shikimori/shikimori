@@ -24,6 +24,10 @@ class GenreV2 < ApplicationRecord
   AI_IDS = SHOUJO_AI_IDS + SHOUNEN_AI_IDS
 
   CENSORED_IDS = EROTICA_IDS + HENTAI_IDS + BANNED_IDS + AI_IDS
+  TEMPORARILY_POSTERS_DISABLED_IDS = [
+    59, # Hentai
+    540 # Erotica
+  ]
 
   def to_param
     "#{id}-#{name.tr ' ', '-'}"
@@ -47,6 +51,10 @@ class GenreV2 < ApplicationRecord
 
   def ai?
     id.in? AI_IDS
+  end
+
+  def temporarily_posters_disabled?
+    id.in? TEMPORARILY_POSTERS_DISABLED_IDS
   end
 
   def title(
