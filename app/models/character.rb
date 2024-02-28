@@ -7,6 +7,7 @@ class Character < DbEntry
   include FavouritesConcern
   include TopicsConcern
   include VersionsConcern
+  include RknConcern
 
   DESYNCABLE = %w[name japanese description_en image poster]
 
@@ -55,10 +56,6 @@ class Character < DbEntry
   # альтернативное имя "в кавычках"
   def altname
     fullname.present? ? fullname.gsub(/^.*?"|".*?$/, '') : nil
-  end
-
-  def rkn_abused?
-    Copyright::ABUSED_BY_RKN_CHARACTER_IDS.include? id
   end
 
   def image_file_name
