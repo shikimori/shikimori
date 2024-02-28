@@ -1,5 +1,5 @@
 # no need to keep this code since imageboards feature is disabled anyway
-# class ImageboardsController < ShikimoriController
+class ImageboardsController < ShikimoriController
 #   USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 ' \
 #     '(KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36'
 #   EXCEPTIONS = Network::FaradayGet::NET_ERRORS
@@ -82,4 +82,4 @@
 #       page: params[:page]
 #     )
 #   end
-# end
+end
