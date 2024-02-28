@@ -8,6 +8,7 @@ class Manga < DbEntry
   include ClubsConcern
   include ContestsConcern
   include FavouritesConcern
+  include RknConcern
 
   DESYNCABLE = %w[
     name japanese synonyms kind volumes chapters aired_on released_on status

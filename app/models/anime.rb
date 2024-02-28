@@ -8,6 +8,7 @@ class Anime < DbEntry
   include ClubsConcern
   include ContestsConcern
   include FavouritesConcern
+  include RknConcern
 
   DESYNCABLE = %w[
     name japanese synonyms kind episodes rating aired_on released_on status
