@@ -55,6 +55,20 @@ describe BbCodes::Tags::UrlTag do
       end
     end
 
+    context 'url containing protocol escape' do
+      let(:escped_protocol) do
+        1.upto(9).map { |i| "/#{'\\' * i}/" }.sample
+      end
+      let(:url) { "#{escped_protocol}site.com/site-url?a=1&b=2" }
+      it do
+        is_expected.to eq(
+          <<~HTML.squish
+            <a class="b-link" href="#{escaped_url}" #{rel}>#{escaped_url_wo_htttp}</a>
+          HTML
+        )
+      end
+    end
+
     context 'shikimori url' do
       let(:url) { '//shikimori.test/animes' }
       it do

@@ -22,7 +22,7 @@ class Styles::Compile
       (?:\s*!important)?
     )$
   /mix
-  URL_CLEANUP_REGEXP = %r{/\*|\*/|@import|[@*]|import}
+  URL_CLEANUP_REGEXP = %r{/\*|\*/|@import|[@*]|import|(?<=\A/|\Ahttp:/|\Ahttps:/)\\+(?=/)}
 
   USER_CONTENT = 'User Custom Styles'
 
@@ -88,7 +88,10 @@ private
         url = url.gsub(SUFFIX_REGEXP, '')
       end
 
-      "#{UrlGenerator.instance.camo_url url, force_shikimori_one: true}#{suffix}"
+      generated_camo_url =
+        UrlGenerator.instance.camo_url(sanitize_url(url), force_shikimori_one: true)
+
+      "#{generated_camo_url}#{suffix}"
     end
   end
 

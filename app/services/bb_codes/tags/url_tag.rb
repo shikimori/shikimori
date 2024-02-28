@@ -9,7 +9,7 @@ class BbCodes::Tags::UrlTag
   URL = %r{
     (?<url>
       (?: https?: )?
-      //
+      /\\*/
       (?:www\.)?
       (?: [^\s<\[\].,;:)(] | [.,;:)(] (?!=\s|$|[<\[\]\ ;,]) )+
     )
@@ -64,7 +64,7 @@ private
 
   def match_url url
     if url.starts_with?('/')
-      [url, !url.starts_with?('//')]
+      [url, !url.match?(%r{/\\*/})]
     elsif Url.new(url).without_http.to_s =~ %r{(?:\w+\.)?shikimori\.\w+/(?<path>.+)}
       ["/#{$LAST_MATCH_INFO[:path]}", true]
     else

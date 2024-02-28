@@ -56,6 +56,28 @@ describe Styles::Compile do
         end
       end
     end
+
+    context 'slash escpaed url' do
+      let(:image_url) { "#{escaped_protocol}some-image.domain" }
+      let(:quote) { quotes.sample }
+      let(:suffix) { suffixes.sample }
+      let(:protocol_part) { ['http:', 'https:', ''].sample }
+      let(:escaped_protocol) do
+        1.upto(9).map { |i| "#{protocol_part}/#{'\\' * i}/" }.sample
+      end
+      let(:camo_url) { UrlGenerator.instance.camo_url "#{protocol_part}//some-image.domain" }
+
+      it do
+        is_expected.to eq(
+          imports: {},
+          compiled_css: user_note + "#{described_class::MEDIA_QUERY_CSS} {\n" \
+            'body { ' \
+            "background: url(#{quote}#{camo_url}#{quote})#{suffix} " \
+            "}\n" \
+            '}'
+        )
+      end
+    end
   end
 
   context '#sanitize' do
