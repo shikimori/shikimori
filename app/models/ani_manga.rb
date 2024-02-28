@@ -64,11 +64,11 @@ module AniManga
   end
 
   def banned?
-    genres.any?(&:banned?)
+    genres_v2.any?(&:banned?)
   end
 
   def ai?
-    genres.any?(&:ai?)
+    genres_v2.any?(&:ai?)
   end
 
   def censored?
