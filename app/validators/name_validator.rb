@@ -23,6 +23,7 @@ class NameValidator < ActiveModel::EachValidator
     for_right_holders
     forum
     ignores
+    imageboards
     info
     mangas
     messages
