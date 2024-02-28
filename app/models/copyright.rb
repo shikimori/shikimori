@@ -67,7 +67,8 @@ module Copyright
     37405, # Dokidoki Little Ooyasan
     6546, # Pico: My Little Summer Story
     1639, # Boku no Pico
-    1535 # Death Note
+    1535, # Death Note
+    32484
   ]
   ABUSED_BY_RKN_MANGA_IDS = [
     5467, # Boku no Pico
@@ -89,6 +90,7 @@ module Copyright
   BANNED_BY_RKN_PERSON_IDS = []
 
   BANNED_POSTER_BY_RKN_ANIME_IDS = [
+    32484,
     35891,
     38034,
     39299,
@@ -96,6 +98,7 @@ module Copyright
   ]
   BANNED_POSTER_BY_RKN_MANGA_IDS = [
     29705,
+    86521,
     105011,
     126740
   ]
