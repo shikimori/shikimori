@@ -24,4 +24,10 @@ describe Contests::Query do
       ]
     end
   end
+
+  context '#by_id' do
+    subject { query.by_id [contest_1.id, contest_3.id] }
+    let(:characters_scope) { Contest.all }
+    it { is_expected.to eq [contest_1, contest_3] }
+  end
 end

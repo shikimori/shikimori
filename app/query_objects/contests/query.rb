@@ -11,4 +11,10 @@ class Contests::Query < QueryObjectBase
   def self.fetch
     new Contest.order(Arel.sql(ORDER_SQL))
   end
+
+  def by_id id
+    return self if id.blank?
+
+    chain @scope.where(id:)
+  end
 end

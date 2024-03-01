@@ -11,6 +11,7 @@ module Types
     def current_user
       context[:current_user]
     end
+    field :contests, resolver: Queries::ContestsQuery
 
     field :user_rates, resolver: Queries::UserRatesQuery
     field :genres, resolver: Queries::GenresQuery
