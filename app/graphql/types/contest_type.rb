@@ -2,6 +2,9 @@ class Types::ContestType < Types::BaseObject
   include Types::Concerns::DescriptionFields
 
   field :id, GraphQL::Types::ID, null: false
+
+  field :rounds, [Types::ContestRoundType], null: false, complexity: 10
+
   field :name, String, null: false
   def name
     object.title_ru
@@ -16,7 +19,6 @@ class Types::ContestType < Types::BaseObject
   field :matches_per_round, Integer
   field :match_duration, Integer
   field :matches_interval, Integer
-  field :suggestions_per_user, Integer
 
 private
 
