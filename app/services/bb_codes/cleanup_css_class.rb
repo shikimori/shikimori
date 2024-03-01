@@ -5,15 +5,17 @@ class BbCodes::CleanupCssClass
     b-achievements_notifier
     b-admin_panel
     b-appear_marker
-    b-comments-notifier
     b-comments
+    b-comments-notifier
     b-fancy_loader
     b-feedback
     b-height_shortener
     b-modal
     b-new_marker
+    b-postloader
     b-to-top
     ban
+    comments-loader
     expand
     l-footer
     l-menu
