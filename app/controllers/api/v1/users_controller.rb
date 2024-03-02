@@ -56,7 +56,7 @@ class Api::V1::UsersController < Api::V1Controller
     end
   end
 
-  api :DELETE, '/users/sign_out', 'Sign out the user'
+  api :POST, '/users/sign_out', 'Sign out the user'
   def sign_out
     super(current_user)
     render plain: 'signed out'

@@ -6505,7 +6505,7 @@
   ],
   "users#sign_out": [
     {
-      "verb": "DELETE",
+      "verb": "POST",
       "path": "/api/users/sign_out",
       "versions": [
         "1.0"

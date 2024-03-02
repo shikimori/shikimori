@@ -394,7 +394,7 @@ Rails.application.routes.draw do
           get :whoami
           get :csrf_token
           post :csrf_token
-          delete :sign_out
+          post :sign_out
         end
       end
       resources :users, only: %i[index show], constraints: { id: user_id } do

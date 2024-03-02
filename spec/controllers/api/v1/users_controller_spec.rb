@@ -77,7 +77,7 @@ describe Api::V1::UsersController, :show_in_doc do
   describe '#sign_out' do
     describe 'signed in' do
       before { sign_in user }
-      subject! { delete :sign_out }
+      subject! { post :sign_out }
 
       it do
         expect(controller.current_user).to be_nil
