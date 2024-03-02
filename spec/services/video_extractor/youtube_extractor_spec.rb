@@ -1,5 +1,12 @@
 describe VideoExtractor::YoutubeExtractor do
   let(:service) { described_class.instance }
+  # rubocop:disable Lint/ConstantDefinitionInBlock
+  FULL_URL_REGEX = /
+    \A
+      #{VideoExtractor::YoutubeExtractor::URL_REGEX.source}
+    \Z
+  /xi
+  # rubocop:enable Lint/ConstantDefinitionInBlock
 
   describe '#fetch' do
     subject { service.fetch url }
@@ -16,6 +23,7 @@ describe VideoExtractor::YoutubeExtractor do
             normalized_url: 'https://youtu.be/VdwKZ6JDENc'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context 'youtu.be' do
@@ -29,6 +37,7 @@ describe VideoExtractor::YoutubeExtractor do
             normalized_url: 'https://youtu.be/n5qqfOXRRaA'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context 'embed url' do
@@ -42,6 +51,7 @@ describe VideoExtractor::YoutubeExtractor do
             normalized_url: 'https://youtu.be/paezRkeNr5Q'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context 'www.youtube.com/v/' do
@@ -55,6 +65,7 @@ describe VideoExtractor::YoutubeExtractor do
             normalized_url: 'https://youtu.be/paezRkeNr5Q'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context 'with time' do
@@ -73,6 +84,7 @@ describe VideoExtractor::YoutubeExtractor do
             normalized_url: 'https://youtu.be/VdwKZ6JDENc'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context '& params after' do
@@ -82,6 +94,7 @@ describe VideoExtractor::YoutubeExtractor do
             player_url: '//youtube.com/embed/VdwKZ6JDENc'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context '&amp; params after' do
@@ -91,6 +104,7 @@ describe VideoExtractor::YoutubeExtractor do
             player_url: '//youtube.com/embed/VdwKZ6JDENc'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context '& params before' do
@@ -100,6 +114,7 @@ describe VideoExtractor::YoutubeExtractor do
             player_url: '//youtube.com/embed/VdwKZ6JDENc'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context '&amp; params before' do
@@ -109,6 +124,7 @@ describe VideoExtractor::YoutubeExtractor do
             player_url: '//youtube.com/embed/VdwKZ6JDENc'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context 'params_surrounded' do
@@ -119,6 +135,7 @@ describe VideoExtractor::YoutubeExtractor do
             player_url: '//youtube.com/embed/VdwKZ6JDENc?start=123'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
     end
 
