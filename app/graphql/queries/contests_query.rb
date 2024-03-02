@@ -9,6 +9,9 @@ class Queries::ContestsQuery < Queries::BaseQuery
     default_value: 2,
     description: "Maximum #{LIMIT}"
   argument :ids, [ID], required: false
+  complexity ->(_ctx, args, child_complexity) {
+    args[:limit] * child_complexity
+  }
 
   def resolve(
     page:,

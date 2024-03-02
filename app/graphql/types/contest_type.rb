@@ -3,7 +3,7 @@ class Types::ContestType < Types::BaseObject
 
   field :id, GraphQL::Types::ID, null: false
 
-  field :rounds, [Types::ContestRoundType], null: false, complexity: 10
+  field :rounds, [Types::ContestRoundType], null: false, complexity: 2
 
   field :name, String, null: false
   def name
