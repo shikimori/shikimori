@@ -77,7 +77,7 @@ describe Styles::Compile do
           ].each do |evil_protocol_value|
             next if protocol_part_value == '' && evil_protocol_value == broken_protocol_part
 
-            describe evil_protocol_value, :focus do
+            describe evil_protocol_value do
               let(:protocol_part) { protocol_part_value }
               let(:evil_protocol) { evil_protocol_value }
               let(:camo_url) do

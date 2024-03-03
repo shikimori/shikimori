@@ -4,14 +4,18 @@ describe Menus::CollectionMenu do
   let(:klass) { Anime }
   let(:view) { Menus::CollectionMenu.new klass }
 
-  describe '#sorted_genres' do
+  describe '#sorted_genres_v2' do
     include_context :reset_repository, AnimeGenresV2Repository, true
 
-    let!(:genre_1) { create :genre, :anime, position: 1 }
-    let!(:genre_2) { create :genre, :anime, position: 2 }
-    let!(:genre_3) { create :genre, :manga, position: 3 }
+    let!(:genre_1) { create :genre_v2, :anime, :genre, position: 1 }
+    let!(:genre_2) { create :genre_v2, :anime, :genre, position: 2 }
+    let!(:genre_3) { create :genre_v2, :anime, :demographic, position: 3 }
+    let!(:genre_4) { create :genre_v2, :anime, :theme, position: 4 }
+    let!(:genre_5) { create :genre_v2, :manga, :genre, position: 5 }
 
-    it { expect(view.sorted_genres).to eq [genre_1, genre_2] }
+    it { expect(view.sorted_genres_v2).to eq [genre_1, genre_2] }
+    it { expect(view.sorted_demographics_v2).to eq [genre_3] }
+    it { expect(view.sorted_themes_v2).to eq [genre_4] }
   end
 
   describe '#kinds' do

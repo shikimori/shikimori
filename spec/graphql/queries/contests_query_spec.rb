@@ -40,7 +40,6 @@ describe Queries::ContestsQuery do
     let(:variables) { { ids: [contest.id] } }
 
     it do
-      ap result.to_h
       is_expected.to eq(
         'contests' => [{
           'id' => contest.id.to_s,

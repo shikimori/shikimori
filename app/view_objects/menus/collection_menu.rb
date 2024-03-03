@@ -2,7 +2,7 @@ class Menus::CollectionMenu < ViewObjectBase
   vattr_initialize :klass
 
   def url
-    h.send "menu_#{klass.name.tableize}_url", rating: h.params[:rating]
+    h.send :"menu_#{klass.name.tableize}_url", rating: h.params[:rating]
   end
 
   def sorted_genres
@@ -111,7 +111,7 @@ private
     end
   end
 
-  def censore_genres genres
+  def censore_genres genres # rubocop:disable Metrics/cyclomaticComplexity, Metrics/PerceivedComplexity
     if h.current_user&.staff?
       genres
     elsif h.current_user&.ai_genres?
