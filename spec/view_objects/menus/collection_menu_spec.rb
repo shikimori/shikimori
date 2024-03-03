@@ -5,7 +5,7 @@ describe Menus::CollectionMenu do
   let(:view) { Menus::CollectionMenu.new klass }
 
   describe '#sorted_genres' do
-    include_context :reset_repository, AnimeGenresRepository
+    include_context :reset_repository, AnimeGenresV2Repository, true
 
     let!(:genre_1) { create :genre, :anime, position: 1 }
     let!(:genre_2) { create :genre, :anime, position: 2 }
@@ -100,7 +100,7 @@ describe Menus::CollectionMenu do
     #   let(:search) { 'z' }
     #   it { expect(view).to_not be_show_sorting }
     # end
-    # 
+    #
     # context 'q' do
     #   let(:q) { 'z' }
     #   it { expect(view).to_not be_show_sorting }

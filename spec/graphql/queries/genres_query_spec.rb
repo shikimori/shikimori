@@ -1,5 +1,6 @@
 describe Queries::GenresQuery do
   include_context :graphql
+  include_context :reset_repository, AnimeGenresV2Repository, true
 
   let(:query_string) do
     <<~GQL
