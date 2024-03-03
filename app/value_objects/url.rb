@@ -35,7 +35,7 @@ class Url
   end
 
   def with_http
-    chain @url.gsub(%r{\A// | \A(?!https?://)}mix, 'http://')
+    chain @url.gsub(%r{\A// | \A(?!https?:/?/)}mix, 'http://')
   end
 
   def without_http

@@ -66,20 +66,27 @@ describe Styles::Compile do
         'https:',
         ''
       ].each do |protocol_part_value|
+        broken_protocol_part = "#{protocol_part_value}/"
         describe protocol_part_value do
           [
             1.upto(9).map { |i| "#{protocol_part_value}/#{'\\' * i}/" }.sample,
-            "#{protocol_part_value}/",
             "#{protocol_part_value}\\r//",
             "#{protocol_part_value}/\\r/",
-            "#{protocol_part_value}//<"
+            "#{protocol_part_value}//<",
+            broken_protocol_part
           ].each do |evil_protocol_value|
-            next if protocol_part_value == '' && evil_protocol_value == "#{protocol_part_value}/"
+            next if protocol_part_value == '' && evil_protocol_value == broken_protocol_part
 
-            describe evil_protocol_value do
+            describe evil_protocol_value, :focus do
               let(:protocol_part) { protocol_part_value }
               let(:evil_protocol) { evil_protocol_value }
-              let(:camo_url) { UrlGenerator.instance.camo_url "#{protocol_part}//some-image.domain" }
+              let(:camo_url) do
+                if evil_protocol_value == broken_protocol_part
+                  UrlGenerator.instance.camo_url "#{evil_protocol}some-image.domain"
+                else
+                  UrlGenerator.instance.camo_url "#{protocol_part}//some-image.domain"
+                end
+              end
 
               it do
                 is_expected.to eq(

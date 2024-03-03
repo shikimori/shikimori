@@ -69,6 +69,20 @@ describe BbCodes::Tags::UrlTag do
       end
     end
 
+    context 'url can be without first slash' do
+      let(:broken_protocol) do
+        'https:/'
+      end
+      let(:url) { "#{broken_protocol}site.com/site-url?a=1&b=2" }
+      it do
+        is_expected.to eq(
+          <<~HTML.squish
+            <a class="b-link" href="#{escaped_url}" #{rel}>#{escaped_url_wo_htttp}</a>
+          HTML
+        )
+      end
+    end
+
     context 'shikimori url' do
       let(:url) { '//shikimori.test/animes' }
       it do
@@ -251,7 +265,7 @@ describe BbCodes::Tags::UrlTag do
       it do
         is_expected.to eq(
           <<~HTML.squish
-            (<a class=\"b-link\" href=\"#{escaped_url}\" #{rel}>#{escaped_url_wo_htttp}</a>)
+            (<a class="b-link" href="#{escaped_url}" #{rel}>#{escaped_url_wo_htttp}</a>)
           HTML
         )
       end
