@@ -8,6 +8,8 @@ header.head
       = @resource.headline
       - if @resource.banned?
         .b-anime_status_tag.review-negative.ml-2 banned
+      - elsif @resource.censored?
+        .b-anime_status_tag.censored.ml-2 18+
   - else
     h2
       a.back[
