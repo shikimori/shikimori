@@ -163,7 +163,7 @@ describe Notifications::BroadcastTopic do
     let(:is_broadcast) { false }
     let(:linked) do
       [
-        create(:anime, is_censored: true),
+        # create(:anime, is_censored: true), # censored animes now produce notifications too
         create(:anime, kind: :music)
       ].sample
     end
