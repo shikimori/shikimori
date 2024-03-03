@@ -58,7 +58,7 @@ private
   end
 
   def compile css, url = nil
-    compiled_css = sanitize(camo_images(css))
+    compiled_css = camo_images(sanitize(css))
 
     if compiled_css.present?
       url ?

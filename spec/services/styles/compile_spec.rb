@@ -36,12 +36,11 @@ describe Styles::Compile do
 
     quotes.each do |quote_value|
       describe "quote `#{quote_value}`" do
-        let(:quote) { quote_value }
-
         suffixes.each do |suffix_value|
-          let(:suffix) { suffix_value }
-
           describe "suffix `#{suffix_value}`" do
+            let(:quote) { quote_value }
+            let(:suffix) { suffix_value }
+
             it do
               is_expected.to eq(
                 imports: {},
@@ -57,25 +56,44 @@ describe Styles::Compile do
       end
     end
 
-    context 'slash escpaed url' do
-      let(:image_url) { "#{escaped_protocol}some-image.domain" }
+    context 'evil url' do
+      let(:image_url) { "#{evil_protocol}some-image.domain" }
       let(:quote) { quotes.sample }
       let(:suffix) { suffixes.sample }
-      let(:protocol_part) { ['http:', 'https:', ''].sample }
-      let(:escaped_protocol) do
-        1.upto(9).map { |i| "#{protocol_part}/#{'\\' * i}/" }.sample
-      end
-      let(:camo_url) { UrlGenerator.instance.camo_url "#{protocol_part}//some-image.domain" }
 
-      it do
-        is_expected.to eq(
-          imports: {},
-          compiled_css: user_note + "#{described_class::MEDIA_QUERY_CSS} {\n" \
-            'body { ' \
-            "background: url(#{quote}#{camo_url}#{quote})#{suffix} " \
-            "}\n" \
-            '}'
-        )
+      [
+        'http:',
+        'https:',
+        ''
+      ].each do |protocol_part_value|
+        describe protocol_part_value do
+          [
+            1.upto(9).map { |i| "#{protocol_part_value}/#{'\\' * i}/" }.sample,
+            "#{protocol_part_value}/",
+            "#{protocol_part_value}\\r//",
+            "#{protocol_part_value}/\\r/",
+            "#{protocol_part_value}//<"
+          ].each do |evil_protocol_value|
+            next if protocol_part_value == '' && evil_protocol_value == "#{protocol_part_value}/"
+
+            describe evil_protocol_value do
+              let(:protocol_part) { protocol_part_value }
+              let(:evil_protocol) { evil_protocol_value }
+              let(:camo_url) { UrlGenerator.instance.camo_url "#{protocol_part}//some-image.domain" }
+
+              it do
+                is_expected.to eq(
+                  imports: {},
+                  compiled_css: user_note + "#{described_class::MEDIA_QUERY_CSS} {\n" \
+                    'body { ' \
+                    "background: url(#{quote}#{camo_url}#{quote})#{suffix} " \
+                    "}\n" \
+                    '}'
+                )
+              end
+            end
+          end
+        end
       end
     end
   end
