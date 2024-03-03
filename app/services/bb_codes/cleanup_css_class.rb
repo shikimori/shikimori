@@ -5,8 +5,8 @@ class BbCodes::CleanupCssClass
     b-achievements_notifier
     b-admin_panel
     b-appear_marker
-    b-comments
     b-comments-notifier
+    b-comments
     b-fancy_loader
     b-feedback
     b-height_shortener
