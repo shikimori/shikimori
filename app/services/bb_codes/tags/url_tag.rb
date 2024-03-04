@@ -8,8 +8,11 @@ class BbCodes::Tags::UrlTag
   URL_SYMBOL_CLASS = /[^"'<>\[\]]/.source
   URL = %r{
     (?<url>
-      (?: https?: )?
-      /?\\*/
+      (?:
+        (?: https?: )  \\*/ # links with procol can have only one slash
+        |
+        (?: https?: )? /\\*/ # otherwise it is a normal link
+      )
       (?:www\.)?
       (?: [^\s<\[\].,;:)(] | [.,;:)(] (?!=\s|$|[<\[\]\ ;,]) )+
     )

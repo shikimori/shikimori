@@ -326,6 +326,7 @@ describe BbCodes::Tags::UrlTag do
         )
       end
     end
+
     # context 'broken tag' do
     #   let(:link) { '[url=https://z.org/%B0«z»' } # Zrubocop:disable Style/FormatStringToken
     #   let(:text) { "[url=#{url}]#{link}[/url]" }

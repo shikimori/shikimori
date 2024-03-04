@@ -103,6 +103,16 @@ describe Styles::Compile do
         end
       end
     end
+
+    context 'non urls are not sanitized' do
+      let(:css) { 'body { color:RGBA(var(--marker-color)/var(--marker-background-opacity)) }' }
+      it do
+        is_expected.to eq(
+          imports: {},
+          compiled_css: media_query_wrap(css)
+        )
+      end
+    end
   end
 
   context '#sanitize' do
