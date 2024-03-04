@@ -2,12 +2,16 @@ describe Styles::Compile do
   subject { described_class.call css }
   let(:user_note) { "/* #{described_class::USER_CONTENT} */\n" }
 
+  def media_query_wrap css
+    "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\n#{css}\n}"
+  end
+
   context '#strip_comments' do
     let(:css) { '/* test */ a { color: red }' }
     it do
       is_expected.to eq(
         imports: {},
-        compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red }\n}"
+        compiled_css: media_query_wrap('a { color: red }')
       )
     end
   end
@@ -44,11 +48,9 @@ describe Styles::Compile do
             it do
               is_expected.to eq(
                 imports: {},
-                compiled_css: user_note + "#{described_class::MEDIA_QUERY_CSS} {\n" \
-                  'body { ' \
-                  "background: url(#{quote}#{camo_url}#{quote})#{suffix} " \
-                  "}\n" \
-                  '}'
+                compiled_css: media_query_wrap(
+                  "body { background: url(#{quote}#{camo_url}#{quote})#{suffix} }"
+                )
               )
             end
           end
@@ -91,11 +93,9 @@ describe Styles::Compile do
               it do
                 is_expected.to eq(
                   imports: {},
-                  compiled_css: user_note + "#{described_class::MEDIA_QUERY_CSS} {\n" \
-                    'body { ' \
-                    "background: url(#{quote}#{camo_url}#{quote})#{suffix} " \
-                    "}\n" \
-                    '}'
+                  compiled_css: media_query_wrap(
+                    "body { background: url(#{quote}#{camo_url}#{quote})#{suffix} }"
+                  )
                 )
               end
             end
@@ -110,7 +110,7 @@ describe Styles::Compile do
     it do
       is_expected.to eq(
         imports: {},
-        compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red }; :blablalba;\n}"
+        compiled_css: media_query_wrap('a { color: red }; :blablalba;')
       )
     end
   end
@@ -132,7 +132,7 @@ describe Styles::Compile do
         it do
           is_expected.to eq(
             imports: {},
-            compiled_css: "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red }\n}"
+            compiled_css: media_query_wrap('a { color: red }')
           )
         end
 
@@ -157,8 +157,8 @@ describe Styles::Compile do
                 "\n\n" \
                 "/* https://thiaya.github.io/2/shi.Modern.css */\n" \
                 'a { color: blue; }' \
-                "\n\n" \
-                "#{user_note}#{described_class::MEDIA_QUERY_CSS} {\na { color: red; }\n}"
+                "\n\n" +
+                media_query_wrap('a { color: red; }')
             )
           end
         end
