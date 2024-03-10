@@ -68,7 +68,6 @@ module Copyright
     6546, # Pico: My Little Summer Story
     1639, # Boku no Pico
     1535, # Death Note
-    32484
   ]
   ABUSED_BY_RKN_MANGA_IDS = [
     5467, # Boku no Pico
