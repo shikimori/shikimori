@@ -2332,6 +2332,7 @@
         - 39935
         - 41750
         - 51653
+        - 2291
       :generator: &105
         person_id: 7454
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -2540,6 +2541,8 @@
         - 4772
         - 4651
         - 48425
+        - 11793
+        - 21737
       :generator: &113
         person_id: 4002
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -4864,7 +4867,7 @@
         - 43745
         - 43751
         - 47307
-      :threshold: 92.6%
+      :threshold: 93.4%
       :generator: &224
         ignore_latest_ids:
         - 3786
@@ -6226,6 +6229,7 @@
         - 40761
         - 40982
         - 49633
+        - 57691
       :threshold: 90%
       :generator: &300
         ignore_latest_ids:
@@ -8238,6 +8242,8 @@
         - 48436
         - 54761
         - 56544
+        - 57670
+        - 58091
       :threshold: 90%
       :generator: &411
         ignore_latest_ids:
@@ -10051,10 +10057,13 @@
         - 51889
         - 52497
         - 52897
+        - 55074
         - 56064
         - 57199
         - 57595
         - 57596
+        - 58247
+        - 58248
       :threshold: 93.9%
       :generator: &511
         ignore_latest_ids:
@@ -17057,6 +17066,7 @@
         - 53963
         - 53964
         - 53965
+        - 57994
       :threshold: 99.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -25138,8 +25148,6 @@
         - 21667
         - 31138
         - 36497
-        - 37087
-        - 37781
         - 28223
         - 14353
         - 38101
@@ -25290,6 +25298,7 @@
         - 51535
         - 54714
         - 79
+        - 29803
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *4
   neko_id: :kuudere
@@ -29449,6 +29458,7 @@
         - 56592
         - 54496
         - 54582
+        - 54633
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/stop_motion.yml
   default_values: *4
   neko_id: :stop_motion
