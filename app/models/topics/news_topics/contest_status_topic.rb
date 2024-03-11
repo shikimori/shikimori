@@ -7,6 +7,7 @@ class Topics::NewsTopics::ContestStatusTopic < Topics::NewsTopic
 
   CONTEST_IMAGE_V1 = 1_316_293
   CONTEST_IMAGE_V2 = 2_550_745
+  CONTEST_IMAGE_V3 = 2551412
 
   def title
     i18n_t "title.#{action}"
