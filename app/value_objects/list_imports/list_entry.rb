@@ -2,6 +2,9 @@ class ListImports::ListEntry
   include ShallowAttributes
 
   TargetType = Types::Strict::String.enum('Anime', 'Manga')
+  StatusWithUnknown = Types::Strict::Symbol
+    .constructor(&:to_sym)
+    .enum(:unknown, *::Types::UserRate::Status.values)
 
   attribute :target_title, String,
     default: ->(object, _attribute) { "ID=#{object.target_id}" }
@@ -10,7 +13,7 @@ class ListImports::ListEntry
 
   attribute :score, Integer, default: 0
 
-  attribute :status, Types::UserRate::Status
+  attribute :status, StatusWithUnknown, allow_nil: true
 
   attribute :rewatches, Integer, default: 0
 

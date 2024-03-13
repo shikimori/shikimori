@@ -2,16 +2,16 @@ class ListImports::ParseXml
   method_object :xml
 
   STATUSES = {
-    'plan to watch' => 'planned',
-    'plan to read' => 'planned',
-    'watching' => 'watching',
-    'reading' => 'watching',
-    'completed' => 'completed',
-    'on-hold' => 'on_hold',
-    'on hold' => 'on_hold', # "On Hold" is in Kitsu lists
-    'dropped' => 'dropped',
-    'rewatching' => 'rewatching',
-    'rereading' => 'rewatching'
+    'plan to watch' => ListImports::ListEntry::StatusWithUnknown[:planned],
+    'plan to read' => ListImports::ListEntry::StatusWithUnknown[:planned],
+    'watching' => ListImports::ListEntry::StatusWithUnknown[:watching],
+    'reading' => ListImports::ListEntry::StatusWithUnknown[:watching],
+    'completed' => ListImports::ListEntry::StatusWithUnknown[:completed],
+    'on-hold' => ListImports::ListEntry::StatusWithUnknown[:on_hold],
+    'on hold' => ListImports::ListEntry::StatusWithUnknown[:on_hold], # "On Hold" is in Kitsu lists
+    'dropped' => ListImports::ListEntry::StatusWithUnknown[:dropped],
+    'rewatching' => ListImports::ListEntry::StatusWithUnknown[:rewatching],
+    'rereading' => ListImports::ListEntry::StatusWithUnknown[:rewatching]
   }
 
   ANIME_TYPE = 1
