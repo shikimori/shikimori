@@ -145,7 +145,7 @@ describe ListImports::Import do
       expect(list_import.output).to eq(
         'error' => {
           'type' => ListImport::ERROR_MISSING_FIELDS,
-          'fields' => %w[target_type status]
+          'fields' => %w[target_type]
         }
       )
 

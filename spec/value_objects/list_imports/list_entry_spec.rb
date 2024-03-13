@@ -1,23 +1,23 @@
 describe ListImports::ListEntry do
   let(:entry) do
     ListImports::ListEntry.new(
-      target_title: target_title,
-      target_id: target_id,
-      target_type: target_type,
-      score: score,
-      status: status,
-      rewatches: rewatches,
-      episodes: episodes,
-      volumes: volumes,
-      chapters: chapters,
-      text: text
+      target_title:,
+      target_id:,
+      target_type:,
+      score:,
+      status:,
+      rewatches:,
+      episodes:,
+      volumes:,
+      chapters:,
+      text:
     )
   end
   let(:target_title) { 'test' }
   let(:target_id) { anime.id }
   let(:target_type) { Anime.name }
   let(:score) { 5 }
-  let(:status) { :completed }
+  let(:status) { ListImports::ListEntry::StatusWithUnknown[:completed] }
   let(:rewatches) { 1 }
   let(:episodes) { 2 }
   let(:volumes) { 3 }
@@ -57,12 +57,28 @@ describe ListImports::ListEntry do
         is_expected.to eq user_rate
         is_expected.to have_attributes(
           status: status.to_s,
-          score: score,
-          episodes: episodes,
-          rewatches: rewatches,
+          score:,
+          episodes:,
+          rewatches:,
           volumes: 0,
           chapters: 0
         )
+      end
+
+      context 'invalid list_entry status' do
+        let(:status) { ListImports::ListEntry::StatusWithUnknown[:unknown] }
+
+        it do
+          is_expected.to eq user_rate
+          is_expected.to have_attributes(
+            status: nil,
+            score:,
+            episodes:,
+            rewatches:,
+            volumes: 0,
+            chapters: 0
+          )
+        end
       end
     end
 

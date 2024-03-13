@@ -25,7 +25,7 @@ describe ListImports::ParseXml do
     let(:status_field) { %w[my_status shiki_status].sample }
     let(:xml) do
       <<-XML
-        <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+        <?xml version="1.0" encoding="UTF-8"?>
         <myanimelist>
           <myinfo>
             <user_export_type>#{ListImports::ParseXml::MANGA_TYPE}</user_export_type>

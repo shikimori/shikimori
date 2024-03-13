@@ -1,7 +1,7 @@
 describe ListImports::ImportList do
   let(:service) { ListImports::ImportList.new list_import, list }
 
-  let(:list_import) { create :list_import, :anime, duplicate_policy, user: user }
+  let(:list_import) { create :list_import, :anime, duplicate_policy, user: }
   let(:duplicate_policy) { Types::ListImport::DuplicatePolicy[:replace] }
   let(:list) { [list_entry] }
   let(:list_entry) do
@@ -10,12 +10,13 @@ describe ListImports::ImportList do
       target_id: 999_999,
       target_type: 'Anime',
       score: 7,
-      status: 'completed',
+      status: list_entry_status,
       rewatches: 1,
       episodes: 30,
       text: 'test'
     )
   end
+  let(:list_entry_status) { ListImports::ListEntry::StatusWithUnknown['completed'] }
   let!(:target) do
     create :anime,
       id: list.first.target_id,
@@ -72,8 +73,8 @@ describe ListImports::ImportList do
   context 'existing entry' do
     let!(:user_rate) do
       create :user_rate,
-        user: user,
-        target: target,
+        user:,
+        target:,
         status: 'planned',
         episodes: 0,
         rewatches: 0,
@@ -167,8 +168,8 @@ describe ListImports::ImportList do
       let(:duplicate_policy) { Types::ListImport::DuplicatePolicy[:replace] }
       let!(:user_rate) do
         create :user_rate,
-          user: user,
-          target: target,
+          user:,
+          target:,
           status: list[0].status,
           episodes: list[0].episodes,
           rewatches: list[0].rewatches,
@@ -194,6 +195,23 @@ describe ListImports::ImportList do
 
   context 'not existing entry' do
     let(:target) { nil }
+
+    it do
+      expect(user.anime_rates).to be_empty
+      expect(user.manga_rates).to be_empty
+
+      expect(list_import.output).to eq(
+        ListImports::ImportList::ADDED => [],
+        ListImports::ImportList::UPDATED => [],
+        ListImports::ImportList::NOT_IMPORTED => JSON.parse([list[0]].to_json),
+        ListImports::ImportList::NOT_CHANGED => []
+      )
+      expect(list_import).to_not be_changed
+    end
+  end
+
+  context 'unknown status', :focus do
+    let(:list_entry_status) { ListImports::ListEntry::StatusWithUnknown[:unknown] }
 
     it do
       expect(user.anime_rates).to be_empty

@@ -58,7 +58,7 @@ class ListImports::ListEntry
 private
 
   def export_fields user_rate
-    user_rate.status = status
+    user_rate.status = (status unless unknown_status?)
     user_rate.score = score
     user_rate.rewatches = rewatches
   end
@@ -82,5 +82,9 @@ private
         user_rate[counter] = user_rate.target[counter]
       end
     end
+  end
+
+  def unknown_status?
+    status == ListImports::ListEntry::StatusWithUnknown[:unknown]
   end
 end
