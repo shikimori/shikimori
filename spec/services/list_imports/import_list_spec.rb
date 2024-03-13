@@ -210,7 +210,7 @@ describe ListImports::ImportList do
     end
   end
 
-  context 'unknown status', :focus do
+  context 'unknown status' do
     let(:list_entry_status) { ListImports::ListEntry::StatusWithUnknown[:unknown] }
 
     it do
