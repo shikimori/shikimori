@@ -55,6 +55,10 @@ class ListImports::ListEntry
     target_type == TargetType[Anime.name]
   end
 
+  def unknown_status?
+    status == ListImports::ListEntry::StatusWithUnknown[:unknown]
+  end
+
 private
 
   def export_fields user_rate
@@ -82,9 +86,5 @@ private
         user_rate[counter] = user_rate.target[counter]
       end
     end
-  end
-
-  def unknown_status?
-    status == ListImports::ListEntry::StatusWithUnknown[:unknown]
   end
 end
