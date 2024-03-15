@@ -21,7 +21,7 @@ describe DbImport::ImportBase do
   let(:service) { DbImport::Test.new data }
   let(:data) do
     {
-      id: id,
+      id:,
       name: 'Zzzz',
       english: 'Xxxxx',
       japanese: 'Kkkkkk',

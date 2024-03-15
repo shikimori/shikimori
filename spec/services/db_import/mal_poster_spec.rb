@@ -3,8 +3,8 @@ describe DbImport::MalPoster do
 
   subject do
     described_class.call(
-      entry: entry,
-      image_url: image_url
+      entry:,
+      image_url:
     )
   end
   let(:entry) { create :anime }
@@ -14,7 +14,7 @@ describe DbImport::MalPoster do
   before do
     allow(DbImport::PosterPolicy)
       .to receive(:new)
-      .with(entry: entry, image_url: image_url)
+      .with(entry:, image_url:)
       .and_return(poster_policy)
   end
   let(:poster_policy) { double need_import?: need_import }

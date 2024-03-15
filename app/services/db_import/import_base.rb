@@ -48,7 +48,7 @@ private
       next if field.in?(desynced_fields)
       next if @data[field].blank? && !field.in?(self.class::ALLOW_BLANK_FIELDS)
 
-      send "assign_#{field}", @data[field]
+      send :"assign_#{field}", @data[field]
     end
   end
 
@@ -66,7 +66,7 @@ private
   end
 
   def assign_image image_url
-    DbImport::MalImage.call entry: entry, image_url: image_url
+    DbImport::MalImage.call entry:, image_url:
   end
 
   def data_to_assign
@@ -88,7 +88,7 @@ private
 
   def import_poster
     DbImport::MalPoster.call(
-      entry: entry,
+      entry:,
       image_url: @data[:image]
     )
   end
