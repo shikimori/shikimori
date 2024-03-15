@@ -1,8 +1,8 @@
 describe DbImport::PosterPolicy do
-  let(:policy) { described_class.new entry: entry, image_url: image_url }
+  let(:policy) { described_class.new entry:, image_url: }
   subject { policy.need_import? }
 
-  let(:poster) { build_stubbed :poster, mal_url: mal_url, created_at: downloaded_at }
+  let(:poster) { build_stubbed :poster, mal_url:, created_at: downloaded_at }
   let(:mal_url) { nil }
   let(:downloaded_at) { described_class::OLD_INTERVAL.ago - 1.day }
 
@@ -25,7 +25,7 @@ describe DbImport::PosterPolicy do
   let(:existing_poster_path) { '/tmp/zxc' }
 
   context 'anime' do
-    let(:entry) { build_stubbed :anime, poster: poster, desynced: desynced }
+    let(:entry) { build_stubbed :anime, poster:, desynced: }
     let(:desynced) { [] }
     let(:image_url) { 'http://zxc.vbn' }
 
@@ -130,10 +130,20 @@ describe DbImport::PosterPolicy do
         # end
       end
     end
+
+    describe 'BANNED_POSTER_BY_RKN' do
+      let(:entry) do
+        build_stubbed :anime,
+          id: Copyright::BANNED_POSTER_BY_RKN_ANIME_IDS.sample,
+          poster:,
+          desynced:
+      end
+      it { is_expected.to eq false }
+    end
   end
 
   context 'character' do
-    let(:entry) { build_stubbed :character, poster: poster }
+    let(:entry) { build_stubbed :character, poster: }
     let(:image_url) { 'http://zxc.vbn' }
 
     before do
