@@ -89,7 +89,6 @@ module Copyright
   BANNED_BY_RKN_PERSON_IDS = []
 
   BANNED_POSTER_BY_RKN_ANIME_IDS = [
-    32484,
     35891,
     38034,
     39299,
