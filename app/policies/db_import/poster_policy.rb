@@ -1,6 +1,6 @@
 class DbImport::PosterPolicy < DbImport::ImagePolicy
   def need_import?
-    return false if invalid_entry? || bad_image_url? || desynced_poster? || banned_poster_by_rkn?
+    return false if invalid_entry? || bad_image_url? || desynced_poster?
     return true if no_existing_poster? || broken_existing_image?
 
     poster_expired?
@@ -27,9 +27,5 @@ private
 
   def image_path
     @entry.poster.image.storage.path @entry.poster.image.id
-  end
-
-  def banned_poster_by_rkn?
-    @entry.decorate.rkn_banned_poster?
   end
 end

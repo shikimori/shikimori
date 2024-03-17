@@ -130,16 +130,6 @@ describe DbImport::PosterPolicy do
         # end
       end
     end
-
-    describe 'BANNED_POSTER_BY_RKN' do
-      let(:entry) do
-        build_stubbed :anime,
-          id: Copyright::BANNED_POSTER_BY_RKN_ANIME_IDS.sample,
-          poster:,
-          desynced:
-      end
-      it { is_expected.to eq false }
-    end
   end
 
   context 'character' do
