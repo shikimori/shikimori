@@ -8,7 +8,7 @@ describe Poster do
 
   describe 'instance method' do
     describe '#magnificable?' do
-      subject { build :poster, image_data: image_data }
+      subject { build :poster, image_data: }
 
       context 'no image' do
         let(:image_data) { [nil, {}].sample }
@@ -31,7 +31,7 @@ describe Poster do
     end
 
     describe '#cropped?' do
-      subject { build :poster, crop_data: crop_data }
+      subject { build :poster, crop_data: }
 
       context 'no crop_data' do
         let(:crop_data) { [nil, {}].sample }
