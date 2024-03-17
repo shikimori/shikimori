@@ -1,4 +1,6 @@
 class CharacterDecorator < PersonDecorator
+  include AniMangaDecorator::PosterHelpers
+
   instance_cache :changes, :all_animes, :all_mangas, :cosplay?,
     :limited_animes, :limited_mangas, :top_seyu, :all_seyu
 
@@ -74,7 +76,7 @@ private
       .sort_by do |person_role|
         [
           ROLES_PRIORITY.index(person_role.roles.first) ||
-            ROLES_PRIORITY.size + 1,
+            (ROLES_PRIORITY.size + 1),
           h.localized_name(person_role.person)
         ]
       end

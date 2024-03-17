@@ -30,6 +30,6 @@ private
   end
 
   def banned_poster_by_rkn?
-    @entry.rkn_banned_poster?
+    @entry.decorate.rkn_banned_poster?
   end
 end

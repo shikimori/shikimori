@@ -5,6 +5,7 @@ class Person < DbEntry
   include FavouritesConcern
   include TopicsConcern
   include VersionsConcern
+  include RknConcern
 
   DESYNCABLE = %w[name japanese website birth_on image poster]
 
