@@ -2152,6 +2152,7 @@
         - 49351
         - 53754
         - 43760
+        - 54754
       :generator: &97
         person_id: 4097
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
