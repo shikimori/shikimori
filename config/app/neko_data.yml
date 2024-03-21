@@ -4411,8 +4411,6 @@
       :algo: duration
       :filters: &197
         franchise: demon_slayer
-        not_anime_ids:
-        - 54591
       :threshold: 96%
       :generator: &198
         threshold: 96%
@@ -9671,6 +9669,7 @@
         - 52010
         - 52011
         - 57236
+        - 58374
       :threshold: 95.2%
       :generator: &488
         not_ignored_ids:
@@ -10114,9 +10113,12 @@
         - 57199
         - 57595
         - 57596
+        - 58087
+        - 58140
+        - 58244
         - 58247
         - 58248
-      :threshold: 93.9%
+      :threshold: 94.1%
       :generator: &509
         ignore_latest_ids:
         - 37966
@@ -11331,7 +11333,7 @@
         - 53603
         - 55283
         - 55404
-      :threshold: 85.9%
+      :threshold: 86%
       :generator: &572
         ignore_latest_ids:
         - 38714
@@ -11721,7 +11723,7 @@
         franchise: yi_ren_zhi_xia
         not_anime_ids:
         - 37090
-      :threshold: 95.7%
+      :threshold: 95%
       :generator: &593
         ignore_latest_ids:
         - 58056
@@ -12362,7 +12364,7 @@
         - 53976
         - 55134
         - 57441
-      :threshold: 92.9%
+      :threshold: 93%
       :generator: &627
         ignore_latest_ids:
         - 38770
@@ -12687,7 +12689,7 @@
       :algo: duration
       :filters: &645
         franchise: kingdom
-      :threshold: 97.7%
+      :threshold: 95%
       :generator:
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -15704,6 +15706,8 @@
         - 55297
         - 55378
         - 55883
+        - 56889
+        - 58428
       :threshold: 92.4%
       :generator: &807
         not_ignored_ids:
@@ -15961,6 +15965,7 @@
         - 21595
         - 32346
         - 33997
+        - 58018
       :threshold: 87.7%
       :generator: &818
         threshold: 87.7%
@@ -19029,7 +19034,7 @@
         franchise: a_mortal_s_journey
         not_anime_ids:
         - 54444
-      :threshold: 100%
+      :threshold: 98%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :a_mortal_s_journey
@@ -19873,7 +19878,7 @@
         - 1674
         - 39226
         - 39227
-      :threshold: 96.1%
+      :threshold: 96.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :captain_tsubasa
