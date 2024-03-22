@@ -33,13 +33,23 @@ class Moderations::BansController < ModerationsController
   end
 
   def create
-    if @resource.save
+    is_saved = RedisMutex
+      .with_lock("ban_#{@resource.user_id}", block: 5.seconds, expire: 5.seconds) do
+        @resource.save
+      end
+
+    if is_saved
       Comment::WrapInSpoiler.call @resource.comment if ban_params[:hide_to_spoiler] == '1'
       render :create, formats: :json
     else
       render json: @resource.errors.full_messages, status: :unprocessable_entity
     end
-  # rescue AASM::InvalidTransition
+  rescue RedisMutex::LockError
+    @attempts += 1
+    raise if @attempts >= 3
+
+    sleep 1
+    retry
   end
 
   def destroy
