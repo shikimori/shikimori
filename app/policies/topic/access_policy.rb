@@ -16,10 +16,8 @@ class Topic::AccessPolicy
 
     if club
       Club::AccessPolicy.allowed? club, @current_user
-    elsif premoderation_forum?
+    elsif premoderation_forum? || hidden_forum?
       author? || moderator?
-    elsif hidden_forum?
-      moderator?
     else
       true
     end

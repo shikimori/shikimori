@@ -7,8 +7,9 @@ describe Topic::AccessPolicy do
     it { is_expected.to eq true }
   end
 
-  context 'topic in premoderation forum' do
-    let(:topic) { build :topic, forum_id: Forum::PREMODERATION_ID, user: topic_user }
+  context 'topic in premoderation or hidden forum' do
+    let(:topic) { build :topic, forum_id:, user: topic_user }
+    let(:forum_id) { [Forum::PREMODERATION_ID, Forum::HIDDEN_ID].sample }
     let(:topic_user) { user_2 }
 
     it { is_expected.to eq false }
@@ -16,26 +17,6 @@ describe Topic::AccessPolicy do
     context 'topic author' do
       let(:topic_user) { user }
       it { is_expected.to eq true }
-    end
-
-    context 'moderator' do
-      let(:user) do
-        build :user,
-          roles: [(User::MODERATION_STAFF_ROLES + %w[news_moderator]).sample]
-      end
-      it { is_expected.to eq true }
-    end
-  end
-
-  context 'topic in hidden forum' do
-    let(:topic) { build :topic, forum_id: Forum::HIDDEN_ID, user: topic_user }
-    let(:topic_user) { user_2 }
-
-    it { is_expected.to eq false }
-
-    context 'topic author' do
-      let(:topic_user) { user }
-      it { is_expected.to eq false }
     end
 
     context 'moderator' do
