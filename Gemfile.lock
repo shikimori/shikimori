@@ -409,7 +409,8 @@ GEM
       i18n (>= 0.7)
       multi_json
       request_store (>= 1.0)
-    google-protobuf (3.24.3)
+    google-protobuf (4.26.0)
+      rake (>= 13)
     graphiql-rails (1.9.0)
       railties
       sprockets-rails
@@ -588,10 +589,10 @@ GEM
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
-    pg (1.5.4)
-    pg_query (4.2.3)
+    pg (1.5.6)
+    pg_query (5.1.0)
       google-protobuf (>= 3.22.3)
-    pghero (3.3.4)
+    pghero (3.4.1)
       activerecord (>= 6)
     protocol (2.0.0)
       ruby_parser (~> 3.0)
