@@ -18,6 +18,8 @@ class Topic::AccessPolicy
       Club::AccessPolicy.allowed? club, @current_user
     elsif premoderation_forum?
       author? || moderator?
+    elsif hidden_forum?
+      moderator?
     else
       true
     end
@@ -35,5 +37,9 @@ private
 
   def premoderation_forum?
     @topic.forum_id == Forum::PREMODERATION_ID
+  end
+
+  def hidden_forum?
+    @topic.forum_id == Forum::HIDDEN_ID
   end
 end

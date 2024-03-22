@@ -27,6 +27,26 @@ describe Topic::AccessPolicy do
     end
   end
 
+  context 'topic in hidden forum' do
+    let(:topic) { build :topic, forum_id: Forum::HIDDEN_ID, user: topic_user }
+    let(:topic_user) { user_2 }
+
+    it { is_expected.to eq false }
+
+    context 'topic author' do
+      let(:topic_user) { user }
+      it { is_expected.to eq false }
+    end
+
+    context 'moderator' do
+      let(:user) do
+        build :user,
+          roles: [(User::MODERATION_STAFF_ROLES + %w[news_moderator]).sample]
+      end
+      it { is_expected.to eq true }
+    end
+  end
+
   context 'club topic' do
     before do
       allow(Club::AccessPolicy)
@@ -37,7 +57,7 @@ describe Topic::AccessPolicy do
     let(:is_allowed) { [true, false].sample }
 
     let(:club) { build :club }
-    let(:club_page) { build :club_page, club: club }
+    let(:club_page) { build :club_page, club: }
 
     let(:topic) do
       [
