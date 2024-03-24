@@ -1,7 +1,7 @@
 describe Neko::Rule do
   let(:rule) do
     Neko::Rule.new(
-      neko_id: neko_id,
+      neko_id:,
       level: 1,
       image: '',
       border_color: nil,
@@ -12,7 +12,7 @@ describe Neko::Rule do
       topic_id: nil,
       rule: {
         threshold: 15,
-        filters: filters
+        filters:
       }
     )
   end
