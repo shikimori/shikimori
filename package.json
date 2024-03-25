@@ -14,7 +14,7 @@
     "@savingsunited/vue3-tags-input": "^3.0.14",
     "@vue/compiler-sfc": "^3.3.4",
     "autosize": "^5.0.1",
-    "axios": "^0.21.4",
+    "axios": "^1.6.0",
     "blueimp-md5": "2.18.0",
     "codemirror": "^5.60.0",
     "d3": "3.5.17",
