@@ -21,7 +21,7 @@ ru:
         warning: Текущая картинка будет безвозвратно удалена и перестанет обновляться с MAL.
         image_size: 'Размер картинки: %{size}'
       poster:
-        image_size: 'Желаемый картинки: от 450x700 до 900x1400'
+        image_size: 'Желаемой картинки: от 450x700 до 900x1400'
       videos:
         videos: Изменение видеороликов
         video: Изменение видеоролика
@@ -60,7 +60,7 @@ ru:
         dangerous_actions: Опасные действия
         # merge_into_other: Слить с другим
         merge_as_duplicate: Слить как дубль
-        merge_as_episode: Слить как эпизод c номером
+        merge_as_episode: Слить как эпизод с номером
         merge_episodes: Влить эпизоды без номеров
         deletion: Удалить
         send_for_merging: Отправить на слияние
