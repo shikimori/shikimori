@@ -9,5 +9,6 @@ class Abilities::VersionLinksModerator < Abilities::VersionFieldsModeratorBase
     super
 
     can %i[manage_not_trusted_links_changer_role], User
+    can_sync
   end
 end

@@ -25,7 +25,11 @@ class Abilities::VersionFieldsModeratorBase
       version.user_id != user.id
     end
     can %i[filter autocomplete_user autocomplete_moderator], Version
+  end
 
+private
+
+  def can_sync
     can :sync, [Anime, Manga, Person, Character] do |entry|
       entry.mal_id.present?
     end
