@@ -12,7 +12,7 @@ class RolesQuery < BaseDecorator
   end
 
   def displayed_people
-    people.all if @entry.anime? && @entry.id == 58584
+    return people if @entry.anime? && @entry.id == 58584
 
     main_people.presence || people.take(2)
   end
