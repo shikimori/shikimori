@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   # do not remove atomic grouping
   # w/o it shikimori has huge performance issue with suck nicknames "…...........☭............."
-  user_id = /(?> [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
+  user_id = %r{(?> [^/.] (?! \.rss$) | [^/] (?= \.) | \.(?! rss$) )+}x
 
   use_doorkeeper do
     skip_controllers(
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     (/season/:season)
     (/franchise/:franchise)
     (/achievement/:achievement)
-    (/genre/:genre)
+    (/genre/:genre_v2)
     (/studio/:studio)
     (/publisher/:publisher)
     (/page/:page)
@@ -160,7 +160,8 @@ Rails.application.routes.draw do
         constraints type: /names|texts|content|fansub|videos|images|links/ do
           get '(/:type)(/page/:page)' => :index, as: ''
           get '(/:type)/autocomplete_user' => :autocomplete_user, as: :autocomplete_user
-          get '(/:type)/autocomplete_moderator' => :autocomplete_moderator, as: :autocomplete_moderator
+          get '(/:type)/autocomplete_moderator' => :autocomplete_moderator,
+            as: :autocomplete_moderator
         end
       end
       member do
@@ -243,6 +244,7 @@ Rails.application.routes.draw do
     resources :publishers, only: %i[index edit update] do
       get '(/page/:page)' => :index, as: '', on: :collection
     end
+    resources :posters, only: %i[index]
   end
 
   namespace :autocomplete do
@@ -259,14 +261,14 @@ Rails.application.routes.draw do
         post :increment, on: :member
       end
       namespace :topics do
-        scope ':topic_id'  do
+        scope ':topic_id' do
           resource :ignore, only: %i[create destroy]
         end
       end
       namespace :users do
         # resources :signup, only: %i[create]
 
-        scope ':user_id'  do
+        scope ':user_id' do
           resource :ignore, only: %i[create destroy]
         end
       end
@@ -393,7 +395,7 @@ Rails.application.routes.draw do
           get :whoami
           get :csrf_token
           post :csrf_token
-          get :sign_out
+          post :sign_out
         end
       end
       resources :users, only: %i[index show], constraints: { id: user_id } do
@@ -436,7 +438,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :styles, only: %i[show create update] do #, :destroy
+      resources :styles, only: %i[show create update] do # , :destroy
         post :preview, on: :collection
       end
       resources :achievements, only: %i[index]
@@ -472,16 +474,16 @@ Rails.application.routes.draw do
   # seo redirects
   get 'r' => redirect('/critiques')
   get 'reviews' => redirect('/critiques')
-  constraints other: /.*/  do
-    get 'r/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
-    get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
-    get 'seyu/:other' => redirect { |params, request| "/people/#{params[:other]}" }
+  constraints other: /.*/ do
+    get 'r/:other' => redirect { |params, _request| "/critiques/#{params[:other]}" }
+    get 'person/:other' => redirect { |params, _request| "/people/#{params[:other]}" }
+    get 'seyu/:other' => redirect { |params, _request| "/people/#{params[:other]}" }
     constraints other: /\d+-/ do
-      get 'reviews/:other' => redirect { |params, request| "/critiques/#{params[:other]}" }
+      get 'reviews/:other' => redirect { |params, _request| "/critiques/#{params[:other]}" }
     end
     # TODO: remove type param after 2018-06-01
     %i[animes mangas ranobe].each do |type|
-      get "#{type}/type/:other" => redirect { |params, request| "/#{type}/kind/#{params[:other]}" }
+      get "#{type}/type/:other" => redirect { |params, _request| "/#{type}/kind/#{params[:other]}" }
     end
   end
   constraints forum: /a|m|c|p|s|f|o|g|critiques|cosplay|v|news|games|vn/, format: /html|json|rss/ do
@@ -503,8 +505,8 @@ Rails.application.routes.draw do
       ['/new', '(/p-:page)', '/:id'].each do |path|
         get path => redirect { |_, request|
           request.path
-            .gsub(%r(/#{old_path}(/|$)), "/#{new_path}" + '\1')
-            .gsub(%r(/s-), "/#{linked}-")
+            .gsub(%r{/#{old_path}(/|$)}, "/#{new_path}" + '\1')
+            .gsub(%r{/s-}, "/#{linked}-")
         }
       end
     end
@@ -518,7 +520,7 @@ Rails.application.routes.draw do
   scope :forum do
     resources :topics, except: %i[index show new]
 
-    get '/' => 'topics#index',  as: :forum
+    get '/' => 'topics#index', as: :forum
     scope(
       '(/:forum)(/:linked_type-:linked_id)',
       forum: /animanga|site|offtopic|clubs|my_clubs|critiques|reviews|cosplay|contests|news|updates|games|vn|collections|articles|premoderation|hidden/,
@@ -527,8 +529,8 @@ Rails.application.routes.draw do
     ) do
       get '/new' => 'topics#new', as: :new_topic
       get '(/p-:page)' => 'topics#index', as: :forum_topics
-      get '/:id' => 'topics#show',  as: :forum_topic
-      get '/:id/tooltip' => 'topics#tooltip',  as: :forum_topic_tooltip
+      get '/:id' => 'topics#show', as: :forum_topic
+      get '/:id/tooltip' => 'topics#tooltip', as: :forum_topic_tooltip
     end
   end
 
@@ -687,14 +689,14 @@ Rails.application.routes.draw do
       get page
     end
     post :reset_styles_cache
-    #get 'd3/:anime_id/data' => :d3_data, as: :d3_data, format: :json
+    # get 'd3/:anime_id/data' => :d3_data, as: :d3_data, format: :json
   end
 
-  resources :imageboards, only: [], concerns: %i[autocompletable]
-  resources :imageboards, only: [] do
-    # in order to have higher priority the route must be placed below autocompletable
-    get ':url' => :index, as: :fetch, url: /.*/, on: :collection
-  end
+  # resources :imageboards, only: [], concerns: %i[autocompletable]
+  # resources :imageboards, only: [] do
+  #   # in order to have higher priority the route must be placed below autocompletable
+  #   get ':url' => :index, as: :fetch, url: /.*/, on: :collection
+  # end
 
   resources :coubs, only: [] do
     # autocomplete is added manually, not through cocern
@@ -707,7 +709,7 @@ Rails.application.routes.draw do
   # constraints id: /\d[^\/]*?/ do
   #   resources :cosplay, path: '/cosplay' do
   #     get :mod, on: :collection
-  # 
+  #
   #     resources :cosplay_galleries, path: '', controller: 'cosplay' do
   #       get :delete
   #       get :undelete
@@ -752,7 +754,7 @@ Rails.application.routes.draw do
       klass: kind.singularize,
       constraints: {
         page: /\d+/,
-        studio: /[^\/]+/
+        studio: %r{[^/]+}
       }
 
     get "#{kind}/menu(/rating/:rating)" => 'animes_collection#menu',
@@ -792,7 +794,9 @@ Rails.application.routes.draw do
           get :episode_notifications
         end
 
-        get 'cosplay/:anything' => redirect { |params, request| "/#{kind}/#{params[:id]}/cosplay" }, anything: /.*/
+        get 'cosplay/:anything' => redirect { |params, _request|
+                                     "/#{kind}/#{params[:id]}/cosplay"
+                                   }, anything: /.*/
 
         if kind == 'animes'
           post :increment_episode
@@ -832,13 +836,13 @@ Rails.application.routes.draw do
   resources :user_rates, only: %i[edit]
 
   resources :animes, only: %i[edit update] do
-    concerns :db_entry, fields: Regexp.new(%w{
+    concerns :db_entry, fields: Regexp.new(%w[
       name russian synonyms japanese license_name_ru description_ru description_en image poster
       status kind episodes rating duration
-      screenshots videos torrents_name imageboard_tag coub_tags aired_on released_on genre_ids
+      screenshots videos torrents_name imageboard_tag coub_tags aired_on released_on genre_ids genre_v2_ids
       external_links fansubbers fandubbers desynced options licensors
       is_censored digital_released_on russia_released_on more_info
-    }.join('|'))
+    ].join('|'))
 
     member do
       get 'edit/videos/:video_id' => :edit_field, as: :edit_video, field: :videos
@@ -855,13 +859,13 @@ Rails.application.routes.draw do
 
   %i[mangas ranobe].each do |type|
     resources type, only: %i[edit update] do
-      concerns :db_entry, fields: Regexp.new(%w{
+      concerns :db_entry, fields: Regexp.new(%w[
         name russian synonyms japanese license_name_ru description_ru description_en image poster
         status kind volumes chapters
-        imageboard_tag aired_on released_on genre_ids
+        imageboard_tag aired_on released_on genre_ids genre_v2_ids
         external_links desynced options licensors
         is_censored more_info
-      }.join('|'))
+      ].join('|'))
       member do
         post :refresh_stats
       end
@@ -869,9 +873,9 @@ Rails.application.routes.draw do
   end
 
   resources :characters, only: %i[show edit update] do
-    concerns :db_entry, fields: Regexp.new(%w{
+    concerns :db_entry, fields: Regexp.new(%w[
       name russian japanese image poster description_ru description_en imageboard_tag desynced
-    }.join('|'))
+    ].join('|'))
 
     get '(/page/:page)' => :index, as: '', on: :collection
 
@@ -900,9 +904,9 @@ Rails.application.routes.draw do
         on: :collection
     end
 
-    concerns :db_entry, fields: Regexp.new(%w{
+    concerns :db_entry, fields: Regexp.new(%w[
       name russian japanese image poster website birth_on deceased_on desynced
-    }.join('|'))
+    ].join('|'))
 
     member do
       get :works
@@ -954,7 +958,7 @@ Rails.application.routes.draw do
 
   # recommendations
   if Rails.env.development?
-    get "recommendations/test(/:users(/:threshold))(/user/:user)" => 'recommendations#test',
+    get 'recommendations/test(/:users(/:threshold))(/user/:user)' => 'recommendations#test',
       defaults: { users: 10, threshold: 0 }
   end
 
@@ -964,8 +968,10 @@ Rails.application.routes.draw do
     klass: /anime|manga|ranobe/,
     metric: /euclid|euclid_z|pearson|pearson_mean|pearson_z|svd|svd_z|svd_mean/,
     votes: /\d+/
-  get "recommendations/anime" => 'recommendations#index', as: :recommendations_anime, klass: Anime.name.downcase
-  get "recommendations/manga" => 'recommendations#index', as: :recommendations_manga, klass: Manga.name.downcase
+  get 'recommendations/anime' => 'recommendations#index', as: :recommendations_anime,
+    klass: Anime.name.downcase
+  get 'recommendations/manga' => 'recommendations#index', as: :recommendations_manga,
+    klass: Manga.name.downcase
   resources :recommendation_ignores, only: %i[create] do
     constraints target_type: /anime|manga/ do
       delete 'cleanup/:target_type', action: :cleanup, on: :collection, as: :cleanup
@@ -977,8 +983,8 @@ Rails.application.routes.draw do
     as: :userlist_comparer,
     constraints: {
       list_type: /anime|manga/,
-      user_1: /[^\/]+?/,
-      user_2: /[^\/]+?/,
+      user_1: %r{[^/]+?},
+      user_2: %r{[^/]+?},
       format: /json/
     }
 
@@ -987,11 +993,11 @@ Rails.application.routes.draw do
   get 'sitemap' => 'sitemap#index'
   get 'robots.txt' => 'robots#shikimori'
 
-  authenticate :user, lambda { |u| u.admin? || u.super_moderator? } do
+  authenticate :user, ->(u) { u.admin? || u.super_moderator? } do
     mount Sidekiq::Web, at: 'sidekiq'
   end
 
-  authenticate :user, lambda { |u| u.admin? } do
+  authenticate :user, ->(u) { u.admin? } do
     mount PgHero::Engine, at: 'pghero'
   end
 
@@ -1020,10 +1026,10 @@ Rails.application.routes.draw do
       get ':name/:key.rss' => 'messages#feed',
         format: :rss,
         type: 'notifications',
-        name: /[^\/]+?/,
+        name: %r{[^/]+?},
         as: :feed
       get ':name/:key/Private/unsubscribe' => 'messages#unsubscribe',
-        name: /[^\/]+?/,
+        name: %r{[^/]+?},
         kind: MessageType::PRIVATE,
         as: :unsubscribe
     end
@@ -1037,7 +1043,7 @@ Rails.application.routes.draw do
       get :clubs
       get :moderation
       get :feed
-      #get :stats
+      # get :stats
       get 'edit/:section' => :edit,
         as: :edit,
         section: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
@@ -1049,11 +1055,14 @@ Rails.application.routes.draw do
       get 'topics(/page/:page)' => :topics, as: :topics
       get 'comments(/page/:page)' => :comments, as: :comments
       get 'versions(/page/:page)' => :versions, as: :versions
-
     end
 
-    get 'manga' => redirect {|params, request| request.url.sub('/manga', '') } # редирект со старых урлов
-    get 'list/history' => redirect {|params, request| request.url.sub('/list/history', '/history') } # редирект со старых урлов
+    get 'manga' => redirect { |_params, request|
+                     request.url.sub('/manga', '')
+                   } # редирект со старых урлов
+    get 'list/history' => redirect { |_params, request|
+                            request.url.sub('/list/history', '/history')
+                          } # редирект со старых урлов
 
     resources :user_histories, only: %i[show index destroy], path: '/history' do
       collection do
@@ -1125,8 +1134,8 @@ Rails.application.routes.draw do
     post :revoke, on: :member
   end
 
-  get 'log_in/restore' => "admin_log_in#restore", as: :restore_admin
-  get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/
+  get 'log_in/restore' => 'admin_log_in#restore', as: :restore_admin
+  get 'log_in/:nickname' => 'admin_log_in#log_in', nickname: /.*/
 
   get '*a', to: 'pages#page404' unless Rails.env.development?
 end

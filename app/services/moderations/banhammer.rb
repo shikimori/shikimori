@@ -1,4 +1,4 @@
-class Moderations::Banhammer # rubocop:disable ClassLength
+class Moderations::Banhammer
   include Translation
   include Singleton
 
@@ -7,7 +7,7 @@ class Moderations::Banhammer # rubocop:disable ClassLength
   TAG = '(?: \[ [^\]]++ \] )*'
   TAG_REGEXP = /#{TAG}/mix
 
-  INVISIBLE_SYMBOLS = '(?:­|\[size=0\][^\]]*\[\/size\])*'
+  INVISIBLE_SYMBOLS = '(?:­|\[size=0\][^\]]*?\[\/size\]|\[div=[^\]]*?[\w ]*hidden[^\]]*?\][^\]]*?\[\/div\])*' # rubocop:disable Metrics/LineLength
 
   SYNONYMS = {
     а: %w[a а],

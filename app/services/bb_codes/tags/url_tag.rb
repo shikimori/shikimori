@@ -8,8 +8,11 @@ class BbCodes::Tags::UrlTag
   URL_SYMBOL_CLASS = /[^"'<>\[\]]/.source
   URL = %r{
     (?<url>
-      (?: https?: )?
-      //
+      (?:
+        (?: https?: )  \\*/ # links with procol can have only one slash
+        |
+        (?: https?: )? /\\*/ # otherwise it is a normal link
+      )
       (?:www\.)?
       (?: [^\s<\[\].,;:)(] | [.,;:)(] (?!=\s|$|[<\[\]\ ;,]) )+
     )
@@ -64,7 +67,7 @@ private
 
   def match_url url
     if url.starts_with?('/')
-      [url, !url.starts_with?('//')]
+      [url, !url.match?(%r{/\\*/})]
     elsif Url.new(url).without_http.to_s =~ %r{(?:\w+\.)?shikimori\.\w+/(?<path>.+)}
       ["/#{$LAST_MATCH_INFO[:path]}", true]
     else

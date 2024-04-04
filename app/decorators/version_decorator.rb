@@ -42,7 +42,10 @@ class VersionDecorator < BaseDecorator
         AnimeVideoAuthor.find_by(id: value).try :name
 
       when 'genre_ids'
-        "[#{genres value}]"
+        "[#{genres value, false}]"
+
+      when 'genre_v2_ids'
+        "[#{genres value, true}]"
 
       else
         value
@@ -59,15 +62,21 @@ class VersionDecorator < BaseDecorator
       is_can_manage && may_accept_taken?,
       is_can_manage && may_take_accepted?,
       h.can?(:destroy, object) && may_to_deleted?,
-      h.current_user&.id == user_id
+      h.current_user&.id == user_id,
+      display_uncensored_for_staff?
     ]
   end
 
-  def genres ids
-    "#{item_type}GenresRepository".constantize.instance
+  def genres ids, is_v2
+    "#{item_type}Genres#{'V2' if is_v2}Repository".constantize.instance
       .find(ids)
       .sort_by { |genre| ids.index genre.id }
       .map { |genre| h.localized_name genre }
       .join(', ')
+  end
+
+  def display_uncensored_for_staff?
+    h.current_user&.staff? && object.is_a?(Versions::RoleVersion) &&
+      (object.item.censored_avatar? || object.item.censored_nickname?)
   end
 end

@@ -2,6 +2,7 @@
 class AniMangaDecorator < DbEntryDecorator
   include AniMangaDecorator::UrlHelpers
   include AniMangaDecorator::SeoHelpers
+  include AniMangaDecorator::PosterHelpers
 
   TOPICS_PER_PAGE = 4
   VISIBLE_RELATED = 7
@@ -14,9 +15,9 @@ class AniMangaDecorator < DbEntryDecorator
     :watch_online_external_links, :menu_external_links,
     :topic_views
 
-  def poster
-    super if !banned? || h.current_user&.staff?
-  end
+  # def poster
+  #   super if !banned? || h.current_user&.staff?
+  # end
 
   def topic_views
     object
@@ -213,9 +214,8 @@ private
 
   def format_menu_topic topic_view, order
     {
-      time: (
-        topic_view.send(order) || topic_view.created_at || topic_view.updated_at
-      ),
+      time: topic_view.send(order) || topic_view.created_at ||
+        topic_view.updated_at,
       id: topic_view.id,
       name: topic_view.topic_title,
       title: topic_view.topic_title,

@@ -1,7 +1,5 @@
 describe Contests::Query do
-  let(:query) { Contests::Query.fetch }
-
-  include_context :timecop
+  let(:query) { described_class.fetch }
 
   let!(:contest_1) { create :contest, :started, started_on: 1.day.from_now }
   let!(:contest_2) { create :contest, :started, started_on: 1.day.ago }
@@ -23,5 +21,10 @@ describe Contests::Query do
         contest_5
       ]
     end
+  end
+
+  context '#by_id' do
+    subject { query.by_id [contest_1.id, contest_3.id] }
+    it { is_expected.to eq [contest_1, contest_3] }
   end
 end

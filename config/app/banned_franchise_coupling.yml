@@ -412,6 +412,9 @@
   - A2222 # Dr. Slump: Arale-chan
   - A30694 # Dragon Ball Super
 -
+  - A2222 # Dr. Slump: Arale-chan
+  - A892 # Dragon Ball Movie 3: Makafushigi Daibouken
+-
   - A2225 # Alps no Shoujo Heidi
   - A2406 # Sazae-san
   - A35770 # Hungry Days: Aoharu ka yo.
@@ -611,7 +614,7 @@
 -
   - A28149 # Nihon Animator Mihonichi
   - A80 # Kidou Senshi Gundam
-  - A9170 # Kimi ga Nozomu Eien: Gundam Parody
+  - A9170 # Kimi ga Nozomu Eien Special
 -
   - A283 # Akage no Anne
   - A37423 # Shiawase Pasta Story
@@ -643,7 +646,7 @@
   - A39988 # Isekai Quartet 2
 -
   - A29803 # Overlord
-  - A39993 # Isekai Quartet Relay PV
+  - A39993 # Isekai Quartet Relay PVs
 -
   - A29803 # Overlord
   - A41567 # Isekai Quartet Movie: Another World
@@ -711,7 +714,7 @@
   - A39988 # Isekai Quartet 2
 -
   - A30831 # Kono Subarashii Sekai ni Shukufuku wo!
-  - A39993 # Isekai Quartet Relay PV
+  - A39993 # Isekai Quartet Relay PVs
 -
   - A30831 # Kono Subarashii Sekai ni Shukufuku wo!
   - A41567 # Isekai Quartet Movie: Another World
@@ -743,7 +746,7 @@
   - A39988 # Isekai Quartet 2
 -
   - A31240 # Re:Zero kara Hajimeru Isekai Seikatsu
-  - A39993 # Isekai Quartet Relay PV
+  - A39993 # Isekai Quartet Relay PVs
 -
   - A31240 # Re:Zero kara Hajimeru Isekai Seikatsu
   - A41567 # Isekai Quartet Movie: Another World
@@ -801,7 +804,7 @@
   - A39988 # Isekai Quartet 2
 -
   - A32615 # Youjo Senki
-  - A39993 # Isekai Quartet Relay PV
+  - A39993 # Isekai Quartet Relay PVs
 -
   - A32615 # Youjo Senki
   - A41567 # Isekai Quartet Movie: Another World
@@ -830,11 +833,11 @@
   - A33089 # Kemono Friends
   - A36339 # Nissin no Donbei x Kemono Friends
 -
-  - A33190 # Planetarian: Hoshi no Hito
-  - A48775 # Kaginado
+  - A33091 # Planetarian: Chiisana Hoshi no Yume
+  - A50685 # Kaginado Season 2
 -
   - A33190 # Planetarian: Hoshi no Hito
-  - A50685 # Kaginado Season 2
+  - A48775 # Kaginado
 -
   - A33443 # Luo Xiao Hei Zhan Ji
   - A54944 # Arknights x Luo Xiao Hei Zhan Ji: Hao Jiu Bu Jian
@@ -871,6 +874,9 @@
 -
   - A33705 # Mameshiba the DVD Green Pea-shiba no Kutsujoku
   - A7261 # Mameshiba
+-
+  - A33758 # Wu Geng Ji
+  - A58086 # Guonian Zhe Lianmeng: Xun Long Ji
 -
   - A33922 # Taka no Tsumedan, Toyama
   - A4737 # Himitsukessha Taka no Tsume
@@ -968,11 +974,21 @@
   - A3683 # Kabatotto
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
 -
+  - A36903 # Kengan Ashura
+  - A42940 # Hanma Baki: Son of Ogre
+  - A58510 # Hanma Baki vs. Kengan Ashura
+-
+  - A37150 # Douluo Dalu
+  - A58086 # Guonian Zhe Lianmeng: Xun Long Ji
+-
   - A37487 # Muhyo to Rouji no Mahouritsu Soudan Jimusho
   - A38106 # Hotohashiru
 -
   - A37818 # Osomatsu-san x Mameshiba
   - A7261 # Mameshiba
+-
+  - A37888 # Tian Yu
+  - A58086 # Guonian Zhe Lianmeng: Xun Long Ji
 -
   - A38025 # Himitsukessha Taka no Tsume GG
   - A38632 # Honda-san x Taka no Tsume
@@ -1012,6 +1028,9 @@
   - A4013 # Paul no Miracle Daisakusen
   - A51144 # Seikimatsu Densetsu: Wonderful Tatsunoko Land
 -
+  - A40735 # Tian Bao Fuyao Lu
+  - A58086 # Guonian Zhe Lianmeng: Xun Long Ji
+-
   - A40839 # Kanojo, Okarishimasu
   - A56172 # Temple x Kanojo, Okarishimasu
 -
@@ -1028,7 +1047,13 @@
   - A4486 # Getter Robo G
 -
   - A44042 # Holo no Graffiti
+  - A55591 # Idol (Mori Calliope Cover)
+-
+  - A44042 # Holo no Graffiti
   - A56015 # Miraijima
+-
+  - A44218 # Tunshi Xingkong
+  - A58086 # Guonian Zhe Lianmeng: Xun Long Ji
 -
   - A4561 # Zoku Gosenzo Sane
   - A6690 # Anata dake Konbanwa
@@ -1044,6 +1069,9 @@
 -
   - A48436 # Gintama: The Final x Mameshiba
   - A7261 # Mameshiba
+-
+  - A48775 # Kaginado
+  - A6547 # Angel Beats!
 -
   - A48842 # Mahoutsukai Reimeiki
   - A51349 # Mahoutsukai Reimeiki Mini Anime
@@ -1084,16 +1112,22 @@
   - A53627 # Gamera: Rebirth
   - A56702 # Gamera VS Kozamera
 -
+  - A54123 # Shixiong A Shixiong
+  - A58086 # Guonian Zhe Lianmeng: Xun Long Ji
+-
   - A54209 # Minna to Manner wo Manabou
   - A9756 # Mahou Shoujo Madoka★Magica
 -
   - A55214 # Yume ja Nai (2020)
   - A55216 # Koe Dake ga
 -
+  - A58086 # Guonian Zhe Lianmeng: Xun Long Ji
+  - A9806 # Qin Shi Mingyue: Bai Bu Fei Jian
+-
   - A6511 # Chou Seimeitai Transformers Beast Wars Neo
 -
   - A80 # Kidou Senshi Gundam
-  - A9170 # Kimi ga Nozomu Eien: Gundam Parody
+  - A9170 # Kimi ga Nozomu Eien Special
 -
   - A9291 # Hello Kitty no Cinderella
   - A9292 # Kiki to Lala no Aoi Tori

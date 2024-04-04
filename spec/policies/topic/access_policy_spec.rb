@@ -7,8 +7,9 @@ describe Topic::AccessPolicy do
     it { is_expected.to eq true }
   end
 
-  context 'topic in premoderation forum' do
-    let(:topic) { build :topic, forum_id: Forum::PREMODERATION_ID, user: topic_user }
+  context 'topic in premoderation or hidden forum' do
+    let(:topic) { build :topic, forum_id:, user: topic_user }
+    let(:forum_id) { [Forum::PREMODERATION_ID, Forum::HIDDEN_ID].sample }
     let(:topic_user) { user_2 }
 
     it { is_expected.to eq false }
@@ -37,7 +38,7 @@ describe Topic::AccessPolicy do
     let(:is_allowed) { [true, false].sample }
 
     let(:club) { build :club }
-    let(:club_page) { build :club_page, club: club }
+    let(:club_page) { build :club_page, club: }
 
     let(:topic) do
       [

@@ -214,7 +214,7 @@ private
     provider: Types::Ad::Provider[:special],
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
-    # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
+    # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.webp app/assets/images/globals/events/2022-06-18/menu_1.webp
     # images: (1..1).map do |i|
     #   {
     #     src: "/assets/globals/events/2023-02-10/menu_#{i}.jpg",
@@ -222,28 +222,12 @@ private
     #   }
     # end,
     images: [{
-      src: '/assets/globals/events/2023-09-18/menu_1.png',
-      src_2x: '/assets/globals/events/2023-09-18/menu_1@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner1&utm_campaign=18_09&erid=2VtzqvZoG65'
-    }, {
-      src: '/assets/globals/events/2023-09-18/menu_2.png',
-      src_2x: '/assets/globals/events/2023-09-18/menu_2@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner2&utm_campaign=18_09&erid=2Vtzqua26U9'
-    }, {
-      src: '/assets/globals/events/2023-09-18/menu_3.png',
-      src_2x: '/assets/globals/events/2023-09-18/menu_3@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner3&utm_campaign=18_09&erid=2VtzqwERJg9'
-    }, {
-      src: '/assets/globals/events/2023-09-18/menu_4.png',
-      src_2x: '/assets/globals/events/2023-09-18/menu_4@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner4&utm_campaign=18_09&erid=2VtzqwFvJQH'
-    }, {
-      src: '/assets/globals/events/2023-09-18/menu_5.png',
-      src_2x: '/assets/globals/events/2023-09-18/menu_5@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner5&utm_campaign=18_09&erid=2Vtzqx6sEdP'
+      src: '/assets/globals/events/2024-03-25/menu_1.png',
+      src_2x: '/assets/globals/events/2024-03-25/menu_1@2x.png',
+      url: 'https://u.to/S3iEIA?erid=2Vtzqxdgbh6' # https://www.домовой.ru/film/5235275/?erid=2Vtzqxdgbh6
     }],
     rules: {
-      cookie: 'i7',
+      cookie: 'i1_20240325',
       shows_per_week: 480 # 380 # 420 # 540
     },
     placement: Types::Ad::Placement[:menu],
@@ -253,23 +237,13 @@ private
     provider: Types::Ad::Provider[:special],
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
-    # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.jpg app/assets/images/globals/events/2022-06-18/menu_1.jpg
-    url: 'https://app.adjust.com/d3171d2_ko3lqk1?fallback=https://www.pubgmobile.com&campaign=DragonBall',
-    images: (1..1).map do |i|
-      {
-        src: "/assets/globals/events/2023-08-02/wide_#{i}.webp",
-        src_2x: "/assets/globals/events/2023-08-02/wide_#{i}@2x.webp"
-      }
-    end,
-    # images: [{
-    #   src: '/assets/globals/events/2022-10-05/wide.jpg',
-    #   src_2x: '/assets/globals/events/2022-10-05/wide@2x.jpg'
-    # }],
-    # images: (1..4).map do |i|
-    #   {
-    #     src: "/assets/globals/events/2022-11-01/wide_#{i}.jpg",
-    #     src_2x: "/assets/globals/events/2022-11-01/wide_#{i}@2x.jpg"
-    #   }
+    # convert -resize 50% app/assets/images/globals/events/2022-06-18/wide_1@2x.webp app/assets/images/globals/events/2022-06-18/wide_1.webp
+    # url: 'https://u.to/knWEIA',
+    images: [{
+      src: '/assets/globals/events/2024-03-25/wide_1.png',
+      src_2x: '/assets/globals/events/2024-03-25/wide_1@2x.png',
+      url: 'https://u.to/bniEIA?erid=2VtzqvBPU3e' # 'https://www.домовой.ru/film/5235275/?erid=2VtzqvBPU3e'
+    }],
     # end,
     # html: (
     #   <<~HTML
@@ -301,30 +275,35 @@ private
     provider: Types::Ad::Provider[:special],
     # url: 'https://startgame.rsv.ru/auth?utm_source=site&utm_medium=app&utm_campaign=rk75&utm_content=shikimori&utm_term=test',
     images: [{
-      src: '/assets/globals/events/2023-10-20/wide_1.png',
-      # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner1&utm_campaign=20_10&erid=2Vtzqxdgbh6'
-    }, {
-      src: '/assets/globals/events/2023-10-20/wide_2.png',
-      # src_2x: '/assets/globals/events/2023-10-20/wide_2@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner2&utm_campaign=20_10&erid=2VtzqvBPU3e'
-    }, {
-      src: '/assets/globals/events/2023-10-20/wide_3.png',
-      # src_2x: '/assets/globals/events/2023-10-20/wide_3@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner3&utm_campaign=20_10&erid=2VtzqxJT7Q8'
-    }, {
-      src: '/assets/globals/events/2023-10-20/wide_4.png',
-      # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner4&utm_campaign=20_10&erid=2Vtzqxdjd2U'
-    }, {
-      src: '/assets/globals/events/2023-10-20/wide_5.png',
-      # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner5&utm_campaign=20_10&erid=2VtzqvPHifv'
-    }, {
-      src: '/assets/globals/events/2023-10-20/wide_6.png',
-      # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
-      url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner6&utm_campaign=20_10&erid=2VtzquYNoLQ'
+      src: '/assets/globals/events/2024-03-25/wide_2.png',
+      # src_2x: '/assets/globals/events/2024-03-25/wide_2@2x.png',
+      url: 'https://u.to/vXiEIA?erid=2VtzqxJT7Q8' # 'https://www.домовой.ru/film/5235275/?erid=2VtzqxJT7Q8'
     }],
+    # images: [{
+    #   src: '/assets/globals/events/2023-10-20/wide_1.png',
+    #   # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
+    #   url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner1&utm_campaign=20_10&erid=2Vtzqxdgbh6'
+    # }, {
+    #   src: '/assets/globals/events/2023-10-20/wide_2.png',
+    #   # src_2x: '/assets/globals/events/2023-10-20/wide_2@2x.png',
+    #   url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner2&utm_campaign=20_10&erid=2VtzqvBPU3e'
+    # }, {
+    #   src: '/assets/globals/events/2023-10-20/wide_3.png',
+    #   # src_2x: '/assets/globals/events/2023-10-20/wide_3@2x.png',
+    #   url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner3&utm_campaign=20_10&erid=2VtzqxJT7Q8'
+    # }, {
+    #   src: '/assets/globals/events/2023-10-20/wide_4.png',
+    #   # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
+    #   url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner4&utm_campaign=20_10&erid=2Vtzqxdjd2U'
+    # }, {
+    #   src: '/assets/globals/events/2023-10-20/wide_5.png',
+    #   # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
+    #   url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner5&utm_campaign=20_10&erid=2VtzqvPHifv'
+    # }, {
+    #   src: '/assets/globals/events/2023-10-20/wide_6.png',
+    #   # src_2x: '/assets/globals/events/2023-10-20/wide_1@2x.png',
+    #   url: 'https://imba.shop/?utm_source=shikimori&utm_medium=banner6&utm_campaign=20_10&erid=2VtzquYNoLQ'
+    # }],
     # images: (1..1).map do |i|
     #   {
     #     src: "/assets/globals/events/2023-08-22/wide_#{i}.jpg"
@@ -442,13 +421,13 @@ private
     #   # Types::Ad::Type[:advrtr_240x400]
     # ],
     Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300], # IMBA - remove 2023-11-18 15:00
+      Types::Ad::Type[:special_x300], # домовой - remove 2024-04-07 23:59
       # # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x400]
       # # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300], # IMBA - remove 2023-11-18 15:00
+      Types::Ad::Type[:special_x300], # домовой - remove 2024-04-07 23:59
       # # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600]
       # # Types::Ad::Type[:advrtr_240x400],
@@ -459,7 +438,7 @@ private
       # # Types::Ad::Type[:advrtr_x728]
     ],
     Types::Ad::Meta[:horizontal_x90] => [
-      # Types::Ad::Type[:special_x894], # IMBA - remove 2023-10-28 15:00
+      Types::Ad::Type[:special_x894],
       # # Types::Ad::Type[:mt_728x90],
       # # Types::Ad::Type[:advrtr_x728]
       Types::Ad::Type[:yd_970x90]
@@ -468,7 +447,7 @@ private
       # Types::Ad::Type[:mt_footer_300x250]
     ],
     Types::Ad::Meta[:special_x1170] => [
-      # # Types::Ad::Type[:special_x1170] # PUBG - remove 2023-08-16 17:00
+      Types::Ad::Type[:special_x1170] # домовой - remove 2024-04-07 23:59
       # # Types::Ad::Type[:yd_1170x200]
     ]
   }

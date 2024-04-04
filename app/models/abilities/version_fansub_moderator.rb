@@ -6,5 +6,6 @@ class Abilities::VersionFansubModerator < Abilities::VersionFieldsModeratorBase
     super
 
     can %i[manage_not_trusted_fansub_changer_role], User
+    can_sync
   end
 end

@@ -64,6 +64,11 @@ class User < ApplicationRecord
 
   acts_as_voter
   update_index('users#user') { self if saved_change_to_nickname? }
+
+  after_initialize :fill_notification_settings,
+    if: -> { new_record? && notification_settings.none? }
+
+  before_create :grab_avatar
   after_create :add_to_index # update_index does no work because of second save in StylesConcern
 
   attribute :last_online_at, :datetime, default: -> { Time.zone.now }
@@ -213,18 +218,14 @@ class User < ApplicationRecord
     }
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 
-  after_initialize :fill_notification_settings,
-    if: -> { new_record? && notification_settings.none? }
-  after_update :log_nickname_change, if: -> { saved_change_to_nickname? }
-
-  after_update :sync_is_view_censored, if: :saved_change_to_birth_on?
-
   # из-за этого хука падают спеки user_history_rate. хз почему. надо копаться.
   after_create :create_history_entry
   after_create :create_preferences!, unless: :preferences
   # after_create :check_ban
   after_create :send_welcome_message
-  before_create :grab_avatar
+  after_update :log_nickname_change, if: -> { saved_change_to_nickname? }
+
+  after_update :sync_is_view_censored, if: :saved_change_to_birth_on?
 
   SUSPISIOUS_USERS_SQL = <<~SQL.squish
     (
@@ -251,7 +252,7 @@ class User < ApplicationRecord
   end
 
   def nickname= value
-    super FixName.call(value, true)
+    super(FixName.call(value, true))
   end
 
   # allow account creation from twitter
@@ -364,7 +365,7 @@ class User < ApplicationRecord
   end
 
   def avatar_url size, ignore_censored = false
-    url = ImageUrlGenerator.instance.cdn_image_url self, "x#{size}".to_sym
+    url = ImageUrlGenerator.instance.cdn_image_url self, :"x#{size}"
 
     if !ignore_censored && (censored_avatar? || forever_banned?)
       # format(
@@ -425,9 +426,13 @@ class User < ApplicationRecord
     end
   end
 
+  def censored_forbidden?
+    !preferences&.view_censored?
+  end
+
   # for async mails for Devise 4
-  def send_devise_notification notification, *args
-    ShikiMailer.delay_for(0.seconds).send(notification, self, *args)
+  def send_devise_notification(notification, *)
+    ShikiMailer.delay_for(0.seconds).send(notification, self, *)
   end
 
   # NOTE: replace id with hashed value of secret token when

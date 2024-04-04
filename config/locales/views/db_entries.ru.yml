@@ -7,12 +7,16 @@ ru:
       all_summaries: Все отзывы
       all_comments: Все комментарии
     fields:
-      genre_ids:
+      genre_ids: &genre_ids
         all_genres: Все жанры
         current_genres: Привязанные жанры
         down: вниз
         remove: удалить
         up: вверх
+      genre_v2_ids:
+        <<: *genre_ids
+        all_demographics: Все аудитории
+        all_themes: Все темы
       image:
         warning: Текущая картинка будет безвозвратно удалена и перестанет обновляться с MAL.
         image_size: 'Размер картинки: %{size}'

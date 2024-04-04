@@ -1,6 +1,8 @@
-class Titles::CollectionTitle
+class Titles::CollectionTitle # rubocop:disable Metrics/ClassLength
   include Translation
   prepend ActiveCacher.instance
+
+  attr_reader :klass, :user, :seasons, :kinds, :statuses, :genres, :genres_v2, :studios, :publishers
 
   def initialize( # rubocop:disable Metrics/ParameterLists
     klass:,
@@ -8,6 +10,7 @@ class Titles::CollectionTitle
     season:,
     kind:,
     status:,
+    genres_v2:,
     genres:,
     studios:,
     publishers:
@@ -20,6 +23,7 @@ class Titles::CollectionTitle
     @studios = Array studios
     @publishers = Array publishers
     @genres = Array genres
+    @genres_v2 = Array genres_v2
     @seasons = parse_param season
   end
 
@@ -31,19 +35,19 @@ class Titles::CollectionTitle
   # 'отображена'? (вместо 'отображены')
   def manga_conjugation_variant?
     if statuses_text.present?
-      /#{Manga.model_name.human}/i === title
+      title.match?(/#{Manga.model_name.human}/i)
     else # kinds_text
-      !kinds.many? && /#{Manga.model_name.human}/i === title
+      !kinds.many? && title.match?(/#{Manga.model_name.human}/i)
     end
   end
 
 private
 
-  attr_reader :klass, :user, :seasons, :kinds, :statuses, :genres, :studios, :publishers
-
   def fancy_title
-    if genres.present?
-      genres.first.title user: user
+    if genres_v2.present?
+      genres_v2.first.title(user:, entry_type: @klass.name)
+    elsif genres.present?
+      genres.first.title(user:)
     else
       composite_title
     end
@@ -54,6 +58,7 @@ private
       statuses_text || kinds_text,
       studios_text,
       publishers_text,
+      genres_v2_text,
       genres_text,
       seasons_text
     ].compact.join(' ')
@@ -66,7 +71,7 @@ private
   end
 
   def fancy?
-    (seasons + kinds + statuses + genres + studios + publishers).one?
+    (seasons + kinds + statuses + genres + genres_v2 + studios + publishers).one?
   end
 
   def statuses_text
@@ -80,7 +85,7 @@ private
   def status_text status
     i18n_t(
       "status.#{klass.name.downcase}.#{kind_count_key}.#{status}",
-        kind: kind_text(kinds.first)
+      kind: kind_text(kinds.first)
     ).downcase
   end
 
@@ -114,6 +119,18 @@ private
     "#{i18n_i 'publisher', publishers.count, :genitive} #{publishers_list}"
   end
 
+  def genres_v2_text
+    return if genres_v2.none?
+
+    list = genres_v2
+      .map { |genre| UsersHelper.localized_name genre, user }
+      .to_sentence
+      .downcase
+
+    of_genres = i18n_i 'genre', genres_v2.count, :genitive
+    i18n_t 'of_genres', genres: of_genres, list:
+  end
+
   def genres_text
     return if genres.none?
 
@@ -123,7 +140,7 @@ private
       .downcase
 
     of_genres = i18n_i 'genre', genres.count, :genitive
-    i18n_t 'of_genres', genres: of_genres, list: list
+    i18n_t 'of_genres', genres: of_genres, list:
   end
 
   def seasons_text
@@ -152,6 +169,9 @@ private
   end
 
   def parse_param param
-    (param || '').gsub(/-/, ' ').split(',').select { |v| !v.starts_with? '!' }
+    (param || '')
+      .tr('-', ' ')
+      .split(',')
+      .reject { |v| v.starts_with? '!' }
   end
 end

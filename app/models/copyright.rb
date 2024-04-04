@@ -59,12 +59,6 @@ module Copyright
     70603 # Yoshino
   ]
 
-  ABUSED_BY_RKN_CHARACTER_IDS = [
-    2515, # Pico
-    15967, # Coco
-    2516 # Chico
-  ]
-
   ABUSED_BY_RKN_ANIME_IDS = [
     5391, # Pico to Chico
     4866, # Pico x CoCo x Chico
@@ -73,14 +67,39 @@ module Copyright
     37405, # Dokidoki Little Ooyasan
     6546, # Pico: My Little Summer Story
     1639, # Boku no Pico
-    1535 # Death Note
+    1535, # Death Note
   ]
-
   ABUSED_BY_RKN_MANGA_IDS = [
     5467, # Boku no Pico
     124272 # Suicide Boy
   ]
+  ABUSED_BY_RKN_CHARACTER_IDS = [
+    2515, # Pico
+    15967, # Coco
+    2516, # Chico
+  ]
+  ABUSED_BY_RKN_PERSON_IDS = []
+
+  BANNED_BY_RKN_ANIME_IDS = []
+
   BANNED_BY_RKN_MANGA_IDS = [
     124272 # Suicide Boy
   ]
+  BANNED_BY_RKN_CHARACTER_IDS = []
+  BANNED_BY_RKN_PERSON_IDS = []
+
+  BANNED_POSTER_BY_RKN_ANIME_IDS = [
+    35891,
+    38034,
+    39299,
+    52104
+  ]
+  BANNED_POSTER_BY_RKN_MANGA_IDS = [
+    29705,
+    86521,
+    105011,
+    126740
+  ]
+  BANNED_POSTER_BY_RKN_CHARACTER_IDS = []
+  BANNED_POSTER_BY_RKN_PERSON_IDS = []
 end

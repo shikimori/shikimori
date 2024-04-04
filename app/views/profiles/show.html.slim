@@ -258,14 +258,14 @@
       .cc-2a.m30
         .c-column.m0
           .subheadline
-            - if @resource.friends.any? && @resource.friends.size > @resource.friends_to_display
+            - if @view.friends_query.any? && @view.friends_query.size > @resource.friends_to_display
               a href=friends_profile_url(@resource) title=t('profiles_controller.friends')
                 = t('profiles_controller.friends')
             - else
               = t('profiles_controller.friends')
           .cc-friends
-            - if @resource.friends.any?
-              = render @resource.friends.take(@resource.friends_to_display),
+            - if @view.friends_query.any?
+              = render @view.friends_query.take(@resource.friends_to_display),
                 content_by: :avatar
             - else
               .b-nothing_here = t('.no_friends')

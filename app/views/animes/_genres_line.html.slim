@@ -1,16 +1,8 @@
 - genres.each do |genre|
-  - if genres_v2?
-    / class=('genre-demographic' if genre.demographic?)
-    a.b-tag[
-      class=(:bubbled if genre.description.present?)
-      href=entry.collection_url(genre_v2: genre)
-      data-href=(tooltip_moderations_genre_v2_url(genre) if genre.description.present?)
-      data-predelay=(350 if genre.description.present?)
-    ] = localization_span genre
-  - else
-    a.b-tag[
-      class=(:bubbled if genre.description.present?)
-      href=entry.collection_url(genre: genre)
-      data-href=(tooltip_moderations_genre_url(genre) if genre.description.present?)
-      data-predelay=(350 if genre.description.present?)
-    ] = localization_span genre
+  / class=('genre-demographic' if genre.demographic?)
+  a.b-tag[
+    class=(:bubbled if genre.description.present?)
+    href=entry.collection_url(genre_v2: genre)
+    data-href=(tooltip_moderations_genre_v2_url(genre) if genre.description.present?)
+    data-predelay=(350 if genre.description.present?)
+  ] = localization_span genre

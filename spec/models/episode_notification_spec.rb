@@ -89,9 +89,20 @@ describe EpisodeNotification do
               expect(anime).to be_ongoing
             end
 
+            context 'no dates' do
+              let(:aired_on) { {} }
+              let(:released_on) { {} }
+
+              it do
+                expect(Anime::RollbackEpisode).to have_received :call
+                expect { episode_notification.reload }.to raise_error ActiveRecord::RecordNotFound
+                expect(anime).to be_ongoing
+              end
+            end
+
             context 'old anime' do
               let(:aired_on) { [11.years.ago, {}].sample }
-              let(:released_on) { aired_on.nil? ? 8.days.ago : [8.days.ago, {}].sample }
+              let(:released_on) { aired_on.blank? ? 8.days.ago : [8.days.ago, {}].sample }
 
               it do
                 expect(Anime::RollbackEpisode).to_not have_received :call

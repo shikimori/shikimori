@@ -58,7 +58,7 @@ class BanDuration
 
 private
 
-  def to_hash # rubocop:disable AbcSize
+  def to_hash
     days = (value / DAY_INTERVAL).floor
 
     {

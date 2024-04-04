@@ -26,13 +26,9 @@ private
       .update_all(
         <<~SQL.squish
           updated_at = #{ApplicationRecord.sanitize Time.zone.now},
-          roles = array_remove(roles, 'completed_announced_animes')
+          roles = array_remove(roles, '#{Types::User::Roles[:completed_announced_animes]}')
         SQL
       )
-      # .each do |user|
-      #   user.roles = user.roles.reject { |v| v == 'completed_announced_animes' }
-      #   user.save!
-      # end
   end
 
   def assign_roles
@@ -44,13 +40,9 @@ private
       .update_all(
         <<~SQL.squish
           updated_at = #{ApplicationRecord.sanitize Time.zone.now},
-          roles = array_append(roles, 'completed_announced_animes')
+          roles = array_append(roles, '#{Types::User::Roles[:completed_announced_animes]}')
         SQL
       )
-      # .each do |user|
-      #   user.roles << Types::User::Roles[:completed_announced_animes]
-      #   user.save!
-      # end
   end
 
   def user_ids_completed_announces_scope

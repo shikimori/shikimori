@@ -1,4 +1,4 @@
-class Api::V1::UsersController < Api::V1Controller
+class Api::V1::UsersController < Api::V1Controller # rubocop:disable Metrics/ClassLength
   before_action :authenticate_user!, only: %i[messages unread_messages]
   before_action :authorize_lists_access, only: %i[anime_rates manga_rates history]
   skip_before_action :verify_authenticity_token, only: :csrf_token
@@ -14,6 +14,7 @@ class Api::V1::UsersController < Api::V1Controller
 
   USERS_LIMIT = 100
   MESSAGES_LIMIT = 100
+  FRIENDS_LIMIT = 100
   USER_RATES_LIMIT = 5000
   HISTORY_LIMIT = 100
   ANIME_VIDEO_REPORTS_LIMIT = 2000
@@ -56,15 +57,26 @@ class Api::V1::UsersController < Api::V1Controller
     end
   end
 
-  api :GET, '/users/sign_out', 'Sign out the user'
+  api :POST, '/users/sign_out', 'Sign out the user'
   def sign_out
-    super current_user
+    super(current_user)
     render plain: 'signed out'
   end
 
   api :GET, '/users/:id/friends', "Show user's friends"
+  param :page, :pagination, required: false
+  param :limit, :number,
+    required: false,
+    desc: "#{FRIENDS_LIMIT} maximum"
   def friends
-    respond_with user.friends
+    @limit = [[params[:limit].to_i, 1].max, FRIENDS_LIMIT].min
+
+    @collection = QueryObjectBase
+      .new(user.friends)
+      .order(last_online_at: :desc)
+      .paginate(@page, @limit)
+
+    respond_with @collection
   end
 
   api :GET, '/users/:id/clubs', "Show user's clubs"
@@ -184,8 +196,8 @@ class Api::V1::UsersController < Api::V1Controller
 
     if params[:target_id] && params[:target_type]
       @collection.where!(
-       ( params[:target_type] == 'Anime' ? :anime_id : :manga_id) => params[:target_id]
-      )
+       (params[:target_type] == 'Anime' ? :anime_id : :manga_id) => params[:target_id]
+     )
     end
     if params[:target_type]
       @collection = @collection.where.not(
@@ -213,7 +225,7 @@ class Api::V1::UsersController < Api::V1Controller
       render json: {
         _csrf_token: session[:_csrf_token],
         x_csrf_token: request.x_csrf_token,
-        # unmasked_x_csrf_token: ((unmask_token(Base64.strict_decode64(request.x_csrf_token)) rescue ArgumentError) if request.x_csrf_token.present?), # rubocop: disable all
+        # unmasked_x_csrf_token: ((unmask_token(Base64.strict_decode64(request.x_csrf_token)) rescue ArgumentError) if request.x_csrf_token.present?),
         is_valid: request_authenticity_tokens.any? do |token|
           valid_authenticity_token?(session, token)
         end,

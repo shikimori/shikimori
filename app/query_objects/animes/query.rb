@@ -1,4 +1,4 @@
-class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
+class Animes::Query < QueryObjectBase
   GENRES_EXCLUDED_BY_SEX = {
     'male' => Genre::YAOI_IDS + Genre::SHOUNEN_AI_IDS,
     'female' => Genre::HENTAI_IDS + Genre::SHOUJO_AI_IDS + Genre::YURI_IDS,
@@ -68,7 +68,11 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
   def by_exclude_ids value
     return self if value.blank?
 
-    chain @scope.where.not(id: value.is_a?(String) ? value.split(',') : value)
+    chain @scope.where.not(
+      id: value.is_a?(String) ?
+        parse_ids(value.split(',')) :
+        value
+    )
   end
 
   def by_franchise value
@@ -92,7 +96,11 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
   def by_ids value
     return self if value.blank?
 
-    chain @scope.where(id: value.is_a?(String) ? value.split(',') : value)
+    chain @scope.where(
+      id: value.is_a?(String) ?
+        parse_ids(value.split(',')) :
+        value
+    )
   end
 
   def by_kind value
@@ -183,5 +191,13 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
 
   def exclude_music
     chain @scope.where.not(kind: Types::Anime::Kind[:music])
+  end
+
+private
+
+  def parse_ids ids
+    ids.map do |id|
+      Integer(id) rescue ArgumentError
+    end
   end
 end

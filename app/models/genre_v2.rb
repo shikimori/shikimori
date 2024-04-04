@@ -1,4 +1,6 @@
 class GenreV2 < ApplicationRecord
+  include Translation
+
   validates :name, :russian, presence: true
 
   enumerize :entry_type,
@@ -12,8 +14,8 @@ class GenreV2 < ApplicationRecord
 
   EROTICA_IDS = [539, 540]
   HENTAI_IDS = [12, 59]
-  YAOI_IDS = [193, 195]
-  YURI_IDS = [194, 196]
+  YAOI_IDS = [33, 65]
+  YURI_IDS = [34, 75]
 
   SHOUNEN_AI_IDS = [133, 165]
   SHOUJO_AI_IDS = [129, 170]
@@ -22,6 +24,10 @@ class GenreV2 < ApplicationRecord
   AI_IDS = SHOUJO_AI_IDS + SHOUNEN_AI_IDS
 
   CENSORED_IDS = EROTICA_IDS + HENTAI_IDS + BANNED_IDS + AI_IDS
+  TEMPORARILY_POSTERS_DISABLED_IDS = [
+    59, # Hentai
+    540 # Erotica
+  ]
 
   def to_param
     "#{id}-#{name.tr ' ', '-'}"
@@ -45,5 +51,33 @@ class GenreV2 < ApplicationRecord
 
   def ai?
     id.in? AI_IDS
+  end
+
+  def temporarily_posters_disabled?
+    id.in? TEMPORARILY_POSTERS_DISABLED_IDS
+  end
+
+  def title(
+    ru_case: :subjective,
+    entry_type: self.entry_type,
+    user: nil
+  )
+    raise ArgumentError, "ru_case: #{ru_case}" unless ru_case == :subjective
+
+    key = name.parameterize.underscore
+    name = UsersHelper.localized_name self, user
+    localized_entry_type = entry_type.constantize.model_name.human.downcase
+
+    text = i18n_t(
+      "title.#{ru_case}.#{entry_type.downcase}.#{key}",
+      localized_entry_type:,
+      default: i18n_t('default_title', localized_entry_type:, name:)
+    )
+
+    if text.starts_with? name
+      text
+    else
+      text.downcase.capitalize
+    end
   end
 end

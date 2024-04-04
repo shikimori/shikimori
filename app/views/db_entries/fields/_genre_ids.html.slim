@@ -34,7 +34,10 @@
         = f.input :user_id, as: :hidden
         = f.input :reason
 
-      .item_diff data-current_ids=@resource.genres.map(&:id).to_json
+      .item_diff[
+        data-current_ids=@resource.genres.map(&:id).to_json
+        data-field='genre_ids'
+      ]
         = f.input :item_diff, as: :hidden
 
       .buttons

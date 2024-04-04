@@ -1,5 +1,12 @@
 describe VideoExtractor::YoutubeExtractor do
   let(:service) { described_class.instance }
+  # rubocop:disable Lint/ConstantDefinitionInBlock
+  FULL_URL_REGEX = /
+    \A
+      #{VideoExtractor::YoutubeExtractor::URL_REGEX.source}
+    \Z
+  /xi
+  # rubocop:enable Lint/ConstantDefinitionInBlock
 
   describe '#fetch' do
     subject { service.fetch url }
@@ -16,6 +23,7 @@ describe VideoExtractor::YoutubeExtractor do
             normalized_url: 'https://youtu.be/VdwKZ6JDENc'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context 'youtu.be' do
@@ -29,6 +37,7 @@ describe VideoExtractor::YoutubeExtractor do
             normalized_url: 'https://youtu.be/n5qqfOXRRaA'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context 'embed url' do
@@ -42,6 +51,7 @@ describe VideoExtractor::YoutubeExtractor do
             normalized_url: 'https://youtu.be/paezRkeNr5Q'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context 'www.youtube.com/v/' do
@@ -55,6 +65,7 @@ describe VideoExtractor::YoutubeExtractor do
             normalized_url: 'https://youtu.be/paezRkeNr5Q'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context 'with time' do
@@ -73,51 +84,49 @@ describe VideoExtractor::YoutubeExtractor do
             normalized_url: 'https://youtu.be/VdwKZ6JDENc'
           )
         end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
-      context '& params after' do
-        let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc&ff=vcxvcx' }
-        it do
-          is_expected.to have_attributes(
-            player_url: '//youtube.com/embed/VdwKZ6JDENc'
-          )
+      context 'edge cases' do
+        [
+          'https://youtu.be/VdwKZ6JDENc?list=PLK7fGgm-avWC6KDk6rgH3LdKsar_oVdqR',
+          'https://youtu.be/VdwKZ6JDENc?si=123',
+          'https://youtu.be/VdwKZ6JDENc?zxc=123&vcb',
+          'https://youtu.be/VdwKZ6JDENc?z-xc=123&vcb=df',
+          'http://youtube.com/watch?v=VdwKZ6JDENc&ff=vcxvcx',
+          'http://youtube.com/watch?v=VdwKZ6JDENc&amp;ff=vcxvcx',
+          'http://youtube.com/watch?sdfdsf=dfdfs&v=VdwKZ6JDENc',
+          'http://youtube.com/watch?sdfdsf=dfdfs&amp;v=VdwKZ6JDENc'
+        ].each do |sample|
+          context sample do
+            let(:url) { sample }
+            it do
+              is_expected.to have_attributes(
+                player_url: '//youtube.com/embed/VdwKZ6JDENc'
+              )
+            end
+            it { expect(url.match?(FULL_URL_REGEX)).to eq true }
+          end
         end
-      end
 
-      context '&amp; params after' do
-        let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc&amp;ff=vcxvcx' }
-        it do
-          is_expected.to have_attributes(
-            player_url: '//youtube.com/embed/VdwKZ6JDENc'
-          )
-        end
-      end
-
-      context '& params before' do
-        let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&v=VdwKZ6JDENc' }
-        it do
-          is_expected.to have_attributes(
-            player_url: '//youtube.com/embed/VdwKZ6JDENc'
-          )
-        end
-      end
-
-      context '&amp; params before' do
-        let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&amp;v=VdwKZ6JDENc' }
-        it do
-          is_expected.to have_attributes(
-            player_url: '//youtube.com/embed/VdwKZ6JDENc'
-          )
-        end
-      end
-
-      context 'params_surrounded' do
-        let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&v=VdwKZ6JDENc&ff=vcxvcx#t=123' }
-
-        it do
-          is_expected.to have_attributes(
-            player_url: '//youtube.com/embed/VdwKZ6JDENc?start=123'
-          )
+        context 'with time' do
+          [
+            'http://youtube.com/watch?sdfdsf=dfdfs&v=VdwKZ6JDENc&ff=vcxvcx#t=123',
+            'https://youtu.be/VdwKZ6JDENc?zxc=1-23&t=123',
+            'https://youtu.be/VdwKZ6JDENc?zxc=123&at=123',
+            'https://youtu.be/VdwKZ6JDENc?t=123&zxc=123',
+            'https://youtu.be/VdwKZ6JDENc?at=123&zxc=123'
+          ].each do |sample|
+            context sample do
+              let(:url) { sample }
+              it do
+                is_expected.to have_attributes(
+                  player_url: '//youtube.com/embed/VdwKZ6JDENc?start=123'
+                )
+              end
+              it { expect(url.match?(FULL_URL_REGEX)).to eq true }
+            end
+          end
         end
       end
     end

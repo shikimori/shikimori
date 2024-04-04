@@ -5,35 +5,45 @@ header.head
 
 .cc-2
   .c-column
-    .subheadline.m5 Общее
+    .subheadline Общее
     ul.block.b-list.is-wide
       - @forums.each do |title, url|
         li
           a.b-link href=url title=title = title
 
-    h2.subheadline.m5 Аниме
+    h2.subheadline Аниме
     ul.block.b-list.is-wide
       - @anime_seasons.each do |title, url|
         li
           a.b-link href=url title=title = title
 
 
-    h2.subheadline.m5 Манга
+    h2.subheadline5 Манга
     ul.block.b-list.is-wide
       - @manga_seasons.each do |title, url|
         li
           a.b-link href=url title=title = title
 
-    h2.subheadline.m5 Ранобэ
+    h2.subheadline Ранобэ
     ul.block.b-list.is-wide
       - @ranobe_forums.each do |title, url|
         li
           a.b-link href=url title=title = title
 
   .c-column
-    .subheadline.m5 Жанры аниме
+    .subheadline Жанры аниме
     ul.block.b-list.is-wide
-      - @anime_genres.each do |title, url|
+      - @anime_genres_demographic.each do |title, url|
+        li
+          a.b-link href=url title=title = title
+
+    ul.block.b-list.is-wide
+      - @anime_genres_genre.each do |title, url|
+        li
+          a.b-link href=url title=title = title
+
+    ul.block.b-list.is-wide
+      - @anime_genres_theme.each do |title, url|
         li
           a.b-link href=url title=title = title
 

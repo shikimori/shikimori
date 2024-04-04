@@ -1,6 +1,6 @@
 span.details
   span.column
-    - if list_entry.status.present?
+    - if list_entry.status.present? && !list_entry.unknown_status?
       = UserRate.status_name list_entry.status, list_entry.target_type
 
     - if list_entry.rewatches.positive?

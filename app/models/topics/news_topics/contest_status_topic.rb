@@ -5,6 +5,10 @@ class Topics::NewsTopics::ContestStatusTopic < Topics::NewsTopic
     in: Types::Topic::ContestStatusTopic::Action.values,
     predicates: true
 
+  CONTEST_IMAGE_V1 = 1_316_293
+  CONTEST_IMAGE_V2 = 2_550_745
+  CONTEST_IMAGE_V3 = 2_551_412
+
   def title
     i18n_t "title.#{action}"
   end
@@ -14,6 +18,6 @@ class Topics::NewsTopics::ContestStatusTopic < Topics::NewsTopic
   end
 
   def body
-    '[wall][wall_image=1316293][/wall]'
+    "[wall][wall_image=#{CONTEST_IMAGE_V3}][/wall]"
   end
 end

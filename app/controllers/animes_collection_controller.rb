@@ -1,4 +1,4 @@
-class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLength
+class AnimesCollectionController < ShikimoriController # rubocop:disable Metrics/ClassLength
   include SearchPhraseConcern
   CENSORED = /\b(?:sex|секс|porno?|порно)\b/mix
 
@@ -14,7 +14,7 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
 
     censored_search_check
     forbidden_params_redirect_check
-    genres_redirect_check model[:genre]
+    genres_v2_redirect_check model[:genre_v2]
     guest_mylist_check
     one_found_redirect_check
     publishers_redirect_check model[:publisher]
@@ -36,13 +36,14 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
       klass: @view.klass,
       season: params[:season],
       kind: params[:kind],
-      genres: model[:genre],
+      genres_v2: model[:genre_v2],
       studios: model[:studio],
       publishers: model[:publisher]
     ).keywords
 
     verify_age_restricted! @view.results.collection
     verify_age_restricted! model[:genre]
+    verify_age_restricted! model[:genre_v2]
 
     if censored_forbidden? &&
         params[:rating]&.split(',')&.include?(DbEntry::CensoredPolicy::ADULT_RATING.to_s)
@@ -77,7 +78,7 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
 
     @collection = "Autocomplete::#{@view.klass.name}".constantize
       .call(
-        scope: scope,
+        scope:,
         phrase: search_phrase
       )
       .map(&:decorate)
@@ -104,7 +105,7 @@ private
   def prepare_model
     model = {}
 
-    %i[genre studio publisher].each do |kind|
+    %i[genre genre_v2 studio publisher].each do |kind|
       next unless params[kind]
 
       terms = Animes::Filters::Terms.new(
@@ -113,27 +114,26 @@ private
       )
       model[kind] = terms
         .positives
-        .map { |term| @menu.send(kind.to_s.pluralize).find { |v| v.id == term } }
-        .compact
+        .filter_map { |term| @menu.send(kind.to_s.pluralize).find { |v| v.id == term } }
     end
 
     model
   end
 
-  def genres_redirect_check genres
-    return unless params.include?(:genre) && !params[:genre].include?('!')
+  def genres_v2_redirect_check genres_v2
+    return unless params.include?(:genre_v2) && params[:genre_v2].exclude?('!')
 
-    ensure_redirect! current_url(genre: genres.map(&:to_param).sort.join(','))
+    ensure_redirect! current_url(genre_v2: genres_v2.map(&:to_param).sort.join(','))
   end
 
   def studios_redirect_check studios
-    return unless params.include?(:studio) && !params[:studio].include?('!')
+    return unless params.include?(:studio) && params[:studio].exclude?('!')
 
     ensure_redirect! current_url(studio: studios.map(&:to_param).sort.join(','))
   end
 
   def publishers_redirect_check publishers
-    return unless params.include?(:publisher) && !params[:publisher].include?('!')
+    return unless params.include?(:publisher) && params[:publisher].exclude?('!')
 
     ensure_redirect! current_url(publisher: publishers.map(&:to_param).sort.join(','))
   end
@@ -151,7 +151,7 @@ private
   end
 
   def censored_search_check
-    if params[:search] && params[:search] =~ CENSORED && censored_forbidden?
+    if params[:search]&.match?(CENSORED) && censored_forbidden?
       raise AgeRestricted
     end
   end
@@ -167,17 +167,17 @@ private
     title = collection_title(model).title false
 
     if collection_title(model).manga_conjugation_variant?
-      i18n_t 'notice.manga',
-        title: title,
-        order_name: order_name
+      i18n_t('notice.manga',
+        title:,
+        order_name:)
     else
       i18n_t 'notice.non_manga',
-        title: title,
-        order_name: order_name
+        title:,
+        order_name:
     end
   end
 
-  def order_name
+  def order_name # rubocop:disable Metrics/MethodLength
     case params[:order]
       when 'name'
         i18n_t 'order.in_alphabetical_order'
@@ -187,8 +187,8 @@ private
         i18n_t 'order.by_released_date'
       when 'id_desc', 'id'
         i18n_t 'order.by_add_date'
-      when 'ranked'
-        i18n_t 'order.by_ranking'
+      # when 'ranked'
+      #   i18n_t 'order.by_ranking'
       when 'ranked_random'
         i18n_t 'order.by_random_ranking'
       when 'ranked_shiki'
@@ -206,6 +206,7 @@ private
       kind: params[:kind],
       status: params[:status],
       genres: model[:genre],
+      genres_v2: model[:genre_v2],
       studios: model[:studio],
       publishers: model[:publisher]
     )

@@ -9,6 +9,11 @@
               .b-anime_status_tag.misc-data = l @resource.send(field), format: :full
             - else
               .b-anime_status_tag.misc-data = @resource.send(field)
+        .line
+          .value
+            a href==new_user_password_url(user: { email: @resource.email })
+              = t 'profiles.edit.account.password_recovery'
+
     .c-column
       .subheadline.m5 = t 'profiles.edit.account.connected_accounts'
       - if @resource.user_tokens.any?

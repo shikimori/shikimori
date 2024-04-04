@@ -22,7 +22,7 @@ class Styles::Compile
       (?:\s*!important)?
     )$
   /mix
-  URL_CLEANUP_REGEXP = %r{/\*|\*/|@import|[@*]|import}
+  URL_CLEANUP_REGEXP = %r{/\*|\*/|@import|[@*]|import|(?<=\A/|\Ahttp:/|\Ahttps:/)\\+(?=/)}
 
   USER_CONTENT = 'User Custom Styles'
 
@@ -36,7 +36,7 @@ class Styles::Compile
     ).strip
 
     {
-      compiled_css: compiled_css,
+      compiled_css:,
       imports: styles_map.keys.index_with { |url| styles_map[url].size }
     }
   end
@@ -58,7 +58,7 @@ private
   end
 
   def compile css, url = nil
-    compiled_css = sanitize(camo_images(css))
+    compiled_css = camo_images(sanitize(css))
 
     if compiled_css.present?
       url ?
@@ -88,7 +88,10 @@ private
         url = url.gsub(SUFFIX_REGEXP, '')
       end
 
-      "#{UrlGenerator.instance.camo_url url, force_shikimori_one: true}#{suffix}"
+      generated_camo_url =
+        UrlGenerator.instance.camo_url(sanitize_url(url), force_shikimori_one: true)
+
+      "#{generated_camo_url}#{suffix}"
     end
   end
 

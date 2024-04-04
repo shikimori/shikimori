@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_27_174221) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_24_190817) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
@@ -612,7 +612,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_174221) do
     t.index ["src_id", "dst_id"], name: "index_friend_links_on_src_id_and_dst_id", unique: true
   end
 
-  create_table "genre_v2s", force: :cascade do |t|
+  create_table "genres", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "russian", limit: 255
+    t.integer "position"
+    t.integer "seo", default: 99
+    t.string "description", limit: 4096
+    t.string "kind", null: false
+    t.integer "mal_id", null: false
+    t.index ["mal_id", "kind"], name: "index_genres_on_mal_id_and_kind", unique: true
+  end
+
+  create_table "genres_v2", force: :cascade do |t|
     t.string "name", null: false
     t.string "russian", null: false
     t.string "kind", null: false
@@ -625,19 +638,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_174221) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "entry_type", null: false
-  end
-
-  create_table "genres", force: :cascade do |t|
-    t.string "name", limit: 255
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.string "russian", limit: 255
-    t.integer "position"
-    t.integer "seo", default: 99
-    t.string "description", limit: 4096
-    t.string "kind", null: false
-    t.integer "mal_id", null: false
-    t.index ["mal_id", "kind"], name: "index_genres_on_mal_id_and_kind", unique: true
   end
 
   create_table "ignores", force: :cascade do |t|
@@ -894,6 +894,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_174221) do
     t.datetime "deleted_at", precision: nil
     t.jsonb "crop_data", default: {}, null: false
     t.string "mal_url"
+    t.boolean "is_censored_verified", default: false, null: false
     t.index ["anime_id"], name: "index_posters_on_anime_id", unique: true, where: "((anime_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
     t.index ["character_id"], name: "index_posters_on_character_id", unique: true, where: "((character_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
     t.index ["manga_id"], name: "index_posters_on_manga_id", unique: true, where: "((manga_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"

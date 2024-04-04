@@ -1,6 +1,7 @@
 - if (resource.decorated? ? resource.object : resource).respond_to? field
   - policy = VersionsPolicy.new(current_user, db_entry: resource, field: field)
-  - field_param = field == :genres ? :genre_ids : field
+  - field_param = :genre_ids if field == :genres
+  - field_param = :genre_v2_ids if field == :genres_v2
 
   li class=local_assigns[:class]
     .field = resource.class.human_attribute_name field
@@ -22,14 +23,14 @@
 
       - if policy.restricted_fields.include?(field.to_s)
         - if policy.change_allowed?
-          a.b-js-action href=@resource.edit_field_url(field_param)
+          a.b-js-action href=@resource.edit_field_url(field_param || field)
             = t 'actions.edit'
         - else
           a.b-js-action.is-disabled = t 'moderators_only'
       - else
         - if policy.change_allowed?
           a.b-js-action.to-process[
-            href=resource.edit_field_url(field_param)
+            href=resource.edit_field_url(field_param || field)
             data-dynamic='week_registered'
           ] = t 'actions.edit'
         - else

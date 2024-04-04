@@ -1,14 +1,15 @@
 describe Titles::CollectionTitle do
   let(:collection_title) do
     Titles::CollectionTitle.new(
-      klass: klass,
-      user: user,
-      season: season,
-      kind: kind,
-      status: status,
-      genres: genres,
-      studios: studios,
-      publishers: publishers
+      klass:,
+      user:,
+      season:,
+      kind:,
+      status:,
+      genres:,
+      genres_v2:,
+      studios:,
+      publishers:
     )
   end
   let(:klass) { Anime }
@@ -17,6 +18,7 @@ describe Titles::CollectionTitle do
   let(:kind) { nil }
   let(:status) { nil }
   let(:genres) { nil }
+  let(:genres_v2) { nil }
   let(:studios) { nil }
   let(:publishers) { nil }
 
@@ -62,6 +64,11 @@ describe Titles::CollectionTitle do
           let(:kind) { 'movie' }
           it { is_expected.to eq 'Полнометражные аниме' }
         end
+
+        context '!tv' do
+          let(:kind) { '!tv' }
+          it { is_expected.to eq 'Лучшие аниме' }
+        end
       end
 
       context 'many kinds' do
@@ -102,7 +109,35 @@ describe Titles::CollectionTitle do
     end
 
     describe 'genres' do
-      let(:genres) { build :genre, name: name, kind: klass.base_class.name.downcase }
+      let(:genres) { build :genre, name:, kind: klass.base_class.name.downcase }
+      let(:klass) { Anime }
+
+      context 'magic' do
+        let(:name) { 'Magic' }
+        it { is_expected.to eq 'Аниме про магию' }
+      end
+
+      context 'comedy' do
+        let(:name) { 'Comedy' }
+
+        context 'anime' do
+          it { is_expected.to eq 'Комедийные аниме' }
+        end
+
+        context 'manga' do
+          let(:klass) { Manga }
+          it { is_expected.to eq 'Комедийная манга' }
+        end
+      end
+
+      context 'romance' do
+        let(:name) { 'Romance' }
+        it { is_expected.to eq 'Романтические аниме про любовь' }
+      end
+    end
+
+    describe 'genres_v2' do
+      let(:genres_v2) { build :genre_v2, name:, entry_type: klass.base_class.name }
       let(:klass) { Anime }
 
       context 'magic' do

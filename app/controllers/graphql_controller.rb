@@ -11,10 +11,10 @@ class GraphqlController < ShikimoriController
 
   def execute
     variables = prepare_variables(params[:variables])
-    query = params[:query]
+    query = params[:query] || ''
     operation_name = params[:operationName]
     context = {
-      current_user: current_user
+      current_user:
     }
 
     result =
@@ -23,10 +23,10 @@ class GraphqlController < ShikimoriController
           max_depth: 13,
           max_complexity: 181
       else
-        ShikimoriSchema.execute query,
-          variables: variables,
-          context: context,
-          operation_name: operation_name
+        ShikimoriSchema.execute(query,
+          variables:,
+          context:,
+          operation_name:)
       end
 
     render json: result

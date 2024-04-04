@@ -8,10 +8,11 @@ class Manga < DbEntry
   include ClubsConcern
   include ContestsConcern
   include FavouritesConcern
+  include RknConcern
 
   DESYNCABLE = %w[
     name japanese synonyms kind volumes chapters aired_on released_on status
-    genre_ids description_en image poster external_links is_censored
+    genre_ids genre_v2_ids description_en image poster external_links is_censored
   ]
   CHAPTER_DURATION = 8
   VOLUME_DURATION = (24 * 60) / 20 # 20 volumes per day
@@ -198,22 +199,6 @@ class Manga < DbEntry
 
   def forbidden?
     false
-  end
-
-  def censored?
-    is_censored || rkn_abused?
-  end
-
-  def rkn_abused?
-    Copyright::ABUSED_BY_RKN_MANGA_IDS.include? id
-  end
-
-  def rkn_banned?
-    Copyright::BANNED_BY_RKN_MANGA_IDS.include? id
-  end
-
-  def poster
-    rkn_banned? ? nil : super
   end
 
 private

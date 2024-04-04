@@ -15,7 +15,7 @@ describe BbCodes::Tags::DivTag do
     end
     it { is_expected.to eq '<div data-div>test</div>' }
 
-    context 'wrapped in other tags'do
+    context 'wrapped in other tags' do
       let(:text) do
         [
           "[span][div]\ntest\n[/div][/span]\n"

@@ -79,7 +79,7 @@ class Comment < ApplicationRecord
   end
 
   def check_spam_abuse
-    unless Users::CheckHacked.call(model: self, text: body, user: user)
+    unless Users::CheckHacked.call(model: self, text: body, user:)
       throw :abort
     end
   end
@@ -89,7 +89,7 @@ class Comment < ApplicationRecord
       old_body: saved_changes[:body].first,
       new_body: saved_changes[:body].second,
       comment: self,
-      user: user
+      user:
     )
   end
 
@@ -98,7 +98,7 @@ class Comment < ApplicationRecord
       old_body: body,
       new_body: nil,
       comment: self,
-      user: user
+      user:
     )
   end
 
@@ -136,7 +136,7 @@ class Comment < ApplicationRecord
       # mark comment thread as offtopic
       ids = Comments::RepliesById.call(self).map(&:id) + [id]
       Comment
-        .where.not(id: id)
+        .where.not(id:)
         .where(id: ids)
         .update_all is_offtopic: flag, updated_at: Time.zone.now
 

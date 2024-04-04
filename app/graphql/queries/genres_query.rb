@@ -5,8 +5,8 @@ class Queries::GenresQuery < Queries::BaseQuery
 
   def resolve entry_type:
     repository_klass = entry_type == Types::GenreV2::EntryType['Anime'] ?
-      AnimeGenresRepository :
-      MangaGenresRepository
+      AnimeGenresV2Repository :
+      MangaGenresV2Repository
 
     repository_klass.instance.to_a
   end

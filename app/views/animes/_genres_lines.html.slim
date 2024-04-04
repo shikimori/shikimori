@@ -1,14 +1,6 @@
-- if genres_v2?
-  - if entry.genres_v2_wo_themes.any?
-    = info_line i18n_io('Genre', entry.genres_v2_wo_themes.one? ? :one : :few) do
-      = render 'animes/genres_line', entry: entry, genres: entry.genres_v2_wo_themes
-  - if entry.genres_v2_themes.any?
-    = info_line i18n_io('Theme', entry.genres_v2_themes.one? ? :one : :few) do
-      = render 'animes/genres_line', entry: entry, genres: entry.genres_v2_themes
-- else
-  - if entry.genres.any?
-    = info_line i18n_io('Genre', entry.genres.one? ? :one : :few) do
-      = render 'animes/genres_line',
-        entry: entry,
-        genres: local_assigns[:is_main_genres] ? entry.main_genres : entry.genres
-
+- if entry.genres_v2_wo_themes.any?
+  = info_line i18n_io('Genre', entry.genres_v2_wo_themes.one? ? :one : :few) do
+    = render 'animes/genres_line', entry: entry, genres: entry.genres_v2_wo_themes
+- if entry.genres_v2_themes.any?
+  = info_line i18n_io('Theme', entry.genres_v2_themes.one? ? :one : :few) do
+    = render 'animes/genres_line', entry: entry, genres: entry.genres_v2_themes

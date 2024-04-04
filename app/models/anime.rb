@@ -8,10 +8,12 @@ class Anime < DbEntry
   include ClubsConcern
   include ContestsConcern
   include FavouritesConcern
+  include RknConcern
 
   DESYNCABLE = %w[
     name japanese synonyms kind episodes rating aired_on released_on status
-    genre_ids duration description_en image poster external_links is_censored
+    genre_ids genre_v2_ids duration description_en image poster external_links
+    is_censored
   ]
 
   FORBIDDEN_ADULT_IDS = [
@@ -290,7 +292,8 @@ class Anime < DbEntry
   end
 
   def genres_v2
-    @genres_v2 ||= AnimeGenresV2Repository.find genre_v2_ids
+    @genres_v2 ||= AnimeGenresV2Repository.find(genre_v2_ids)
+      .sort_by { |genre_v2| Types::GenreV2::KINDS.index genre_v2.kind.to_sym }
   end
 
   def studios
@@ -310,15 +313,6 @@ class Anime < DbEntry
   # banned by roskomnadzor
   def forbidden?
     FORBIDDEN_ADULT_IDS.include? id
-  end
-
-  def censored?
-    is_censored || rkn_abused?
-    # || (kind_ova? && SUB_ADULT_RATING == rating)
-  end
-
-  def rkn_abused?
-    Copyright::ABUSED_BY_RKN_ANIME_IDS.include? id
   end
 
 private

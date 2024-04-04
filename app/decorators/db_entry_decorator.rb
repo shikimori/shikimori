@@ -93,7 +93,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   def description_html_truncated length = 150
     h.truncate_html(
       description_html,
-      length: length,
+      length:,
       separator: ' ',
       word_boundary: /\S[.?!<>]/
     ).html_safe
@@ -186,9 +186,8 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def format_menu_topic topic_view, order
     {
-      time: (
-        topic_view.send(order) || topic_view.created_at || topic_view.updated_at
-      ),
+      time:
+        topic_view.send(order) || topic_view.created_at || topic_view.updated_at,
       id: topic_view.id,
       name: topic_view.topic_title,
       title: topic_view.topic_title,
@@ -228,43 +227,43 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def path
-    h.send "#{klass_lower}_url", object
+    h.send :"#{klass_lower}_url", object
   end
 
   def url subdomain = true
-    h.send "#{klass_lower}_url", object, subdomain: subdomain
+    h.send :"#{klass_lower}_url", object, subdomain:
   end
 
   def edit_url
-    h.send "edit_#{klass_lower}_url", object
+    h.send :"edit_#{klass_lower}_url", object
   end
 
   def edit_field_url field
-    h.send "edit_field_#{klass_lower}_url", object, field: field
+    h.send :"edit_field_#{klass_lower}_url", object, field:
   end
 
   def versions_url page
-    h.send "versions_#{klass_lower}_url", object, page: page
+    h.send :"versions_#{klass_lower}_url", object, page:
   end
 
   def sync_url **additionals
-    h.send "sync_#{klass_lower}_url", **additionals
+    h.send :"sync_#{klass_lower}_url", **additionals
   end
 
   def refresh_poster_url
-    h.send "refresh_poster_#{klass_lower}_url"
+    h.send :"refresh_poster_#{klass_lower}_url"
   end
 
   def refresh_stats_url
-    h.send "refresh_stats_#{klass_lower}_url"
+    h.send :"refresh_stats_#{klass_lower}_url"
   end
 
   def merge_into_other_url
-    h.send "merge_into_other_#{klass_lower}_url"
+    h.send :"merge_into_other_#{klass_lower}_url"
   end
 
   def merge_as_episode_url
-    h.send "merge_as_episode_#{klass_lower}_url"
+    h.send :"merge_as_episode_#{klass_lower}_url"
   end
 
 private

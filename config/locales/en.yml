@@ -48,10 +48,10 @@ en:
         episodes: Episodes
         episodes_aired: Episodes aired
         external_links: Links
-        genres: Genres
-        genres_v2: Genres v2
-        genre_ids: Genres # used for item_diff in versions
-        genre_v2_ids: Genres v2 # used for item_diff in versions
+        genres: Genres v1
+        genres_v2: Genres
+        genre_ids: Genres v1 # used for item_diff in versions
+        genre_v2_ids: Genres # used for item_diff in versions
         image: &poster Poster
         kind: Type
         name: Name

@@ -38,6 +38,11 @@ describe Url do
   describe '#with_http' do
     subject { url.with_http.to_s }
 
+    context 'has https' do
+      let(:string) { 'https://test.org' }
+      it { is_expected.to eq 'https://test.org' }
+    end
+
     context 'has http' do
       let(:string) { 'http://test.org' }
       it { is_expected.to eq 'http://test.org' }

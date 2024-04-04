@@ -12,8 +12,10 @@ class BbCodes::CleanupCssClass
     b-height_shortener
     b-modal
     b-new_marker
+    b-postloader
     b-to-top
     ban
+    comments-loader
     expand
     l-footer
     l-menu
@@ -29,6 +31,12 @@ class BbCodes::CleanupCssClass
     mfp-wrap
     shade
     turbolinks-progress-bar
+    toastify
+    toastify-left
+    toastify-right
+    toastify-top
+    toastify-bottom
+    toastify-rounded
   ]
 
   CLEANUP_REGEXP = /

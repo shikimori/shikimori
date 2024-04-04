@@ -1,6 +1,8 @@
 describe Topics::SubscribedUsersQuery do
-  subject { described_class.call topic }
+  subject { described_class.call topic:, is_censored: }
   before { User.update_all notification_settings: [] }
+
+  let(:is_censored) { false }
 
   context 'unsuitable topic' do
     let(:topic) { build :topic }
@@ -10,11 +12,28 @@ describe Topics::SubscribedUsersQuery do
   context 'filtered by last_online_at' do
     let(:topic) { build :topic, broadcast: true }
 
-    before { User.update_all last_online_at: last_online_at }
+    before { User.update_all last_online_at: }
     let(:last_online_at) { Topics::SubscribedUsersQuery::ACTIVITY_INTERVAL.ago - 1.minute }
-    let!(:user) { create :user }
+    let!(:user) { create :user, preferences:, birth_on: 20.years.ago }
+    let(:preferences) { build :user_preferences, is_view_censored: }
+    let(:is_view_censored) { false }
 
-    it { is_expected.to eq [user] }
+    context 'is_censored=false' do
+      it { is_expected.to eq [user] }
+    end
+
+    context 'is_censored=true' do
+      let(:is_censored) { true }
+
+      context 'is_view_censored=false' do
+        it { is_expected.to eq [] }
+      end
+
+      context 'is_view_censored=true' do
+        let(:is_view_censored) { true }
+        it { is_expected.to eq [user] }
+      end
+    end
   end
 
   context 'broadcast' do
@@ -33,17 +52,17 @@ describe Topics::SubscribedUsersQuery do
     let(:topic) { build :topic, linked: contest }
     let(:contest) { build :contest }
 
-    let(:user) { create :user, notification_settings: notification_settings }
+    let(:user) { create :user, notification_settings: }
     let(:notification_settings) { %i[contest_event] }
 
     it { is_expected.to eq [user] }
   end
 
   context 'news topic' do
-    let(:topic) { build :news_topic, action: action, linked: anime }
+    let(:topic) { build :news_topic, action:, linked: anime }
     let(:anime) { create :anime }
 
-    let(:user) { create :user, notification_settings: notification_settings }
+    let(:user) { create :user, notification_settings: }
 
     context 'anons' do
       let(:action) { Types::Topic::NewsTopic::Action[AnimeHistoryAction::Anons] }
@@ -73,7 +92,7 @@ describe Topics::SubscribedUsersQuery do
         let(:notification_settings) { %i[my_ongoing] }
 
         context 'has user_rate' do
-          let!(:user_rate) { create :user_rate, status, user: user, target: anime }
+          let!(:user_rate) { create :user_rate, status, user:, target: anime }
 
           context 'not dropped' do
             let(:status) { (UserRate.statuses.keys - %w[dropped]).sample.to_sym }
@@ -87,7 +106,7 @@ describe Topics::SubscribedUsersQuery do
         end
 
         context 'no user_rate' do
-          let!(:user_rate_1) { create :user_rate, user: user, target: create(:anime) }
+          let!(:user_rate_1) { create :user_rate, user:, target: create(:anime) }
           let!(:user_rate_2) { create :user_rate, user: seed(:user_day_registered), target: anime }
           it { is_expected.to eq [] }
         end
@@ -97,7 +116,7 @@ describe Topics::SubscribedUsersQuery do
         let(:notification_settings) do
           Types::User::NotificationSettings.values - %i[any_ongoing my_ongoing]
         end
-        let!(:user_rate) { create :user_rate, user: user, target: anime }
+        let!(:user_rate) { create :user_rate, user:, target: anime }
         it { is_expected.to eq [] }
       end
     end
@@ -109,12 +128,12 @@ describe Topics::SubscribedUsersQuery do
         let(:notification_settings) { %i[my_episode] }
 
         context 'has user_rate' do
-          let!(:user_rate) { create :user_rate, user: user, target: anime }
+          let!(:user_rate) { create :user_rate, user:, target: anime }
           it { is_expected.to eq [user] }
         end
 
         context 'no user_rate' do
-          let!(:user_rate_1) { create :user_rate, user: user, target: create(:anime) }
+          let!(:user_rate_1) { create :user_rate, user:, target: create(:anime) }
           let!(:user_rate_2) { create :user_rate, user: seed(:user_day_registered), target: anime }
           it { is_expected.to eq [] }
         end
@@ -124,7 +143,7 @@ describe Topics::SubscribedUsersQuery do
         let(:notification_settings) do
           Types::User::NotificationSettings.values - %i[my_episode]
         end
-        let!(:user_rate) { create :user_rate, user: user, target: anime }
+        let!(:user_rate) { create :user_rate, user:, target: anime }
         it { is_expected.to eq [] }
       end
     end
@@ -141,12 +160,12 @@ describe Topics::SubscribedUsersQuery do
         let(:notification_settings) { %i[my_released] }
 
         context 'has user_rate' do
-          let!(:user_rate) { create :user_rate, user: user, target: anime }
+          let!(:user_rate) { create :user_rate, user:, target: anime }
           it { is_expected.to eq [user] }
         end
 
         context 'no user_rate' do
-          let!(:user_rate_1) { create :user_rate, user: user, target: create(:anime) }
+          let!(:user_rate_1) { create :user_rate, user:, target: create(:anime) }
           let!(:user_rate_2) { create :user_rate, user: seed(:user_day_registered), target: anime }
           it { is_expected.to eq [] }
         end
@@ -156,7 +175,7 @@ describe Topics::SubscribedUsersQuery do
         let(:notification_settings) do
           Types::User::NotificationSettings.values - %i[any_released my_released]
         end
-        let!(:user_rate) { create :user_rate, user: user, target: anime }
+        let!(:user_rate) { create :user_rate, user:, target: anime }
         it { is_expected.to eq [] }
       end
     end

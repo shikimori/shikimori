@@ -112,7 +112,7 @@ describe User do
 
   describe 'instance methods' do
     describe '#nickname=' do
-      let(:user) { build :user, nickname: nickname }
+      let(:user) { build :user, nickname: }
       let(:nickname) { '#[test]%&?+@' }
 
       it { expect(user.nickname).to eq FixName.call(nickname, true) }
@@ -151,7 +151,7 @@ describe User do
 
     describe '#banned?' do
       let(:read_only_at) { nil }
-      subject { create :user, read_only_at: read_only_at }
+      subject { create :user, read_only_at: }
 
       it { is_expected.to_not be_banned }
 
@@ -169,8 +169,8 @@ describe User do
     describe '#active?' do
       subject(:user) do
         build :user,
-          last_online_at: last_online_at,
-          last_sign_in_at: last_sign_in_at
+          last_online_at:,
+          last_sign_in_at:
       end
 
       let(:last_sign_in_at) { nil }
@@ -214,7 +214,7 @@ describe User do
     end
 
     describe '#forever_banned?' do
-      let(:user) { build :user, read_only_at: read_only_at }
+      let(:user) { build :user, read_only_at: }
 
       context 'banned not long ago' do
         let(:read_only_at) { 11.months.from_now }
@@ -233,7 +233,7 @@ describe User do
     end
 
     describe '#day_registered?' do
-      let(:user) { build :user, created_at: created_at }
+      let(:user) { build :user, created_at: }
 
       context 'created_at not day ago' do
         let(:created_at) { 23.hours.ago }
@@ -247,7 +247,7 @@ describe User do
     end
 
     describe '#week_registered?' do
-      let(:user) { build :user, created_at: created_at }
+      let(:user) { build :user, created_at: }
 
       context 'created_at not week ago' do
         let(:created_at) { 6.days.ago }
@@ -293,7 +293,7 @@ describe User do
     end
 
     describe '#generated_email?' do
-      let(:user) { build :user, email: email }
+      let(:user) { build :user, email: }
 
       context 'generated' do
         let(:email) { "generated_12312@#{Shikimori::DOMAIN}" }
@@ -325,7 +325,7 @@ describe User do
     end
 
     describe '#age' do
-      subject { build :user, birth_on: birth_on }
+      subject { build :user, birth_on: }
 
       context 'no age' do
         let(:birth_on) { nil }
@@ -342,11 +342,33 @@ describe User do
         its(:age) { is_expected.to eq 18 }
       end
     end
+
+    describe '#censored_forbidden?' do
+      let(:user) { build :user, birth_on:, preferences: }
+
+      let(:birth_on) { 18.years.ago - 1.day }
+      let(:preferences) { build :user_preferences, is_view_censored: }
+      let(:is_view_censored) { true }
+
+      subject { user.censored_forbidden? }
+
+      it { is_expected.to eq false }
+
+      context 'no preferences' do
+        let(:preferences) { nil }
+        it { is_expected.to eq true }
+      end
+
+      context 'disabled censored in preferences' do
+        let(:is_view_censored) { false }
+        it { is_expected.to eq true }
+      end
+    end
   end
 
   describe 'permissions' do
-    let(:preferences) { build_stubbed(:user_preferences, list_privacy: list_privacy) }
-    let(:profile) { build_stubbed :user, :user, preferences: preferences }
+    let(:preferences) { build_stubbed :user_preferences, list_privacy: }
+    let(:profile) { build_stubbed :user, :user, preferences: }
     let(:user) { build_stubbed :user, :user }
     let(:friend_link) { build_stubbed :friend_link, dst: user }
 
@@ -362,7 +384,7 @@ describe User do
         end
 
         context 'friend' do
-          let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: preferences }
+          let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: }
           it { is_expected.to be_able_to :access_list, profile }
         end
 
@@ -385,7 +407,7 @@ describe User do
         end
 
         context 'friend' do
-          let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: preferences }
+          let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: }
           it { is_expected.to be_able_to :access_list, profile }
         end
 
@@ -408,7 +430,7 @@ describe User do
         end
 
         context 'friend' do
-          let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: preferences }
+          let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: }
           it { is_expected.to be_able_to :access_list, profile }
         end
 
@@ -431,7 +453,7 @@ describe User do
         end
 
         context 'friend' do
-          let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: preferences }
+          let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: }
           it { is_expected.to_not be_able_to :access_list, profile }
         end
 

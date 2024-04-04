@@ -10,7 +10,7 @@ class Characters::Query < QueryObjectBase
 
     chain Search::Character.call(
       scope: @scope,
-      phrase: phrase,
+      phrase:,
       ids_limit: SEARCH_LIMIT
     )
   end
@@ -24,6 +24,6 @@ class Characters::Query < QueryObjectBase
   def by_id id
     return self if id.blank?
 
-    chain @scope.where(id: id)
+    chain @scope.where(id:)
   end
 end

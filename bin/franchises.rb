@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 puts 'loading rails...'
 ENV['RAILS_ENV'] = ARGV.first || ENV['RAILS_ENV'] || 'development'
-require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+require File.expand_path(File.dirname(__FILE__) + '/../config/environment')
 
-franchise_yml = "#{ENV['HOME']}/develop/neko-achievements/priv/rules/_franchises.yml"
+franchise_yml = "#{ENV.fetch('HOME', nil)}/develop/neko-achievements/priv/rules/_franchises.yml"
 
 puts 'loading franchises...'
 raw_data = YAML.load_file(franchise_yml, aliases: true)
@@ -32,7 +32,7 @@ FRANCHISES_TO_ADD.each do |franchise|
     },
     'threshold' => '100%',
     'metadata' => {
-      'topic_id' => 247360
+      'topic_id' => 247_360
     }
   )
 end
@@ -95,10 +95,10 @@ data
     extension = image_url.split('.').last if extension.size > 3
 
     download_path = "app/assets/images/achievements/anime/franchise/#{franchise}.#{extension}"
-    File.open(Rails.root.join(download_path), 'wb') { |f| f.write image_io.read }
+    File.binwrite(Rails.root.join(download_path), image_io.read)
 
     rule['metadata']['image'] = "/assets/achievements/anime/franchise/#{franchise}.#{extension}"
-    File.open(franchise_yml, 'w') { |f| f.write data.to_yaml }
+    File.write(franchise_yml, data.to_yaml)
   end
 
 puts 'generating thresholds...'
@@ -108,25 +108,29 @@ data
     if rule['filters']['not_anime_ids'].present?
       franchise = franchise.where.not(id: rule['filters']['not_anime_ids'])
     end
-    if rule.dig('generator', 'ignore_latest_ids').present? && rule.dig('generator', 'threshold').present?
+    if rule.dig('generator', 'ignore_latest_ids').present? &&
+        rule.dig('generator', 'threshold').present?
       puts "both rule[generator][ignore_latest_ids] and rule[generator][threshold] are set in #{rule['filters']['franchise']} franchise"
     end
 
     franchise = franchise.reject(&:anons?)
 
     ova = franchise.select do |anime|
-      anime.kind_ova? || (anime.kind_ona? && anime.episodes < 4 && anime.duration < 30 )
+      anime.kind_ova? || (anime.kind_ona? && anime.episodes < 4 && anime.duration < 30)
     end
     long_specials = franchise
-      .select(&:kind_special?)
+      .select { |v| v.kind_special? || v.kind_tv_special? }
       .select { |v| v.duration >= 22 }
     short_specials = franchise
-      .select(&:kind_special?)
+      .select { |v| v.kind_special? || v.kind_tv_special? }
       .select { |v| v.duration < 22 && v.duration > 5 }
-    mini_specials = (franchise.select(&:kind_special?) + franchise.select(&:kind_ona?))
+    mini_specials = (
+      franchise.select { |v| v.kind_special? || v.kind_tv_special? } +
+        franchise.select(&:kind_ona?)
+    )
       .select { |v| v.duration <= 5 }
 
-    important_titles = franchise.reject(&:kind_special?)
+    important_titles = franchise.reject { |v| v.kind_special? || v.kind_tv_special? }
 
     total_duration = franchise.sum { |v| Neko::Duration.call v }
 
@@ -220,39 +224,39 @@ data
 
     # binding.pry if rule['filters']['franchise'] == 'black_clover'
 
-    current_threshold = rule['threshold'].to_s.gsub('%', '').to_f
+    current_threshold = rule['threshold'].to_s.delete('%').to_f
     new_threshold = threshold.floor(1)
 
     if rule.dig('generator', 'threshold').present?
-      new_threshold = rule['generator']['threshold'].to_s.gsub('%', '').to_f
+      new_threshold = rule['generator']['threshold'].to_s.delete('%').to_f
     end
 
-    if current_threshold != new_threshold
-      ap(
-        franchise: rule['filters']['franchise'],
-        threshold: "#{current_threshold} -> #{new_threshold}"
-      )
-      rule['threshold'] = "#{new_threshold}%".gsub(/\.0%$/, '%')
-    end
+    next unless current_threshold != new_threshold
+
+    ap(
+      franchise: rule['filters']['franchise'],
+      threshold: "#{current_threshold} -> #{new_threshold}"
+    )
+    rule['threshold'] = "#{new_threshold}%".gsub(/\.0%$/, '%')
   end
 
 puts 'generating 0 levels...'
 franchises_index = data
   .map { |rule| rule['filters']['franchise'] }
 
-data = data + (data
+data += (data
   .select { |rule| rule['filters']['franchise'].present? }
   .map do |rule|
     rule.dup.merge('level' => 0, 'threshold' => 0.01)
   end
-)
+        )
 
 data = data.sort_by do |rule|
   [franchises_index.index(rule['filters']['franchise']), -rule['level']]
 end
 
 if data.any? && data.size >= raw_data.size
-  File.open(franchise_yml, 'w') { |f| f.write data.to_yaml }
+  File.write(franchise_yml, data.to_yaml)
   puts "\n" + data.map { |v| v['filters']['franchise'] }.uniq.join(' ')
 else
   raise 'invalid data'
@@ -288,7 +292,7 @@ begin
     end
 
   if data.any? && data.size >= raw_data.size
-    File.open(franchise_yml, 'w') { |f| f.write data.to_yaml }
+    File.write(franchise_yml, data.to_yaml)
     puts data.map { |v| v['filters']['franchise'] }.uniq.join(' ')
   else
     raise 'invalid data'

@@ -65,37 +65,18 @@ Make sure `en_US.UTF-8` database collation is set [https://gist.github.com/ffmik
 
 Or you manually initialize new database with command
 ```sh
-initdb --pgdata=/usr/local/var/postgres-14 -E 'UTF-8' --lc-collate='en_US.UTF-8' --lc-ctype='en_US.UTF-8'
+initdb --pgdata=/usr/local/var/postgres-16 -E 'UTF-8' --lc-collate='en_US.UTF-8' --lc-ctype='en_US.UTF-8'
 ```
 
 Or initdb for apple M1
 ```sh
-initdb --pgdata=/opt/homebrew/var/postgresql@14 -E 'UTF-8' --lc-collate='en_US.UTF-8' --lc-ctype='en_US.UTF-8'
+initdb --pgdata=/usr/local/var/postgresql@16 -E 'UTF-8' --lc-collate='en_US.UTF-8' --lc-ctype='en_US.UTF-8'
 ```
 
 
 Create rails databases
 ```sh
 rails db:create
-```
-
-### Extensions
-```sh
-psql -d shikimori_test_
-```
-```sql
-CREATE EXTENSION unaccent;
-CREATE EXTENSION hstore;
-CREATE EXTENSION pg_stat_statements;
-```
-
-```sh
-psql -d shikimori_development
-```
-```sql
-CREATE EXTENSION unaccent;
-CREATE EXTENSION hstore;
-CREATE EXTENSION pg_stat_statements;
 ```
 
 ## Local Run

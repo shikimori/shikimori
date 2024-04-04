@@ -1,4 +1,4 @@
-class Queries::AnimesQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassLength
+class Queries::AnimesQuery < Queries::BaseQuery
   type [Types::AnimeType], null: false
   extras [:lookahead]
 
@@ -89,7 +89,7 @@ class Queries::AnimesQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassL
           season:,
           duration:,
           rating:,
-          genre:,
+          genre_v2: genre,
           studio:,
           franchise:,
           censored: to_filter_boolean(censored),

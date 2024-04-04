@@ -1,4 +1,4 @@
-class AnimesController < DbEntriesController
+class AnimesController < DbEntriesController # rubocop:disable Metrics/ClassLength
   # caches_action :page, :characters, :show, :related, :cosplay, :tooltip,
   #   cache_path: proc {
   #     id = params[:anime_id] || params[:manga_id] || params[:id]
@@ -232,6 +232,8 @@ class AnimesController < DbEntriesController
   end
 
   def tooltip
+    return forbid_access_to_banned unless request.xhr?
+
     render formats: :html
   end
 

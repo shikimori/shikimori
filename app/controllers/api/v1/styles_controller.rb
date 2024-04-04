@@ -12,7 +12,7 @@ class Api::V1::StylesController < Api::V1Controller
     param :css, String, required: true
   end
   def preview
-    @resource = Style.new css: params[:style][:css]
+    @resource = Style.new css: params.dig(:style, :css)
     @resource.assign_attributes Styles::Compile.call(@resource.css)
     respond_with @resource
   end

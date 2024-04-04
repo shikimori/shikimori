@@ -24,14 +24,16 @@
               resource: @resource,
               field: :torrents_name
 
-          - %i[licensors kind rating genres status aired_on released_on duration].each do |field|
+          - %i[licensors kind rating genres genres_v2 status aired_on released_on duration].each do |field|
             - next if field == :rating && @resource.kinda_manga?
+            - next if field == :genres
             = render 'db_entries/edit_field_li',
               resource: @resource,
               field: field,
-              class: ('m15' if %i[licensors genres released_on].include? field),
+              class: ('m15' if %i[licensors genres_v2 released_on].include? field),
               formatter: {\
                 genres: ->(value) { value.map { |v| v.is_a?(Genre) ? localization_span(v) : v }.join(', ').html_safe },
+                genres_v2: ->(value) { value.map { |v| v.is_a?(GenreV2) ? localization_span(v) : v }.join(', ').html_safe },
                 duration: ->(value) { humanize_minutes value } \
               }[field]
 

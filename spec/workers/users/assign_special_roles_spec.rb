@@ -27,7 +27,13 @@ describe Users::AssignSpecialRoles do
   let(:anime_2) { create :anime, genre_v2_ids: [ai_genre.id] }
   let(:anime_3) { create :anime, genre_v2_ids: [not_ai_genre.id] }
 
-  let(:ai_genre) { create :genre_v2, id: GenreV2::SHOUJO_AI_IDS.sample }
+  let(:ai_genre) do
+    create :genre_v2,
+      id: (
+        GenreV2::SHOUJO_AI_IDS + GenreV2::SHOUNEN_AI_IDS +
+          GenreV2::YAOI_IDS + GenreV2::YURI_IDS
+      ).sample
+  end
   let(:not_ai_genre) { create :genre_v2, id: 999999 }
 
   subject! { worker.perform }

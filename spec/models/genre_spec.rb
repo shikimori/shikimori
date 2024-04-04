@@ -21,8 +21,6 @@ describe Genre do
       let(:name) { 'Romance' }
 
       context 'anime' do
-        let(:kind) { 'anime' }
-
         context 'Magic' do
           let(:name) { 'Magic' }
           it { is_expected.to eq 'Аниме про магию' }
@@ -60,7 +58,7 @@ describe Genre do
 
       context 'genitive case' do
         let(:ru_case) { :genitive }
-        it { is_expected.to eq 'Романтических аниме про любовь' }
+        it { expect { subject }.to raise_error ArgumentError }
       end
 
       context 'default title' do

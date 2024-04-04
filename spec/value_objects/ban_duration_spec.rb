@@ -38,7 +38,7 @@ describe BanDuration do
     end
 
     describe 'mixed' do
-      let(:duration) { 60 * 24 * 365 * 7 + 60 * 24 * 7 * 8 + 60 * 24 * 3 + 60 * 4 + 15 }
+      let(:duration) { (60 * 24 * 365 * 7) + (60 * 24 * 7 * 8) + (60 * 24 * 3) + (60 * 4) + 15 }
       it { is_expected.to eq '7y 1M 4w 1d 4h 15m' }
     end
   end
@@ -80,11 +80,11 @@ describe BanDuration do
       let(:duration) { '7y 2M 3w 2h 5d 1m' }
       it do
         is_expected.to eq(
-          60 * 24 * 365 * 7 +
-            60 * 24 * 30 * 2 +
-            60 * 24 * 7 * 3 +
-            60 * 24 * 5 +
-            60 * 2 + 1
+          (60 * 24 * 365 * 7) +
+            (60 * 24 * 30 * 2) +
+            (60 * 24 * 7 * 3) +
+            (60 * 24 * 5) +
+            (60 * 2) + 1
         )
       end
     end

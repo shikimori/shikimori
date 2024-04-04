@@ -74,16 +74,16 @@ class QueryObjectBase
     chain TransformedCollection.new(@scope, :filter, block)
   end
 
-  def respond_to? *args
-    super(*args) || @scope.respond_to?(*args)
+  def respond_to?(*)
+    super(*) || @scope.respond_to?(*)
   end
 
-  def respond_to_missing? *args
-    super(*args) || @scope.send(:respond_to_missing?, *args)
+  def respond_to_missing?(*)
+    super(*) || @scope.send(:respond_to_missing?, *)
   end
 
-  def method_missing method, *args, &block
-    @scope.send method, *args, &block
+  def method_missing(method, *, &)
+    @scope.send(method, *, &)
   end
 
 private

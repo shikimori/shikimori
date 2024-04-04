@@ -170,6 +170,36 @@ describe Anime do
       end
     end
 
+    describe '#actualize_is_censored, #actualize_ranked' do
+      include_context :reset_repository, AnimeGenresV2Repository, true
+      before do
+        allow(DbEntry::CensoredPolicy)
+          .to receive(:censored?)
+          .with(instance_of(Anime))
+          .and_return is_censored
+      end
+      let(:is_censored) { [true, false].sample }
+
+      subject do
+        create :anime,
+          genre_v2_ids: [genre_v2.id],
+          is_censored: false,
+          desynced:,
+          ranked:
+      end
+      let!(:genre_v2) { create :genre_v2 }
+      let(:desynced) { [] }
+      let(:ranked) { 5 }
+
+      its(:is_censored) { is_expected.to eq is_censored }
+      its(:ranked) { is_expected.to eq is_censored ? 0 : ranked }
+
+      context 'is_censored in desynced' do
+        let(:desynced) { ['is_censored'] }
+        its(:is_censored) { is_expected.to eq false }
+      end
+    end
+
     describe '#sync_topics_is_censored' do
       let(:entry) { create :anime, :with_sync_topics_is_censored }
       before do
@@ -210,7 +240,7 @@ describe Anime do
     describe '#broadcast_at' do
       include_context :timecop, '06-04-2016'
 
-      let(:anime) { build :anime, state, broadcast: broadcast, aired_on: nil }
+      let(:anime) { build :anime, state, broadcast:, aired_on: nil }
       let(:state) { :ongoing }
       let(:broadcast) { 'Thursdays at 22:00 (JST)' }
 

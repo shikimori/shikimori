@@ -1,7 +1,7 @@
 # TODO: move methods into Profiles::View and other Profiles::*View classes
 class UserProfileDecorator < UserDecorator
   instance_cache :nickname_changes?,
-    :all_compatibility, :friends, :favorites,
+    :all_compatibility, :favorites,
     :main_comments_view, :preview_comments_view, :ignored_topics,
     :random_clubs
 
@@ -24,10 +24,6 @@ class UserProfileDecorator < UserDecorator
 
   def nickname_changes?
     Users::NicknameChangesQuery.call(object, h.can?(:manage, Ban)).any?
-  end
-
-  def friends
-    object.friends.order(last_online_at: :desc)
   end
 
   def random_clubs

@@ -5,7 +5,7 @@ describe Notifications::BroadcastTopic do
   before do
     allow(Topics::SubscribedUsersQuery)
       .to receive(:call)
-      .with(topic)
+      .with(topic:, is_censored: false)
       .and_return users
   end
 
@@ -15,11 +15,11 @@ describe Notifications::BroadcastTopic do
 
   let(:topic) do
     create topic_type,
-      linked: linked,
-      action: action,
+      linked:,
+      action:,
       broadcast: is_broadcast,
       processed: is_processed,
-      created_at: created_at
+      created_at:
   end
   let(:topic_type) { :topic }
   let(:linked) { nil }
@@ -163,7 +163,7 @@ describe Notifications::BroadcastTopic do
     let(:is_broadcast) { false }
     let(:linked) do
       [
-        create(:anime, is_censored: true),
+        # create(:anime, is_censored: true), # censored animes now produce notifications too
         create(:anime, kind: :music)
       ].sample
     end

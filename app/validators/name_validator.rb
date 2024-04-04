@@ -9,33 +9,43 @@ class NameValidator < ActiveModel::EachValidator
   PREDEFINED_PATHS = %i[
     about
     achievements
+    anime-industry
     animes
     api
+    bb_codes
+    characters
     contests
     country
     dashboards
     development
     faye
+    feedback
     for_right_holders
     forum
     ignores
+    imageboards
     info
     mangas
+    messages
+    moderations
     oauth
     oauth2
     ongoings
     podcast
     polls
     privacy
-    proxy
     proxies
+    proxy
     ranobe
     redirect
+    sitemap
     styles
     tableau
     terms
+    tests
     user_agent
     users
+    what_is_my_ip
   ]
   FORBIDDEN_NAMES = /
     \A(?:
@@ -46,7 +56,9 @@ class NameValidator < ActiveModel::EachValidator
     )\Z | (?:
       \.
       (?:#{FixName::ALL_EXTENSIONS.join('|')})
-    \Z)
+    \Z) | (?:
+      \.\Z
+    )
   /mix
 
   def validate_each record, attribute, value

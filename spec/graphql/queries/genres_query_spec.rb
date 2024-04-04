@@ -1,5 +1,6 @@
 describe Queries::GenresQuery do
   include_context :graphql
+  include_context :reset_repository, AnimeGenresV2Repository, true
 
   let(:query_string) do
     <<~GQL
@@ -24,15 +25,16 @@ describe Queries::GenresQuery do
       entryType: Types::GenreV2::EntryType['Anime']
     }
   end
-  let!(:anime_genre) { create :genre, :anime }
-  let!(:manga_genre) { create :genre, :manga }
+  let!(:anime_genre_v1) { create :genre, :anime }
+  let!(:anime_genre_v2) { create :genre_v2, :anime }
+  let!(:manga_genre_v2) { create :genre_v2, :manga }
 
   it do
     is_expected.to eq(
       'genres' => [{
-        'id' => anime_genre.id.to_s,
-        'name' => anime_genre.name,
-        'russian' => anime_genre.russian,
+        'id' => anime_genre_v2.id.to_s,
+        'name' => anime_genre_v2.name,
+        'russian' => anime_genre_v2.russian,
         'kind' => Types::GenreV2::Kind[:genre].to_s,
         'entryType' => Types::GenreV2::EntryType['Anime']
       }]

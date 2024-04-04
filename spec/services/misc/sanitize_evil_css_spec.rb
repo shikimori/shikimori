@@ -115,4 +115,16 @@ describe Misc::SanitizeEvilCss do
     let(:css) { ".b-rate .stars.background::before{content:'\\e83a\\e83a\\e83a\\e83a\\e83a'}" }
     it { is_expected.to eq css }
   end
+
+  context 'extract css from html' do
+    let(:css) do
+      <<~HTML.squish
+        <!DOCTYPE html>
+          <html blabla>
+          <style type='text/css'>body { background: red; }</style>
+          <style type='text/css'>body { background: blue; }</style>
+      HTML
+    end
+    it { is_expected.to eq "body { background: red; }\nbody { background: blue; }" }
+  end
 end
