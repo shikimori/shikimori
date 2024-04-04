@@ -5,7 +5,7 @@ class FriendLink < ApplicationRecord
   belongs_to :dst, class_name: 'User', touch: true
 
   antispam(
-    per_day: 300,
+    per_day: 50,
     user_id_key: :src_id
   )
 end
