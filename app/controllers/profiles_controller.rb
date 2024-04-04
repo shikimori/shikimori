@@ -22,6 +22,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   TOPICS_LIMIT = 8
   REVIEWS_LIMIT = 5
   COMMENTS_LIMIT = 20
+  FRIENDS_LIMIT = 40
   VERSIONS_PER_PAGE = 30
 
   # name location
@@ -47,7 +48,8 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
   def friends
     og page_title: i18n_t('friends')
-    redirect_to @resource.url if @resource.friends.none?
+    @collection = @view.friends_query
+    redirect_to @resource.url if @collection.none?
   end
 
   def clubs

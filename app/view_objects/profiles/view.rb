@@ -60,7 +60,7 @@ class Profiles::View < ViewObjectBase
     @friends_query ||= QueryObjectBase
       .new(@user.friends)
       .order(last_online_at: :desc)
-      .paginate(page, 100)
+      .paginate(page, ProfilesController::FRIENDS_LIMIT)
   end
 
   def common_info
