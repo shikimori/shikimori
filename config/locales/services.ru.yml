@@ -8,8 +8,8 @@ ru:
       dropped: брошено
   messages/create_notification:
     nickname_changed: >-
-      @{f:Ваша|m:Ваш} @{f:подруга|m:друг} %{old_nickname}
-      меняет никнейм на %{new_nickname}.
+      @{f:Твоя|m:Твой} @{f:подруга|m:друг} %{old_nickname}
+      @{f:изменила|m:изменил} никнейм на %{new_nickname}.
     user_registered_message: >-
       Добро пожаловать.
 
@@ -24,21 +24,21 @@ ru:
       Перед публикацией на форуме рекомендуем ознакомиться с
       [url=%{site_rules_url}]правилами сайта[/url].
 
-      Если возникнут вопросы или пожелания - пишите на форуме,
-      мы постараемся вам ответить.
+      Если возникнут вопросы или пожелания - пиши на форуме,
+      мы постараемся тебе ответить.
     moderatable_banned:
       without_reason: >-
-        Ваша [entry=%{topic_id}]%{entry_name}[/entry] перенесена в оффтоп
+        Твоя [entry=%{topic_id}]%{entry_name}[/entry] перенесена в оффтоп
       reason: >-
         по причине [quote=%{approver_nickname}]%{reason}[/quote]
     bad_email_message: >-
-      Наш почтовый сервис не смог доставить письмо на вашу почту %{email}.
+      Наш почтовый сервис не смог доставить письмо на твою почту %{email}.
 
-      Вы либо указали несуществующий почтовый ящик,
-      либо когда-то пометили одно из наших писем как спам.
+      Ты либо @{f:указала|m:указал} несуществующий почтовый ящик,
+      либо когда-то @{f:пометила|m:пометил} одно из наших писем как спам.
 
       Рекомендуем сменить электронный адрес в настройках профиля,
-      иначе при утрате пароля вы не сможете восстановить пароль от учётной записи.
+      иначе при утрате пароля ты не сможешь восстановить пароль от аккаунта.
 
 
   omniauth_service:
@@ -55,14 +55,14 @@ ru:
 
   messages/generate_body:
     profile_comment: >-
-      @{f:Написала|m:Написал} что-то в вашем
+      @{f:Написала|m:Написал} что-то в твоём
       <a class='b-link' href='%{profile_url}'>профиле</a>.
     friend_request:
-      add: Добавить @{f:её|m:его} в ваш список друзей в ответ?
-      added: "@{f:Добавила|m:Добавил} вас в список друзей."
+      add: Добавить @{f:её|m:его} в твой список друзей в ответ?
+      added: "@{f:Добавила|m:Добавил} тебя в список друзей."
     quoted_by_user: >-
       @{f:Написала|m:Написал} <a class="b-link" href="%{comment_url}">что-то</a>
-      вам %{linked_name}
+      тебе %{linked_name}
     anons: Анонсировано аниме %{linked_name}
     ongoing: Начат показ аниме %{linked_name}
     episode: Вышел %{episode} эпизод аниме %{linked_name}
@@ -70,33 +70,33 @@ ru:
     subscription_commented: Новые сообщения %{linked_name}
     warned:
       target: >-
-        Вам вынесено предупреждение за
+        Тебе вынесено предупреждение за
         %{target_type_name} %{linked_name}.
       missing: >-
-        Вам вынесено предупреждение за
+        Тебе вынесено предупреждение за
         %{target_type_name} (<em>удалён</em>).
-        Причина: «%{reason}».
+        Причина: "%{reason}".
       other: >-
-        Вам вынесено предупреждение. Причина: «%{reason}».
+        Тебе вынесено предупреждение. Причина: "%{reason}".
     banned:
       target: >-
-        Вы заблокированы на %{duration} за
+        Ты @{f:забанена|m:забанен} на %{duration} за
         %{target_type_name} %{linked_name}.
       missing: >-
-        Вы заблокированы на %{duration} за
+        Ты @{f:забанена|m:забанен} на %{duration} за
         %{target_type_name} (<em>удалён</em>).
-        Причина: «%{reason}».
+        Причина: "%{reason}".
       other: >-
-        Вы заблокированы на %{duration}. Причина: «%{reason}».
+        Ты @{f:забанена|m:забанен} на %{duration}. Причина: "%{reason}".
     club_request: Приглашение на вступление в клуб [club]%{club_id}[/club].
     version_accepted: >-
-      Ваша [version=%{version_id}]правка[/version] для
+      Твоя [version=%{version_id}]правка[/version] для
       [%{item_type}]%{item_id}[/%{item_type}] принята.
     version_rejected: >-
-      Ваша [version=%{version_id}]правка[/version] для
+      Твоя [version=%{version_id}]правка[/version] для
       [%{item_type}]%{item_id}[/%{item_type}] отклонена.
     version_rejected_with_reason: >-
-      Ваша [version=%{version_id}]правка[/version] для
+      Твоя [version=%{version_id}]правка[/version] для
       [%{item_type}]%{item_id}[/%{item_type}] отклонена по причине:
       [quote=%{moderator}]%{reason}[/quote]
 
@@ -117,15 +117,15 @@ ru:
 
   messages/check_spam_abuse:
     ban_text: >-
-      Вы заблокированы за спам.
-      Напишите на %{email}, если вы невиновны.
+      Ты @{f:забанена|m:забанен} за спам.
+      Напиши на %{email}, если ты @{f:невиновна|m:невиновен}.
 
   users/check_hacked:
     lock_text: >-
-      С этой учётной записи на сайте рассылается спам. Доступ к учётной записи заблокирован.
+      С этого аккаунта на сайте рассылается спам. Доступ к аккаунту забанен.
       Для восстановления доступа воспользуйтесь страницей восстановления пароля. %{recovery_url}
       Чтобы в дальнейшем избежать подобных ситуаций,
-      рекомендуем не использовать простые пароли вроде «123», «qwerty», «anime», «naruto» и т.п.
+      рекомендуем не использовать простые пароли вроде "123", "qwerty", "anime", "naruto" и т.п.
 
   moderations/banhammer:
     ban_reason: п.3 [url=%{url}]правил сайта[/url]
