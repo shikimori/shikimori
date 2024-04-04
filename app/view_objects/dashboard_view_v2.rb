@@ -35,6 +35,8 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
     )
   SQL
 
+  MIN_SCORE = DashboardView::MIN_SCORE
+
   def ongoings
     all_ongoings.shuffle.take(ONGOINGS_TAKE).map(&:decorate).sort_by(&:ranked)
   end
@@ -163,7 +165,7 @@ private
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
       .where("(#{CURRENT_SEASON_SQL.call}) OR (#{PRIOR_SEASON_SQL.call})")
-      .where('score > 7.3')
+      .where("score > #{MIN_SCORE}")
   end
 
   def old_ongoings
@@ -171,7 +173,7 @@ private
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
       .where.not("(#{CURRENT_SEASON_SQL.call}) OR (#{PRIOR_SEASON_SQL.call})")
-      .where('score > 7.3')
+      .where("score > #{MIN_SCORE}")
   end
 
   def critiques_views
