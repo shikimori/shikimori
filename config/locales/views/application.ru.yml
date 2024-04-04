@@ -9,7 +9,7 @@ ru:
         community: Сообщество
         misc: Разное
         info: Информация
-        profile: Учётная запись
+        profile: Аккаунт
         site: Сайт
       items:
         anime: :activerecord.models.anime
