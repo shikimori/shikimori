@@ -16,14 +16,14 @@ ru:
         чтобы каждый раунд разбивался не более, чем на три равных блока.
         Для 72 участников это будет 12, для 60 - 10.
       polls_will_be_reshuffled: При изменении этих параметров голосования будут перетасованы.
-      status: Состояние
+      status: Статус
       actions: Действия
       accept_candidates: Начать приём кандидатов от пользователей
       cleanup_candidates: Очистить голоса пользователей от накруток
       stop_accepting_candidates: Остановить приём кандидатов от пользователей
       generate_polls: Создать голосования
       shuffle_polls: Перетасовать голосования
-      sure_to_start_contest: Вы уверены? После запуска ничего изменить уже будет нельзя!
+      sure_to_start_contest: Ты @{f:уверена|m:уверен}? После запуска ничего изменить уже будет нельзя!
       start_contest: Запустить турнир
       actions_reload_page: Действия перезагружают страницу без сохранения прочих изменений.
       minimum_anime_needed_for_start: Для старта должно быть минимум %{min_members} аниме
@@ -60,7 +60,7 @@ ru:
 
     menu:
       edit_contest: Изменить опрос
-      contest_status: Состояние турнира
+      contest_status: Статус турнира
       contest_results: Результаты опроса
       contest_type: Условия турнира
       voters: Участники
@@ -70,8 +70,8 @@ ru:
     proposing:
       anime_title: Название аниме
       character_name: Имя персонажа
-      your_candidates_more: Ваши кандидаты (ещё %{proposals_left})
-      your_candidates: Ваши кандидаты
+      your_candidates_more: Твои кандидаты (ещё %{proposals_left})
+      your_candidates: Твои кандидаты
       no_candidates: нет кандидатов
 
     public_suggestions:
