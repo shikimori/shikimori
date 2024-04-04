@@ -11,25 +11,29 @@ class Api::V1::FriendsController < Api::V1Controller
   api :POST, '/friends/:id', 'Create a friend'
   description 'Requires `friends` oauth scope'
   def create
-    current_user.friends << @user
+    @resource = FriendLink.new src: current_user, dst: @user
 
-    # если дружба не взаимная, то надо создать сообщение с запросом в друзья
-    unless @user.friends.include? current_user
-      Message
-        .where(from_id: current_user.id, to_id: @user.id)
-        .where(kind: MessageType::FRIEND_REQUEST)
-        .delete_all
+    if @resource.save
+      # если дружба не взаимная, то надо создать сообщение с запросом в друзья
+      unless @user.friends.include? current_user
+        Message
+          .where(from_id: current_user.id, to_id: @user.id)
+          .where(kind: MessageType::FRIEND_REQUEST)
+          .delete_all
 
-      if @user.id != 1 && !spam? # no friend requests for morr
-        Message.create(
-          from_id: current_user.id,
-          to_id: @user.id,
-          kind: MessageType::FRIEND_REQUEST
-        )
+        if @user.id != 1 && !spam? # no friend requests for morr
+          Message.create(
+            from_id: current_user.id,
+            to_id: @user.id,
+            kind: MessageType::FRIEND_REQUEST
+          )
+        end
       end
+    else
+      render json: { errors: @resource.errors.full_messages },
+        status: :unprocessable_entity
     end
   rescue ActiveRecord::RecordNotUnique
-  ensure
     render json: { notice: add_notice }
   end
 
@@ -50,14 +54,14 @@ private
 
   def add_notice
     i18n_t(
-      "added_to_friends.#{@user.sex.present? ? @user.sex : 'male'}",
+      "added_to_friends.#{@user.sex.presence || 'male'}",
       nickname: @user.nickname
     )
   end
 
   def remove_notice
     i18n_t(
-      "removed_from_friends.#{@user.sex.present? ? @user.sex : 'male'}",
+      "removed_from_friends.#{@user.sex.presence || 'male'}",
       nickname: @user.nickname
     )
   end
