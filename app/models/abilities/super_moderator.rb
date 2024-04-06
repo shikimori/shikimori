@@ -20,6 +20,8 @@ class Abilities::SuperModerator
 
     can :access_changelog, ApplicationRecord
 
+    can :moderate_censored, Poster
+
     comment_abilities
     clubs_abilities
   end

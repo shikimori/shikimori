@@ -105,7 +105,7 @@ class ModerationPolicy
   end
 
   def unprocessed_censored_posters_count
-    return 0 unless !@moderation_filter || @user&.super_moderator?
+    return 0 unless !@moderation_filter || h.can?(:moderate_censored, Poster)
 
     censored_genre_v2_ids = MangaGenresV2Repository.instance
       .select(&:temporarily_posters_disabled?)

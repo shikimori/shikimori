@@ -149,7 +149,7 @@ header.head
               - else
                 span = t '.forums'
 
-        - if current_user.super_moderator?
+        - if can? :moderate_censored, Poster
           li
             a.b-link[
               href=moderations_posters_url
