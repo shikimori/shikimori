@@ -20,8 +20,7 @@ class Abilities::SuperModerator
 
     can :access_changelog, ApplicationRecord
 
-    can :moderate_censored, Poster
-
+    poster_abilities
     comment_abilities
     clubs_abilities
   end
@@ -61,6 +60,11 @@ class Abilities::SuperModerator
       manage_cheat_bot_role
       manage_ignored_in_achievement_statistics_role
     ], User
+  end
+
+  def poster_abilities
+    can %i[read accept reject cancel], Poster
+    can :moderate_censored, Poster
   end
 
   def comment_abilities

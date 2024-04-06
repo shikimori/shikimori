@@ -244,7 +244,14 @@ Rails.application.routes.draw do
     resources :publishers, only: %i[index edit update] do
       get '(/page/:page)' => :index, as: '', on: :collection
     end
-    resources :posters, only: %i[index]
+    resources :posters, only: %i[index] do
+      get '(state/:state)(/page/:page)' => :index, as: '', on: :collection
+      member do
+        post :accept
+        post :reject
+        post :cancel
+      end
+    end
   end
 
   namespace :autocomplete do
