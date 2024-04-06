@@ -20,12 +20,6 @@
       +brackets_surrounded
       margin-left: 4px
 
-.p-moderations-index.p-posters-index
-  .b-options-floated > a
-    span
-      +brackets_surrounded
-      margin-left: 4px
-
 .p-moderations-index.p-users-index,
 .p-moderations-show.p-roles-show
   .b-user
@@ -105,3 +99,30 @@
 
       .avatar
         margin-bottom: 2px
+
+.p-moderations-index.p-posters-index
+  .b-options-floated > a
+    span
+      +brackets_surrounded
+      margin-left: 4px
+
+  .posters
+    display: flex
+    flex-wrap: wrap
+    row-gap: 10px
+
+  .poster
+    display: flex
+    flex-basis: 20%
+    flex-direction: column
+    justify-content: space-between
+    min-width: 0 // to make ellipsis works
+
+    a
+      font-weight: bold
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+  .b-postloader
+    flex-basis: 100%

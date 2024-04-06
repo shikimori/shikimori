@@ -13,13 +13,14 @@ header.head
     = Poster.human_attribute_name "moderation_state/#{@state}"
     .count = @counts[@state]
 
-  - if @collection.any?
-    = render partial: 'moderations/posters/poster',
-      collection: @collection
-  - else
-    .b-nothing_here = t 'nothing_found'
+  .posters
+    - if @collection.any?
+      = render partial: 'moderations/posters/poster',
+        collection: @collection
+    - else
+      .b-nothing_here = t 'nothing_found'
 
-  - if @collection.next_page?
-    = render 'blocks/postloader',
-      next_url: current_url(page: @collection.next_page),
-      prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)
+    - if @collection.next_page?
+      = render 'blocks/postloader',
+        next_url: current_url(page: @collection.next_page),
+        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)

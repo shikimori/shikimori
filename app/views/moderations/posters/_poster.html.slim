@@ -1,4 +1,9 @@
-= render 'db_entries/poster',
-  db_entry: poster.target,
-  poster: poster,
-  derivative: :main
+.poster
+  div
+    = render 'db_entries/poster_magnificable',
+      resource: poster.target,
+      poster: poster,
+      is_main_poster: true
+
+  a.bubbled href=poster.target.decorate.url
+    = localized_name poster.target
