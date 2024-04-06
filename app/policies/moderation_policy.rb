@@ -107,14 +107,11 @@ class ModerationPolicy
   def unprocessed_censored_posters_count
     return 0 unless !@moderation_filter || h.can?(:moderate_censored, Poster)
 
-    censored_genre_v2_ids = MangaGenresV2Repository.instance
-      .select(&:temporarily_posters_disabled?)
-      .pluck(:id)
-
-    Poster
-      .where(is_approved: true)
-      .joins(:manga)
-      .where("genre_v2_ids && '{#{censored_genre_v2_ids.join(',')}}'")
+    Animes::CensoredPostersQuery
+      .call(
+        klass: Manga,
+        moderation_state: Types::Moderatable::State[:pending]
+      )
       .count
   end
 
