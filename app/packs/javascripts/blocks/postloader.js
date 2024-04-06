@@ -71,8 +71,11 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
 
   const $insertContent = $data.children();
 
-  $insertContent
-    .insertBefore($newPostloader)
+  (
+    $postloader.data('insert_into') ?
+      $($postloader.data('insert_into')).append($insertContent) :
+      $insertContent.insertBefore($newPostloader)
+  )
     .process(data.JS_EXPORTS) // .process must be called after new content is inserted into DOM
     .first()
     .trigger('postloader:success');

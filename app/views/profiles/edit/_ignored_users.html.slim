@@ -8,13 +8,14 @@
         tr
           th = t '.user_nickname'
           th.actions
-      tbody
+      tbody#ignored_users_tbody
         = render partial: 'profiles/ignored_user',
           collection: @collection,
           as: :user
     - if @collection.size == controller.class::IGNORED_PER_PAGE
       = render 'blocks/postloader',
         next_url: current_url(page: @page + 1),
+        insert_into: '#ignored_users_tbody'
 
 .block
   = form_tag ignores_url, method: :post, class: 'b-form' do |f|

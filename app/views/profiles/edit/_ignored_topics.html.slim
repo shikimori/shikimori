@@ -7,10 +7,11 @@
         th = t '.topic_author'
         th = t '.topic_name'
         th.actions
-    tbody
+    tbody#ignored_topics_tbody
       = render partial: 'profiles/ignored_topic',
         collection: @collection,
         as: :topic
   - if @collection.size == controller.class::IGNORED_PER_PAGE
     = render 'blocks/postloader',
       next_url: current_url(page: @page + 1),
+      insert_into: '#ignored_topics_tbody'
