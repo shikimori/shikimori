@@ -176,4 +176,5 @@
           - if @view.news_topic_views.next_page
             = render 'blocks/postloader',
               filter: 'b-topic',
-              next_url: root_page_url(page: @view.news_topic_views.next_page)
+              next_url: root_page_url(page: @view.news_topic_views.next_page),
+              pages_limit: 10

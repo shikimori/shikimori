@@ -24,7 +24,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   COMMENTS_LIMIT = 20
   FRIENDS_LIMIT = 40
   VERSIONS_PER_PAGE = 30
-  IGNORED_PER_PAGE = 4
+  IGNORED_PER_PAGE = 40
 
   # name location
   USER_PARAMS = %i[
