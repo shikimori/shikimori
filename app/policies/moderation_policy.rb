@@ -104,6 +104,20 @@ class ModerationPolicy
     pending_versions_size :links
   end
 
+  def unprocessed_censored_posters_count
+    return 0 unless !@moderation_filter || @user&.super_moderator?
+
+    censored_genre_v2_ids = MangaGenresV2Repository.instance
+      .select(&:temporarily_posters_disabled?)
+      .pluck(:id)
+
+    Poster
+      .where(is_approved: true)
+      .joins(:manga)
+      .where("genre_v2_ids && '{#{censored_genre_v2_ids.join(',')}}'")
+      .count
+  end
+
   def mal_more_info_count
     return 0 unless !@moderation_filter || @user&.version_moderator?
 

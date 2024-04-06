@@ -149,6 +149,14 @@ header.head
               - else
                 span = t '.forums'
 
+        - if current_user.super_moderator?
+          li
+            a.b-link[
+              href=moderations_posters_url
+            ]
+              | Unprocessed censored posters
+              - if moderation_policy.unprocessed_censored_posters_count.positive?
+                span.size = moderation_policy.unprocessed_censored_posters_count
         li
           a.b-link[
             href=moderations_mal_more_infos_url
