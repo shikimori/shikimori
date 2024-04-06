@@ -1,4 +1,5 @@
 class Poster < ApplicationRecord
+  IS_ALLOW_MODERATABLE_REJECTED_TO_CANCEL = true # must be before ModeratableConcern
   include ModeratableConcern
   include Uploaders::PosterUploader::Attachment(:image)
 

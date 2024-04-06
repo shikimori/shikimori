@@ -1,7 +1,7 @@
 module ModeratableConcern
   extend ActiveSupport::Concern
 
-  included do
+  included do |klass|
     include AASM
     belongs_to :approver,
       class_name: 'User',
@@ -37,7 +37,14 @@ module ModeratableConcern
       end
       event :cancel do
         transitions(
-          from: Types::Moderatable::State[:accepted],
+          from: (
+            klass.const_defined?(:IS_ALLOW_MODERATABLE_REJECTED_TO_CANCEL) ?
+            [
+              Types::Moderatable::State[:accepted],
+              Types::Moderatable::State[:rejected]
+            ] :
+            Types::Moderatable::State[:accepted]
+          ),
           to: Types::Moderatable::State[:pending]
         )
       end
