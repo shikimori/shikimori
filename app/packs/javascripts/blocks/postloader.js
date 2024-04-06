@@ -67,18 +67,24 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
     }
   }
 
-  $postloader.replaceWith($newPostloader);
+  if ($newPostloader.length) {
+    $postloader.replaceWith($newPostloader);
+  }
 
   const $insertContent = $data.children();
 
   (
     $postloader.data('insert_into') ?
       $($postloader.data('insert_into')).append($insertContent) :
-      $insertContent.insertBefore($newPostloader)
+      $insertContent.insertBefore($newPostloader.length ? $newPostloader : $postloader)
   )
     .process(data.JS_EXPORTS) // .process must be called after new content is inserted into DOM
     .first()
     .trigger('postloader:success');
+
+  if (!$newPostloader.length) {
+    $postloader.remove();
+  }
 
   // no need to set `locked: false` becaise $postloader is replaced by new content
   // $postloader.data({ locked: false });
