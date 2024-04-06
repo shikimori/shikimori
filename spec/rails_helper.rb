@@ -116,7 +116,9 @@ RSpec.configure do |config|
   config.after :each do
     [
       AnimeGenresRepository,
+      AnimeGenresV2Repository,
       MangaGenresRepository,
+      MangaGenresV2Repository,
       StudiosRepository,
       PublishersRepository
     ].each do |klass|
