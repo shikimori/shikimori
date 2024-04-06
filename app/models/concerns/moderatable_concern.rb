@@ -44,10 +44,6 @@ module ModeratableConcern
     end
   end
 
-  def to_offtopic!
-    topic.update_column :forum_id, Forum::OFFTOPIC_ID
-  end
-
 private
 
   def assign_approver approver:
@@ -55,10 +51,16 @@ private
   end
 
   def postprocess_rejection **_args
+    return unless respond_to? :topic
+
     to_offtopic!
 
     Messages::CreateNotification
       .new(self)
       .moderatable_banned(nil)
+  end
+
+  def to_offtopic!
+    topic.update_column :forum_id, Forum::OFFTOPIC_ID
   end
 end

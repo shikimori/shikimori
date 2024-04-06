@@ -36,9 +36,4 @@ class Poster < ApplicationRecord
   def cropped?
     crop_data.present?
   end
-
-private
-
-  def postprocess_rejection
-  end
 end
