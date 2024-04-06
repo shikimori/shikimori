@@ -5947,9 +5947,9 @@
       :filters: &282
         franchise: bleach
         not_anime_ids:
+        - 51060
         - 54171
         - 56442
-        - 51060
       :threshold: 96.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -15701,8 +15701,10 @@
         - 41377
         - 45108
         - 45109
+        - 45731
         - 48772
         - 48773
+        - 49471
         - 49669
         - 50563
         - 50735
@@ -15716,9 +15718,7 @@
         - 55883
         - 56889
         - 58428
-        - 45731
-        - 49471
-      :threshold: 92.4%
+      :threshold: 95.4%
       :generator: &808
         not_ignored_ids:
         - 38986
