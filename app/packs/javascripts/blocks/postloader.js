@@ -24,50 +24,53 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
     .data({ locked: true });
 
   const { data } = await axios.get(url);
-  const $data = $('<div>').append(`${data.content}${data.postloader}`);
-  console.log($data.html());
+  const $data = $('<div>').append(data.content);
 
   if (filter) {
     filterPresentEntries($data, $postloader.parent(), filter);
   }
 
   $postloader.trigger('postloader:before', [$data, data]);
-  // $data.process(data.JS_EXPORTS);
-  const $dataPostloader = $data.find('.b-postloader');
-  $dataPostloader.attr('data-page', page);
 
-  if (page >= ($dataPostloader.data('pages_limit') || 100)) {
-    $dataPostloader.attr('data-locked', true);
+  const $newPostloader = $(data.postloader);
+  if ($newPostloader.length) {
+    $newPostloader.attr('data-page', page);
 
-    const pagesLimit = $dataPostloader.data('pages_limit');
-    const $prevLink = $dataPostloader.find('a.prev');
-    const prevUrl = $prevLink.attr('href');
-    const match = prevUrl.match(/(?:\?|&|\/)page(?:=|\/)(\d+)/);
+    if (page >= ($newPostloader.data('pages_limit') || 100)) {
+      $newPostloader.attr('data-locked', true);
 
-    if (match) {
-      const currentPage = parseInt(match[1]) + 1;
-      const newPrevPage = currentPage - pagesLimit * 2 + 1;
+      const pagesLimit = $newPostloader.data('pages_limit');
+      const $prevLink = $newPostloader.find('a.prev');
+      const prevUrl = $prevLink.attr('href');
+      const match = prevUrl.match(/(?:\?|&|\/)page(?:=|\/)(\d+)/);
 
-      if (newPrevPage < 0) {
-        $prevLink.remove();
-      } else {
-        const newPrevUrl = prevUrl
-          .replace(/(\?|&|\/)page(=|\/)(\d+)/, `$1page$2${newPrevPage}`)
-          .replace(/&page=1$/, '')
-          .replace('?page=1&', '?')
-          .replace(/\?page=1$/, '')
-          .replace(/\/page\/1/, '')
-          .replace(/\/$/, '');
+      if (match) {
+        const currentPage = parseInt(match[1]) + 1;
+        const newPrevPage = currentPage - pagesLimit * 2 + 1;
 
-        $prevLink.attr('href', newPrevUrl);
+        if (newPrevPage < 0) {
+          $prevLink.remove();
+        } else {
+          const newPrevUrl = prevUrl
+            .replace(/(\?|&|\/)page(=|\/)(\d+)/, `$1page$2${newPrevPage}`)
+            .replace(/&page=1$/, '')
+            .replace('?page=1&', '?')
+            .replace(/\?page=1$/, '')
+            .replace(/\/page\/1/, '')
+            .replace(/\/$/, '');
+
+          $prevLink.attr('href', newPrevUrl);
+        }
       }
     }
   }
 
+  $postloader.replaceWith($newPostloader);
+
   const $insertContent = $data.children();
 
-  $postloader.replaceWith($insertContent);
   $insertContent
+    .insertBefore($newPostloader)
     .process(data.JS_EXPORTS) // .process must be called after new content is inserted into DOM
     .first()
     .trigger('postloader:success');
