@@ -25,6 +25,7 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
 
   const { data } = await axios.get(url);
   const $data = $('<div>').append(`${data.content}${data.postloader}`);
+  console.log($data.html());
 
   if (filter) {
     filterPresentEntries($data, $postloader.parent(), filter);

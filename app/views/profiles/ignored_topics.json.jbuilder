@@ -1,20 +1,17 @@
 json.content JsExports::Supervisor.instance.sweep(
   current_user,
   render(
-    partial: 'users/user',
+    partial: 'profiles/ignored_topic',
     collection: @collection,
-    locals: {
-      content_by: :named_avatar
-    },
+    as: :topic,
     formats: :html
   )
 )
 
-if @collection.size == controller.class::FRIENDS_LIMIT
+if @collection.size == controller.class::IGNORED_PER_PAGE
   json.postloader render(
     partial: 'blocks/postloader',
     locals: {
-      filter: 'b-user',
       next_url: current_url(page: @page + 1),
       prev_url: @page > 1 ? current_url(page: @page - 1) : nil
     },

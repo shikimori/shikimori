@@ -10,8 +10,11 @@
           th.actions
       tbody
         = render partial: 'profiles/ignored_user',
-          collection: @resource.ignored_users,
+          collection: @collection,
           as: :user
+    - if @collection.size == controller.class::IGNORED_PER_PAGE
+      = render 'blocks/postloader',
+        next_url: current_url(page: @page + 1),
 
 .block
   = form_tag ignores_url, method: :post, class: 'b-form' do |f|

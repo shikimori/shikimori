@@ -2,7 +2,7 @@
 class UserProfileDecorator < UserDecorator
   instance_cache :nickname_changes?,
     :all_compatibility, :favorites,
-    :main_comments_view, :preview_comments_view, :ignored_topics,
+    :main_comments_view, :preview_comments_view,
     :random_clubs
 
   # list of users with abusive content in profile
@@ -70,12 +70,6 @@ class UserProfileDecorator < UserDecorator
   def unconnected_providers
     User.omniauth_providers.reject { |platform| platform.in?(%i[google_apps yandex]) } -
       user_tokens.map { |v| v.provider.to_sym } - %i[facebook twitter]
-  end
-
-  def ignored_topics
-    object.topic_ignores.includes(:topic).map do |topic_ignore|
-      Topics::TopicViewFactory.new(false, false).build topic_ignore.topic
-    end
   end
 
 private
