@@ -3,7 +3,7 @@ header.head
   = render 'application/breadcrumbs'
 
 .block
-  .b-options-floated
+  .b-options-floated.mobile-tablet
     - @states.each do |state|
       - next if state == @state
       a href=current_url(state: (state unless state == @default_state))

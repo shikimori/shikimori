@@ -107,16 +107,23 @@
       margin-left: 4px
 
   .posters
-    display: flex
-    flex-wrap: wrap
     row-gap: 10px
+    display: flex
+
+    +iphone
+      flex-direction: column
+
+    +gte_ipad
+      flex-wrap: wrap
 
   .poster-cell
     display: flex
-    flex-basis: 20%
     flex-direction: column
     justify-content: space-between
     min-width: 0 // to make ellipsis works
+
+    +gte_ipad
+      flex-basis: 20%
 
     .name
       font-weight: bold
@@ -138,7 +145,7 @@
             display: flex
 
           .approver
-            display: non
+            display: none
 
       .approver
         background: rgba(#fff, 0.85)
@@ -164,10 +171,16 @@
         display: flex
         flex-direction: column
         height: 100%
-        left: 0
         position: absolute
         top: 0
-        width: 50%
+
+        +iphone
+          right: 0
+          width: 35%
+
+        +gte_ipad
+          left: 0
+          width: 50%
 
         +gte_laptop
           display: none
