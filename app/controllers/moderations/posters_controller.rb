@@ -17,7 +17,12 @@ class Moderations::PostersController < ModerationsController
     @collection = QueryObjectBase
       .new(scope(@state))
       .includes(:manga, :approver)
-      .paginate(page, PER_PAGE)
+
+    if params[:id]
+      @collection = @collection.where(id: params[:id])
+    end
+
+    @collection = @collection.paginate(page, PER_PAGE)
   end
 
   def accept
