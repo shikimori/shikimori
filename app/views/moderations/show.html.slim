@@ -154,7 +154,7 @@ header.head
             a.b-link[
               href=moderations_posters_url
             ]
-              | Unprocessed censored posters
+              = t 'moderations/posters_controller.page_title'
               - if moderation_policy.unprocessed_censored_posters_count.positive?
                 span.size = moderation_policy.unprocessed_censored_posters_count
         li
