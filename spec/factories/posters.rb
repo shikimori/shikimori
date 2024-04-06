@@ -19,5 +19,9 @@ FactoryBot.define do
     trait :image_data_file do
       image { Rails.root.join('spec/files/poster.jpg').open('r') }
     end
+
+    Poster.aasm(:moderation_state).states.map(&:name).each do |value|
+      trait(value.to_sym) { moderation_state { value } }
+    end
   end
 end

@@ -383,6 +383,8 @@ ru:
         description: Описание
         description_ru: Описание
         description_en: Описание (англ.)
+      poster:
+        <<: *moderation_states
 
     errors:
       messages:

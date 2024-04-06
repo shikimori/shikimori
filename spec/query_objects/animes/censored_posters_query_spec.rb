@@ -11,8 +11,7 @@ describe Animes::CensoredPostersQuery do
   let!(:poster_3) { create :poster, manga: manga_2 }
   let!(:poster_4) { create :poster, manga: manga_3 }
   let!(:poster_5) do
-    create :poster,
-      moderation_state: Types::Moderatable::State[:accepted],
+    create :poster, Types::Moderatable::State[:accepted],
       manga: manga_4,
       approver: user
   end
