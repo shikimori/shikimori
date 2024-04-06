@@ -189,9 +189,14 @@ en:
 
       ignored_users:
         user_nickname: User
-        stop_ignore: stop ignore
         no_ignored_users: No ignored users
         add_users: Add users
+
+    ignored_topics:
+      stop_ignore: stop ignore
+
+    ignored_users:
+      stop_ignore: stop ignore
 
     stats_bar:
       similar_users: similar users
