@@ -1,6 +1,5 @@
 class Moderations::PostersController < ModerationsController
   load_and_authorize_resource
-  before_action :check_access
 
   PER_PAGE = 20
 
@@ -53,9 +52,5 @@ private
     else
       scope.except(:order).order(updated_at: :desc)
     end
-  end
-
-  def check_access
-    authorize! :moderate_censored, Poster
   end
 end

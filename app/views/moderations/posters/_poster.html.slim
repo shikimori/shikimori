@@ -9,21 +9,21 @@
         = render 'users/user_16', user: poster.approver
 
     .actions
-      - if poster.may_accept?
+      - if poster.may_accept? && can?(:accept, poster)
         a.accept[
           href=accept_moderations_poster_path(poster)
           data-method='post'
           data-remote='true'
           data-type='html'
         ] = t '.accept'
-      - if poster.may_reject?
+      - if poster.may_reject? && can?(:reject, poster)
         a.reject[
           href=reject_moderations_poster_path(poster)
           data-method='post'
           data-remote='true'
           data-type='html'
         ] = t '.reject'
-      - if poster.may_cancel?
+      - if poster.may_cancel? && can?(:cancel, poster)
         a.cancel[
           href=cancel_moderations_poster_path(poster)
           data-method='post'
