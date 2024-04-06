@@ -16,7 +16,7 @@ class Moderations::PostersController < ModerationsController
 
     @collection = QueryObjectBase
       .new(scope(@state))
-      .includes(:manga)
+      .includes(:manga, :approver)
       .paginate(page, PER_PAGE)
   end
 

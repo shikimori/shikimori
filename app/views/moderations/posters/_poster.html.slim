@@ -4,6 +4,10 @@
       resource: poster.target,
       poster: poster,
       is_main_poster: true
+    - unless poster.moderation_pending?
+      .approver class=poster.moderation_state
+        = render 'users/user_16', user: poster.approver
+
     .actions
       - if poster.may_accept?
         a.accept[
@@ -27,5 +31,5 @@
           data-type='html'
        ] = t '.cancel'
 
-  a.bubbled href=poster.target.decorate.url
+  a.name.bubbled href=poster.target.decorate.url
     = localized_name poster.target

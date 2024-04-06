@@ -118,8 +118,9 @@
     justify-content: space-between
     min-width: 0 // to make ellipsis works
 
-    a
+    .name
       font-weight: bold
+      line-height: 2.5
       overflow: hidden
       text-overflow: ellipsis
       white-space: nowrap
@@ -135,6 +136,23 @@
         &:hover
           .actions
             display: flex
+
+          .approver
+            display: non
+
+      .approver
+        background: rgba(#fff, 0.85)
+        height: 32px
+        position: absolute
+        display: flex
+        align-items: center
+        justify-content: center
+        top: 0
+        width: 100%
+
+      +lte_ipad
+        .approver + .actions
+          top: 32px
 
       .actions
         display: flex
