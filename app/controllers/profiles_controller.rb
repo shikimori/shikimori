@@ -200,6 +200,18 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       .lazy_map(&:decorate)
   end
 
+  def ignored_topics
+    params[:section] = 'ignored_topics'
+    edit
+    render 'edit'
+  end
+
+  def ignored_users
+    params[:section] = 'ignored_users'
+    edit
+    render 'edit'
+  end
+
   def moderation
     if can? :manage, Ban
       og page_title: t('profiles.show.moderation')

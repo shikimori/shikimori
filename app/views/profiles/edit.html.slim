@@ -7,7 +7,7 @@
   .b-options-floated.mobile-phone
     - %w[account profile styles list notifications misc].each do |section|
       a[
-        class=(:selected if @section == section || section == ProfilesController::PARENT_SECTIONS[params[:section]])
+        class=(:selected if @section == section || section == ProfilesController::PARENT_SECTIONS[@section])
         href=@resource.edit_url(section: section)
       ] = t ".pages.#{section}"
   h2.subheadline = t :settings

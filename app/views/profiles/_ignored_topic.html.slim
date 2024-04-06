@@ -1,0 +1,13 @@
+tr
+  td
+    = render 'users/user_16', user: topic.user
+  td
+    a.b-link href=topic.urls.topic_url
+      = topic.topic_title
+  td.actions
+    a.b-js-link[
+      data-action=api_v2_topics_ignore_url(topic.id)
+      data-method="DELETE"
+      data-remote="true"
+      data-type="json"
+    ] = t '.stop_ignore'

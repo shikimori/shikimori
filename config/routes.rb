@@ -1046,7 +1046,8 @@ Rails.application.routes.draw do
       # get :stats
       get 'edit/:section' => :edit,
         as: :edit,
-        section: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
+        section: /account|profile|password|styles|list|notifications|misc/
+        # section: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
 
       get 'critiques(/page/:page)' => :critiques, as: :critiques
       get 'reviews(/page/:page)' => :reviews, as: :reviews
@@ -1055,6 +1056,8 @@ Rails.application.routes.draw do
       get 'topics(/page/:page)' => :topics, as: :topics
       get 'comments(/page/:page)' => :comments, as: :comments
       get 'versions(/page/:page)' => :versions, as: :versions
+      get 'ignored_topics(/page/:page)' => :ignored_topics, as: :ignored_topics
+      get 'ignored_users(/page/:page)' => :ignored_users, as: :ignored_users
     end
 
     get 'manga' => redirect { |_params, request|

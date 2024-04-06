@@ -69,10 +69,10 @@
   .c-column
     .block
       .mischeadline = t '.ignored_topics'
-      div: a.b-link href=@resource.edit_url(section: 'ignored_topics')
+      div: a.b-link href=ignored_topics_profile_url(@resource)
         = t '.show_list_of_ignored'
 
     .block
       .mischeadline = t '.ignored_users'
-      div: a.b-link href=@resource.edit_url(section: 'ignored_users')
+      div: a.b-link href=ignored_users_profile_url(@resource)
         = t '.show_list_of_ignored'
