@@ -12,10 +12,6 @@ pageLoad('profiles_edit', () => {
   if ($('.edit-page.list, .edit-page.misc').exists()) {
     pageListAndMisc();
   }
-
-  if ($('.edit-page.ignored_topics, .edit-page.ignored_users')) {
-    pageIgnores();
-  }
 });
 
 function pageAccount() {
@@ -90,29 +86,5 @@ function pageListAndMisc() {
   // успешное завершение
   $('.nickname-changes a').on('ajax:success', () => {
     $('.nickname-changes .cancel').click();
-  });
-}
-
-function pageIgnores() {
-  $('.b-editable_grid .actions .b-js-link')
-    .on('ajax:before', ({ currentTarget }) => {
-      $(currentTarget).hide();
-      $('<div class="ajax-loading vk-like"></div>').insertAfter(currentTarget);
-    })
-    .on('ajax:success', ({ currentTarget }) => {
-      $(currentTarget).closest('tr').remove();
-    });
-
-  $('.user_ids').completableVariant();
-
-  if ($('.user_ids').is(':appeared')) {
-    $('.user_ids').focus();
-  }
-
-  $('.user_ids').on('keydown', e => {
-    if ((e.keyCode === 10) || (e.keyCode === 13)) {
-      e.preventDefault();
-      $('.b-form').submit();
-    }
   });
 }
