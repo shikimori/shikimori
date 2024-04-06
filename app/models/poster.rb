@@ -1,4 +1,5 @@
 class Poster < ApplicationRecord
+  include ModeratableConcern
   include Uploaders::PosterUploader::Attachment(:image)
 
   belongs_to :anime, optional: true, touch: true
@@ -34,5 +35,10 @@ class Poster < ApplicationRecord
 
   def cropped?
     crop_data.present?
+  end
+
+private
+
+  def postprocess_rejection
   end
 end
