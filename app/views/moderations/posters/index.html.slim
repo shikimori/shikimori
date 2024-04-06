@@ -6,7 +6,7 @@ header.head
   .b-options-floated.mobile-tablet
     - @states.each do |state|
       - next if state == @state
-      a href=current_url(state: (state unless state == @default_state))
+      a href=current_url(state: (state unless state == @default_state), id: nil)
         = Poster.human_attribute_name "moderation_state/#{state}"
         span = @counts[state]
   .subheadline
