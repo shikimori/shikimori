@@ -2,8 +2,7 @@ class Animes::CensoredPostersQuery
   method_object %i[klass! moderation_state!]
 
   def call
-    Poster
-      .where(is_approved: true)
+    Poster.active
       .joins(@klass.name.downcase.to_sym)
       .where("genre_v2_ids && '{#{censored_genre_v2_ids.join(',')}}'")
       .where(moderation_state:)
