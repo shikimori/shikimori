@@ -138,6 +138,12 @@ en:
         accept: accept
         move_to_offtopic: move to offtopic
 
+    posters:
+      poster:
+        accept: Accept
+        reject: Reject
+        cancel: Cancel
+
     collections:
       index:
         <<: *defaults

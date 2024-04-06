@@ -22,17 +22,17 @@ class Moderations::PostersController < ModerationsController
 
   def accept
     @resource.accept! approver: current_user
-    redirect_back fallback_location: moderations_posters_url
+    render partial: 'moderations/posters/poster', object: @resource
   end
 
   def reject
     @resource.reject! approver: current_user
-    redirect_back fallback_location: moderations_posters_url
+    render partial: 'moderations/posters/poster', object: @resource
   end
 
   def cancel
     @resource.cancel!
-    redirect_back fallback_location: moderations_posters_url
+    render partial: 'moderations/posters/poster', object: @resource
   end
 
 private

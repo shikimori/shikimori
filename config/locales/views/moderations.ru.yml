@@ -138,6 +138,12 @@ ru:
         accept: принять
         move_to_offtopic: переместить в оффтопик
 
+    posters:
+      poster:
+        accept: Принять
+        reject: Отклонить
+        cancel: Отменить
+
     collections:
       index:
         <<: *defaults

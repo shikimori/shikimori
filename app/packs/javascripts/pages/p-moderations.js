@@ -141,3 +141,13 @@ pageLoad('users_index', () => {
 pageLoad('studios_edit', 'publishers_edit', () => {
   initArrayFieldApp();
 });
+
+pageLoad('posters_index', () => {
+  $('.posters')
+    .on('ajax:before', '.poster-cell', ({ currentTarget }) => {
+      currentTarget.classList.add('b-ajax');
+    })
+    .on('ajax:success','.poster-cell',  ({ currentTarget }, html) => {
+      $(currentTarget).replaceWith(html);
+    });
+});

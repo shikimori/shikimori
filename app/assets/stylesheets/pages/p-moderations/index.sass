@@ -127,5 +127,68 @@
     .poster
       position: relative
 
+      .b-image
+        vertical-align: baseline
+        display: block
+
+      +gte_laptop
+        &:hover
+          .actions
+            display: flex
+
+      .actions
+        display: flex
+        flex-direction: column
+        height: 100%
+        left: 0
+        position: absolute
+        top: 0
+        width: 50%
+
+        +gte_laptop
+          display: none
+
+        a
+          +link(#fff)
+          align-items: center
+          color: #fff !important
+          cursor: pointer
+          display: flex
+          font-size: 16px
+          font-weight: bold
+          height: 50%
+          justify-content: center
+          transition: background 0.25s
+
+        .accept
+          background: rgba($green, 0.65)
+
+          +gte_laptop
+            &:hover
+              background: rgba($green, 1)
+
+          &:active
+            background: rgba($green, 0.8)
+
+        .reject
+          background: rgba($red, 0.65)
+
+          +gte_laptop
+            &:hover
+              background: rgba($red, 1)
+
+          &:active
+            background: rgba($red, 0.8)
+
+        .cancel
+          background: rgba($gray, 0.65)
+
+          +gte_laptop
+            &:hover
+              background: rgba($gray, 1)
+
+          &:active
+            background: rgba($gray, 0.8)
+
   .b-postloader
     flex-basis: 100%

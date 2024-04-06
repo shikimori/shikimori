@@ -16,7 +16,7 @@ describe Moderations::PostersController do
     it do
       expect(resource).to be_moderation_accepted
       expect(resource).to_not be_changed
-      expect(response).to redirect_to moderations_posters_url
+      expect(response).to have_http_status :success
     end
   end
 
@@ -27,7 +27,7 @@ describe Moderations::PostersController do
     it do
       expect(resource).to be_moderation_rejected
       expect(resource).to_not be_changed
-      expect(response).to redirect_to moderations_posters_url
+      expect(response).to have_http_status :success
     end
   end
 
@@ -39,7 +39,7 @@ describe Moderations::PostersController do
     it do
       expect(resource).to be_moderation_pending
       expect(resource).to_not be_changed
-      expect(response).to redirect_to moderations_posters_url
+      expect(response).to have_http_status :success
     end
   end
 end
