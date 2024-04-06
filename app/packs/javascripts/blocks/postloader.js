@@ -32,7 +32,10 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
 
   $postloader.trigger('postloader:before', [$data, data]);
 
-  const $newPostloader = $(data.postloader);
+  const $newPostloader = data.postloader ?
+    $(data.postloader) :
+    $data.find('.b-postloader');
+
   if ($newPostloader.length) {
     $newPostloader.attr('data-page', page);
     $newPostloader.attr('data-pages_limit', $postloader.data('pages_limit'));
@@ -67,7 +70,7 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
     }
   }
 
-  if ($newPostloader.length) {
+  if (data.postloader) {
     $postloader.replaceWith($newPostloader);
   }
 
@@ -76,13 +79,13 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
   (
     $postloader.data('insert_into') ?
       $($postloader.data('insert_into')).append($insertContent) :
-      $insertContent.insertBefore($newPostloader.length ? $newPostloader : $postloader)
+      $insertContent.insertBefore(data.postloader ? $newPostloader : $postloader)
   )
     .process(data.JS_EXPORTS) // .process must be called after new content is inserted into DOM
     .first()
     .trigger('postloader:success');
 
-  if (!$newPostloader.length) {
+  if (!data.postloader) {
     $postloader.remove();
   }
 
