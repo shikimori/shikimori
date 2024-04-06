@@ -4599,6 +4599,7 @@
         - 38699
         - 43683
         - 54624
+        - 57519
       :threshold: 95%
       :generator: &208
         ignore_latest_ids:
@@ -5632,6 +5633,7 @@
         - 51309
         - 54050
         - 55720
+        - 58592
       :threshold: 95%
       :generator: &266
         ignore_latest_ids:
@@ -5947,6 +5949,7 @@
         not_anime_ids:
         - 54171
         - 56442
+        - 51060
       :threshold: 96.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -15713,6 +15716,8 @@
         - 55883
         - 56889
         - 58428
+        - 45731
+        - 49471
       :threshold: 92.4%
       :generator: &808
         not_ignored_ids:
@@ -15745,9 +15750,6 @@
         - 41781
         - 41780
         - 41782
-        - 45731
-        - 49471
-        - 45731
         - 57754
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -25305,6 +25307,7 @@
         - 54714
         - 79
         - 29803
+        - 52991
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *4
   neko_id: :kuudere
