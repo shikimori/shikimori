@@ -148,6 +148,8 @@ pageLoad('posters_index', () => {
       currentTarget.classList.add('b-ajax');
     })
     .on('ajax:success','.poster-cell',  ({ currentTarget }, html) => {
-      $(currentTarget).replaceWith(html);
+      const $html = $(html);
+      $(currentTarget).replaceWith($html);
+      $html.process();
     });
 });
