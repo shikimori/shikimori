@@ -35,6 +35,8 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
   const $newPostloader = $(data.postloader);
   if ($newPostloader.length) {
     $newPostloader.attr('data-page', page);
+    $newPostloader.attr('data-pages_limit', $postloader.data('pages_limit'));
+    $newPostloader.attr('data-insert_into', $postloader.data('insert_into'));
 
     if (page >= ($newPostloader.data('pages_limit') || 100)) {
       $newPostloader.attr('data-locked', true);
