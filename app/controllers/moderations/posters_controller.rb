@@ -38,10 +38,16 @@ class Moderations::PostersController < ModerationsController
 private
 
   def scope moderation_state
-    Animes::CensoredPostersQuery.call(
+    scope = Animes::CensoredPostersQuery.call(
       klass: Manga,
       moderation_state:
     )
+
+    if moderation_state == @default_state
+      scope
+    else
+      scope.except(:order).order(updated_at: :desc)
+    end
   end
 
   def check_access
