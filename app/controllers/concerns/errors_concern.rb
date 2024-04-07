@@ -168,8 +168,9 @@ private
     Rails.logger.error("#{error.message}\n#{error.backtrace.join("\n")}")
   end
 
-  def add_info_to_bugsnag info
-     event.add_metadata(:diagnostics, {
+  def add_info_to_bugsnag event
+    NamedLogger.zxc.info 'qqq'
+    event.add_metadata(:diagnostics, {
       ip: ExtractIpFromRequest.call(request)
     })
   end
