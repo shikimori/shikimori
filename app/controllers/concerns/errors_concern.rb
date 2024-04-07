@@ -8,11 +8,11 @@ module ErrorsConcern # rubocop:disable Metrics/ModuleLength
     ActionController::UnknownFormat
   ]
 
-  if defined? Bugsnag
-    before_bugsnag_notify :add_info_to_bugsnag
-  end
-
   included do
+    if defined? Bugsnag
+      before_bugsnag_notify :add_info_to_bugsnag
+    end
+
     if Rails.env.test?
       rescue_from StatusCodeError, with: :runtime_error
     else
@@ -169,9 +169,8 @@ private
   end
 
   def add_info_to_bugsnag event
-    NamedLogger.zxc.info 'qqq'
-    event.add_metadata(:diagnostics, {
-      ip: ExtractIpFromRequest.call(request)
+    event.add_metadata(:request, {
+      clientIp: ExtractIpFromRequest.call(request)
     })
   end
 end
