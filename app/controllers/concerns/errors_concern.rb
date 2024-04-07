@@ -1,4 +1,4 @@
-module ErrorsConcern
+module ErrorsConcern # rubocop:disable Metrics/ModuleLength
   extend ActiveSupport::Concern
 
   NOT_FOUND_ERRORS = [
@@ -8,6 +8,10 @@ module ErrorsConcern
     ActionController::UnknownFormat
   ]
 
+  if defined? Bugsnag
+    before_bugsnag_notify :add_info_to_bugsnag
+  end
+
   included do
     if Rails.env.test?
       rescue_from StatusCodeError, with: :runtime_error
@@ -16,7 +20,7 @@ module ErrorsConcern
     end
   end
 
-  def runtime_error error # rubocop:disable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
+  def runtime_error error # rubocop:disable rubocop:disable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
     if defined? Airbrake
       Airbrake.notify error,
         url: request.url,
@@ -162,5 +166,11 @@ private
     #   .send("#{Rails.env}_errors")
     #   .error("#{error.message}\n#{error.backtrace.join("\n")}")
     Rails.logger.error("#{error.message}\n#{error.backtrace.join("\n")}")
+  end
+
+  def add_info_to_bugsnag info
+     event.add_metadata(:diagnostics, {
+      ip: ExtractIpFromRequest.call(request)
+    })
   end
 end
