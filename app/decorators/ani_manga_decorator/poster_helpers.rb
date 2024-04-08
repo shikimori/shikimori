@@ -1,10 +1,11 @@
 module AniMangaDecorator::PosterHelpers
   def poster
     return if rkn_banned? || rkn_banned_poster?
+    return if poster_disabled_by_genres?
 
-    if poster_disabled_by_genres?
-      return super&.moderation_accepted? ? super : nil
-    end
+    # if poster_disabled_by_genres?
+    #   return super&.moderation_accepted? ? super : nil
+    # end
 
     super
   end
