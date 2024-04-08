@@ -12,8 +12,8 @@ class GenreV2 < ApplicationRecord
   boolean_attribute :active
   boolean_attribute :censored
 
-  EROTICA_IDS = [539, 540]
-  HENTAI_IDS = [12, 59]
+  EROTICA_IDS = [539, 601]
+  HENTAI_IDS = [12, 602]
   YAOI_IDS = [33, 65]
   YURI_IDS = [34, 75]
 
@@ -25,8 +25,8 @@ class GenreV2 < ApplicationRecord
 
   CENSORED_IDS = EROTICA_IDS + HENTAI_IDS + BANNED_IDS + AI_IDS
   TEMPORARILY_POSTERS_DISABLED_IDS = [
-    59, # Hentai
-    540 # Erotica
+    601, # Erotica
+    602 # Hentai
   ]
 
   def to_param
