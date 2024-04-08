@@ -421,13 +421,13 @@ private
     #   # Types::Ad::Type[:advrtr_240x400]
     # ],
     Types::Ad::Meta[:menu_240x400] => [
-      Types::Ad::Type[:special_x300], # домовой - remove 2024-04-07 23:59
+      # Types::Ad::Type[:special_x300], # домовой - remove 2024-04-07 23:59
       # # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x400]
       # # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      Types::Ad::Type[:special_x300], # домовой - remove 2024-04-07 23:59
+      # Types::Ad::Type[:special_x300], # домовой - remove 2024-04-07 23:59
       # # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600]
       # # Types::Ad::Type[:advrtr_240x400],
@@ -438,7 +438,7 @@ private
       # # Types::Ad::Type[:advrtr_x728]
     ],
     Types::Ad::Meta[:horizontal_x90] => [
-      Types::Ad::Type[:special_x894],
+      # Types::Ad::Type[:special_x894],
       # # Types::Ad::Type[:mt_728x90],
       # # Types::Ad::Type[:advrtr_x728]
       Types::Ad::Type[:yd_970x90]
@@ -447,7 +447,7 @@ private
       # Types::Ad::Type[:mt_footer_300x250]
     ],
     Types::Ad::Meta[:special_x1170] => [
-      Types::Ad::Type[:special_x1170] # домовой - remove 2024-04-07 23:59
+      # Types::Ad::Type[:special_x1170] # домовой - remove 2024-04-07 23:59
       # # Types::Ad::Type[:yd_1170x200]
     ]
   }
