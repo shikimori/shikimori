@@ -30,7 +30,9 @@ class GenreV2 < ApplicationRecord
   ]
 
   def to_param
-    "#{id}-#{name.tr ' ', '-'}"
+    temporarily_posters_disabled? ?
+      id :
+      "#{id}-#{name.tr ' ', '-'}"
   end
 
   def anime?
