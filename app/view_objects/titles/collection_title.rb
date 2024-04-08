@@ -23,7 +23,7 @@ class Titles::CollectionTitle
     @studios = Array studios
     @publishers = Array publishers
     @genres = Array genres
-    @genres_v2 = Array genres_v2.reject(&:temporarily_posters_disabled?)
+    @genres_v2 = Array(genres_v2).reject(&:temporarily_posters_disabled?)
     @seasons = parse_param season
   end
 
