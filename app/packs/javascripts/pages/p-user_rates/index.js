@@ -14,6 +14,9 @@ let listCache = [];
 let filterTimer = null;
 
 pageLoad('user_rates_index', () => {
+  $('.l-content')
+    .on('postloader:before', preprocessNextPage)
+    .on('postloader:success', processNextPage);
   applyListHandlers($('.l-content'));
   updateListCache();
 
@@ -180,10 +183,6 @@ function updateListCache() {
 
 // обработчики для списка
 function applyListHandlers($root) {
-  // хендлер подгрузки очередной страницы
-  $('.b-postloader', $root).on('postloader:before', insertNextPage);
-  $('.l-content').on('postloader:success', processNextPage);
-
   // открытие блока с редактирование записи по клику на строку с аниме
   $('tr.editable', $root).on('click', e => {
     const $editForm = $(e.currentTarget).next();
@@ -435,7 +434,7 @@ function applyNewValueHandlers($newValue) {
 }
 
 // подгрузка очередной страницы списка
-function insertNextPage(e, $data) {
+function preprocessNextPage(_e, $data) {
   const $header = $data.find('header:first');
   const $presentHeader = $(`header.${$header.attr('class')}`);
 
