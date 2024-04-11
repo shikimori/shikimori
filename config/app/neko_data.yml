@@ -4472,7 +4472,7 @@
       :algo: duration
       :filters: &201
         franchise: konosuba
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :konosuba
@@ -14699,7 +14699,7 @@
         not_anime_ids:
         - 36444
         - 40124
-      :threshold: 100%
+      :threshold: 98%
       :generator: &753
         ignore_latest_ids:
         - 36419
