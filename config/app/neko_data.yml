@@ -26316,7 +26316,6 @@
       :filters: &1182
         genre_v2_ids:
         - 119
-        - 140
         or:
           anime_ids:
           - 10012
@@ -26834,6 +26833,7 @@
           - 55310
           - 10460
           - 11739
+          - 55153
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *4
   neko_id: :moe
