@@ -32,7 +32,8 @@ class Poster < ApplicationRecord
   end
 
   def magnificable?
-    (image_data&.dig('metadata', 'width') || 0) > WIDTH
+    (image_data&.dig('metadata', 'width') || 0) > WIDTH ||
+      !!(image_data&.dig('metadata', 'width') && moderation_censored?)
   end
 
   def cropped?
