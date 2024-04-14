@@ -105,7 +105,7 @@ class ModerationPolicy
   end
 
   def unprocessed_censored_posters_count
-    return 0 unless !@moderation_filter || h.can?(:moderate_censored, Poster)
+    return 0 unless !@moderation_filter || h.can?(:censore, Poster)
 
     Animes::CensoredPostersQuery
       .call(

@@ -149,7 +149,7 @@ header.head
               - else
                 span = t '.forums'
 
-        - if can? :read, Poster
+        - if can? :censore, Poster
           li
             a.b-link[
               href=moderations_posters_url
