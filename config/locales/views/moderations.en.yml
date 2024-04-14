@@ -143,6 +143,7 @@ en:
         accept: Accept
         reject: Reject
         cancel: Cancel
+        censore: Censore
 
     collections:
       index:

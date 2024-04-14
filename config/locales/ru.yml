@@ -31,9 +31,7 @@ ru:
       moderation_state/pending: ожидает модерации
       moderation_state/accepted: принято
       moderation_state/rejected: отклонено
-      # events:
-      #   publish: Опубликовать
-      #   unpublish: Отменить публикацию
+      moderation_state/censored: зацензурено
     attributes:
       anime: &anime_attributes
         aired_on: Дата начала показа

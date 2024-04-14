@@ -143,6 +143,7 @@ ru:
         accept: Принять
         reject: Отклонить
         cancel: Отменить
+        censore: Зацензурить
 
     collections:
       index:

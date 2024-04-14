@@ -163,6 +163,9 @@
         &.accepted
           background: rgba(200, 255, 200, 0.85)
 
+        &.censored
+          background: rgba(200, 200, 255, 0.85)
+
       +lte_ipad
         .approver + .actions
           top: 32px
@@ -206,6 +209,16 @@
 
           &:active
             background: rgba($green, 0.8)
+
+        .censore
+          background: rgba($blue, 0.65)
+
+          +gte_laptop
+            &:hover
+              background: rgba($blue, 1)
+
+          &:active
+            background: rgba($blue, 0.8)
 
         .reject
           background: rgba($red, 0.65)

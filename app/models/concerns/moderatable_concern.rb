@@ -58,7 +58,7 @@ module ModeratableConcern
         state Types::Moderatable::State[:censored]
         event :censore do
           transitions(
-            from: Types::Moderatable::State.values - [Types::Moderatable::State[:censored]],
+            from: Types::Moderatable::State[:pending],
             to: Types::Moderatable::State[:censored],
             after: :assign_approver
           )

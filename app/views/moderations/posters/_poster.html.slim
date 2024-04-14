@@ -16,6 +16,13 @@
           data-remote='true'
           data-type='html'
         ] = t '.accept'
+      - if poster.may_censore? && can?(:censore, poster)
+        a.censore[
+          href=censore_moderations_poster_path(poster)
+          data-method='post'
+          data-remote='true'
+          data-type='html'
+       ] = t '.censore'
       - if poster.may_reject? && can?(:reject, poster)
         a.reject[
           href=reject_moderations_poster_path(poster)
