@@ -249,6 +249,7 @@ Rails.application.routes.draw do
       member do
         post :accept
         post :reject
+        post :censore
         post :cancel
       end
     end

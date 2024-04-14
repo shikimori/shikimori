@@ -31,6 +31,18 @@ describe Moderations::PostersController do
     end
   end
 
+  describe '#censore' do
+    include_context :authenticated, :super_moderator
+    subject! { post :censore, params: { id: poster.id } }
+    let(:poster) { create :poster, :accepted, manga:, approver: user }
+
+    it do
+      expect(resource).to be_moderation_censored
+      expect(resource).to_not be_changed
+      expect(response).to have_http_status :success
+    end
+  end
+
   describe '#cancel' do
     include_context :authenticated, :super_moderator
     subject! { post :cancel, params: { id: poster.id } }

@@ -34,6 +34,11 @@ class Moderations::PostersController < ModerationsController
     render partial: 'moderations/posters/poster', object: @resource
   end
 
+  def censore
+    @resource.censore! approver: current_user
+    render partial: 'moderations/posters/poster', object: @resource
+  end
+
   def cancel
     @resource.cancel!
     render partial: 'moderations/posters/poster', object: @resource

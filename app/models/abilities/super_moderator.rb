@@ -63,7 +63,7 @@ class Abilities::SuperModerator
   end
 
   def poster_abilities
-    can %i[read accept reject cancel], Poster
+    can %i[read accept reject censore cancel], Poster
     can :moderate_censored, Poster
   end
 
