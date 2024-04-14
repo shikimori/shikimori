@@ -37,16 +37,24 @@ module ModeratableConcern
       end
       event :cancel do
         transitions(
-          from: (
-            klass.const_defined?(:IS_ALLOW_MODERATABLE_REJECTED_TO_CANCEL) ?
-            [
-              Types::Moderatable::State[:accepted],
-              Types::Moderatable::State[:rejected]
-            ] :
-            Types::Moderatable::State[:accepted]
-          ),
+          from: [
+            Types::Moderatable::State[:accepted],
+            (Types::Moderatable::State[:rejected] if klass.const_defined?(:IS_ALLOW_MODERATABLE_REJECTED_TO_CANCEL)),
+            (Types::Moderatable::State[:censored] if klass.const_defined?(:IS_ALLOW_MODERATABLE_CENSORED))
+          ].compact,
           to: Types::Moderatable::State[:pending]
         )
+      end
+
+      if klass.const_defined?(:IS_ALLOW_MODERATABLE_CENSORED)
+        state Types::Moderatable::State[:censored]
+        event :censored do
+          transitions(
+            from: Types::Moderatable::State.values - [Types::Moderatable::State[:censored]],
+            to: Types::Moderatable::State[:censored],
+            after: :assign_approver
+          )
+        end
       end
     end
   end
