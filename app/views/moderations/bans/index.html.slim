@@ -5,23 +5,28 @@
     = render 'application/breadcrumbs'
 
   .block
-    .subheadline = t '.instruction'
+    .subheadline
+      - if can? :manage, Ban
+        = t '.instruction'
+      - else
+        = t '.moderators'
     .b-brief
       .moderators
         = render partial: 'users/user',
           collection: @moderators, locals: { content_by: :named_avatar }
 
-      ul.b-list.is-wide
-        li: p
-          a.b-link href=@site_rules.object.url = @site_rules.title
+      - if can? :manage, Ban
+        ul.b-list.is-wide
+          li: p
+            a.b-link href=@site_rules.object.url = @site_rules.title
+
+          - if @club
+              li
+                a.b-link href=@club.url
+                  = "#{Club.model_name.human} \"#{@club.name}\""
 
         - if @club
-            li
-              a.b-link href=@club.url
-                = "#{Club.model_name.human} \"#{@club.name}\""
-
-      - if @club
-        = @club.description_html
+          = @club.description_html
 
 - if can? :manage, Ban
   - if @pending && @pending.any?

@@ -6,6 +6,7 @@ en:
       expand_all: expand all
       history: History
       instruction: Instructions
+      moderators: Moderators
       queue: Queue
       queue_empty: Queue is empty
       filters: Filters
