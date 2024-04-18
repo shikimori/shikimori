@@ -62,7 +62,16 @@
     "webpack-merge": "5"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.24.1",
+    "eslint": "^9.0.0",
+    "eslint-import-resolver-webpack": "^0.13.8",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-vue": "^9.25.0",
+    "fsevents": "^2.3.1",
     "webpack-dev-server": "4",
     "webpackbar": "^6.0.1"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.1"
   }
 }
