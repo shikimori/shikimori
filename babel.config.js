@@ -1,4 +1,6 @@
-module.exports = function(api) {
+const { moduleExists } = require('shakapacker');
+
+module.exports = function config(api) {
   const validEnv = ['development', 'test', 'production'];
   const currentEnv = api.env();
   const isDevelopmentEnv = api.env('development');
@@ -7,53 +9,33 @@ module.exports = function(api) {
 
   if (!validEnv.includes(currentEnv)) {
     throw new Error(
-      'Please specify a valid `NODE_ENV` or ' +
-        '`BABEL_ENV` environment variables. Valid values are "development", ' +
-        '"test", and "production". Instead, received: ' +
-        JSON.stringify(currentEnv) +
-        '.'
+      `Please specify a valid NODE_ENV or BABEL_ENV environment variable. Valid values are "development", "test", and "production". Instead, received: "${JSON.stringify(
+        currentEnv
+      )}".`
     );
   }
 
   return {
     presets: [
-      isTestEnv && [
-        '@babel/preset-env',
-        {
-          targets: {
-            node: 'current'
-          }
-        }
-      ],
+      isTestEnv && ['@babel/preset-env', { targets: { node: 'current' } }],
       (isProductionEnv || isDevelopmentEnv) && [
         '@babel/preset-env',
         {
-          forceAllTransforms: true,
           useBuiltIns: 'entry',
-          corejs: 3,
-          modules: false,
+          corejs: '3.8',
+          modules: 'auto',
+          bugfixes: true,
           exclude: ['transform-typeof-symbol']
         }
       ]
     ].filter(Boolean),
     plugins: [
-      '@babel/plugin-syntax-dynamic-import',
-      isTestEnv && 'babel-plugin-dynamic-import-node',
-      '@babel/plugin-transform-destructuring',
-      ['@babel/plugin-proposal-decorators', { legacy: true }],
-      ['@babel/plugin-proposal-class-properties', { loose: true }],
-      ['@babel/plugin-proposal-private-methods', { loose: true }],
-      ['@babel/plugin-proposal-object-rest-spread', { useBuiltIns: true }],
-      ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
-      [
-        '@babel/plugin-transform-runtime',
-        { helpers: false, regenerator: true, corejs: false }
-      ],
-      ['@babel/plugin-transform-regenerator', { async: false }],
-      '@babel/plugin-proposal-optional-chaining',
-      '@babel/plugin-proposal-logical-assignment-operators',
-      ['@babel/plugin-proposal-pipeline-operator', { proposal: 'minimal' }],
-      '@babel/plugin-proposal-partial-application'
+      ['@babel/plugin-transform-runtime', { helpers: false }]
     ].filter(Boolean)
   };
 };
+
+
+// '@babel/plugin-proposal-logical-assignment-operators',
+// ['@babel/plugin-proposal-pipeline-operator', { proposal: 'minimal' }],
+// '@babel/plugin-proposal-partial-application'
