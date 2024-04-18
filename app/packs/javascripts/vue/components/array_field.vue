@@ -43,6 +43,7 @@
 import { mapGetters, mapState, mapActions } from 'vuex';
 import draggable from 'vuedraggable';
 import delay from 'delay';
+import _isEmpty from 'lodash/isEmpty';
 
 const PLAIN_AUTOCOMPLETE_TYPE = 'plain';
 
@@ -98,7 +99,7 @@ export default {
       }
     },
     removeEmpty(entry) {
-      if (Object.isEmpty(entry.value) && this.collection.length > 1) {
+      if (_isEmpty(entry.value) && this.collection.length > 1) {
         this.remove(entry.key);
         this.focusLast();
       }

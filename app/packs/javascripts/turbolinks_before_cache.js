@@ -1,3 +1,5 @@
+import isEmpty from 'lodash/isEmpty';
+
 import DynamicParser from '@/dynamic_elements/_parser';
 
 $(document).on('turbolinks:before-cache', () => {
@@ -19,7 +21,7 @@ $(document).on('turbolinks:before-cache', () => {
     .addClass(DynamicParser.PENDING_CLASS);
 
   const jsExportKeys = $(document.body).data('js_export_supervisor_keys');
-  if (!Object.isEmpty(jsExportKeys)) {
+  if (!isEmpty(jsExportKeys)) {
     dumpJsExports(jsExportKeys);
   }
 

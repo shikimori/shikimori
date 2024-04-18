@@ -1,3 +1,5 @@
+import camelCase from 'lodash/camelCase';
+
 const PUBLIC_FIELDS = [
   'id',
   'url',
@@ -14,7 +16,7 @@ export default class ShikiUser {
     this.data = data;
     this.isSignedIn = !!this.data.id;
 
-    PUBLIC_FIELDS.forEach(field => this[field.camelize(false)] = this.data[field]);
+    PUBLIC_FIELDS.forEach(field => this[camelCase(field)] = this.data[field]);
   }
 
   isTopicIgnored(topicId) {

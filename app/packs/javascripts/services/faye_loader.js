@@ -5,6 +5,7 @@ import { bind } from 'shiki-decorators';
 import Faye from 'faye';
 import cookies from 'js-cookie';
 import idle from '@morr/user-idle';
+import isEmpty from 'lodash/isEmpty';
 
 const WORLD_CHANGED_EVENTS = [
   'turbolinks:load',
@@ -50,7 +51,7 @@ export default class FayeLoader {
 
     $targets.each((index, node) => {
       const fayeChannels = $(node).data('faye');
-      if ((fayeChannels !== false) && Object.isEmpty(fayeChannels)) {
+      if ((fayeChannels !== false) && isEmpty(fayeChannels)) {
         console.warn('no faye channels found for', node);
       }
 

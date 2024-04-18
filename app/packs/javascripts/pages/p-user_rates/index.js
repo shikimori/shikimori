@@ -1,6 +1,7 @@
 import delay from 'delay';
 import Turbolinks from 'turbolinks';
 import { flash, isMobile } from 'shiki-utils';
+import isEmpty from 'lodash/isEmpty';
 
 import { COMMON_TOOLTIP_OPTIONS } from '@/utils/tooltip_options';
 import axios from '@/utils/axios';
@@ -91,7 +92,7 @@ pageLoad('user_rates_index', () => {
       $poster.children('.text')
         .html(data && data.text_html ? data.text_html : '')
         .process()
-        .toggleClass('hidden', Object.isEmpty(data.text_html));
+        .toggleClass('hidden', isEmpty(data.text_html));
 
       updateTextInCache(data);
       modal.close();
@@ -461,7 +462,7 @@ function preprocessNextPage(_e, $data) {
 
 function processNextPage() {
   updateListCache();
-  if (!Object.isEmpty($('.b-collection_search input').val())) {
+  if (!isEmpty($('.b-collection_search input').val())) {
     filterList();
   }
   $.force_appear();

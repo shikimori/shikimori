@@ -1,4 +1,5 @@
 import { chain, bind } from 'shiki-decorators';
+import isEmpty from 'lodash/isEmpty';
 
 const KEY_CODES = {
   enter: 13,
@@ -79,7 +80,7 @@ export default class GlobalHandler {
         $(document).on(event, this._handler(event));
       }
 
-      if (Object.isEmpty(this.events)) {
+      if (isEmpty(this.events)) {
         this._scheduleUnbind();
       }
       this.events[event] = {};
@@ -101,14 +102,14 @@ export default class GlobalHandler {
       this.events[event][keyCode].indexOf(handler),
       1
     );
-    if (Object.isEmpty(this.events[event][keyCode])) {
+    if (isEmpty(this.events[event][keyCode])) {
       delete this.events[event][keyCode];
     }
-    if (Object.isEmpty(this.events[event])) {
+    if (isEmpty(this.events[event])) {
       this._unbindEvent(event);
       delete this.events[event];
     }
-    if (Object.isEmpty(this.events)) {
+    if (isEmpty(this.events)) {
       this._unScheduleUnbind();
     }
   }

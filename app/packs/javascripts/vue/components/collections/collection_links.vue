@@ -56,13 +56,13 @@
         v-if='links.length < maxLinks'
       )
         div(
-          v-if="Object.isEmpty(groupedLinks[''])"
+          v-if="isEmpty(groupedLinks[''])"
         )
           .b-button(
             @click='addNewGroup'
           ) {{ I18n.t('frontend.actions.add') }}
         .button-container(
-          v-if="!Object.isEmpty(groupedLinks[''])"
+          v-if="!isEmpty(groupedLinks[''])"
         )
           div
             .b-button.disabled {{ I18n.t('frontend.actions.add') }}
@@ -90,8 +90,9 @@
 import { mapGetters, mapActions } from 'vuex';
 import draggable from 'vuedraggable';
 import autosize from 'autosize';
-
+import isEmpty from 'lodash/isEmpty';
 import { flash } from 'shiki-utils';
+
 import CollectionLink from './collection_link';
 
 function listIndex(node, index) {

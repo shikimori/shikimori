@@ -84,6 +84,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
+import isEmpty from 'lodash/isEmpty';
 
 const props = defineProps({
   link: { type: Object, required: true },
@@ -115,7 +116,7 @@ const kindOptionsWatchOnline = computed(() => (
 ));
 
 function fieldName(name) {
-  if (!Object.isEmpty(props.link.url)) {
+  if (!isEmpty(props.link.url)) {
     return `${props.resourceType.toLowerCase()}[external_links][][${name}]`;
   }
   return '';
@@ -140,7 +141,7 @@ function removeSelf(isFocus) {
 }
 
 function removeIfEmpty(link) {
-  if (Object.isEmpty(link.url) && collection.value.length > 1) {
+  if (isEmpty(link.url) && collection.value.length > 1) {
     removeSelf(true);
   }
 }

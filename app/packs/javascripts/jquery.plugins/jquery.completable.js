@@ -1,4 +1,5 @@
 import delay from 'delay';
+import isEmpty from 'lodash/isEmpty';
 
 const DB_ENTRY_URL_REGEXP =
   /\/(animes|mangas|characters|people|ranobe|clubs|collections)\/[A-z]*(\d+)([\w-]*)/;
@@ -16,7 +17,7 @@ const DB_ENTRY_KIND_REPLACEMENTS = {
 function paramToName([_, kind, id, name]) {
   return name
     .split('-')
-    .filter(v => !Object.isEmpty(v))
+    .filter(v => !isEmpty(v))
     .map(v => v.capitalize())
     .join(' ') || `${DB_ENTRY_KIND_REPLACEMENTS[kind][window.LOCALE]}#${id}`;
 }

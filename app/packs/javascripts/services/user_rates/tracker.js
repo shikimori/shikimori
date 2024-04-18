@@ -1,4 +1,5 @@
-/* global: JS_EXPORTS */
+import isEmpty from 'lodash/isEmpty';
+
 import TrackCatalogEntry from './track_catalog_entry';
 import TrackUserRate from './track_user_rate';
 import UpdateCatalogEntry from './update_catalog_entry';
@@ -6,7 +7,7 @@ import UpdateUserRate from './update_user_rate';
 
 export default class UserRatesTracker {
   static track(js_exports, $root) {
-    if (Object.isEmpty(js_exports?.user_rates)) { // eslint-disable-line camelcase
+    if (isEmpty(js_exports?.user_rates)) { // eslint-disable-line camelcase
       return;
     }
 

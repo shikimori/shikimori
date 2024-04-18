@@ -1,7 +1,9 @@
 // TODO: refactor to normal classes
-import inNewTab from '@/utils/in_new_tab';
 import urlParse from 'url-parse';
 import TinyUri from 'tiny-uri';
+import isEmpty from 'lodash/isEmpty';
+
+import inNewTab from '@/utils/in_new_tab';
 
 export const ORDER_FIELD = 'order'; // 'order-by'
 const DEFAULT_ORDER = 'ranked';
@@ -329,7 +331,7 @@ export default function(basePath, currentUrl, changeCallback) {
       // hide sortings if there is anything in the search
       syncSortings();
 
-      if (Object.isEmpty(this.params[ORDER_FIELD])) {
+      if (isEmpty(this.params[ORDER_FIELD])) {
         return this.add(ORDER_FIELD, DEFAULT_ORDER);
       }
     }

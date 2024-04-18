@@ -1,3 +1,5 @@
+import isEmpty from 'lodash/isEmpty';
+
 import axios from '@/utils/axios';
 
 pageLoad('contests_show', 'contests_edit', () => {
@@ -41,7 +43,7 @@ pageLoad('contests_show', () => {
     });
 
   $('.proposing form').on('submit', function (e) {
-    if (Object.isEmpty($(this).find('#contest_suggestion_item_id').val())) {
+    if (isEmpty($(this).find('#contest_suggestion_item_id').val())) {
       e.preventDefault();
     }
   });
