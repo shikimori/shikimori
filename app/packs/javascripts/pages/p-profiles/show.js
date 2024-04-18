@@ -1,5 +1,6 @@
 import axios from '@/utils/axios';
 import dayjs from '@/utils/dayjs';
+import capitalize from 'lodash/capitalize';
 
 import { isMobile } from 'shiki-utils';
 
@@ -101,7 +102,7 @@ pageLoad('profiles_show', () => {
           label = date.getFullYear();
           options.index_label = index + 3;
         } else if (options.prior.dates.from.getMonth() !== date.getMonth()) {
-          label = dayjs(date).format('MMM').capitalize();
+          label = capitalize(dayjs(date).format('MMM'));
           options.index_label = index + 3;
         } else if (options.range <= 120) { // and entry.value > 0
           label = date.getDate();

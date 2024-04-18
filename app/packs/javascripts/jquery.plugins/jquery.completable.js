@@ -1,4 +1,5 @@
 import delay from 'delay';
+import capitalize from 'lodash/capitalize';
 import isEmpty from 'lodash/isEmpty';
 
 const DB_ENTRY_URL_REGEXP =
@@ -18,7 +19,7 @@ function paramToName([_, kind, id, name]) {
   return name
     .split('-')
     .filter(v => !isEmpty(v))
-    .map(v => v.capitalize())
+    .map(v => capitalize(v))
     .join(' ') || `${DB_ENTRY_KIND_REPLACEMENTS[kind][window.LOCALE]}#${id}`;
 }
 

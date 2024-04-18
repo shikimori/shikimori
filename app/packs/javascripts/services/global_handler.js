@@ -1,5 +1,6 @@
-import { chain, bind } from 'shiki-decorators';
+import capitalize from 'lodash/capitalize';
 import isEmpty from 'lodash/isEmpty';
+import { chain, bind } from 'shiki-decorators';
 
 const KEY_CODES = {
   enter: 13,
@@ -130,7 +131,7 @@ export default class GlobalHandler {
   }
 
   _handler(event) {
-    return this[`_on${event.capitalize()}`];
+    return this[`_on${capitalize(event)}`];
   }
 
   _scheduleUnbind() {
