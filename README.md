@@ -175,6 +175,13 @@ Install the Chrome Extension NIM (Node Inspector Manager): https://chrome.google
 RAILS_ENV=development NODE_ENV=development NODE_PATH=node_modules node --inspect-brk node_modules/.bin/webpack-dev-server --progress --color --config config/webpack/development.js
 ```
 
+### Shakapacker debugger
+https://nodejs.org/en/docs/inspector/
+Install the Chrome Extension NIM (Node Inspector Manager): https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj
+```sh
+./bin/shakapacker-dev-server --debug-shakapacker
+```
+
 
 ### Webpack visualizer
 https://chrisbateman.github.io/webpack-visualizer/

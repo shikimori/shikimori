@@ -31,7 +31,18 @@ default: &default
 
   # enable to debug shiki-editor
   # additional_paths: ['../']
-  additional_paths: []
+  additional_paths:
+    - node_modules/delay
+    - node_modules/get-js
+    - node_modules/p-defer
+    - node_modules/swiper
+    - node_modules/shiki-utils
+    - node_modules/shiki-editor
+    - node_modules/shiki-uploader
+    - node_modules/shiki-decorators
+    - node_modules/prosemirror-utils
+    - node_modules/lowlight
+    - node_modules/tiny-uri
 
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
@@ -45,18 +56,18 @@ default: &default
   # Select whether the compiler will use SHA digest ('digest' option) or most most recent modified timestamp ('mtime') to determine freshness
   compiler_strategy: digest
 
-  transpile_dependencies:
-    - delay
-    - get-js
-    - p-defer
-    - swiper
-    - shiki-utils
-    - shiki-editor
-    - shiki-uploader
-    - shiki-decorators
-    - prosemirror-utils
-    - lowlight
-    - tiny-uri
+  # transpile_dependencies: []
+  #   - delay
+  #   - get-js
+  #   - p-defer
+  #   - swiper
+  #   - shiki-utils
+  #   - shiki-editor
+  #   - shiki-uploader
+  #   - shiki-decorators
+  #   - prosemirror-utils
+  #   - lowlight
+  #   - tiny-uri
 
 development:
   <<: *default

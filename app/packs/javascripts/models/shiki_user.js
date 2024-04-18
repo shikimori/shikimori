@@ -7,6 +7,7 @@ const PUBLIC_FIELDS = [
   'is_comments_auto_collapsed',
   'is_comments_auto_loaded'
 ];
+import { bind } from 'shiki-decorators';
 
 export default class ShikiUser {
   constructor(data) {
