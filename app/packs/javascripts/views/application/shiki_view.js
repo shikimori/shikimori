@@ -1,5 +1,6 @@
 import delay from 'delay';
 import { bind, memoize } from 'shiki-decorators';
+import difference from 'lodash/difference';
 
 import View from '@/views/application/view';
 import axios from '@/utils/axios';
@@ -38,7 +39,7 @@ export default class ShikiView extends View {
     const $spoilers = this.$checkHeightNode.find(SPOILER_CLASSES.join(','));
 
     if ($spoilers.length) {
-      imageNodes = imageNodes.subtract($spoilers.find('img').toArray());
+      imageNodes = difference(imageNodes, $spoilers.find('img').toArray());
     }
 
     await delay(10);

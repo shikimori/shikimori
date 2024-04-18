@@ -1,7 +1,8 @@
 // TODO: refactor to normal classes
-import urlParse from 'url-parse';
 import TinyUri from 'tiny-uri';
+import difference from 'lodash/difference';
 import isEmpty from 'lodash/isEmpty';
+import urlParse from 'url-parse';
 
 import inNewTab from '@/utils/in_new_tab';
 
@@ -243,7 +244,7 @@ export default function(basePath, currentUrl, changeCallback) {
     remove(field, rawValue) {
       // т.к. сюда значение приходит как с !, так и без, то удалять надо оба варианта
       const value = removeBang(rawValue);
-      this.params[field] = this.params[field].subtract([value, `!${value}`]);
+      this.params[field] = difference(this.params[field], [value, `!${value}`]);
 
       try { // because there can bad order, and it will break jQuery selector
         const $li = $(`li[data-field='${field}'][data-value='${value}']`, $root);

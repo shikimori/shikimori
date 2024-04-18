@@ -113,8 +113,7 @@ export default class FayeLoader {
   }
 
   subscribe(channels) {
-    Object.keys(channels)
-      .subtract(Object.keys(this.subscriptions))
+    (Object.keys(channels) |> difference(?, Object.keys(this.subscriptions)))
       .forEach(channel => {
         const subscription = this.client.subscribe(channel, data => {
           // это колбек, в котором мы получили уведомление от faye
