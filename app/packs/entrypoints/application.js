@@ -24,13 +24,13 @@ window[key1] = require('jquery'); // eslint-disable-line import/newline-after-im
 const key2 = 'jQuery';
 window[key2] = require('jquery'); // eslint-disable-line import/newline-after-import
 
-// import 'magnific-popup';
-// import 'magnific-popup/dist/magnific-popup.css';
-// import 'nouislider/dist/nouislider.css';
-//
-// import 'jquery-appear-original';
-// import 'jquery-mousewheel';
-//
+import 'magnific-popup';
+import 'magnific-popup/dist/magnific-popup.css';
+import 'nouislider/dist/nouislider.css';
+
+import 'jquery-appear-original';
+import 'jquery-mousewheel';
+
 // // used in views/styles/edit.js
 // import 'codemirror/lib/codemirror.css';
 // import 'codemirror/theme/solarized.css';
