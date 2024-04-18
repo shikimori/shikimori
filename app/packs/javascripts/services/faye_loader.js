@@ -4,6 +4,7 @@
 import Faye from 'faye';
 import cookies from 'js-cookie';
 import difference from 'lodash/difference';
+import intersection from 'lodash/intersection';
 import idle from '@morr/user-idle';
 import isEmpty from 'lodash/isEmpty';
 import { bind } from 'shiki-decorators';
@@ -107,30 +108,31 @@ export default class FayeLoader {
   }
 
   update(channels) {
-    Object.keys(channels)
-      .intersect(Object.keys(this.subscriptions))
-      .forEach(channel => this.subscriptions[channel].node = channels[channel]);
+    (
+      Object.keys(channels) |> intersection(?, Object.keys(this.subscriptions))
+    ).forEach(channel => this.subscriptions[channel].node = channels[channel]);
   }
 
   subscribe(channels) {
-    (Object.keys(channels) |> difference(?, Object.keys(this.subscriptions)))
-      .forEach(channel => {
-        const subscription = this.client.subscribe(channel, data => {
-          // это колбек, в котором мы получили уведомление от faye
-          if (IS_FAYE_LOGGING) { console.log(['faye:received', channel, data]); }
-          // сообщения от самого себя не принимаем
-          if (data.publisher_faye_id === this.id) { return; }
+    (
+      Object.keys(channels) |> difference(?, Object.keys(this.subscriptions))
+    ).forEach(channel => {
+      const subscription = this.client.subscribe(channel, data => {
+        // это колбек, в котором мы получили уведомление от faye
+        if (IS_FAYE_LOGGING) { console.log(['faye:received', channel, data]); }
+        // сообщения от самого себя не принимаем
+        if (data.publisher_faye_id === this.id) { return; }
 
-          this.subscriptions[channel].node.trigger(`faye:${data.event}`, data);
-        });
-
-        this.subscriptions[channel] = {
-          node: channels[channel],
-          channel: subscription
-        };
-
-        if (IS_FAYE_LOGGING) { console.log(`faye subscribed ${channel}`); }
+        this.subscriptions[channel].node.trigger(`faye:${data.event}`, data);
       });
+
+      this.subscriptions[channel] = {
+        node: channels[channel],
+        channel: subscription
+      };
+
+      if (IS_FAYE_LOGGING) { console.log(`faye subscribed ${channel}`); }
+    });
   }
 
   @bind
