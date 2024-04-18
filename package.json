@@ -13,8 +13,6 @@
     "@morr/image-promise": "^7.0.2",
     "@morr/user-idle": "^2.0.0",
     "@savingsunited/vue3-tags-input": "^3.0.14",
-    "@types/babel__core": "7",
-    "@types/webpack": "5",
     "@vue/compiler-sfc": "^3.4.23",
     "autosize": "^6.0.1",
     "axios": "^1.6.8",
