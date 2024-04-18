@@ -38,16 +38,13 @@ import 'jquery-mousewheel';
 // import 'codemirror/addon/dialog/dialog.css';
 // import 'codemirror/addon/display/fullscreen.css';
 // import 'codemirror/addon/search/matchesonscrollbar.css';
-//
-// import '@/application';
-// import '@/turbolinks_load';
+
+import '@/application';
+pageLoad('tests_vue', async () => {
+  const { createApp } = await import(/* webpackChunkName: "vue" */ 'vue');
+  const { default: Test } = await import('@/vue/components/tests/test');
+
+  createApp(Test).mount('#vue_app');
+});
+import '@/turbolinks_load';
 // import '@/turbolinks_before_cache';
-
-
-
-// pageLoad('tests_vue', async () => {
-//   const { createApp } = await import(/* webpackChunkName: "vue" */ 'vue');
-//   const { default: Test } = await import('@/vue/components/tests/test');
-//
-//   createApp(Test).mount('#vue_app');
-// });

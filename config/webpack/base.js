@@ -5,7 +5,7 @@ const {
 } = require('shakapacker/package/config');
 
 // const addSassGlobImporter = require('./utils/add_sass_glob_importer');
-// const excludeVueInCssImporter = require('./utils/exclude_vue_in_css_importer');
+const excludeVueInCssImporter = require('./utils/exclude_vue_in_css_importer');
 const transpileDependencies = require('./utils/transpile_dependencies');
 // const addVueSvgLoader = require('./utils/add_vue_svg_loader');
 const optimizationConfig = require('./config/optimization');
@@ -26,7 +26,7 @@ const customConfig = merge(
   // //     )
   // //   )
   // // ),
-  webpackConfig,
+  excludeVueInCssImporter(webpackConfig),
   optimizationConfig,
   pluginsConfig,
   {
