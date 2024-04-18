@@ -7,7 +7,6 @@ const {
 module.exports = {
   plugins: [
     new ProvidePlugin({
-      I18n: 'i18n-js',
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',

@@ -14,6 +14,9 @@ window.pageLoad = pageLoad;
 import pageUnload from '@/utils/page_unload'; // eslint-disable-line import/newline-after-import
 window.pageUnload = pageUnload;
 
+import i18n from '@/utils/i18n'; // eslint-disable-line import/newline-after-import
+window.I18n = i18n;
+
 const requireJqueryPlugins = require.context('@/jquery.plugins', true);
 requireJqueryPlugins.keys().forEach(requireJqueryPlugins);
 
@@ -32,7 +35,6 @@ import AchievementsNotifier from '@/services/achievements_notifier';
 import bindings from '@/utils/bindings';
 
 import '@/utils/p';
-import '@/i18n/translations';
 
 import dayjs from '@/utils/dayjs'; // eslint-disable-line import/newline-after-import
 window.dayjs = dayjs;
@@ -54,7 +56,6 @@ $(document).one('turbolinks:load', () => {
   //   window.atatus.setUser(window.SHIKI_USER.id);
   // }
 
-  window.I18n = I18n;
   I18n.locale = window.LOCALE;
   dayjs.locale(window.LOCALE);
 

@@ -32,7 +32,7 @@ public/uploads
 .capistrano
 .byebug_history
 
-app/packs/javascripts/i18n/translations.js
+app/packs/javascripts/i18n/translations.json
 public/javascripts/i18n.js
 spec/test_files/*
 /public/packs

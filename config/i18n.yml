@@ -1,6 +1,6 @@
 ---
 translations:
-  - file: "app/packs/javascripts/i18n/translations.js"
+  - file: "app/packs/javascripts/i18n/translations.json"
     patterns:
       - '*.activerecord.attributes.user_rate.*'
       - '*.activerecord.attributes.collection_link.*'
