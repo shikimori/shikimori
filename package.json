@@ -65,7 +65,7 @@
     "uevent": "^2.2.0",
     "vue": "^3.4.23",
     "vue-loader": "^17.4.2",
-    "vuedraggable": "^2.24.3",
+    "vuedraggable": "^4.1.0",
     "vuex": "^4.1.0",
     "webfontloader": "^1.6.28",
     "webpack": "5",
