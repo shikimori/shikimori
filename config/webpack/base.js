@@ -19,13 +19,13 @@ delete webpackConfig.optimization;
 const customConfig = merge(
   pugConfig,
   vueConfig,
-  // // addVueSvgLoader(
-  // //   excludeVueInCssImporter(
-  // //     addSassGlobImporter(
-  // //       transpileDependencies(webpackConfig)
-  // //     )
-  // //   )
-  // // ),
+  // addVueSvgLoader(
+  //   excludeVueInCssImporter(
+  //     addSassGlobImporter(
+  //       transpileDependencies(webpackConfig)
+  //     )
+  //   )
+  // ),
   excludeVueInCssImporter(webpackConfig),
   optimizationConfig,
   pluginsConfig,
