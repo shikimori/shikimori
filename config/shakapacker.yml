@@ -31,18 +31,18 @@ default: &default
 
   # enable to debug shiki-editor
   # additional_paths: ['../']
-  additional_paths:
-    - node_modules/delay
-    - node_modules/get-js
-    - node_modules/p-defer
-    - node_modules/swiper
-    - node_modules/shiki-utils
-    - node_modules/shiki-editor
-    - node_modules/shiki-uploader
-    - node_modules/shiki-decorators
-    - node_modules/prosemirror-utils
-    - node_modules/lowlight
-    - node_modules/tiny-uri
+  additional_paths: []
+    # - node_modules/delay
+    # - node_modules/get-js
+    # - node_modules/p-defer
+    # - node_modules/swiper
+    # - node_modules/shiki-utils
+    # - node_modules/shiki-editor
+    # - node_modules/shiki-uploader
+    # - node_modules/shiki-decorators
+    # - node_modules/prosemirror-utils
+    # - node_modules/lowlight
+    # - node_modules/tiny-uri
 
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
