@@ -16,7 +16,6 @@ module.exports = function(api) {
   }
 
   return {
-    sourceType: 'unambiguous',
     presets: [
       isTestEnv && [
         '@babel/preset-env',
@@ -33,33 +32,11 @@ module.exports = function(api) {
           useBuiltIns: 'entry',
           corejs: 3,
           modules: false,
-          bugfixes: true,
-          // loose: true,
           exclude: ['transform-typeof-symbol']
-
-          // latest webpacker config https://github.com/rails/webpacker/blob/master/package/babel/preset.js
-          // useBuiltIns: 'entry',
-          // corejs: '3.8',
-          // modules: false,
-          // bugfixes: true,
-          // loose: true,
-          // exclude: ['transform-typeof-symbol']
-
-          // config for fast-async
-          // forceAllTransforms: true,
-          // useBuiltIns: 'usage',
-          // corejs: '3',
-          // modules: false,
-          // exclude: [
-          //   'transform-typeof-symbol',
-          //   'transform-async-to-generator',
-          //   'transform-regenerator'
-          // ]
         }
       ]
     ].filter(Boolean),
     plugins: [
-      'babel-plugin-macros',
       '@babel/plugin-syntax-dynamic-import',
       isTestEnv && 'babel-plugin-dynamic-import-node',
       '@babel/plugin-transform-destructuring',
@@ -70,17 +47,9 @@ module.exports = function(api) {
       ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
       [
         '@babel/plugin-transform-runtime',
-        {
-          helpers: false,
-          regenerator: true,
-          // config for fast-async
-          // regenerator: false,
-          corejs: false
-        }
+        { helpers: false, regenerator: true, corejs: false }
       ],
       ['@babel/plugin-transform-regenerator', { async: false }],
-      // config for fast-async
-      // ['module:fast-async', { spec: true }],
       '@babel/plugin-proposal-optional-chaining',
       '@babel/plugin-proposal-logical-assignment-operators',
       ['@babel/plugin-proposal-pipeline-operator', { proposal: 'minimal' }],
