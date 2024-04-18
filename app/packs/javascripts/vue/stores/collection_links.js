@@ -1,3 +1,7 @@
+import groupBy from 'lodash/groupBy';
+import sortBy from 'lodash/sortBy';
+import uniq from 'lodash/uniq';
+
 let uniqId = 987654321;
 const newId = () => uniqId += 1;
 
@@ -19,8 +23,8 @@ module.exports = {
   getters: {
     collection(store) { return store.collection; },
     links(store) { return store.collection.links; },
-    groups(store) { return store.collection.links.map(v => v.group).unique(); },
-    groupedLinks(store) { return store.collection.links.groupBy(v => v.group); }
+    groups(store) { return store.collection.links.map(v => v.group) |> uniq(?); },
+    groupedLinks(store) { return store.collection.links |> groupBy(?, v => v.group); }
   },
 
   actions: {
@@ -112,8 +116,8 @@ module.exports = {
     },
 
     SWAP_GROUPS({ collection }, { groupLeft, groupRight }) {
-      const groups = collection.links.map(v => v.group).unique();
-      const links = collection.links.sortBy(v => groups.indexOf(v.group));
+      const groups = collection.links.map(v => v.group) |> uniq(?);
+      const links = collection.links |> sortBy(?, v => groups.indexOf(v.group));
 
       const leftIndex = links.findIndex(v => v.group === groupLeft);
       const leftItems = links.filter(v => v.group === groupLeft);
