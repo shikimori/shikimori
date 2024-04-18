@@ -1,3 +1,6 @@
+import compact from 'lodash/compact';
+import maxBy from 'lodash/maxBy';
+
 // TODO: refactor to view object
 $.fn.extend({
   bar(options) {
@@ -44,7 +47,7 @@ function simpleBar($chart, options) {
   }
 
   const intervalsCount = $chart.data('intervals_count');
-  let maximum = stats.max((v, _k) => v[field])?.[field];
+  let maximum = maxBy(stats, v => v[field])?.[field];
   let flattened = false;
 
   if ($chart.data('flattened')) {
@@ -133,11 +136,11 @@ function simpleBar($chart, options) {
         ` style="width: ${100.0 / intervalsCount}%;"` :
         '';
 
-    const cssClasses = [
+    const cssClasses = compact([
       'value',
       percent < 10 ? 'narrow' : null,
       entry[field] > 99 ? 'mini' : null
-    ].compact();
+    ])
 
     $chart.append(
       `<div class="line"${cssStyles}>` +

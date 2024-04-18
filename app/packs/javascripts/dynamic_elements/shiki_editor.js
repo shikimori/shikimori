@@ -3,6 +3,8 @@ import pDefer from 'p-defer';
 import { bind } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
+import compact from 'lodash/compact';
+
 import axios from '@/utils/axios';
 import preventEvent from '@/utils/prevent_event';
 import ShikiView from '@/views/application/shiki_view';
@@ -402,7 +404,7 @@ export default class ShikiEditor extends ShikiView {
     let reply;
 
     if (url) {
-      const ids = [id, userId].compact();
+      const ids = compact([id, userId]);
       reply = `[${type}=${ids.join(';')}], `;
     } else {
       const ids = [id, userId, nickname];
