@@ -24,8 +24,7 @@ gem 'non-stupid-digest-assets', github: 'afdev82/non-stupid-digest-assets', bran
 gem 'sassc-rails'
 gem 'turbolinks'
 gem 'uglifier'
-gem 'webpacker'
-# gem 'execjs', '2.7' # do no upgrade until upgrade to ruby 2.7 https://github.com/rails/execjs/issues/99
+gem 'shakapacker'
 gem 'sprockets-rails'
 
 # templates
