@@ -12,6 +12,13 @@ import { BodyBackground } from './body_background';
 const PAGE_BORDER_REGEXP = /\/\* AUTO=page_border \*\/ .*[\r\n]?/;
 const STICKY_MENU_REGEXP = /\/\* AUTO=sticky_menu \*\/ .*[\r\n]?/;
 
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/solarized.css';
+import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/addon/dialog/dialog.css';
+import 'codemirror/addon/display/fullscreen.css';
+import 'codemirror/addon/search/matchesonscrollbar.css';
+
 export class EditStyles extends View {
   async initialize() {
     this.cssCache = {};
