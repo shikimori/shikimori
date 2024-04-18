@@ -1,4 +1,5 @@
 import camelCase from 'lodash/camelCase';
+import remove from 'lodash/remove';  // Import lodash's remove function
 
 const PUBLIC_FIELDS = [
   'id',
@@ -32,6 +33,6 @@ export default class ShikiUser {
   }
 
   unignoreTopic(topicId) {
-    return this.data.ignored_topics.remove(parseInt(topicId));
+    return remove(this.data.ignored_topics, (topic) => topic === parseInt(topicId));
   }
 }
