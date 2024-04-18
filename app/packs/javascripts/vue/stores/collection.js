@@ -51,7 +51,7 @@ export default {
 
   getters: {
     collection(store) { return store.collection; },
-    isEmpty(store) {
+    isCollectionEmpty(store) {
       return store.collection.every(item =>
         isEmpty(item.url) && isEmpty(item.value) && isEmpty(item.name)
       );
