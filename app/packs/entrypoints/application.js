@@ -5,25 +5,25 @@
 // import sugar from 'javascripts/vendor/sugar'; // eslint-disable-line import/newline-after-import
 // sugar.extend();
 
-// import WebFont from 'webfontloader';
-//
-// $(() => (
-//   setTimeout(() => (
-//     WebFont.load({
-//       google: {
-//         families: ['Open Sans:400,600,700']
-//       },
-//       classes: false,
-//       events: false
-//     })
-//   ), 50)
-// ));
-//
-// const key1 = '$';
-// window[key1] = require('jquery'); // eslint-disable-line import/newline-after-import
-// const key2 = 'jQuery';
-// window[key2] = require('jquery'); // eslint-disable-line import/newline-after-import
-//
+import WebFont from 'webfontloader';
+
+$(() => (
+  setTimeout(() => (
+    WebFont.load({
+      google: {
+        families: ['Open Sans:400,600,700']
+      },
+      classes: false,
+      events: false
+    })
+  ), 50)
+));
+
+const key1 = '$';
+window[key1] = require('jquery'); // eslint-disable-line import/newline-after-import
+const key2 = 'jQuery';
+window[key2] = require('jquery'); // eslint-disable-line import/newline-after-import
+
 // import 'magnific-popup';
 // import 'magnific-popup/dist/magnific-popup.css';
 // import 'nouislider/dist/nouislider.css';

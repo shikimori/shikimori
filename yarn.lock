@@ -2625,6 +2625,16 @@ jest-worker@^27.4.5:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
+jquery-appear-original@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/jquery-appear-original/-/jquery-appear-original-0.6.2.tgz#a1341a727e15348639ea5fe2fe4ec4737a170c05"
+  integrity sha512-PxvsyDld5SthfNwL19vh4aga/2hYCK/zH90l1/aYxFAD6IyG53Y1kHt5hjaT1Ch3u6ztdHWx93olsjNXSN0gEw==
+
+jquery-mousewheel@^3.1.13:
+  version "3.1.13"
+  resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
+  integrity sha512-GXhSjfOPyDemM005YCEHvzrEALhKDIswtxSHSR2e4K/suHVJKJxxRCGz3skPjNxjJjQa9AVSGGlYjv1M3VLIPg==
+
 jquery@^3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
@@ -2771,6 +2781,11 @@ magic-string@^0.30.8:
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.4.15"
 
+magnific-popup@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/magnific-popup/-/magnific-popup-1.1.0.tgz#3e7362c5bd18f6785fe99e59d013e20af33d3049"
+  integrity sha512-ghSa/1TKsOUL6ZlHfcfFCoB9Wms2nqaDdBEPh6QX9jFYQyMkUu7ciU1mrxedWWq4NM2m1C/llhHKLt6GKRYOzg==
+
 make-dir@^3.0.2, make-dir@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-3.1.0.tgz#415e967046b3a7f1d185277d84aa58203726a13f"
@@ -2911,6 +2926,11 @@ normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
+
+nouislider@^15.7.1:
+  version "15.7.1"
+  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-15.7.1.tgz#77d55e47d9b4cd771728515713df43b489db9705"
+  integrity sha512-5N7C1ru/i8y3dg9+Z6ilj6+m1EfabvOoaRa7ztpxBSKKRZso4vA52DGSbBJjw5XLtFr/LZ9SgGAXqyVtlVHO5w==
 
 npm-run-path@^4.0.1:
   version "4.0.1"
@@ -3865,6 +3885,11 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   integrity sha512-O84QOnr0icsbFGLS0O3bI5FswxzRr8/gHwWkDlQFskhSPryQXvrTMxjxGP4+iWYoauLoBvfDpkrOauZ+0iZpDA==
   dependencies:
     minimalistic-assert "^1.0.0"
+
+webfontloader@^1.6.28:
+  version "1.6.28"
+  resolved "https://registry.yarnpkg.com/webfontloader/-/webfontloader-1.6.28.tgz#db786129253cb6e8eae54c2fb05f870af6675bae"
+  integrity sha512-Egb0oFEga6f+nSgasH3E0M405Pzn6y3/9tOVanv/DLfa1YBIgcv90L18YyWnvXkRbIM17v5Kv6IT2N6g1x5tvQ==
 
 webpack-assets-manifest@5:
   version "5.2.1"
