@@ -3,17 +3,11 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.21.4",
-    "@babel/plugin-proposal-decorators": "^7.21.0",
-    "@babel/plugin-proposal-logical-assignment-operators": "^7.20.7",
-    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
-    "@babel/plugin-proposal-partial-application": "^7.18.9",
-    "@babel/plugin-proposal-pipeline-operator": "^7.18.9",
     "@babel/preset-env": "^7.21.4",
-    "@babel/runtime": "^7.21.0",
+    "@babel/runtime": "^7.21.4",
     "@ballcat/vue-cropper": "^1.0.4",
     "@morr/image-promise": "^7.0.2",
     "@morr/user-idle": "^2.0.0",
-    "@rails/webpacker": "5.4.3",
     "@savingsunited/vue3-tags-input": "^3.0.14",
     "@vue/compiler-sfc": "^3.3.4",
     "autoprefixer": "^10.4.13",
@@ -87,7 +81,8 @@
     "webpack-sources": "^3.2.3"
   },
   "devDependencies": {
-    "babel-eslint": "11.0.0-beta.2",
+    "@babel/eslint-parser": "^7.18.2",
+    "@webpack-cli/serve": "^2.0.1",
     "es-check": "^6.0.0",
     "eslint": "^8.30.0",
     "eslint-import-resolver-webpack": "^0.13.2",
@@ -105,9 +100,5 @@
     "presets": [
       "./node_modules/shakapacker/package/babel/preset.js"
     ]
-  },
-  "browserslist": [
-    "defaults"
-  ]
-
+  }
 }

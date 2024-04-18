@@ -11,7 +11,7 @@ const addVueSvgLoader = require('./utils/add_vue_svg_loader');
 const optimizationConfig = require('./config/optimization');
 const pluginsConfig = require('./config/plugins');
 const vueConfig = require('./rules/vue');
-const pugConfig = require('./rules/pub');
+const pugConfig = require('./rules/pug');
 
 const webpackConfig = generateWebpackConfig();
 delete webpackConfig.optimization;
