@@ -3,7 +3,7 @@
   input(
     type='hidden'
     :name='emptyInputName || `${resourceType.toLowerCase()}[${field}][]`'
-    v-if='isCollectionEmpty'
+    v-if='isEmpty'
   )
   .b-nothing_here(
     v-if='!collection.length'
