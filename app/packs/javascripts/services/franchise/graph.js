@@ -1,6 +1,9 @@
 // TODO: cleanup decaffeinate artefacts
 import d3 from 'd3';
 
+import max from 'lodash/max';
+import min from 'lodash/min';
+
 import { FranchiseNode } from './node';
 import { ShikiMath } from '@/services/shiki_math';
 
@@ -33,7 +36,7 @@ export class FranchiseGraph {
 
   _prepare_data() {
     let original_size;
-    this.max_weight = this.links_data.map(v => v.weight).max() * 1.0;
+    this.max_weight = max(this.links_data.map(v => v.weight)) * 1.0;
     this.size = (original_size = this.nodes_data.length);
     // console.log "nodes: #{@size}, max_weight: #{@max_weight}"
 
@@ -59,8 +62,8 @@ export class FranchiseGraph {
     this.screen_height = this.screen_width;
 
     // dates for positioning on Y axis
-    const min_date = this.nodes_data.map(v => v.date).min();
-    const max_date = this.nodes_data.map(v => v.date).max();
+    const min_date = min(this.nodes_data.map(v => v.date));
+    const max_date = max(this.nodes_data.map(v => v.date));
 
     // do not use min/max dates if they belong to multiple entries
     if (this.nodes_data.filter(v => v.date === min_date).length === 1) {

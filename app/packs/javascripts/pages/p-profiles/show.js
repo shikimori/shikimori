@@ -1,5 +1,7 @@
 import axios from '@/utils/axios';
 import dayjs from '@/utils/dayjs';
+
+import last from 'lodash/last';
 import capitalize from 'lodash/capitalize';
 
 import { isMobile } from 'shiki-utils';
@@ -93,7 +95,7 @@ pageLoad('profiles_show', () => {
         if (index < options.index_label) { return ''; }
 
         const { from, to } = entry.dates;
-        const date = entry !== stats.last() ? from : to;
+        const date = entry !== last(stats) ? from : to;
 
         if (index === 0) {
           options.index_label = 3;

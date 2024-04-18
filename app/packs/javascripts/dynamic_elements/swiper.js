@@ -57,7 +57,7 @@ export default class Swiper extends View {
   }
 
   get width() {
-    return this.$root.width().floor();
+    return Math.floor(this.$root.width());
   }
 
   @memoize
@@ -264,10 +264,10 @@ export default class Swiper extends View {
     const scaleRatio = this.areaHeight / scaledImageHeight;
     const visiblePercent = scaleRatio * 100;
 
-    const marginTopPercent = [
+    const marginTopPercent = Math.min(
       10,
       ((100 - visiblePercent) / 2 / scaleRatio).round(2)
-    ].min();
+    );
 
     if (!this.isVideo) {
       this.$links.css('margin-top', marginTopPercent > 0 ? `-${marginTopPercent}%` : '');
@@ -295,7 +295,7 @@ export default class Swiper extends View {
     if (this.desiredHeight !== 0) {
       height = this.desiredHeight;
     } else if (this.isEagerCropping) {
-      height = (width / COVER_RATIO).floor();
+      height = Math.floor(width / COVER_RATIO);
     }
 
     this.areaWidth = width;

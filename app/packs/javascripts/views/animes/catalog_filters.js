@@ -4,6 +4,7 @@ import urlParse from 'url-parse';
 
 import difference from 'lodash/difference';
 import isEmpty from 'lodash/isEmpty';
+import last from 'lodash/last';
 
 import inNewTab from '@/utils/in_new_tab';
 
@@ -204,7 +205,7 @@ export default function(basePath, currentUrl, changeCallback) {
 
     // выбор элемента
     add(field, value) {
-      if ((field === Object.keys(this.params).last()) && (this.params[field].length > 0)) {
+      if ((field === last(Object.keys(this.params))) && (this.params[field].length > 0)) {
         this.set(field, value);
       } else {
         this.params[field].push(value);
@@ -264,22 +265,24 @@ export default function(basePath, currentUrl, changeCallback) {
       let pathFilters = '';
       const locationFilters = urlParse(window.location.href, true).query;
 
-      Object.forEach(this.params, function(values, field) {
-        delete locationFilters[field];
+      Object
+        .entries(this.params)
+        .forEach(([field, values]) => {
+          delete locationFilters[field];
 
-        if (field === ORDER_FIELD && (values[0] === DEFAULT_ORDER) &&
-            !location.href.match(/\/list\/(anime|manga)/)) {
-          return;
-        }
-
-        if (GET_FILTERS.includes(field)) {
-          if ((values != null ? values.length : undefined)) {
-            locationFilters[field] = values.join(',');
+          if (field === ORDER_FIELD && (values[0] === DEFAULT_ORDER) &&
+              !location.href.match(/\/list\/(anime|manga)/)) {
+            return;
           }
-        } else if (values != null ? values.length : undefined) {
-          pathFilters += `/${field}/${values.join(',')}`;
-        }
-      });
+
+          if (GET_FILTERS.includes(field)) {
+            if ((values != null ? values.length : undefined)) {
+              locationFilters[field] = values.join(',');
+            }
+          } else if (values != null ? values.length : undefined) {
+            pathFilters += `/${field}/${values.join(',')}`;
+          }
+        });
 
       if (page && (page !== 1)) {
         pathFilters += `/page/${page}`;
@@ -307,10 +310,12 @@ export default function(basePath, currentUrl, changeCallback) {
         .match(/[\w-]+\/[^/]+/g);
 
       const uriQuery = urlParse(window.location.href, true).query;
-      Object.forEach(uriQuery, function(values, field) {
-        if (!GET_FILTERS.includes(field)) { return; }
-        parts = (parts || []).concat([`${field}/${values}`]);
-      });
+      Object
+        .entries(uriQuery)
+        .forEach(([field, values]) => {
+          if (!GET_FILTERS.includes(field)) { return; }
+          parts = (parts || []).concat([`${field}/${values}`]);
+        });
 
       (parts || []).forEach(match => {
         const field = match.split('/')[0];

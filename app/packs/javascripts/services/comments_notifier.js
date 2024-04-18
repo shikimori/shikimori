@@ -129,7 +129,7 @@ export default class CommentsNotifier {
   }
 
   _move() {
-    this.blockTop = [0, this.maxTop - this.scroll].max();
+    this.blockTop = Math.max(0, this.maxTop - this.scroll);
     this._$container().css({ top: this.blockTop });
   }
 }
