@@ -38,4 +38,14 @@ const customConfig = merge(
   }
 );
 
+// environment.loaders.get('babel').exclude =
+//   /node_modules\/(?!delay|p-defer|get-js|swiper|shiki-utils|shiki-editor|shiki-uploader|shiki-decorators|prosemirror-utils|lowlight|tiny-uri)/; // eslint-disable-line max-len
+// environment.loaders.get('file').exclude =
+//   /\.(js|vue|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
+
+// environment.config.resolve.modules = [
+//   // fix vue load in ../shiki-editor
+//   path.join(__dirname, '../../node_modules')
+// ];
+
 module.exports = customConfig;
