@@ -6,12 +6,12 @@ module.exports = {
         // use: ['pug-loader']
         oneOf: [
           {
-            exclude: /\.vue$/,
-            use: ['pug-loader']
+            resourceQuery: /^\?vue/,
+            use: ['pug-plain-loader']
           },
           {
-            include: /\.vue$/,
-            use: ['pug-plain-loader']
+            exclude: /\.vue$/,
+            use: ['pug-loader']
           }
         ]
       }
