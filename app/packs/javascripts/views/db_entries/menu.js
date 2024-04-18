@@ -68,17 +68,16 @@ export class AnimesMenu extends View {
       this._tooltipContent(data);
     });
 
-    $('.person-tooltip', this.$historyBlock).tooltip(
-      Object.add(ANIME_TOOLTIP_OPTIONS, {
-        position: 'top right',
-        offset: [-28, 59],
-        relative: true,
-        place_to_left: true,
-        predelay: 100,
-        delay: 100,
-        effect: 'toggle'
-      })
-    );
+    $('.person-tooltip', this.$historyBlock).tooltip({
+      ...ANIME_TOOLTIP_OPTIONS,
+      position: 'top right',
+      offset: [-28, 59],
+      relative: true,
+      place_to_left: true,
+      predelay: 100,
+      delay: 100,
+      effect: 'toggle'
+    });
   }
 
   _tooltipContent(data) {

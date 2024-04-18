@@ -6,15 +6,15 @@ $.fn.extend({
 
       switch ($chart.data('bar')) {
         case 'horizontal':
-          simpleBar($chart, Object.add(options || {}, { type: 'horizontal' }));
+          simpleBar($chart, { ...options, type: 'horizontal' });
           break;
 
         case 'vertical':
-          simpleBar($chart, Object.add(options || {}, { type: 'vertical' }));
+          simpleBar($chart, { ...options, type: 'vertical' });
           break;
 
         // when 'vertical-complex'
-          // complex_bar $chart, Object.add(options || {}, type: 'vertical')
+          // complex_bar $chart, { ...options, type: 'vertical' }
 
         default:
           throw 'unknown bar-type: ' + $chart.data('bar'); // eslint-disable-line no-throw-literal

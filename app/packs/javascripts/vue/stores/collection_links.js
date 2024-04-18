@@ -61,14 +61,15 @@ module.exports = {
 
   mutations: {
     ADD_LINK(state, linkData) {
-      const link = Object.add(linkData, {
+      const link = {
         group: null,
         linked_id: null,
         name: null,
         text: '',
         url: null,
-        key: newId()
-      }, { resolve: false });
+        key: newId(),
+        ...linkData
+      };
 
       if (link.linked_id && hasDuplicate(state.collection.links, link)) { return; }
 

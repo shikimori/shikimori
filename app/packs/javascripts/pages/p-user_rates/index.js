@@ -267,16 +267,15 @@ function applyListHandlers($root) {
   $('tr.unprocessed', $root)
     .removeClass('unprocessed')
     .find('a.tooltipped')
-    .tooltip(
-      Object.add(COMMON_TOOLTIP_OPTIONS, {
-        offset: [
-          -95,
-          10
-        ],
-        position: 'bottom right',
-        opacity: 1
-      })
-    );
+    .tooltip({
+      ...COMMON_TOOLTIP_OPTIONS,
+      offset: [
+        -95,
+        10
+      ],
+      position: 'bottom right',
+      opacity: 1
+    });
 
   // изменения оценки/числа просмотренных эпизодов у user_rate lines
   const $trs = $('.list-lines .hoverable').off();
