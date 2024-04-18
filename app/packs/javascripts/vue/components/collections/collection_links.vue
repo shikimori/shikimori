@@ -151,6 +151,9 @@ export default {
       'moveGroupRight',
       'refill'
     ]),
+    isEmpty(value) {
+      return isEmpty(value);
+    },
     addNewGroup(e) {
       if (e.target !== e.currentTarget) { return; }
       this.addLink({ group: '' });
