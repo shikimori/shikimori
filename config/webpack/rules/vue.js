@@ -11,5 +11,8 @@ module.exports = {
       vueSass
     ]
   },
-  plugins: [new VueLoaderPlugin()]
+  plugins: [new VueLoaderPlugin()],
+  resolve: {
+    extensions: ['.vue']
+  }
 };
