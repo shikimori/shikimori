@@ -1,8 +1,9 @@
 // TODO: refactor to normal classes
 import TinyUri from 'tiny-uri';
+import urlParse from 'url-parse';
+
 import difference from 'lodash/difference';
 import isEmpty from 'lodash/isEmpty';
-import urlParse from 'url-parse';
 
 import inNewTab from '@/utils/in_new_tab';
 

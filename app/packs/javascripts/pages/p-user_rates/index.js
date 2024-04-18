@@ -1,6 +1,7 @@
 import delay from 'delay';
 import Turbolinks from 'turbolinks';
 import { flash, isMobile } from 'shiki-utils';
+
 import isEmpty from 'lodash/isEmpty';
 
 import { COMMON_TOOLTIP_OPTIONS } from '@/utils/tooltip_options';

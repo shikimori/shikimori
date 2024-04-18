@@ -2,6 +2,7 @@ import Turbolinks from 'turbolinks';
 import TinyUri from 'tiny-uri';
 import delay from 'delay';
 import { bind } from 'shiki-decorators';
+
 import isEmpty from 'lodash/isEmpty';
 
 import View from '@/views/application/view';

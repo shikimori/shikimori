@@ -1,5 +1,6 @@
 import capitalize from 'lodash/capitalize';
 import isEmpty from 'lodash/isEmpty';
+
 import { chain, bind } from 'shiki-decorators';
 
 const KEY_CODES = {

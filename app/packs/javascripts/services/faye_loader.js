@@ -3,10 +3,12 @@
 
 import Faye from 'faye';
 import cookies from 'js-cookie';
+
 import difference from 'lodash/difference';
 import intersection from 'lodash/intersection';
-import idle from '@morr/user-idle';
 import isEmpty from 'lodash/isEmpty';
+
+import idle from '@morr/user-idle';
 import { bind } from 'shiki-decorators';
 
 const WORLD_CHANGED_EVENTS = [
