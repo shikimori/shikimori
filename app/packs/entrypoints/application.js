@@ -2,9 +2,6 @@
 // import 'core-js/stable';
 // import 'regenerator-runtime/runtime';
 
-// import sugar from 'javascripts/vendor/sugar'; // eslint-disable-line import/newline-after-import
-// sugar.extend();
-
 import WebFont from 'webfontloader';
 
 $(() => (

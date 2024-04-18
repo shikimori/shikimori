@@ -20,11 +20,11 @@ window.I18n = i18n;
 const requireJqueryPlugins = require.context('@/jquery.plugins', true);
 requireJqueryPlugins.keys().forEach(requireJqueryPlugins);
 
-// const requirePages = require.context('@/pages', true);
-// requirePages.keys().forEach(requirePages);
+const requirePages = require.context('@/pages', true);
+requirePages.keys().forEach(requirePages);
 
-// const requireBlocks = require.context('@/blocks', true);
-// requireBlocks.keys().forEach(requireBlocks);
+const requireBlocks = require.context('@/blocks', true);
+requireBlocks.keys().forEach(requireBlocks);
 
 import ShikiUser from '@/models/shiki_user';
 
