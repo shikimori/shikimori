@@ -313,6 +313,22 @@
     "@babel/helper-plugin-utils" "^7.24.0"
     "@babel/plugin-syntax-decorators" "^7.24.1"
 
+"@babel/plugin-proposal-partial-application@^7.24.1":
+  version "7.24.1"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-partial-application/-/plugin-proposal-partial-application-7.24.1.tgz#5413ab4871f87274c06782e09fa41cb8cdce1f7d"
+  integrity sha512-7sYDMhhjV8TXBiUiqjy54+gh//YxvnfYW5Sfzmn2jW/5jQJzjpoDkKW+OR++VVFKhwKlEnaYlZfN0Zf4GL9Haw==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.24.0"
+    "@babel/plugin-syntax-partial-application" "^7.24.1"
+
+"@babel/plugin-proposal-pipeline-operator@^7.24.1":
+  version "7.24.1"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-pipeline-operator/-/plugin-proposal-pipeline-operator-7.24.1.tgz#a8ea2b281b68cdb676270298f32d46da61c22a6b"
+  integrity sha512-JFqo+VsSosYxzo1PPfrbeoIi0IcAJnjGpDXeVABNl5bH6/Zvn84Kd8utGEA1eT3gLsynyt1+TfQ/opGXtb0Y/A==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.24.0"
+    "@babel/plugin-syntax-pipeline-operator" "^7.24.1"
+
 "@babel/plugin-proposal-private-property-in-object@7.21.0-placeholder-for-preset-env.2":
   version "7.21.0-placeholder-for-preset-env.2"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-private-property-in-object/-/plugin-proposal-private-property-in-object-7.21.0-placeholder-for-preset-env.2.tgz#7844f9289546efa9febac2de4cfe358a050bd703"
@@ -429,6 +445,20 @@
   integrity sha512-KoK9ErH1MBlCPxV0VANkXW2/dw4vlbGDrFgz8bmUsBGYkFRcbRwMh6cIJubdPrkxRwuGdtCk0v/wPTKbQgBjkg==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
+
+"@babel/plugin-syntax-partial-application@^7.24.1":
+  version "7.24.1"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-partial-application/-/plugin-syntax-partial-application-7.24.1.tgz#db9d791d63422264d08dba144a67afb928c4ee49"
+  integrity sha512-3j+qe8BJrvZOx6rwWLg8UWCKSVvU+7psrDI2x5jEeP5tymS9fbK4zqRjgzI6H8etDt5UnilkxcSvlA1yE3Mezg==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.24.0"
+
+"@babel/plugin-syntax-pipeline-operator@^7.24.1":
+  version "7.24.1"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-pipeline-operator/-/plugin-syntax-pipeline-operator-7.24.1.tgz#149bacade7594288dd9ad373bcbfe2927ea750cc"
+  integrity sha512-UU7uLj95zh6oMQiREvkTmXAvWy9pJI9p76SFkNsXTesDwQ67YM1UU1Bkx576djA6ZDcPSbzM/MqTJNcYeQ0G2g==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.24.0"
 
 "@babel/plugin-syntax-private-property-in-object@^7.14.5":
   version "7.14.5"

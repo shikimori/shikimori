@@ -1,5 +1,3 @@
-const { moduleExists } = require('shakapacker');
-
 module.exports = function config(api) {
   const validEnv = ['development', 'test', 'production'];
   const currentEnv = api.env();
@@ -34,12 +32,9 @@ module.exports = function config(api) {
       ['@babel/plugin-proposal-decorators', { legacy: true }],
       ['@babel/plugin-transform-class-properties', { "loose": true }],
       ['@babel/plugin-transform-private-methods', { "loose": true }],
-      ["@babel/plugin-transform-private-property-in-object", { "loose": true }]
+      ["@babel/plugin-transform-private-property-in-object", { "loose": true }],
+      ['@babel/plugin-proposal-pipeline-operator', { proposal: 'minimal' }],
+      ['@babel/plugin-proposal-partial-application']
     ].filter(Boolean)
   };
 };
-
-
-// '@babel/plugin-proposal-logical-assignment-operators',
-// ['@babel/plugin-proposal-pipeline-operator', { proposal: 'minimal' }],
-// '@babel/plugin-proposal-partial-application'

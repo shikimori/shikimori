@@ -1,11 +1,12 @@
 /* eslint no-console: 0 */
 /* global IS_FAYE_LOGGING */
 
-import { bind } from 'shiki-decorators';
 import Faye from 'faye';
 import cookies from 'js-cookie';
+import difference from 'lodash/difference';
 import idle from '@morr/user-idle';
 import isEmpty from 'lodash/isEmpty';
+import { bind } from 'shiki-decorators';
 
 const WORLD_CHANGED_EVENTS = [
   'turbolinks:load',
@@ -94,7 +95,8 @@ export default class FayeLoader {
 
   unsubscribe(channels) {
     const toStay = Object.keys(channels);
-    const toRemove = Object.keys(this.subscriptions).subtract(toStay);
+    const toRemove = Object.keys(this.subscriptions)
+      |> difference(?, toStay);
 
     toRemove.forEach(channel => {
       this.client.unsubscribe(channel);
