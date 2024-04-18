@@ -6,7 +6,7 @@ import TopicsTracker from '@/services/topics/tracker';
 import ReviewsTracker from '@/services/reviews/tracker';
 import CommentsTracker from '@/services/comments/tracker';
 import PollsTracker from '@/services/polls/tracker';
-// import DynamicParser from '@/dynamic_elements/_parser';
+import DynamicParser from '@/dynamic_elements/_parser';
 
 import { loadImages } from '@/utils/load_image';
 
@@ -19,7 +19,7 @@ import $with from '@/utils/with';
 
 $.fn.extend({
   process(jsExports) {
-    // processCurrentDom(this, jsExports);
+    processCurrentDom(this, jsExports);
     return this;
   }
 });
@@ -37,7 +37,7 @@ async function processCurrentDom(root = document.body, jsExports = window.JS_EXP
   // is assigned too late for video inside wall (after WallVideo is initialized)
   $with('.b-video.unprocessed', $root).shikiVideo();
 
-  // new DynamicParser($with('.to-process', $root));
+  new DynamicParser($with('.to-process', $root));
 
   $with('time', $root).livetime();
 

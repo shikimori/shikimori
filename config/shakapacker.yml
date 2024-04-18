@@ -31,14 +31,14 @@ default: &default
 
   # Additional paths webpack should look up modules
   # ['app/assets', 'engine/foo/app/assets']
-  additional_paths: []
+  additional_paths:
     # - node_modules/delay
     # - node_modules/get-js
     # - node_modules/p-defer
     # - node_modules/swiper
     # - node_modules/shiki-utils
-    # - node_modules/shiki-editor
-    # - node_modules/shiki-uploader
+    - node_modules/shiki-editor
+    - node_modules/shiki-uploader
     # - node_modules/shiki-decorators
     # - node_modules/prosemirror-utils
     # - node_modules/lowlight

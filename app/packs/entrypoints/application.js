@@ -33,4 +33,4 @@ import 'jquery-mousewheel';
 
 import '@/application';
 import '@/turbolinks_load';
-// import '@/turbolinks_before_cache';
+import '@/turbolinks_before_cache';
