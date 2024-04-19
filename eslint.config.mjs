@@ -1,17 +1,17 @@
-import globals from "globals";
-import pluginVue from "eslint-plugin-vue";
+import globals from 'globals';
+import pluginVue from 'eslint-plugin-vue';
 // import pluginImport from "eslint-plugin-import"; // not yet support eslint 9 https://github.com/import-js/eslint-plugin-import/pull/2996
 // import babelParser from "@babel/eslint-parser";
 
-import path from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-import pluginJs from "@eslint/js";
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { FlatCompat } from '@eslint/eslintrc';
+import pluginJs from '@eslint/js';
 
 // mimic CommonJS variables -- not needed if using CommonJS
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({baseDirectory: __dirname, recommendedConfig: pluginJs.configs.recommended});
+const compat = new FlatCompat({ baseDirectory: __dirname, recommendedConfig: pluginJs.configs.recommended });
 
 // console.log(pluginImport);
 
@@ -21,17 +21,17 @@ export default [
       globals: globals.browser
     }
   },
-  ...compat.extends("standard"),
-  ...pluginVue.configs["flat/recommended"],
+  ...compat.extends('standard'),
+  ...pluginVue.configs['flat/recommended'],
   // pluginImport,
   {
     languageOptions: {
       globals: {
-        pageLoad: "readonly",
-        pageUnload: "readonly",
-        $: "readonly",
-        gon: "readonly"
-      },
+        pageLoad: 'readonly',
+        pageUnload: 'readonly',
+        $: 'readonly',
+        gon: 'readonly'
+      }
       // parser: babelParser,
       // parserOptions: {
       //   // ecmaVersion: 2018,
@@ -46,88 +46,88 @@ export default [
       // }
     },
     ignores: [
-      "app/packs/javascripts/vendor/*",
+      'app/packs/javascripts/vendor/*'
     ],
     settings: {
-      "import/resolver": {
+      'import/resolver': {
         node: {
           extensions: ['.js', '.vue']
         },
         webpack: {
           config: './config/webpack/development.js'
-        },
-      },
+        }
+      }
     },
     rules: {
-      "quotes": ["error", "single"],
-      "object-curly-spacing": ["error", "always"],
-      "semi": ["error", "always"],
-      "object-curly-newline": "off",
-      "arrow-body-style": ["error", "as-needed"],
-      "arrow-parens": ["error", "as-needed"],
-      "no-console": "warn",
-      "no-alert": "off",
-      "no-debugger": "warn",
-      "no-trailing-spaces": "error",
-      "no-return-assign": "off",
-      "no-param-reassign": ["error", { props: false }],
-      "no-underscore-dangle": "off",
-      "no-unused-vars": "off", // Temporarily disabled
-      "no-use-before-define": "off",
-      "no-mixed-operators": "off",
-      "no-new": "off",
-      "no-nested-ternary": "off",
-      "function-paren-newline": "off",
-      "comma-dangle": ["warn", "never"],
-      "max-len": ["warn", 100, {
+      quotes: ['error', 'single'],
+      'object-curly-spacing': ['error', 'always'],
+      semi: ['error', 'always'],
+      'object-curly-newline': 'off',
+      'arrow-body-style': ['error', 'as-needed'],
+      'arrow-parens': ['error', 'as-needed'],
+      'no-console': 'warn',
+      'no-alert': 'off',
+      'no-debugger': 'warn',
+      'no-trailing-spaces': 'error',
+      'no-return-assign': 'off',
+      'no-param-reassign': ['error', { props: false }],
+      'no-underscore-dangle': 'off',
+      'no-unused-vars': 'off', // Temporarily disabled
+      'no-use-before-define': 'off',
+      'no-mixed-operators': 'off',
+      'no-new': 'off',
+      'no-nested-ternary': 'off',
+      'function-paren-newline': 'off',
+      'comma-dangle': ['warn', 'never'],
+      'max-len': ['warn', 100, {
         ignoreComments: true,
         ignoreUrls: true,
-        ignorePattern: "\\s*(<|@)"
+        ignorePattern: '\\s*(<|@)'
       }],
-      "indent": ["error", 2, {
+      indent: ['error', 2, {
         SwitchCase: 1,
         ignoreComments: true
       }],
-      "space-before-function-paren": ["error", {
-        "anonymous": "never", // Requires a space for anonymous functions
-        "named": "never",      // Disallows space for named functions
-        "asyncArrow": "always" // Requires a space for async arrow functions
+      'space-before-function-paren': ['error', {
+        anonymous: 'never', // Requires a space for anonymous functions
+        named: 'never', // Disallows space for named functions
+        asyncArrow: 'always' // Requires a space for async arrow functions
       }],
-      "linebreak-style": ["error", "unix"],
-      "func-names": "off",
-      "implicit-arrow-linebreak": "off",
-      "prefer-template": "off",
-      "class-methods-use-this": "off",
-      "radix": "off",
-      "operator-linebreak": ["error", "after"],
-      "keyword-spacing": ["error", {
+      'linebreak-style': ['error', 'unix'],
+      'func-names': 'off',
+      'implicit-arrow-linebreak': 'off',
+      'prefer-template': 'off',
+      'class-methods-use-this': 'off',
+      radix: 'off',
+      'operator-linebreak': ['error', 'after'],
+      'keyword-spacing': ['error', {
         before: true,
-        after: true,
+        after: true
       }],
-      "lines-between-class-members": "off",
-      "import/no-extraneous-dependencies": "off",
-      "import/no-unresolved": "error",
-      "import/no-webpack-loader-syntax": "off",
-      "import/prefer-default-export": "off",
-      "import/no-named-as-default": "off",
-      "import/extensions": ["error", "always", {
-        js: "never",
-        coffee: "never",
-        vue: "never",
+      'lines-between-class-members': 'off',
+      'import/no-extraneous-dependencies': 'off',
+      'import/no-unresolved': 'error',
+      'import/no-webpack-loader-syntax': 'off',
+      'import/prefer-default-export': 'off',
+      'import/no-named-as-default': 'off',
+      'import/extensions': ['error', 'always', {
+        js: 'never',
+        coffee: 'never',
+        vue: 'never'
       }],
-      "import/first": "off",
-      "import/order": "off",
-      "vue/max-attributes-per-line": ["error", {
+      'import/first': 'off',
+      'import/order': 'off',
+      'vue/max-attributes-per-line': ['error', {
         singleline: 3,
-        multiline: 1,
+        multiline: 1
       }],
-      "vue/singleline-html-element-content-newline": "off",
-      "vue/html-quotes": "off",
-      "vue/component-name-in-template-casing": ["error", "PascalCase", {
-        ignores: ["router-view", "router-link"],
+      'vue/singleline-html-element-content-newline': 'off',
+      'vue/html-quotes': 'off',
+      'vue/component-name-in-template-casing': ['error', 'PascalCase', {
+        ignores: ['router-view', 'router-link']
       }],
-      "vue/no-v-html": "off",
-      "vue/multi-word-component-names": "off",
+      'vue/no-v-html': 'off',
+      'vue/multi-word-component-names': 'off'
     }
   }
 ];
