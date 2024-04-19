@@ -1,3 +1,5 @@
+import sumBy from 'lodash';
+
 import View from '@/views/application/view';
 
 import WallCluster from './cluster';
@@ -36,7 +38,7 @@ export default class Wall extends View {
 
   get isTwoClusters() {
     return !this.isOneCluster &&
-      this.images.sum(image => image.weight()) > MIN_TWO_CLUSTERS_WEIGHT;
+      sumBy(this.images, image => image.weight()) > MIN_TWO_CLUSTERS_WEIGHT;
   }
 
   update() {
