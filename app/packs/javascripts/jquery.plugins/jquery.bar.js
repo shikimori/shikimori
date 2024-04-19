@@ -1,5 +1,6 @@
 import compact from 'lodash/compact';
 import maxBy from 'lodash/maxBy';
+import mean from 'lodash/maxBy';
 
 // TODO: refactor to view object
 $.fn.extend({
@@ -55,7 +56,7 @@ function simpleBar($chart, options) {
       .map((v, _k) => v[field])
       .filter(v => (v > 0) && (v !== maximum));
 
-    const average = values.average();
+    const average = mean(values);
 
     if ((maximum > (average * 5)) && (average > 0)) {
       originalMaximum = maximum;
