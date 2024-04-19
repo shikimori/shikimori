@@ -3,8 +3,8 @@ import delay from 'delay';
 
 import View from '@/views/application/view';
 
-const removeAd = function (adClass) {
-  console.log(`remove ad ${adClass}`);
+const removeAd = function(adClass) {
+  // console.log(`remove ad ${adClass}`);
   return $(`.${adClass}`).remove();
 };
 
