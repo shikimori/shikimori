@@ -1,5 +1,7 @@
 import { bind } from 'shiki-decorators';
+
 import round from 'lodash/round';
+import sumBy from 'lodash/sumBy';
 
 import axios from '@/utils/axios';
 import View from '@/views/application/view';
@@ -97,7 +99,7 @@ export default class Poll extends View {
 
   @bind
   _variantPercent(variant) {
-    const totalVotes = this.model.variants.sum('votes_total');
+    const totalVotes = sumBy(this.model.variants, 'votes_total');
 
     if (totalVotes === 0) {
       return 0;
