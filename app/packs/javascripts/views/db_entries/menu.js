@@ -81,17 +81,19 @@ export class AnimesMenu extends View {
   }
 
   _tooltipContent(data) {
-    Object.forEach(data, (entry, id) => {
-      const $tooltip = $('.tooltip-details', `#history-entry-${id}-tooltip`);
-      if (!$tooltip.length) { return; }
+    Object
+      .entries(data)
+      .forEach(([id, entry]) => {
+        const $tooltip = $(`.tooltip-details`, `#history-entry-${id}-tooltip`);
+        if (!$tooltip.length) { return; }
 
-      if (entry.length) {
-        $tooltip.html(
-          entry.map(v => `<a class='b-link' href="${v.link}">${v.title}</a>`).join('')
-        );
-      } else {
-        $(`#history-entry-${id}-tooltip`).children().remove();
-      }
-    });
+        if (entry.length) {
+          $tooltip.html(
+            entry.map(v => `<a class='b-link' href="${v.link}">${v.title}</a>`).join('')
+          );
+        } else {
+          $(`#history-entry-${id}-tooltip`).children().remove();
+        }
+      });
   }
 }

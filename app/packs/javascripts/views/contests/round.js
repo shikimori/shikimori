@@ -64,11 +64,13 @@ export default class ContestRound extends View {
 
   // private functions
   _setVotes(votes) {
-    Object.forEach(votes, vote => {
-      if (vote.vote) {
-        this.setVote(vote.match_id, vote.vote);
-      }
-    });
+    Object
+      .entries(votes)
+      .forEach(([_, vote]) => {
+        if (vote.vote) {
+          this.setVote(vote.match_id, vote.vote);
+        }
+      });
   }
 
   _$matchLine(matchId) {

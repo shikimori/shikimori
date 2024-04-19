@@ -135,7 +135,9 @@ export default {
     },
 
     FILL_LINK(state, { link, changes }) {
-      Object.forEach(changes, (value, key) => link[key] = value);
+      Object
+        .entries(changes)
+        .forEach(([key, value]) => link[key] = value);
     },
 
     REFILL(state, data) {
