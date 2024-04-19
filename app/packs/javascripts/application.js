@@ -51,11 +51,6 @@ $(document).one('turbolinks:load', () => {
   window.CAMO_URL = $body.data('camo_url');
   if (window.SHIKI_USER) { window.FAYE_CHANNEL = $body.data('faye'); }
 
-  // window.atatus = atatus;
-  // if ('atatus' in window) {
-  //   window.atatus.setUser(window.SHIKI_USER.id);
-  // }
-
   I18n.locale = window.LOCALE;
   dayjs.locale(window.LOCALE);
 

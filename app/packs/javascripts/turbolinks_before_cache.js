@@ -81,7 +81,6 @@ function dumpJsExports(keys) {
   $('script#js_export').html(`window.JS_EXPORTS = ${JSON.stringify(jsExports)};`);
 }
 
-
 function simpleSingularize(word) {
   if (word.endsWith('ies')) {
     return word.slice(0, -3) + 'y';

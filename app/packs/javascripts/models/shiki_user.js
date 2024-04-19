@@ -1,5 +1,5 @@
 import camelCase from 'lodash/camelCase';
-import remove from 'lodash/remove';  // Import lodash's remove function
+import remove from 'lodash/remove';
 
 const PUBLIC_FIELDS = [
   'id',
