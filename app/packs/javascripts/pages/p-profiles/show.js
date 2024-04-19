@@ -1,8 +1,9 @@
 import axios from '@/utils/axios';
 import dayjs from '@/utils/dayjs';
 
-import last from 'lodash/last';
 import capitalize from 'lodash/capitalize';
+import last from 'lodash/last';
+import round from 'lodash/round';
 
 import { isMobile } from 'shiki-utils';
 
@@ -126,5 +127,5 @@ pageLoad('profiles_show', () => {
 
 function dateDiff(dateEarlier, dateLater) {
   const oneDay = 1000 * 60 * 60 * 24;
-  return Math.round(((dateLater.getTime() - dateEarlier.getTime()) / oneDay) * 10) / 10;
+  return round(((dateLater.getTime() - dateEarlier.getTime()) / oneDay), 1);
 }

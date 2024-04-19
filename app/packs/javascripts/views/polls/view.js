@@ -1,7 +1,9 @@
+import { bind } from 'shiki-decorators';
+import round from 'lodash/round';
+
 import axios from '@/utils/axios';
 import View from '@/views/application/view';
 import JST from '@/utils/jst';
-import { bind } from 'shiki-decorators';
 
 const TEMPLATE = 'polls/poll';
 
@@ -100,7 +102,7 @@ export default class Poll extends View {
     if (totalVotes === 0) {
       return 0;
     }
-    return ((100.0 * variant.votes_total) / totalVotes).round(2);
+    return round((100.0 * variant.votes_total) / totalVotes, 2);
   }
 
   @bind

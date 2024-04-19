@@ -2,6 +2,7 @@ import delay from 'delay';
 import { memoize } from 'shiki-decorators';
 
 import first from 'lodash/first';
+import round from 'lodash/round';
 
 import View from '@/views/application/view';
 import Wall from '@/views/wall/view';
@@ -268,7 +269,7 @@ export default class Swiper extends View {
 
     const marginTopPercent = Math.min(
       10,
-      ((100 - visiblePercent) / 2 / scaleRatio).round(2)
+      round((100 - visiblePercent) / 2 / scaleRatio, 2)
     );
 
     if (!this.isVideo) {
@@ -282,7 +283,7 @@ export default class Swiper extends View {
     const scaleRatio = this.areaWidth / scaledImageWidth;
     const visiblePercent = scaleRatio * 100;
 
-    const marginLeftPercent = ((100 - visiblePercent) / 2 / scaleRatio).round(2);
+    const marginLeftPercent = round((100 - visiblePercent) / 2 / scaleRatio, 2);
 
     if (!this.isVideo) {
       this.$links.css('margin-left', marginLeftPercent > 0 ? `-${marginLeftPercent}%` : '');
