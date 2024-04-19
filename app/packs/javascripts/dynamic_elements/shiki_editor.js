@@ -4,6 +4,7 @@ import { bind } from 'shiki-decorators';
 import { flash } from 'shiki-utils';
 
 import compact from 'lodash/compact';
+import isString from 'lodash/isString';
 
 import axios from '@/utils/axios';
 import preventEvent from '@/utils/prevent_event';
@@ -115,7 +116,7 @@ export default class ShikiEditor extends ShikiView {
         const radioType = $radio.val();
 
         const param = (() => {
-          if (Object.isString(result)) {
+          if (isString(result)) {
             if (radioType === 'url') {
               return result;
             }
@@ -194,7 +195,7 @@ export default class ShikiEditor extends ShikiView {
     this.$('.quotes input[type=text]')
       .completable()
       .on('autocomplete:success autocomplete:text', (e, result) => {
-        const text = Object.isString(result) ? result : result.value;
+        const text = isString(result) ? result : result.value;
         this.$textarea.insertAtCaret(
           '[quote' +
             (!text || text.isBlank() ? '' : `=${text}`) + ']',

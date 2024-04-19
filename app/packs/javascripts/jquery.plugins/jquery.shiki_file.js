@@ -1,6 +1,8 @@
 import delay from 'delay';
 import { flash } from 'shiki-utils';
 
+import isString from 'lodash/isString';
+
 import csrf from '@/utils/csrf';
 
 const I18N_KEY = 'frontend.lib.jquery_shiki_file';
@@ -157,7 +159,7 @@ $.fn.extend({
         },
 
         uploadFinished(i, file, response, _time) {
-          if (Object.isString(response) || 'error' in response) {
+          if (isString(response) || 'error' in response) {
             $node.trigger('upload:failed', [response, i]);
           } else {
             $node.trigger('upload:success', [response, i]);

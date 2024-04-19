@@ -103,7 +103,7 @@ export default class Wall extends View {
 
     if (this.isTwoClusters) {
       this._masonSecondCluster(false);
-      width = [this.cluster_1.width(), this.cluster_2.width()].max();
+      width = Math.max(this.cluster_1.width(), this.cluster_2.width());
       height = this.cluster_1.height() + WallCluster.MARGIN + this.cluster_2.height();
     } else {
       this._masonFirstCluster();
@@ -113,20 +113,20 @@ export default class Wall extends View {
     }
 
     this.$node.css({
-      width: ([width, this.maxWidth, this.maxContainerWidth]).min(),
-      height: ([height, this.maxHeight]).min()
+      width: Math.min(width, this.maxWidth, this.maxContainerWidth),
+      height: Math.min(height, this.maxHeight)
     });
   }
 
   _clusterFirstHeight() {
-    return [this.maxHeight - this.minClusterHeight, this.minClusterHeight].max();
+    return Math.max(this.maxHeight - this.minClusterHeight, this.minClusterHeight);
   }
 
   _clusterSecondHeight() {
-    return [
-      ((this.maxHeight - this.cluster_1.height()) + WallCluster.MARGIN).round(),
+    return Math.max(
+      Math.round((this.maxHeight - this.cluster_1.height()) + WallCluster.MARGIN),
       this.minClusterHeight
-    ].max();
+    );
   }
 
   _masonFirstCluster() {
@@ -149,9 +149,9 @@ export default class Wall extends View {
       return;
     }
 
-    const desiredWidth = (this.maxWidth * 0.95).round();
+    const desiredWidth = Math.round(this.maxWidth * 0.95);
     if ((this.cluster_2.width() < desiredWidth) || (this.cluster_1.width() < desiredWidth)) {
-      this.maxHeight = (this.maxHeight * 1.3).round();
+      this.maxHeight = Math.round(this.maxHeight * 1.3);
       this.$node.css('max-height', this.maxHeight);
       this.images.forEach(image => image.reset());
       this._masonSecondCluster(true);

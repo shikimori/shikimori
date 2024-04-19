@@ -45,15 +45,15 @@
       )
         option(
           v-for='kindOption in kindOptionsLinks'
-          :value='kindOption.last()'
-        ) {{ kindOption.first() }}
+          :value='last(kindOption)'
+        ) {{ first(kindOption) }}
       optgroup(
         :label='I18n.t("frontend.external_links.groups.watch_online")'
       )
         option(
           v-for='kindOption in kindOptionsWatchOnline'
-          :value='kindOption.last()'
-        ) {{ kindOption.first() }}
+          :value='last(kindOption)'
+        ) {{ first(kindOption) }}
   .b-input
     input(
       ref='inputRef'
@@ -84,7 +84,10 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
+
+import first from 'lodash/first';
 import isEmpty from 'lodash/isEmpty';
+import last from 'lodash/last';
 
 const props = defineProps({
   link: { type: Object, required: true },

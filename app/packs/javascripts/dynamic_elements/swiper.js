@@ -1,6 +1,8 @@
 import delay from 'delay';
 import { memoize } from 'shiki-decorators';
 
+import first from 'lodash/first';
+
 import View from '@/views/application/view';
 import Wall from '@/views/wall/view';
 import WallCluster from '@/views/wall/cluster';
@@ -224,7 +226,7 @@ export default class Swiper extends View {
   }
 
   _scaleWall(wall, width) {
-    const firstImage = wall.images.first();
+    const firstImage = first(wall.images);
     if (wall.images.length === 1 && firstImage.ratio > COVER_RATIO) {
       return;
     }

@@ -1,4 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
+import isString from 'lodash/isString';
+
 let gallery;
 
 pageUnload('.db_entries-edit_field', () => {
@@ -68,7 +70,7 @@ pageLoad('.db_entries-edit_field', () => {
     $('#anime_imageboard_tag, #manga_imageboard_tag, #character_imageboard_tag')
       .completable()
       .on('autocomplete:success autocomplete:text', function(e, result) {
-        this.value = Object.isString(result) ? result : result.value;
+        this.value = isString(result) ? result : result.value;
         $gallery.data({ imageboard_tag: this.value });
         $gallery.html(galleryHtml);
 

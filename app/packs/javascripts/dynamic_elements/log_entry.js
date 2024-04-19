@@ -1,5 +1,6 @@
 import delay from 'delay';
 import { bind } from 'shiki-decorators';
+import isString from 'lodash/isString';
 
 import ShikiView from '@/views/application/shiki_view';
 import BanForm from '@/views/application/ban_form';
@@ -107,8 +108,8 @@ export default class LogEntry extends ShikiView {
 
       const dmp = new DiffMatchPatch();
       const diff = dmp.diff_main(
-        Object.isString(oldValue) ? oldValue : JSON.stringify(oldValue),
-        Object.isString(newValue) ? newValue : JSON.stringify(newValue)
+        isString(oldValue) ? oldValue : JSON.stringify(oldValue),
+        isString(newValue) ? newValue : JSON.stringify(newValue)
       );
 
       // dmp.Diff_EditCost = 4;

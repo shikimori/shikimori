@@ -1,4 +1,5 @@
 import groupBy from 'lodash/groupBy';
+import last from 'lodash/last';
 import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
 
@@ -79,7 +80,7 @@ export default {
 
       const lastInGroup = state.collection.links
         .filter(v => v.group === link.group)
-        .last();
+        |> last(?);
       const index = state.collection.links.indexOf(lastInGroup);
 
       if (index !== -1) {
