@@ -45,7 +45,7 @@ export default class CodeHighlight extends View {
 
     this.worker = this.buildWorker(function() {
       importScripts(
-        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'
+        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'
         // requested them to add json-fn https://github.com/cdnjs/packages/issues/1380
         // 'https://cdnjs.cloudflare.com/ajax/libs/json-fn/1.1.1/jsonfn.js'
       );
