@@ -77,7 +77,7 @@ namespace :deploy do
   namespace :i18n_js do
     task :export do
       on roles(:web) do
-        bundle_exec 'rails i18n export', release_path
+        bundle_exec 'i18n export', release_path
       end
     end
   end
