@@ -96,7 +96,11 @@ export default [
       'prefer-template': 'off',
       'class-methods-use-this': 'off',
       radix: 'off',
-      'operator-linebreak': ['error', 'after'],
+      'operator-linebreak': ['error', 'after', {
+        overrides: {
+          '|>': 'before'
+        }
+      }],
       'keyword-spacing': ['error', {
         before: true,
         after: true
