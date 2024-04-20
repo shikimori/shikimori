@@ -34,7 +34,7 @@ describe Moderations::PostersController do
   describe '#censore' do
     include_context :authenticated, :super_moderator
     subject! { post :censore, params: { id: poster.id } }
-    let(:poster) { create :poster, :accepted, manga:, approver: user }
+    let(:poster) { create :poster, :pending, manga:, approver: user }
 
     it do
       expect(resource).to be_moderation_censored
