@@ -1,7 +1,7 @@
 import globals from 'globals';
 import pluginVue from 'eslint-plugin-vue';
 // import pluginImport from "eslint-plugin-import"; // not yet support eslint 9 https://github.com/import-js/eslint-plugin-import/pull/2996
-// import babelParser from "@babel/eslint-parser";
+import babelParser from '@babel/eslint-parser';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -31,19 +31,16 @@ export default [
         pageUnload: 'readonly',
         $: 'readonly',
         gon: 'readonly'
+      },
+      parser: babelParser,
+      parserOptions: {
+        ecmaVersion: 2021,
+        sourceType: 'module',
+        requireConfigFile: false,
+        babelOptions: {
+          configFile: './babel.config.js' // path to your Babel config file
+        }
       }
-      // parser: babelParser,
-      // parserOptions: {
-      //   // ecmaVersion: 2018,
-      //   // sourceType: "module",
-      //   requireConfigFile: true,
-      //   babelOptions: {
-      //     configFile: './babel.config.js',
-      //     // babelrc: false,
-      //     // configFile: false,
-      //     // presets: ["@babel/preset-env"]
-      //   }
-      // }
     },
     ignores: [
       'app/packs/javascripts/vendor/*'
