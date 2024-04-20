@@ -192,11 +192,11 @@ module Shikimori
     end
 
     config.action_controller.default_url_options = {
-      host: Shikimori::DOMAINS[:production],
+      host: Shikimori::DOMAIN,
       port: nil
     }
     config.action_mailer.default_url_options = {
-      host: Shikimori::DOMAINS[:production],
+      host: Shikimori::DOMAIN,
       port: nil
     }
     config.action_mailer.delivery_method = :smtp
