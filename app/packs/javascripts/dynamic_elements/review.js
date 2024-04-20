@@ -4,10 +4,12 @@ import delay from 'delay';
 
 import Topic from './topic';
 import Turbolinks from 'turbolinks';
+
 import { pushFlash } from '@/utils/flash';
+import I18n from '@/utils/i18n';
 
 export default class Review extends Topic {
-  get typeLabel() { return I18n.t('frontend.dynamic_elements.review.type_label'); } // eslint-disable-line camelcase
+  get typeLabel() { return I18n.t('frontend.dynamic_elements.review.type_label'); }
 
   @memoize
   get $checkHeightNode() {

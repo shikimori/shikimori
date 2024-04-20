@@ -37,8 +37,6 @@ import AchievementsNotifier from '@/services/achievements_notifier';
 
 import bindings from '@/utils/bindings';
 
-import '@/utils/p';
-
 import dayjs from '@/utils/dayjs';
 window.dayjs = dayjs;
 

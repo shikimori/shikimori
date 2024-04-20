@@ -1,6 +1,6 @@
 import compact from 'lodash/compact';
 import maxBy from 'lodash/maxBy';
-import mean from 'lodash/maxBy';
+import mean from 'lodash/mean';
 
 // TODO: refactor to view object
 $.fn.extend({
@@ -141,7 +141,7 @@ function simpleBar($chart, options) {
       'value',
       percent < 10 ? 'narrow' : null,
       entry[field] > 99 ? 'mini' : null
-    ])
+    ]);
 
     $chart.append(
       `<div class="line"${cssStyles}>` +

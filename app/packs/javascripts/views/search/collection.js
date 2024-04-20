@@ -7,6 +7,7 @@ import ajaxCacher from '@/services/ajax_cacher';
 import View from '@/views/application/view';
 
 import JST from '@/utils/jst';
+import I18n from '@/utils/i18n';
 
 export default class CollectionSearch extends View {
   initialize() {

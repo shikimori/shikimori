@@ -43,7 +43,7 @@ export class YandexAd extends AdView {
       s.type = 'text/javascript';
       s.src = '//an.yandex.ru/system/context.js';
       s.async = true;
-      s.onerror = () => { // eslint-disable-line consistent-return
+      s.onerror = () => {
         if ('remove_ad' in window) {
           return window.remove_ad(this.cssClass);
         }

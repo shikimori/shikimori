@@ -4,6 +4,7 @@ import { flash } from 'shiki-utils';
 import isString from 'lodash/isString';
 
 import csrf from '@/utils/csrf';
+import I18n from '@/utils/i18n';
 
 const I18N_KEY = 'frontend.lib.jquery_shiki_file';
 
@@ -17,7 +18,7 @@ let globalDragLock = false;
 
 $.fn.extend({
   shikiFile(opts) {
-    return this.each(function () {
+    return this.each(function() {
       const options = $.extend({}, defaults, opts);
       const $node = $(this);
 
@@ -30,7 +31,7 @@ $.fn.extend({
 
       const $input = $(options.input);
       // выбор файла в инпуте - триггер файлдропа
-      $input.change(function () {
+      $input.change(function() {
         if (this.files.length > 0) {
           $node.trigger('drop', [this.files]);
         }
@@ -135,8 +136,8 @@ $.fn.extend({
           $dropArea = $(`<div data-text='${text}' class='shiki-file_uploader-drop_placeholder ${cls}' style='width:${width}px!important;height:${height}px;line-height:${Math.max(height, 75)}px;'></div>`)
             .css({ opacity: 0 })
             .on('drop', e => $node.trigger(e))
-            .on('dragenter', function () { return $(this).addClass('hovered'); })
-            .on('dragleave', function () { return $(this).removeClass('hovered'); })
+            .on('dragenter', function() { return $(this).addClass('hovered'); })
+            .on('dragleave', function() { return $(this).removeClass('hovered'); })
             .insertBefore($node);
 
           await delay();

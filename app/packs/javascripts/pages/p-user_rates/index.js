@@ -6,6 +6,8 @@ import isEmpty from 'lodash/isEmpty';
 
 import { COMMON_TOOLTIP_OPTIONS } from '@/utils/tooltip_options';
 import axios from '@/utils/axios';
+import I18n from '@/utils/i18n';
+import p from '@/utils/p';
 import { animatedCollapse, animatedExpand } from '@/utils/animated';
 
 import ShikiModal from '@/views/application/shiki_modal';
@@ -102,12 +104,12 @@ pageLoad('user_rates_index', () => {
 
   // фильтры каталога
   const basePath = document.location.pathname.replace(/(\/list\/(?:anime|manga))(\/.+)?/, '$1');
-  new CatalogFilters(basePath, document.location.href, (url => {
+  new CatalogFilters(basePath, document.location.href, url => {
     Turbolinks.visit(url, true);
     if ($('.l-page.menu-expanded').exists()) {
       $(document).one('page:change', () => $('.l-page').addClass('menu-expanded'));
     }
-  }));
+  });
 });
 
 // фильтрация списка пользователя

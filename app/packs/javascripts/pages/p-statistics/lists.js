@@ -24,7 +24,7 @@ function renderCharts(Highcharts, { node, stats, label }) {
     title: { text: label },
     xAxis: {
       categories: Object.keys(stats[keys[0]])
-        |> _.sortBy(?, v => parseInt(v.replace(/[^\d].*/, '')))
+        |> sortBy(?, v => parseInt(v.replace(/[^\d].*/, '')))
     },
     yAxis: {
       title: { text: 'Users' }
@@ -41,7 +41,6 @@ function renderCharts(Highcharts, { node, stats, label }) {
     series: Object
       .keys(stats)
       .map(key => ({ name: key, data: Object.values(stats[key]) }))
-      |> _.sortBy(?, ({ data }) => -data[0])
-
+      |> sortBy(?, ({ data }) => -data[0])
   });
 }

@@ -3,7 +3,7 @@ $.fn.extend({
     return this.map(function() {
       const replacement = document.createElement(tagName);
 
-      for (var i = 0; i < this.attributes.length; i +=1 ) {
+      for (let i = 0; i < this.attributes.length; i += 1) {
         const attribute = this.attributes[i];
         let attributeName = attribute.name;
         if (tagName === 'a') {

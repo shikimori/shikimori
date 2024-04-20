@@ -3,6 +3,7 @@ import { flash } from 'shiki-utils';
 
 import View from '@/views/application/view';
 import * as AuthorizedAction from './authorized_action';
+import I18n from '@/utils/i18n';
 
 const I18N_KEY = 'frontend.dynamic_elements.week_registered_action';
 

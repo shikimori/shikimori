@@ -17,7 +17,7 @@ function keyCodeEvent(keyCode) {
 }
 
 export default class GlobalHandler {
-  events = {}
+  events = {};
 
   @chain
   on(key, handler) {

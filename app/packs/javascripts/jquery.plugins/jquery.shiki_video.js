@@ -47,7 +47,7 @@ const hostingPatterns = url => (
 
 $.fn.extend({
   shikiVideo() {
-    return this.each(async function () {
+    return this.each(async function() {
       const root = this;
       const $root = $(root);
 

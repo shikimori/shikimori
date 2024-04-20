@@ -1,3 +1,5 @@
+import I18n from '@/utils/i18n';
+
 pageLoad('contests_edit', () => {
   $('.edit .proposing .hidden').removeClass('hidden');
 

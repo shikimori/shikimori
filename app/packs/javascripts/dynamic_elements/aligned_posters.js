@@ -22,7 +22,7 @@ function update() {
 }
 
 export class AlignedPosters extends View {
-  TARGET_SELECTOR = '.image-cutter'
+  TARGET_SELECTOR = '.image-cutter';
 
   async initialize() {
     if (!GLOBAL_HANDLER) { setHanler(); }

@@ -11,6 +11,7 @@ import DynamicParser from '@/dynamic_elements/_parser';
 import CatalogFilters from '@/views/animes/catalog_filters';
 
 import inNewTab from '@/utils/in_new_tab';
+import I18n from '@/utils/i18n';
 
 export default class PaginatedCatalog {
   constructor(basePath) {
@@ -151,7 +152,7 @@ export default class PaginatedCatalog {
 
     if (
       window.location.href === absoulteUrl ||
-      decodeURI(window.location.href) == absoulteUrl
+      decodeURI(window.location.href) === absoulteUrl
     ) {
       this._processResponse(data, absoulteUrl);
     }

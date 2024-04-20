@@ -257,7 +257,7 @@ export default function(basePath, currentUrl, changeCallback) {
 
         // скрытие плюсика/минусика
         return $li.children('.filter').hide();
-      } catch (error) {} // eslint-disable-line no-empty
+      } catch (error) {}
     },
 
     // формирование строки урла по выбранным элементам

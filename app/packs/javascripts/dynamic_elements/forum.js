@@ -1,4 +1,6 @@
 import ShikiView from '@/views/application/shiki_view';
+import I18n from '@/utils/i18n';
+import p from '@/utils/p';
 
 const FAYE_EVENTS = [
   'faye:comment:marked',

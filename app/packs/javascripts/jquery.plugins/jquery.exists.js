@@ -1,3 +1,3 @@
-jQuery.fn.exists = function () {
+jQuery.fn.exists = function() {
   return this.length > 0;
 };

@@ -1,10 +1,11 @@
 import { bind } from 'shiki-decorators';
-import axios from '@/utils/axios';
 
 import View from '@/views/application/view';
 
-export default class Clickloaded extends View {
+import axios from '@/utils/axios';
+import I18n from '@/utils/i18n';
 
+export default class Clickloaded extends View {
   initialize() {
     this.isLoading = false;
     this.$root.on('click', this.fetch);

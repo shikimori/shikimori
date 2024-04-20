@@ -76,7 +76,6 @@ export default class Wall extends View {
     // this.images.forEach((image) => console.log(image.weight(), image.node));
   }
 
-
   _buildClusters() {
     if (this.isTwoClusters) {
       const imagesCluster1 = [];

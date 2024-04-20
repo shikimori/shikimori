@@ -42,7 +42,7 @@ pageLoad('contests_show', () => {
       $(currentTarget).parents('form').submit();
     });
 
-  $('.proposing form').on('submit', function (e) {
+  $('.proposing form').on('submit', function(e) {
     if (isEmpty($(this).find('#contest_suggestion_item_id').val())) {
       e.preventDefault();
     }

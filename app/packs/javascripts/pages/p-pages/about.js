@@ -1,5 +1,7 @@
 import first from 'lodash/first';
 
+import I18n from '@/utils/i18n';
+
 pageLoad('pages_about', async () => {
   const Highcharts = await import(/* webpackChunkName: "hs" */ 'highcharts');
   const { colors } = await import(/* webpackChunkName: "hs" */ '@/vendor/highcharts_colors');

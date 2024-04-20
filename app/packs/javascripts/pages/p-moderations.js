@@ -147,7 +147,7 @@ pageLoad('posters_index', () => {
     .on('ajax:before', '.poster-cell', ({ currentTarget }) => {
       currentTarget.classList.add('b-ajax');
     })
-    .on('ajax:success','.poster-cell',  ({ currentTarget }, html) => {
+    .on('ajax:success', '.poster-cell', ({ currentTarget }, html) => {
       const $html = $(html);
       $(currentTarget).replaceWith($html);
       $html.process();

@@ -3,6 +3,7 @@ import delay from 'delay';
 import View from '@/views/application/view';
 import { ANIME_TOOLTIP_OPTIONS } from '@/utils/tooltip_options';
 import axios from '@/utils/axios';
+import I18n from '@/utils/i18n';
 
 const NO_DATA_I18N_KEY = 'frontend.pages.p_animes.no_data';
 const STATUS_I18N_KEY = 'activerecord.attributes.user_rate.statuses';
@@ -84,7 +85,7 @@ export class AnimesMenu extends View {
     Object
       .entries(data)
       .forEach(([id, entry]) => {
-        const $tooltip = $(`.tooltip-details`, `#history-entry-${id}-tooltip`);
+        const $tooltip = $('.tooltip-details', `#history-entry-${id}-tooltip`);
         if (!$tooltip.length) { return; }
 
         if (entry.length) {

@@ -52,14 +52,14 @@ export default class CodeHighlight extends View {
 
       // https://raw.githubusercontent.com/vkiryukhin/jsonfn/master/jsonfn.js
       const parseJSONfn = function(str, date2obj) {
-        var iso8061 = date2obj ?
+        const iso8061 = date2obj ?
           /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)Z$/ :
           false;
 
         return JSON.parse(str, function(key, value) {
-          var prefix;
+          let prefix;
 
-          if (typeof value != 'string') {
+          if (typeof value !== 'string') {
             return value;
           }
           if (value.length < 8) {
@@ -90,7 +90,7 @@ export default class CodeHighlight extends View {
           self.hljs.registerLanguage('shiki', parseJSONfn(event.data.shikiMarkdownJSONfn));
         }
 
-        const result = self // eslint-disable-line no-restricted-globals
+        const result = self
           .hljs
           .highlight(event.data.language, event.data.code, true);
 

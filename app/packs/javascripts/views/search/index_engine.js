@@ -7,6 +7,7 @@ import isEmpty from 'lodash/isEmpty';
 import ajaxCacher from '@/services/ajax_cacher';
 
 import JST from '@/utils/jst';
+import I18n from '@/utils/i18n';
 
 export default class IndexEngine {
   constructor() {

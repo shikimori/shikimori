@@ -1,11 +1,13 @@
-import axios from '@/utils/axios';
-import dayjs from '@/utils/dayjs';
+import { isMobile } from 'shiki-utils';
 
 import capitalize from 'lodash/capitalize';
 import last from 'lodash/last';
 import round from 'lodash/round';
 
-import { isMobile } from 'shiki-utils';
+import axios from '@/utils/axios';
+import dayjs from '@/utils/dayjs';
+import I18n from '@/utils/i18n';
+import p from '@/utils/p';
 
 pageLoad('profiles_show', () => {
   $('.friend-action').on('ajax:success', () => (

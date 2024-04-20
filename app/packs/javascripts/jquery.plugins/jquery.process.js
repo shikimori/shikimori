@@ -51,7 +51,7 @@ async function processCurrentDom(root = document.body, jsExports = window.JS_EXP
   // чёрные мелкие тултипы
   $with('.b-tooltipped.unprocessed', $root)
     .removeClass('unprocessed')
-    .each(function () {
+    .each(function() {
       if ((isMobile()) && !this.classList.contains('mobile')) {
         return;
       }

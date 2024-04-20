@@ -1,5 +1,7 @@
-import ShikiModal from '@/views/application/shiki_modal';
 import { flash } from 'shiki-utils';
+
+import ShikiModal from '@/views/application/shiki_modal';
+import I18n from '@/utils/i18n';
 
 $(document).on('turbolinks:load', () => {
   const $feedback = $('.b-feedback');

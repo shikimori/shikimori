@@ -28,13 +28,13 @@ function update() {
 }
 
 export default class Swiper extends View {
-  isPlaceholder = false
+  isPlaceholder = false;
 
-  areaWidth = null
-  areaHeight = null
+  areaWidth = null;
+  areaHeight = null;
 
-  wall = null
-  swiper = null
+  wall = null;
+  swiper = null;
 
   async initialize(isGlobalUpdate = true) {
     if (!GLOBAL_HANDLER) { setHanler(); }
@@ -313,7 +313,7 @@ export default class Swiper extends View {
     let hasFailed = false;
 
     // await loadImages(this.root).catch(() => hasFailed = true);
-    await loadImages(this.root).catch((a,b,c) => {
+    await loadImages(this.root).catch((a, b, c) => {
       hasFailed = true;
     });
 

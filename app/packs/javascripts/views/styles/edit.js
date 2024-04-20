@@ -2,12 +2,13 @@ import { debounce } from 'throttle-debounce';
 import cookies from 'js-cookie';
 import { flash } from 'shiki-utils';
 
-import axios from '@/utils/axios';
-
 import View from '@/views/application/view';
 import { PredefinedCheckbox } from './predefined_checkbox';
 import { PageBackgroundColor } from './page_background_color';
 import { BodyBackground } from './body_background';
+
+import axios from '@/utils/axios';
+import I18n from '@/utils/i18n';
 
 const PAGE_BORDER_REGEXP = /\/\* AUTO=page_border \*\/ .*[\r\n]?/;
 const STICKY_MENU_REGEXP = /\/\* AUTO=sticky_menu \*\/ .*[\r\n]?/;

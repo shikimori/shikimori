@@ -4,8 +4,8 @@ import delay from 'delay';
 const MAXIMUM_ACHIEVEMETNS = 7;
 
 export default class AchievementsNotifier {
-  $container = null
-  achievementsToNotify = []
+  $container = null;
+  achievementsToNotify = [];
 
   constructor() {
     $(document).on('faye:achievements', (_e, data) =>

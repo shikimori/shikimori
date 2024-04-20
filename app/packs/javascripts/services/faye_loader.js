@@ -20,8 +20,8 @@ const WORLD_CHANGED_EVENTS = [
 const INACTIVITY_INTERVAL = 10 * 60 * 1000;
 
 export default class FayeLoader {
-  client = null
-  subscriptions = {}
+  client = null;
+  subscriptions = {};
 
   constructor() {
     this.apply();
