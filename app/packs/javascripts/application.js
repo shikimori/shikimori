@@ -17,6 +17,9 @@ window.pageUnload = pageUnload;
 import i18n from '@/utils/i18n';
 window.I18n = i18n;
 
+import p from '@/utils/p';
+window.p = p;
+
 const requireJqueryPlugins = require.context('@/jquery.plugins', true);
 requireJqueryPlugins.keys().forEach(requireJqueryPlugins);
 
