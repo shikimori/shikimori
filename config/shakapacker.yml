@@ -32,17 +32,21 @@ default: &default
   # Additional paths webpack should look up modules
   # ['app/assets', 'engine/foo/app/assets']
   additional_paths:
-    # - node_modules/delay
+    - node_modules/shiki-editor
+    - node_modules/shiki-uploader
     # - node_modules/get-js
     # - node_modules/p-defer
     # - node_modules/swiper
-    # - node_modules/shiki-utils
-    - node_modules/shiki-editor
-    - node_modules/shiki-uploader
-    # - node_modules/shiki-decorators
-    # - node_modules/prosemirror-utils
-    # - node_modules/lowlight
+    - node_modules/shiki-utils
+    - node_modules/shiki-decorators
     # - node_modules/tiny-uri
+    - node_modules/axios
+    - node_modules/delay
+    - node_modules/lowlight
+    - node_modules/highcharts
+    - node_modules/@vue/devtools-api
+    - node_modules/vue3-keypress
+    # - node_modules/prosemirror-utils
 
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
@@ -123,6 +127,8 @@ production:
 
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
+  # compress: false
+  # minimize: false
 
   # Extract and emit a css file
   extract_css: true
