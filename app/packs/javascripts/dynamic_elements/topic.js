@@ -1,9 +1,11 @@
 import delay from 'delay';
 
 import { bind, memoize } from 'shiki-decorators';
+import { isPhone } from 'shiki-utils';
+
+import uniq from 'lodash/uniq';
 
 import ShikiEditable from '@/views/application/shiki_editable';
-import { isPhone } from 'shiki-utils';
 
 import axios from '@/utils/axios';
 import I18n from '@/utils/i18n';
@@ -379,7 +381,7 @@ export default class Topic extends ShikiEditable {
     }
 
     if ($placeholder.data('ids')?.indexOf(trackableId) === -1) {
-      const ids = $placeholder.data('ids').add(trackableId);
+      const ids = uniq([...$placeholder.data('ids'), trackableId]);
       $placeholder.data({
         ids,
         'clickloaded-url': `/${trackableType}s/chosen/${ids.join(',')}`
