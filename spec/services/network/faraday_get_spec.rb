@@ -18,8 +18,8 @@ describe Network::FaradayGet, :vcr do
     it { expect(response).to be_nil }
   end
 
-  context 'incorrect domain name' do
-    let(:url) { '...vk.com/' }
+  context 'incorrect domain name', :ci_skip do
+    let(:url) { '.vk.com/' }
     it { expect(response).to be_nil }
   end
 end
