@@ -84,7 +84,9 @@ namespace :deploy do
 
   namespace :escheck do
     task :check_es6_compatibility do
+      on roles(:web) do
         bundle_exec 'yarn run es-check es6 public/packs/js/*.js', release_path
+      end
     end
   end
 
