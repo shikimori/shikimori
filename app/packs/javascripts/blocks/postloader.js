@@ -7,7 +7,7 @@ $(() => {
 
 // dynamic load of content for scrolled page
 $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) => {
-  const $postloader = $(currentTarget);
+  let $postloader = $(currentTarget);
   const page = ($postloader.data('page') || 1) + 1;
 
   if ($postloader.data('locked') ||
@@ -73,6 +73,7 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
 
   if (data.postloader) {
     $postloader.replaceWith($newPostloader);
+    $postloader = $newPostloader;
   }
 
   const $insertContent = $data.children();
@@ -80,11 +81,11 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
   (
     $postloader.data('insert_into') ?
       $($postloader.data('insert_into')).append($insertContent) :
-      $insertContent.insertBefore(data.postloader ? $newPostloader : $postloader)
+      $insertContent.insertBefore($postloader)
   )
-    .process(data.JS_EXPORTS) // .process must be called after new content is inserted into DOM
-    .first()
-    .trigger('postloader:success');
+    .process(data.JS_EXPORTS); // .process must be called after new content is inserted into DOM
+
+  $postloader.trigger('postloader:success');
 
   if (!data.postloader) {
     $postloader.remove();
