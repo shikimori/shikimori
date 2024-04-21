@@ -1,4 +1,4 @@
-module Routing
+module Routing # rubocop:disable Metrics/ModuleLength
   extend ActiveSupport::Concern
   include Rails.application.routes.url_helpers
 
@@ -9,9 +9,10 @@ module Routing
       shikimori \. (?: org|one|dev|local|test|me ) |
       static\d?.wallpapers-anime.com |
       images\d.alphacoders.com |
-      \w+\.radikal.ru |
-      (\w\.)?imgur.com |
-      (\w\.)?.ibb.co |
+      ([\w-]+\.)?radikal.ru |
+      ([\w-]+\.)?imgur.com |
+      ([\w-]+\.)?ibb.co |
+      ([\w-]+\.)?userapi.com
       animesher.com |
       raw.githubusercontent.com |
       \d+\.media.tumblr.com
