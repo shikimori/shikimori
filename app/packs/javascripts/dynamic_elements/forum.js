@@ -1,6 +1,9 @@
-import ShikiView from '@/views/application/shiki_view';
+import uniq from 'lodash/uniq';
+
 import I18n from '@/utils/i18n';
 import p from '@/utils/p';
+
+import ShikiView from '@/views/application/shiki_view';
 
 const FAYE_EVENTS = [
   'faye:comment:marked',
@@ -55,7 +58,7 @@ export default class Forum extends ShikiView {
     }
 
     if ($placeholder.data('ids')?.indexOf(commentId) === -1) {
-      const ids = $placeholder.data('ids').add(commentId);
+      const ids = uniq([...$placeholder.data('ids'), commentId]);
 
       $placeholder.data({
         ids,
