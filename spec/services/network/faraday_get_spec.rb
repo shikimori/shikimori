@@ -19,7 +19,7 @@ describe Network::FaradayGet, :vcr do
   end
 
   context 'incorrect domain name' do
-    let(:url) { '.vk.com/' }
+    let(:url) { '...vk.com/' }
     it { expect(response).to be_nil }
   end
 end
