@@ -4,10 +4,12 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 const webpackConfig = require('./base');
 
-if (process.env.BUNDLE_ANALYZER) {
-  const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer'); // eslint-disable-line
-  config.plugins.push(new BundleAnalyzerPlugin());
-}
+// if (process.env.BUNDLE_ANALYZER) {
+//   const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+//   config.plugins.push(new BundleAnalyzerPlugin());
+// }
+
+// webpackConfig.optimization.minimize = false;
+// webpackConfig.optimization.minimizer = [];
 
 module.exports = webpackConfig;
-
