@@ -82,6 +82,12 @@ namespace :deploy do
     end
   end
 
+  namespace :escheck do
+    task :check_es6_compatibility do
+        bundle_exec 'yarn run es-check es6 public/packs/js/*.js', release_path
+    end
+  end
+
   namespace :yarn do
     task :install do
       on roles(:app) do
@@ -240,6 +246,7 @@ after 'deploy:published', 'sidekiq:start'
 # before 'deploy:assets:precompile', 'deploy:yarn:install'
 before 'deploy:assets:precompile', 'deploy:yarn:install'
 before 'deploy:assets:precompile', 'deploy:i18n_js:export'
+after 'deploy:assets:precompile', 'deploy:escheck:check_es6_compatibility'
 
 if fetch(:stage) == :production
   after 'deploy:updated', 'clockwork:stop'

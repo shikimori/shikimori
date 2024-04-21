@@ -26,6 +26,7 @@
     "dayjs": "^1.11.10",
     "delay": "^6.0.0",
     "diff-match-patch": "^1.0.5",
+    "es-check": "^7.1.1",
     "faye": "^1.4.0",
     "get-js": "^0.0.7",
     "highcharts": "^11.4.1",
