@@ -12,7 +12,9 @@ module Routing # rubocop:disable Metrics/ModuleLength
       ([\w-]+\.)?radikal.ru |
       ([\w-]+\.)?imgur.com |
       ([\w-]+\.)?ibb.co |
-      ([\w-]+\.)?userapi.com
+      ([\w-]+\.)?userapi.com |
+      ([\w-]+\.)?cloudinary.com |
+      ([\w-]+\.)?imagekit.io |
       animesher.com |
       raw.githubusercontent.com |
       \d+\.media.tumblr.com |
