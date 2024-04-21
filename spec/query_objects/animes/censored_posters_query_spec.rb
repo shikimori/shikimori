@@ -3,7 +3,7 @@ describe Animes::CensoredPostersQuery do
 
   let(:moderation_state) { Types::Moderatable::State[:pending] }
 
-  let!(:hentai) { create :genre_v2, :manga, id: GenreV2::TEMPORARILY_POSTERS_DISABLED_IDS.sample }
+  let!(:hentai) { create :genre_v2, :manga, id: GenreV2::TEMPORARILY_POSTERS_DISABLED_IDS.max }
   let!(:non_hentai) { create :genre_v2, :manga, id: hentai.id + 1 }
 
   let!(:poster_1) { create :poster, manga: manga_1 }
