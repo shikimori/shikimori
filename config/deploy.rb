@@ -31,7 +31,7 @@ set :linked_dirs, %w[
 ]
 set :copy_files, %w[node_modules]
 
-set :keep_releases, 5
+set :keep_releases, 10
 set :log_level, :info
 set :format, :airbrussh
 
