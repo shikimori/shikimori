@@ -15,7 +15,8 @@ module Routing # rubocop:disable Metrics/ModuleLength
       ([\w-]+\.)?userapi.com
       animesher.com |
       raw.githubusercontent.com |
-      \d+\.media.tumblr.com
+      \d+\.media.tumblr.com |
+      media.tenor.com
     )
     \Z
   /mix
