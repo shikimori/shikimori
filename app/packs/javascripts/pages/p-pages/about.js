@@ -1,4 +1,5 @@
 import first from 'lodash/first';
+import merge from 'lodash/merge';
 
 import I18n from '@/utils/i18n';
 
@@ -38,8 +39,7 @@ function commentsChart(Highcharts) {
             [1, new Highcharts.Color(color).setOpacity(0).get('rgba')]
           ]
         }
-      }
-      ],
+      }],
       legend: {
         enabled: false
       }
@@ -71,8 +71,7 @@ function usersChart(Highcharts) {
             [1, new Highcharts.Color(color).setOpacity(0).get('rgba')]
           ]
         }
-      }
-      ],
+      }],
       legend: {
         enabled: false
       }
@@ -150,7 +149,7 @@ function trafficChart(Highcharts) {
 }
 
 export function dailyChartOptions(options, { isStacking } = {}) {
-  return Object.merge({
+  return merge({
     chart: {
       zoomType: 'x',
       type: 'areaspline'
@@ -201,5 +200,5 @@ export function dailyChartOptions(options, { isStacking } = {}) {
       }
     },
     credits: false
-  }, options, { deep: true });
+  }, options);
 }
