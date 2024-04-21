@@ -23,16 +23,17 @@ module.exports = function config(api) {
           corejs: '3.8',
           modules: 'auto',
           bugfixes: true,
-          exclude: ['transform-typeof-symbol']
+          exclude: ['transform-typeof-symbol'],
+          targets: 'defaults, not ie <= 11, not ie_mob 11, not dead, chrome 49'
         }
       ]
     ].filter(Boolean),
     plugins: [
       ['@babel/plugin-transform-runtime', { helpers: false }],
       ['@babel/plugin-proposal-decorators', { legacy: true }],
-      ['@babel/plugin-transform-class-properties', { "loose": true }],
-      ['@babel/plugin-transform-private-methods', { "loose": true }],
-      ["@babel/plugin-transform-private-property-in-object", { "loose": true }],
+      ['@babel/plugin-transform-class-properties', { loose: true }],
+      ['@babel/plugin-transform-private-methods', { loose: true }],
+      ['@babel/plugin-transform-private-property-in-object', { loose: true }],
       ['@babel/plugin-proposal-pipeline-operator', { proposal: 'minimal' }],
       ['@babel/plugin-proposal-partial-application']
     ].filter(Boolean)
