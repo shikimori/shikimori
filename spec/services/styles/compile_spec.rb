@@ -75,7 +75,8 @@ describe Styles::Compile do
             "#{protocol_part_value}\\r//",
             "#{protocol_part_value}/\\r/",
             "#{protocol_part_value}//<",
-            broken_protocol_part
+            broken_protocol_part,
+            "#{protocol_part_value}/\\\r\n/"
           ].each do |evil_protocol_value|
             next if protocol_part_value == '' && evil_protocol_value == broken_protocol_part
 

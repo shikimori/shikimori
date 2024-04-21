@@ -4,6 +4,7 @@ import Turbolinks from 'turbolinks';
 import ajaxCacher from '@/services/ajax_cacher';
 import inNewTab from '@/utils/in_new_tab';
 import axios from '@/utils/axios';
+import I18n from '@/utils/i18n';
 
 pageLoad('recommendations_index', 'recommendations_favourites', async () => {
   // если страница ещё не готова, перегрузимся через 5 секунд

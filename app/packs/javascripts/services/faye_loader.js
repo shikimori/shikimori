@@ -1,10 +1,15 @@
 /* eslint no-console: 0 */
 /* global IS_FAYE_LOGGING */
 
-import { bind } from 'shiki-decorators';
 import Faye from 'faye';
 import cookies from 'js-cookie';
+
+import difference from 'lodash/difference';
+import intersection from 'lodash/intersection';
+import isEmpty from 'lodash/isEmpty';
+
 import idle from '@morr/user-idle';
+import { bind } from 'shiki-decorators';
 
 const WORLD_CHANGED_EVENTS = [
   'turbolinks:load',
@@ -15,8 +20,8 @@ const WORLD_CHANGED_EVENTS = [
 const INACTIVITY_INTERVAL = 10 * 60 * 1000;
 
 export default class FayeLoader {
-  client = null
-  subscriptions = {}
+  client = null;
+  subscriptions = {};
 
   constructor() {
     this.apply();
@@ -50,7 +55,7 @@ export default class FayeLoader {
 
     $targets.each((index, node) => {
       const fayeChannels = $(node).data('faye');
-      if ((fayeChannels !== false) && Object.isEmpty(fayeChannels)) {
+      if ((fayeChannels !== false) && isEmpty(fayeChannels)) {
         console.warn('no faye channels found for', node);
       }
 
@@ -93,7 +98,8 @@ export default class FayeLoader {
 
   unsubscribe(channels) {
     const toStay = Object.keys(channels);
-    const toRemove = Object.keys(this.subscriptions).subtract(toStay);
+    const toRemove = Object.keys(this.subscriptions)
+      |> difference(?, toStay);
 
     toRemove.forEach(channel => {
       this.client.unsubscribe(channel);
@@ -104,31 +110,31 @@ export default class FayeLoader {
   }
 
   update(channels) {
-    Object.keys(channels)
-      .intersect(Object.keys(this.subscriptions))
-      .forEach(channel => this.subscriptions[channel].node = channels[channel]);
+    (
+      Object.keys(channels) |> intersection(?, Object.keys(this.subscriptions))
+    ).forEach(channel => this.subscriptions[channel].node = channels[channel]);
   }
 
   subscribe(channels) {
-    Object.keys(channels)
-      .subtract(Object.keys(this.subscriptions))
-      .forEach(channel => {
-        const subscription = this.client.subscribe(channel, data => {
-          // это колбек, в котором мы получили уведомление от faye
-          if (IS_FAYE_LOGGING) { console.log(['faye:received', channel, data]); }
-          // сообщения от самого себя не принимаем
-          if (data.publisher_faye_id === this.id) { return; }
+    (
+      Object.keys(channels) |> difference(?, Object.keys(this.subscriptions))
+    ).forEach(channel => {
+      const subscription = this.client.subscribe(channel, data => {
+        // это колбек, в котором мы получили уведомление от faye
+        if (IS_FAYE_LOGGING) { console.log(['faye:received', channel, data]); }
+        // сообщения от самого себя не принимаем
+        if (data.publisher_faye_id === this.id) { return; }
 
-          this.subscriptions[channel].node.trigger(`faye:${data.event}`, data);
-        });
-
-        this.subscriptions[channel] = {
-          node: channels[channel],
-          channel: subscription
-        };
-
-        if (IS_FAYE_LOGGING) { console.log(`faye subscribed ${channel}`); }
+        this.subscriptions[channel].node.trigger(`faye:${data.event}`, data);
       });
+
+      this.subscriptions[channel] = {
+        node: channels[channel],
+        channel: subscription
+      };
+
+      if (IS_FAYE_LOGGING) { console.log(`faye subscribed ${channel}`); }
+    });
   }
 
   @bind

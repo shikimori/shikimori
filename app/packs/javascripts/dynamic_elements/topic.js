@@ -6,6 +6,8 @@ import ShikiEditable from '@/views/application/shiki_editable';
 import { isPhone } from 'shiki-utils';
 
 import axios from '@/utils/axios';
+import I18n from '@/utils/i18n';
+import p from '@/utils/p';
 import { animatedCollapse, animatedExpand } from '@/utils/animated';
 import { loadImagesFinally } from '@/utils/load_image';
 
@@ -210,7 +212,7 @@ export default class Topic extends ShikiEditable {
   }
 
   // similar to hash from JsExports::TopicsExport#serialize
-  get defaultModel() { // eslint-disable-line camelcase
+  get defaultModel() {
     return {
       can_destroy: false,
       can_edit: false,
@@ -223,9 +225,9 @@ export default class Topic extends ShikiEditable {
   }
   get type() { return 'topic'; }
   get commentType() { return 'comment'; }
-  get typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); } // eslint-disable-line camelcase
+  get typeLabel() { return I18n.t(`${I18N_KEY}.type_label`); }
 
-  get reloadUrl() { // eslint-disable-line camelcase
+  get reloadUrl() {
     return `/${this.type}s/${this.$node.attr('id')}/reload?is_preview=${this.isPreview}&is_mini=${this.isMini}`;
   }
 
@@ -546,8 +548,7 @@ export default class Topic extends ShikiEditable {
           if (this.model.voted_no) {
             vote = 'unvote';
             this.model.votes_against -= 1;
-          }
-          else {
+          } else {
             vote = 'no';
             this.model.votes_against += 1;
             if (this.model.voted_yes) this.model.votes_for -= 1;

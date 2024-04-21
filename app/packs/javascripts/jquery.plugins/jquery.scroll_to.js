@@ -17,7 +17,7 @@ $.extend({
     }
 
     const $topMenu = $('.l-top_menu-v2');
-    if (top !== 0 && $topMenu.css('position') == 'sticky') {
+    if (top !== 0 && $topMenu.css('position') === 'sticky') {
       top -= $topMenu.height();
     }
 

@@ -52,7 +52,7 @@ export class ReviewsNavigation extends View {
 
     const opinion = e.currentTarget.getAttribute('data-opinion');
 
-    if (this.isPreview && opinion != this.activeState.opinion) {
+    if (this.isPreview && opinion !== this.activeState.opinion) {
       if (inNewTab(e)) { return; }
       e.preventDefault();
     }
@@ -104,7 +104,6 @@ export class ReviewsNavigation extends View {
   findState(opinion) {
     return this.states.find(state => state.opinion === opinion);
   }
-
 
   ellipsisFixes() {
     this.$navigations

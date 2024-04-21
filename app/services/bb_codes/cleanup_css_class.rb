@@ -31,12 +31,12 @@ class BbCodes::CleanupCssClass
     mfp-wrap
     shade
     turbolinks-progress-bar
-    toastify
     toastify-left
     toastify-right
     toastify-top
     toastify-bottom
     toastify-rounded
+    toastify
   ]
 
   CLEANUP_REGEXP = /

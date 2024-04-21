@@ -12,7 +12,7 @@ export class Cosplay extends View {
     const { ShikiGallery } =
       await import(/* webpackChunkName: "galleries" */ '@/views/application/shiki_gallery');
 
-    this.$('.b-gallery:not(.processed)').each(function () {
+    this.$('.b-gallery:not(.processed)').each(function() {
       new ShikiGallery(this);
       this.classList.add('processed');
     });

@@ -24,8 +24,7 @@ gem 'non-stupid-digest-assets', github: 'afdev82/non-stupid-digest-assets', bran
 gem 'sassc-rails'
 gem 'turbolinks'
 gem 'uglifier'
-gem 'webpacker'
-# gem 'execjs', '2.7' # do no upgrade until upgrade to ruby 2.7 https://github.com/rails/execjs/issues/99
+gem 'shakapacker'
 gem 'sprockets-rails'
 
 # templates
@@ -207,9 +206,9 @@ group :development, :test do
   gem 'stackprof', require: false # for flamegraph
 
   gem 'guard', require: false
+  gem 'guard-compat', require: false
   gem 'guard-brakeman', require: false
   gem 'guard-bundler', require: false
-  gem 'guard-i18n-js', require: false, github: 'morr/guard-i18n-js'
   gem 'guard-pow', require: false
   gem 'guard-rspec', require: false
   gem 'guard-rubocop', require: false

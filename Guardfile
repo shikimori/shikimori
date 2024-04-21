@@ -105,8 +105,13 @@ guard :pow do
   watch %r{^config/middleware/.*\.rb$}
 end
 
-guard 'i18n-js' do
-  watch(%r{config/locales/.+\.yml})
+guard(:"i18n-js",
+      run_on_start: true,
+      config_file: "./config/i18n.yml",
+      require_file: "./config/environment.rb") do
+  watch(%r{^config/locales/.+\.(yml|po)$})
+  watch(%r{^config/i18n.yml$})
+  watch("Gemfile")
 end
 
 # guard :webpack, config: './config/webpack/development.js' do

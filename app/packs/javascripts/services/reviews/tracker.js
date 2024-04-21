@@ -1,8 +1,10 @@
+import isEmpty from 'lodash/isEmpty';
+
 import TrackReview from './track_review';
 
 export default class ReviewsTracker {
   static track(jsExports, $root) {
-    if (Object.isEmpty(jsExports != null ? jsExports.reviews : undefined)) {
+    if (isEmpty(jsExports != null ? jsExports.reviews : undefined)) {
       return;
     }
 

@@ -1,4 +1,5 @@
 import { animatedExpand } from './animated';
+import I18n from './i18n';
 
 export default function checkHeight(
   node,

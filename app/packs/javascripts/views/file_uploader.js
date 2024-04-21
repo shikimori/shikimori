@@ -2,6 +2,7 @@ import ShikiUploader from 'shiki-uploader';
 // import ShikiUploader from '../../../../../shiki-uploader';
 
 import csrf from '@/utils/csrf';
+import I18n from '@/utils/i18n';
 
 export class FileUploader extends ShikiUploader {
   constructor(node, options = {}) {

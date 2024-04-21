@@ -1,5 +1,5 @@
 import TinyUri from 'tiny-uri';
-
+import isEmpty from 'lodash/isEmpty';
 import { debounce } from 'throttle-debounce';
 import { flash } from 'shiki-utils';
 
@@ -7,6 +7,7 @@ import ajaxCacher from '@/services/ajax_cacher';
 import View from '@/views/application/view';
 
 import JST from '@/utils/jst';
+import I18n from '@/utils/i18n';
 
 export default class CollectionSearch extends View {
   initialize() {
@@ -47,7 +48,7 @@ export default class CollectionSearch extends View {
       this.debouncedSearch(trimmedValue);
     }
 
-    this.$input.toggleClass('has-value', !Object.isEmpty(this._phrase));
+    this.$input.toggleClass('has-value', !isEmpty(this._phrase));
   }
 
   // handlers
@@ -76,7 +77,7 @@ export default class CollectionSearch extends View {
   }
 
   _cancel() {
-    if (Object.isEmpty(this.phrase)) {
+    if (isEmpty(this.phrase)) {
       this._deactivate();
     } else {
       this._clearPhrase();
@@ -118,7 +119,7 @@ export default class CollectionSearch extends View {
     if (response.content) {
       html = response.content + (response.postloader || '');
     } else {
-      html = Object.isEmpty(this.phrase) ?
+      html = isEmpty(this.phrase) ?
         '' :
         JST['search/nothing_found']({ isAutocomplete: false });
     }

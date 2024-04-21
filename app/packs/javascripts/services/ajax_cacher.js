@@ -1,3 +1,4 @@
+import difference from 'lodash/difference';
 import axios from '@/utils/axios';
 
 let store = {};
@@ -7,7 +8,7 @@ const queueLimit = 300;
 
 function updateQueue(url, noDelete) {
   if (queue.includes(url)) {
-    queue = queue.subtract(url);
+    queue = difference(queue, [url]);
   }
   queue.push(url);
 

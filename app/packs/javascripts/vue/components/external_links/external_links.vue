@@ -35,9 +35,13 @@
 import { ref, computed, nextTick } from 'vue';
 import { useStore } from 'vuex';
 
-import ExternalLink from './external_link';
+import first from 'lodash/first';
+import last from 'lodash/last';
+
 import draggable from 'vuedraggable';
 import delay from 'delay';
+
+import ExternalLink from './external_link';
 
 const props = defineProps({
   kindOptions: { type: Array, required: true },
@@ -66,7 +70,7 @@ const collection = computed({
 });
 
 function createLink(
-  kind = props.kindOptions.first().last(),
+  kind = last(first(props.kindOptions)),
   url = ''
 ) {
   store.dispatch('add', {

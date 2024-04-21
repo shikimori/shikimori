@@ -86,10 +86,13 @@ describe BbCodes::Tags::DivTag do
   end
 
   context 'cleanup classes' do
-    let(:text) do
-      "[div=aaa l-footer #{BbCodes::CleanupCssClass::FORBIDDEN_CSS_CLASSES.sample}]test[/div]"
+    BbCodes::CleanupCssClass::FORBIDDEN_CSS_CLASSES.each do |sample|
+      context sample do
+        let(:picked_sample) { sample }
+        let(:text) { "[div=aaa l-footer #{picked_sample}]test[/div]" }
+        it { is_expected.to eq '<div class="aaa" data-div>test</div>' }
+      end
     end
-    it { is_expected.to eq '<div class="aaa" data-div>test</div>' }
   end
 
   context 'unbalanced tags' do

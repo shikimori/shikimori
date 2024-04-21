@@ -1,3 +1,5 @@
+import round from 'lodash/round';
+
 import View from '@/views/application/view';
 
 export default class WallImage extends View {
@@ -67,7 +69,7 @@ export default class WallImage extends View {
   }
 
   weight() {
-    return this.ratio.round(1);
+    return round(this.ratio, 1);
     // return (1 / this.ratio).round(1)
   }
 

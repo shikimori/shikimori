@@ -1,3 +1,7 @@
+import compact from 'lodash/compact';
+import maxBy from 'lodash/maxBy';
+import mean from 'lodash/mean';
+
 // TODO: refactor to view object
 $.fn.extend({
   bar(options) {
@@ -6,15 +10,15 @@ $.fn.extend({
 
       switch ($chart.data('bar')) {
         case 'horizontal':
-          simpleBar($chart, Object.add(options || {}, { type: 'horizontal' }));
+          simpleBar($chart, { ...options, type: 'horizontal' });
           break;
 
         case 'vertical':
-          simpleBar($chart, Object.add(options || {}, { type: 'vertical' }));
+          simpleBar($chart, { ...options, type: 'vertical' });
           break;
 
         // when 'vertical-complex'
-          // complex_bar $chart, Object.add(options || {}, type: 'vertical')
+          // complex_bar $chart, { ...options, type: 'vertical' }
 
         default:
           throw 'unknown bar-type: ' + $chart.data('bar'); // eslint-disable-line no-throw-literal
@@ -44,7 +48,7 @@ function simpleBar($chart, options) {
   }
 
   const intervalsCount = $chart.data('intervals_count');
-  let maximum = stats.max((v, _k) => v[field])?.[field];
+  let maximum = maxBy(stats, v => v[field])?.[field];
   let flattened = false;
 
   if ($chart.data('flattened')) {
@@ -52,7 +56,7 @@ function simpleBar($chart, options) {
       .map((v, _k) => v[field])
       .filter(v => (v > 0) && (v !== maximum));
 
-    const average = values.average();
+    const average = mean(values);
 
     if ((maximum > (average * 5)) && (average > 0)) {
       originalMaximum = maximum;
@@ -133,11 +137,11 @@ function simpleBar($chart, options) {
         ` style="width: ${100.0 / intervalsCount}%;"` :
         '';
 
-    const cssClasses = [
+    const cssClasses = compact([
       'value',
       percent < 10 ? 'narrow' : null,
       entry[field] > 99 ? 'mini' : null
-    ].compact();
+    ]);
 
     $chart.append(
       `<div class="line"${cssStyles}>` +

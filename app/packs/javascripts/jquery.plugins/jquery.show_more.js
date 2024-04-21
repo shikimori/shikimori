@@ -1,6 +1,6 @@
 $.fn.extend({
   showMore() {
-    return this.each(function () {
+    return this.each(function() {
       const $showMore = $(this);
       const $hideMore = $showMore.next().find('.hide-more');
 

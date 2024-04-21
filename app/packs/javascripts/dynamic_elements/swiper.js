@@ -1,6 +1,9 @@
 import delay from 'delay';
 import { memoize } from 'shiki-decorators';
 
+import first from 'lodash/first';
+import round from 'lodash/round';
+
 import View from '@/views/application/view';
 import Wall from '@/views/wall/view';
 import WallCluster from '@/views/wall/cluster';
@@ -25,13 +28,13 @@ function update() {
 }
 
 export default class Swiper extends View {
-  isPlaceholder = false
+  isPlaceholder = false;
 
-  areaWidth = null
-  areaHeight = null
+  areaWidth = null;
+  areaHeight = null;
 
-  wall = null
-  swiper = null
+  wall = null;
+  swiper = null;
 
   async initialize(isGlobalUpdate = true) {
     if (!GLOBAL_HANDLER) { setHanler(); }
@@ -57,7 +60,7 @@ export default class Swiper extends View {
   }
 
   get width() {
-    return this.$root.width().floor();
+    return Math.floor(this.$root.width());
   }
 
   @memoize
@@ -224,7 +227,7 @@ export default class Swiper extends View {
   }
 
   _scaleWall(wall, width) {
-    const firstImage = wall.images.first();
+    const firstImage = first(wall.images);
     if (wall.images.length === 1 && firstImage.ratio > COVER_RATIO) {
       return;
     }
@@ -264,10 +267,10 @@ export default class Swiper extends View {
     const scaleRatio = this.areaHeight / scaledImageHeight;
     const visiblePercent = scaleRatio * 100;
 
-    const marginTopPercent = [
+    const marginTopPercent = Math.min(
       10,
-      ((100 - visiblePercent) / 2 / scaleRatio).round(2)
-    ].min();
+      round((100 - visiblePercent) / 2 / scaleRatio, 2)
+    );
 
     if (!this.isVideo) {
       this.$links.css('margin-top', marginTopPercent > 0 ? `-${marginTopPercent}%` : '');
@@ -280,7 +283,7 @@ export default class Swiper extends View {
     const scaleRatio = this.areaWidth / scaledImageWidth;
     const visiblePercent = scaleRatio * 100;
 
-    const marginLeftPercent = ((100 - visiblePercent) / 2 / scaleRatio).round(2);
+    const marginLeftPercent = round((100 - visiblePercent) / 2 / scaleRatio, 2);
 
     if (!this.isVideo) {
       this.$links.css('margin-left', marginLeftPercent > 0 ? `-${marginLeftPercent}%` : '');
@@ -295,7 +298,7 @@ export default class Swiper extends View {
     if (this.desiredHeight !== 0) {
       height = this.desiredHeight;
     } else if (this.isEagerCropping) {
-      height = (width / COVER_RATIO).floor();
+      height = Math.floor(width / COVER_RATIO);
     }
 
     this.areaWidth = width;
@@ -310,7 +313,7 @@ export default class Swiper extends View {
     let hasFailed = false;
 
     // await loadImages(this.root).catch(() => hasFailed = true);
-    await loadImages(this.root).catch((a,b,c) => {
+    await loadImages(this.root).catch((a, b, c) => {
       hasFailed = true;
     });
 

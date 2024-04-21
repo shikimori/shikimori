@@ -1,4 +1,5 @@
 import axios from '@/utils/axios';
+import I18n from '@/utils/i18n';
 
 $(() => {
   $.appear('.b-postloader');

@@ -9,7 +9,7 @@ pageLoad('tests_show', async () => {
 
 // function initPage(Highcharts) {
 //   const traffic = $('.traffic-test').data('stats');
-// 
+//
 //   $('.traffic-test').highcharts(
 //     chartOptions({
 //       series: [{
@@ -72,7 +72,7 @@ pageLoad('tests_show', async () => {
 //     })
 //   );
 // }
-// 
+//
 // const chartOptions = options =>
 //   Object.merge({
 //     chart: {

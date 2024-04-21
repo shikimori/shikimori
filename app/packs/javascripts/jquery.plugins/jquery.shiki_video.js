@@ -1,3 +1,5 @@
+import round from 'lodash/round';
+
 import { imagePromiseFinally } from '@/utils/load_image';
 
 const prepare = (domain, href) => (
@@ -45,7 +47,7 @@ const hostingPatterns = url => (
 
 $.fn.extend({
   shikiVideo() {
-    return this.each(async function () {
+    return this.each(async function() {
       const root = this;
       const $root = $(root);
 
@@ -94,7 +96,7 @@ $.fn.extend({
         return;
       }
 
-      const ratio = ((posterImg.naturalWidth * 1.0) / posterImg.naturalHeight).round(1);
+      const ratio = round((posterImg.naturalWidth * 1.0) / posterImg.naturalHeight, 1);
 
       // http://vk.com/video98023184_165811692
       if (ratio === 1.3) {

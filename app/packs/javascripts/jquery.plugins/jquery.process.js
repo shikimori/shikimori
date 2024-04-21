@@ -51,7 +51,7 @@ async function processCurrentDom(root = document.body, jsExports = window.JS_EXP
   // чёрные мелкие тултипы
   $with('.b-tooltipped.unprocessed', $root)
     .removeClass('unprocessed')
-    .each(function () {
+    .each(function() {
       if ((isMobile()) && !this.classList.contains('mobile')) {
         return;
       }
@@ -87,7 +87,7 @@ async function processCurrentDom(root = document.body, jsExports = window.JS_EXP
   $with('.bubbled', $root)
     .addClass('bubbled-processed')
     .removeClass('bubbled')
-    .tooltip(Object.add(COMMON_TOOLTIP_OPTIONS, { offset: [-48, 10, -10] }));
+    .tooltip({ ...COMMON_TOOLTIP_OPTIONS, offset: [-48, 10, -10] });
 
   $with('.b-spoiler.unprocessed', $root).spoiler();
 

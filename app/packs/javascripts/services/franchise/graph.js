@@ -1,6 +1,9 @@
 // TODO: cleanup decaffeinate artefacts
 import d3 from 'd3';
 
+import max from 'lodash/max';
+import min from 'lodash/min';
+
 import { FranchiseNode } from './node';
 import { ShikiMath } from '@/services/shiki_math';
 
@@ -21,9 +24,7 @@ export class FranchiseGraph {
     this.image_h = 75;
 
     this.links_data = data.links;
-    this.nodes_data = data.nodes.map(node => {
-      return new FranchiseNode(node, this.image_w, this.image_h, node.id === data.current_id);
-    });
+    this.nodes_data = data.nodes.map(node => new FranchiseNode(node, this.image_w, this.image_h, node.id === data.current_id));
 
     this._prepare_data();
     this._position_nodes();
@@ -33,7 +34,7 @@ export class FranchiseGraph {
 
   _prepare_data() {
     let original_size;
-    this.max_weight = this.links_data.map(v => v.weight).max() * 1.0;
+    this.max_weight = max(this.links_data.map(v => v.weight)) * 1.0;
     this.size = (original_size = this.nodes_data.length);
     // console.log "nodes: #{@size}, max_weight: #{@max_weight}"
 
@@ -46,8 +47,7 @@ export class FranchiseGraph {
           to_min: 480,
           to_max: 1300
         }
-        )
-      :
+        ) :
         this._scale(this.size, {
           from_min: 0,
           from_max: 100,
@@ -59,8 +59,8 @@ export class FranchiseGraph {
     this.screen_height = this.screen_width;
 
     // dates for positioning on Y axis
-    const min_date = this.nodes_data.map(v => v.date).min();
-    const max_date = this.nodes_data.map(v => v.date).max();
+    const min_date = min(this.nodes_data.map(v => v.date));
+    const max_date = max(this.nodes_data.map(v => v.date));
 
     // do not use min/max dates if they belong to multiple entries
     if (this.nodes_data.filter(v => v.date === min_date).length === 1) {
@@ -82,14 +82,14 @@ export class FranchiseGraph {
       if (d.date === this.min_date) {
         d.fixed = true;
         // move it proportionally to its relations count
-        d.y += this._scale(d.weight, {from_min: 4, from_max: 20, to_min: 0, to_max: 700});
+        d.y += this._scale(d.weight, { from_min: 4, from_max: 20, to_min: 0, to_max: 700 });
       }
 
       if (d.date === this.max_date) {
         d.fixed = true;
         d.y -= 20;
         // move it proportionally to its relations count
-        return d.y -= this._scale(d.weight, {from_min: 4, from_max: 9, to_min: 0, to_max: 150});
+        return d.y -= this._scale(d.weight, { from_min: 4, from_max: 9, to_min: 0, to_max: 150 });
       }
     });
   }
@@ -112,15 +112,15 @@ export class FranchiseGraph {
           return -3000;
         } else {
           return -2000;
-        }}).friction(0.9)
+        }
+      }).friction(0.9)
       .linkDistance(d => {
         const max_width =
           this.max_weight < 3 ?
-            this._scale(this.size, {from_min: 2, from_max: 6, to_min: 100, to_max: 300})
-          : this.max_weight > 100 ?
-            this._scale(this.max_weight, {from_min: 30, from_max: 80, to_min: 300, to_max: 1000})
-          :
-            this._scale(this.max_weight, {from_min: 30, from_max: 80, to_min: 300, to_max: 1500});
+            this._scale(this.size, { from_min: 2, from_max: 6, to_min: 100, to_max: 300 }) :
+            this.max_weight > 100 ?
+              this._scale(this.max_weight, { from_min: 30, from_max: 80, to_min: 300, to_max: 1000 }) :
+              this._scale(this.max_weight, { from_min: 30, from_max: 80, to_min: 300, to_max: 1500 });
 
         return this._scale(300 * (d.weight / this.max_weight), {
           from_min: 0,
@@ -129,7 +129,7 @@ export class FranchiseGraph {
           to_max: max_width
         }
         );
-    }).size([this.screen_width, this.screen_height])
+      }).size([this.screen_width, this.screen_height])
       .nodes(this.nodes_data)
       .links(this.links_data));
   }
@@ -141,7 +141,6 @@ export class FranchiseGraph {
 
       if (!symmetrical_link) {
         console.warn(`non symmetical link [${entry_1.source_id}, ${entry_1.target_id}]`, entry_1);
-        return ;
       }
     });
   }
@@ -185,7 +184,7 @@ export class FranchiseGraph {
     this._append_nodes();
 
     this.d3_force.start().on('tick', this._tick);
-    for (let i = 0, end = this.size*this.size, asc = 0 <= end; asc ? i <= end : i >= end; asc ? i++ : i--) { this.d3_force.tick(); }
+    for (let i = 0, end = this.size * this.size, asc = end >= 0; asc ? i <= end : i >= end; asc ? i++ : i--) { this.d3_force.tick(); }
     return this.d3_force.stop();
   }
 
@@ -208,7 +207,7 @@ export class FranchiseGraph {
   _append_svg(target) {
     return this.d3_svg = d3.select(target)
       .append('svg')
-      .attr({width: this.screen_width, height: this.screen_height});
+      .attr({ width: this.screen_width, height: this.screen_height });
   }
 
   // lines between nodes
@@ -216,12 +215,12 @@ export class FranchiseGraph {
     return this.d3_link = this.d3_svg.append('svg:g').selectAll('.link')
       .data(this.links_data)
       .enter().append('svg:path')
-        .attr({
-          class(d) { return `${d.source_id}-${d.target_id} link ${d.relation}`; },
-          'marker-start'(d) { if (START_MARKERS.find(d.relation)) { return `url(#${d.relation})`; } },
-          'marker-end'(d) { if (END_MARKERS.find(d.relation)) { return `url(#${d.relation})`; } },
-          'marker-mid'(d) { return `url(#${d.relation}_label)`; }
-    });
+      .attr({
+        class(d) { return `${d.source_id}-${d.target_id} link ${d.relation}`; },
+        'marker-start'(d) { if (START_MARKERS.find(d.relation)) { return `url(#${d.relation})`; } },
+        'marker-end'(d) { if (END_MARKERS.find(d.relation)) { return `url(#${d.relation})`; } },
+        'marker-mid'(d) { return `url(#${d.relation}_label)`; }
+      });
   }
 
   // nodes (images + borders + year)
@@ -229,55 +228,55 @@ export class FranchiseGraph {
     this.d3_node = this.d3_svg.append('.svg:g').selectAll('.node')
       .data(this.nodes_data)
       .enter().append('svg:g')
-        .attr({
-          class: 'node',
-          id(d) { return d.id; }}).call(this.d3_force.drag())
-        .on('click', d => {
-          if (d3.event != null ? d3.event.defaultPrevented : undefined) { return; }
-          return this._node_selected(d);
-    });
+      .attr({
+        class: 'node',
+        id(d) { return d.id; } }).call(this.d3_force.drag())
+      .on('click', d => {
+        if (d3.event != null ? d3.event.defaultPrevented : undefined) { return; }
+        return this._node_selected(d);
+      });
         // .call(@d3_force.drag().on('dragstart', -> $(@).children('text').hide()).on('dragend', -> $(@).children('text').show()))
-        //.on 'mouseover', (d) ->
-          //$(@).children('text').show()
-        //.on 'mouseleave', (d) ->
-          //$(@).children('text').hide()
+        // .on 'mouseover', (d) ->
+          // $(@).children('text').show()
+        // .on 'mouseleave', (d) ->
+          // $(@).children('text').hide()
 
-    this.d3_node.append('svg:path').attr({class: 'border_outer', d: ''});
-    this.d3_image_container = this.d3_node.append('svg:g').attr({class: 'image-container'});
+    this.d3_node.append('svg:path').attr({ class: 'border_outer', d: '' });
+    this.d3_image_container = this.d3_node.append('svg:g').attr({ class: 'image-container' });
 
     this.d3_image_container.append('svg:image')
       .attr({
         width(d) { return d.width; },
         height(d) { return d.height; },
         'xlink:href'(d) { return d.image_url; }
-    });
+      });
 
     this.d3_image_container.append('svg:path')
       .attr({
         class: 'border_inner',
         d(d) { return `M 0,0 ${d.width},0 ${d.width},${d.height} 0,${d.height} 0,0`; }
-    });
+      });
 
     // year
     this.d3_image_container.append('svg:text')
       .attr({
         x(d) { return d.yearX(); },
         y(d) { return d.yearY(); },
-        class: 'year shadow'}).text(d => d.year);
+        class: 'year shadow' }).text(d => d.year);
     return this.d3_image_container.append('svg:text')
       .attr({
         x(d) { return d.yearX(); },
         y(d) { return d.yearY(); },
-        class: 'year'}).text(d => d.year);
+        class: 'year' }).text(d => d.year);
   }
 
     // kind
-    //@d3_image_container.append('svg:text')
-      //.attr x: @image_w - 2, y: 0 , class: 'kind shadow'
-      //.text (d) -> d.kind
-    //@d3_image_container.append('svg:text')
-      //.attr x: @image_w - 2, y: 0, class: 'kind'
-      //.text (d) -> d.kind
+    // @d3_image_container.append('svg:text')
+      // .attr x: @image_w - 2, y: 0 , class: 'kind shadow'
+      // .text (d) -> d.kind
+    // @d3_image_container.append('svg:text')
+      // .attr x: @image_w - 2, y: 0, class: 'kind'
+      // .text (d) -> d.kind
 
   // markers for links between nodes
   _append_markers() {
@@ -287,45 +286,53 @@ export class FranchiseGraph {
     const aw = 8;
     this.d3_defs.append('svg:marker')
       .attr({
-        id: 'sequel', orient: 'auto',
-        refX: aw, refY: aw/2, markerWidth: aw, markerHeight: aw,
-        stroke: '#123', fill: '#333'}).append('svg:polyline')
-      .attr({points: `0,0 ${aw},${aw/2} 0,${aw} ${aw/4},${aw/2} 0,0`});
+        id: 'sequel',
+        orient: 'auto',
+        refX: aw,
+        refY: aw / 2,
+        markerWidth: aw,
+        markerHeight: aw,
+        stroke: '#123',
+        fill: '#333' }).append('svg:polyline')
+      .attr({ points: `0,0 ${aw},${aw / 2} 0,${aw} ${aw / 4},${aw / 2} 0,0` });
     return this.d3_defs.append('svg:marker')
       .attr({
-        id: 'prequel', orient: 'auto',
-        refX: 0, refY: aw/2, markerWidth: aw, markerHeight: aw,
-        stroke: '#123', fill: '#333'}).append('svg:polyline')
-      .attr({points: `${aw},${aw} 0,${aw/2} ${aw},0 ${(aw*3)/4},${aw/2} ${aw},${aw}`});
+        id: 'prequel',
+        orient: 'auto',
+        refX: 0,
+        refY: aw / 2,
+        markerWidth: aw,
+        markerHeight: aw,
+        stroke: '#123',
+        fill: '#333' }).append('svg:polyline')
+      .attr({ points: `${aw},${aw} 0,${aw / 2} ${aw},0 ${(aw * 3) / 4},${aw / 2} ${aw},${aw}` });
   }
 
-    //@d3_svg.append('svg:defs').selectAll('marker')
-        //.data(['sequel', 'prequel'])
-      //.enter().append('svg:marker')
-        //.attr
-          //refX: 10, refY: 0
-          //id: String,
-          //markerWidth: 6, markerHeight: 6, orient: 'auto'
-          //stroke: '#123', fill: '#123'
-          //viewBox: '0 -5 10 10'
-      //.append('svg:path')
-        //.attr
-          //d: (d) ->
-            //if START_MARKERS.find(d)
-              //"M10,-5L0,0L10,5"
-            //else
-              //"M0,-5L10,0L0,5"
+    // @d3_svg.append('svg:defs').selectAll('marker')
+        // .data(['sequel', 'prequel'])
+      // .enter().append('svg:marker')
+        // .attr
+          // refX: 10, refY: 0
+          // id: String,
+          // markerWidth: 6, markerHeight: 6, orient: 'auto'
+          // stroke: '#123', fill: '#123'
+          // viewBox: '0 -5 10 10'
+      // .append('svg:path')
+        // .attr
+          // d: (d) ->
+            // if START_MARKERS.find(d)
+              // "M10,-5L0,0L10,5"
+            // else
+              // "M0,-5L10,0L0,5"
 
   // move nodes and links accordingly to coords calculated by d3.force
   _tick() {
     this.d3_node.attr({
-      transform: d => {
-        return `translate(${this._bound_x(d) - d.rx}, ${this._bound_y(d) - d.ry})`;
-      }
+      transform: d => `translate(${this._bound_x(d) - d.rx}, ${this._bound_y(d) - d.ry})`
     });
 
     this.d3_link.attr({
-      d: this._link_truncated});
+      d: this._link_truncated });
 
     // collistion detection between nodes
     return this.d3_node.forEach(this._collide(0.5));
@@ -349,7 +356,7 @@ export class FranchiseGraph {
     const x2 = this._bound_x(d.target);
     const y2 = this._bound_y(d.target);
 
-    const coords = ShikiMath.square_cutted_line(x1,y1, x2,y2, rx1,ry1, rx2,ry2);
+    const coords = ShikiMath.square_cutted_line(x1, y1, x2, y2, rx1, ry1, rx2, ry2);
 
     if (!Number.isNaN(coords.x1) && !Number.isNaN(coords.y1) &&
          !Number.isNaN(coords.x2) && !Number.isNaN(coords.y2)) {

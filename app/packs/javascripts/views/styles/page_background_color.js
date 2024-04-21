@@ -1,4 +1,5 @@
 import { debounce } from 'throttle-debounce';
+import first from 'lodash/first';
 
 import View from '@/views/application/view';
 
@@ -19,7 +20,7 @@ export class PageBackgroundColor extends View {
     await this.initPromise;
 
     this.opacities = this._extract(css);
-    const opacity = ZERO_OPACITY - this.opacities.first();
+    const opacity = ZERO_OPACITY - first(this.opacities);
     this._silenced(() => this.slider.noUiSlider.set(opacity));
   }
 
@@ -40,7 +41,7 @@ export class PageBackgroundColor extends View {
     const matches = css.match(REGEXP);
 
     if (matches) {
-      return matches.slice(1, 5).map(v => parseFloat(v).round());
+      return matches.slice(1, 5).map(v => Math.round(parseFloat(v)));
     }
     return DEFAULT_OPACITIES;
   }
@@ -55,7 +56,7 @@ export class PageBackgroundColor extends View {
   }
 
   _syncState() {
-    const opacity = ZERO_OPACITY - parseFloat(this.slider.noUiSlider.get()).round();
+    const opacity = ZERO_OPACITY - Math.round(parseFloat(this.slider.noUiSlider.get()));
     this.opacities = [opacity, opacity, opacity, this.opacities[3]];
     this.trigger('component:update', [REGEXP, this._compile()]);
   }

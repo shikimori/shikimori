@@ -41,7 +41,7 @@ $(document).on('click', '.collapse', ({ currentTarget }, custom) => {
   }
 
   // корректный текст для кнопки действия
-  $node.children('.action').html(function () {
+  $node.children('.action').html(function() {
     const $action = $(this);
 
     if ($action.hasClass('half-hidden')) {

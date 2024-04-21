@@ -4,7 +4,7 @@
 // а в data-href проксированный url картинки
 const extractUrl = item => item.src = item.el.data('href') || item.src;
 // const GLOBAL_EVENTS = 'gesturestart gesturechange gestureend resize';
-// 
+//
 // async function disableScroll() {
 //   const { disablePageScroll } = await import('scroll-lock');
 //   disablePageScroll();
@@ -13,13 +13,13 @@ const extractUrl = item => item.src = item.el.data('href') || item.src;
 // async function enableScroll(e) {
 //   const { enablePageScroll } = await import('scroll-lock');
 //   enablePageScroll();
-// 
+//
 //   $(window).off(GLOBAL_EVENTS, enableScroll);
 // }
 
 $.fn.extend({
   magnificRelGallery() {
-    return this.each(function () {
+    return this.each(function() {
       const $node = $(this);
 
       if (!$node.data('magnificPopup')) {

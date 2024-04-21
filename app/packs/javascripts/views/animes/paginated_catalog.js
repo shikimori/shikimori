@@ -2,6 +2,8 @@ import Turbolinks from 'turbolinks';
 import { flash } from 'shiki-utils';
 import { bind } from 'shiki-decorators';
 
+import cloneDeep from 'lodash/cloneDeep';
+
 import UserRatesTracker from '@/services/user_rates/tracker';
 import ajaxCacher from '@/services/ajax_cacher';
 
@@ -9,6 +11,7 @@ import DynamicParser from '@/dynamic_elements/_parser';
 import CatalogFilters from '@/views/animes/catalog_filters';
 
 import inNewTab from '@/utils/in_new_tab';
+import I18n from '@/utils/i18n';
 
 export default class PaginatedCatalog {
   constructor(basePath) {
@@ -149,7 +152,7 @@ export default class PaginatedCatalog {
 
     if (
       window.location.href === absoulteUrl ||
-      decodeURI(window.location.href) == absoulteUrl
+      decodeURI(window.location.href) === absoulteUrl
     ) {
       this._processResponse(data, absoulteUrl);
     }
@@ -168,8 +171,8 @@ export default class PaginatedCatalog {
 
     const $content = $(content);
 
-    // using Object.clone cause UserRatesTracker changes data in its its argument
-    UserRatesTracker.track(Object.clone(data.JS_EXPORTS), $content);
+    // using data.JS_EXPORTS cause UserRatesTracker changes data in its its argument
+    UserRatesTracker.track(cloneDeep(data.JS_EXPORTS), $content);
 
     // for cutted_covers
     if (this.$content.data('dynamic')) {
