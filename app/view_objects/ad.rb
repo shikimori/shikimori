@@ -222,9 +222,9 @@ private
     #   }
     # end,
     images: [{
-      src: '/assets/globals/events/2024-03-25/menu_1.png',
-      src_2x: '/assets/globals/events/2024-03-25/menu_1@2x.png',
-      url: 'https://u.to/S3iEIA?erid=2Vtzqxdgbh6' # https://www.домовой.ru/film/5235275/?erid=2Vtzqxdgbh6
+      src: '/assets/globals/events/2024-04-22/menu_1.jpg',
+      src_2x: '/assets/globals/events/2024-04-22/menu_1@2x.jpg',
+      url: 'https://clck.ru/39yt6e'
     }],
     rules: {
       cookie: 'i1_20240325',
@@ -421,13 +421,13 @@ private
     #   # Types::Ad::Type[:advrtr_240x400]
     # ],
     Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300], # домовой - remove 2024-04-07 23:59
+      Types::Ad::Type[:special_x300], # читай город - remove 2024-05-05 23:59
       # # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x400]
       # # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300], # домовой - remove 2024-04-07 23:59
+      Types::Ad::Type[:special_x300], # читай город - remove 2024-05-05 23:59
       # # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600]
       # # Types::Ad::Type[:advrtr_240x400],
