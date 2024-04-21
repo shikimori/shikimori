@@ -23,6 +23,7 @@
 
 config/database.yml
 
+public/assets
 public/system
 public/storage
 public/uploads
