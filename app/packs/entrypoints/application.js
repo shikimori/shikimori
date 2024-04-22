@@ -1,6 +1,12 @@
 // do not remove. a lot of errors in old browsers otherwise (windows phone browser for example)
 // import 'core-js/stable';
 // import 'regenerator-runtime/runtime';
+// some polyfills to support chrome 49
+import 'core-js/features/object/values';
+import 'core-js/features/object/entries';
+import 'core-js/features/array/includes';
+import 'core-js/features/string/pad-start';
+import 'core-js/features/string/pad-end';
 
 import WebFont from 'webfontloader';
 
