@@ -1,23 +1,3 @@
-// const { VueLoaderPlugin } = require('vue-loader');
-// const vueSass = require('./vue_sass');
-//
-// module.exports = {
-//   module: {
-//     rules: [
-//       {
-//         test: /\.vue$/,
-//         loader: 'vue-loader'
-//       },
-//       vueSass
-//     ]
-//   },
-//   plugins: [new VueLoaderPlugin()],
-//   resolve: {
-//     extensions: ['.vue']
-//   }
-// };
-
-
 const { VueLoaderPlugin } = require('vue-loader');
 const vueSass = require('./vue_sass');
 
@@ -30,7 +10,7 @@ const mockApi = {
   }
 };
 
-const babelConfig = require('../../../babel.config.js')(mockApi);
+const babelConfig = require('../../../babel.config')(mockApi);
 
 function convertPluginName(pluginName) {
   // Remove the '@babel/plugin-' prefix and any other similar prefixes if present
