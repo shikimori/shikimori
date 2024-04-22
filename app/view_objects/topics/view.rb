@@ -232,7 +232,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def show_moderation?
-    !preview? && !minified?
+    !preview? && !minified? && h.can?(:manage, Ban)
   end
 
   def html_footer
@@ -296,6 +296,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       footer_vote?,
       closed?, # not sure whether it is necessary
       h.current_user&.preferences&.is_shiki_editor?,
+      show_moderation?,
       CACHE_VERSION,
       *additionals
     )
