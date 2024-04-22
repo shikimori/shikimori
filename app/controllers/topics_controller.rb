@@ -1,10 +1,11 @@
 # TODO: move forum topics actions to Forum::TopicsController other actions should stay here
-class TopicsController < ShikimoriController
+class TopicsController < ShikimoriController # rubocop:disable Metris/ClassLength
   before_action :check_post_permission, only: %i[create update destroy]
 
-  load_and_authorize_resource class: Topic, only: %i[new create edit update destroy]
+  load_and_authorize_resource class: Topic,
+    only: %i[new create edit update destroy]
 
-  before_action :fetch_resource, only: %i[show tooltip reload]
+  before_action :fetch_resource, only: %i[show tooltip moderation reload]
   before_action :set_view
   before_action :set_breadcrumbs
 
@@ -52,6 +53,10 @@ class TopicsController < ShikimoriController
     end
   end
 
+  def moderation
+    render partial: 'moderation', locals: { moderatable: @resource }
+  end
+
   def chosen
     @collection = Topic
       .where(id: params[:ids].split(',').map(&:to_i))
@@ -91,7 +96,7 @@ class TopicsController < ShikimoriController
 
   def create
     @resource = Topic::Create.call(
-      faye: faye,
+      faye:,
       params: topic_params
     )
 

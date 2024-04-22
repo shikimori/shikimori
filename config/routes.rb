@@ -544,6 +544,7 @@ Rails.application.routes.draw do
 
   get 'topics/chosen/:ids' => 'topics#chosen', as: :topics_chosen
   get 'topics/:id/tooltip(/:test)' => 'topics#tooltip', as: :topic_tooltip
+  get 'topics/:id/moderation' => 'topics#moderation', as: :topic_moderation
 
   resources :cosplay_galleries, only: [] do
     get :publishing, on: :collection
