@@ -277,7 +277,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :topic
   end
 
-  def cache_key *additionals
+  def cache_key *additionals # rubocop:disable Metrics/MethodLength
     CacheHelperInstance.cache_keys(
       self.class.name,
       @topic,
