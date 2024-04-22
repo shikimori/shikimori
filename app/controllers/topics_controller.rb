@@ -54,6 +54,8 @@ class TopicsController < ShikimoriController # rubocop:disable Metris/ClassLengt
   end
 
   def moderation
+    authorize! :manage, Ban
+
     render partial: 'moderation', locals: { moderatable: @resource }
   end
 
