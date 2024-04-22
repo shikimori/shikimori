@@ -24,7 +24,9 @@ export class FranchiseGraph {
     this.image_h = 75;
 
     this.links_data = data.links;
-    this.nodes_data = data.nodes.map(node => new FranchiseNode(node, this.image_w, this.image_h, node.id === data.current_id));
+    this.nodes_data = data.nodes.map(node => (
+      new FranchiseNode(node, this.image_w, this.image_h, node.id === data.current_id)
+    ));
 
     this._prepare_data();
     this._position_nodes();
@@ -217,8 +219,12 @@ export class FranchiseGraph {
       .enter().append('svg:path')
       .attr({
         class(d) { return `${d.source_id}-${d.target_id} link ${d.relation}`; },
-        'marker-start'(d) { if (START_MARKERS.find(d.relation)) { return `url(#${d.relation})`; } },
-        'marker-end'(d) { if (END_MARKERS.find(d.relation)) { return `url(#${d.relation})`; } },
+        'marker-start'(d) {
+          if (START_MARKERS.find(v => v === d.relation)) { return `url(#${d.relation})`; }
+        },
+        'marker-end'(d) {
+          if (END_MARKERS.find(v => v === d.relation)) { return `url(#${d.relation})`; }
+        },
         'marker-mid'(d) { return `url(#${d.relation}_label)`; }
       });
   }
