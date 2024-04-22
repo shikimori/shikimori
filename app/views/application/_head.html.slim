@@ -129,6 +129,7 @@ script[
   src='/outdated-browser.js'
   nomodule
 ]
+/ = render partial: 'application/bugsnag'
 
 - unless Rails.env.test?
   = stylesheet_pack_tag 'application', media: 'all', data: { 'turbolinks-track' => 'reload'  }
