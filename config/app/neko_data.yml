@@ -5567,7 +5567,7 @@
       :algo: duration
       :filters: &262
         franchise: mushoku_tensei
-      :threshold: 94.4%
+      :threshold: 94.8%
       :generator:
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -5889,6 +5889,7 @@
         - 32870
         - 32871
         - 35327
+        - 55374
       :threshold: 92.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -6954,7 +6955,7 @@
         - 31448
         - 35631
         - 50097
-      :threshold: 94.7%
+      :threshold: 95%
       :generator: &337
         ignore_latest_ids:
         - 48375
@@ -10123,7 +10124,8 @@
         - 58244
         - 58247
         - 58248
-      :threshold: 94.1%
+        - 58288
+      :threshold: 94.2%
       :generator: &509
         ignore_latest_ids:
         - 37966
@@ -10744,7 +10746,7 @@
         - 31989
         - 35082
         - 37577
-      :threshold: 93.5%
+      :threshold: 94%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :hibike_euphonium
@@ -11666,7 +11668,7 @@
         not_anime_ids:
         - 12665
         - 40369
-      :threshold: 91.1%
+      :threshold: 91%
       :generator: &589
         ignore_latest_ids:
         - 56175
@@ -12370,7 +12372,7 @@
         - 53976
         - 55134
         - 57441
-      :threshold: 93.3%
+      :threshold: 93%
       :generator: &627
         ignore_latest_ids:
         - 38770
@@ -13945,7 +13947,7 @@
         franchise: cardcaptor_sakura
         not_anime_ids:
         - 37595
-      :threshold: 97.9%
+      :threshold: 98%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :cardcaptor_sakura
@@ -14440,7 +14442,7 @@
         - 51842
         - 55393
         - 55517
-      :threshold: 86.4%
+      :threshold: 86.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :idolmaster
@@ -14564,7 +14566,7 @@
       :generator: &744
         not_ignored_ids:
         - 1481
-      :threshold: 92%
+      :threshold: 92.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :urusei_yatsura
@@ -17430,7 +17432,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.5%
+      :threshold: 91.6%
       :generator: &897
         ignore_latest_ids:
         - 38850
@@ -18860,7 +18862,7 @@
         - 38647
         - 38648
         - 40543
-      :threshold: 88.3%
+      :threshold: 87.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :pripara
@@ -19162,7 +19164,7 @@
         - 49670
         - 49671
         - 50848
-      :threshold: 96.8%
+      :threshold: 96.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :ojamajo_doremi
@@ -19885,7 +19887,7 @@
         - 1674
         - 39226
         - 39227
-      :threshold: 96.2%
+      :threshold: 96.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :captain_tsubasa
@@ -20920,7 +20922,7 @@
       :algo: duration
       :filters: &1079
         franchise: shaonian_ge_xing
-      :threshold: 98.4%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :shaonian_ge_xing
