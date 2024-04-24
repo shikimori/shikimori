@@ -65,7 +65,7 @@
     "tiny-uri": "^9.1.5",
     "turbolinks": "^5.2.0",
     "uevent": "^2.2.0",
-    "vue": "^3.4.23",
+    "vue": "^3.4.25",
     "vue-loader": "^17.4.2",
     "vuedraggable": "^4.1.0",
     "vuex": "^4.1.0",
