@@ -1,4 +1,7 @@
 import { flash } from 'shiki-utils';
+
+import isArray from 'lodash/isArray';
+import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
 
 import inNewTab from '@/utils/in_new_tab';
@@ -110,8 +113,8 @@ jQuery($ => {
               } else if ('error' in errors) {
                 errors = [errors.error];
               }
-              if (Object.size(errors)) {
-                if (Object.isArray(errors)) {
+              if (!isEmpty(errors)) {
+                if (isArray(errors)) {
                   flash.error(errors.join('<br />'));
                 } else {
                   const text = errors.map((v, k) => {
