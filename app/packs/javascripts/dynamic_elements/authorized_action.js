@@ -13,7 +13,7 @@ export class AuthorizedAction extends View {
   @bind
   onClick(e) {
     if (!window.SHIKI_USER.isSignedIn) {
-      flash.info(I18n.t(`${I18N_KEY}.register_to_complete_action`));
+      flash.info(I18n.t(`${I18N_KEY}.register_to_complete_action`), { escapeMarkup: false });
       e.stopImmediatePropagation();
       e.preventDefault();
     }
