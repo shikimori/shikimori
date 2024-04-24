@@ -1,5 +1,5 @@
 import { debounce } from 'throttle-debounce';
-import cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 import { flash } from 'shiki-utils';
 
 import View from '@/views/application/view';
@@ -185,11 +185,11 @@ export class EditStyles extends View {
   }
 
   _toggleExpand(newValue) {
-    let isExpanded = cookies.get('expanded-styles') === '1';
+    let isExpanded = Cookies.get('expanded-styles') === '1';
 
     if (newValue !== undefined) {
       isExpanded = newValue;
-      cookies.set('expanded-styles', isExpanded ? '1' : '0', { expires: 730, path: '/' });
+      Cookies.set('expanded-styles', isExpanded ? '1' : '0', { expires: 730, path: '/' });
     }
 
     this.$root.toggleClass('expanded', isExpanded);

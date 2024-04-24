@@ -1,4 +1,4 @@
-import cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
 pageLoad('profiles_edit', () => {
   if ($('.edit-page.account').exists()) {
@@ -17,7 +17,7 @@ pageLoad('profiles_edit', () => {
 function pageAccount() {
   $('.censored-rejected').on('click', ({ currentTarget }) => {
     $('.censored-rejected-container').remove();
-    cookies.remove(
+    Cookies.remove(
       currentTarget.getAttribute('data-cookie')
     );
   });

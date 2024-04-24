@@ -1,4 +1,4 @@
-import cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 import PaginatedCatalog from '@/views/animes/paginated_catalog';
 
 pageLoad('animes_collection_index', 'recommendations_index', 'userlist_comparer_show', () => {
@@ -10,7 +10,7 @@ pageLoad('animes_collection_index', 'recommendations_index', 'userlist_comparer_
 
   $('.b-search-results')
     .on('click', '.b-age_restricted .censored-rejected', ({ currentTarget }) => {
-      cookies.set(
+      Cookies.set(
         currentTarget.getAttribute('data-cookie'),
         'true',
         { expires: 9999, path: '/' }

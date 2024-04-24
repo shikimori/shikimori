@@ -2,7 +2,7 @@
 /* global IS_FAYE_LOGGING */
 
 import Faye from 'faye';
-import cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
 import difference from 'lodash/difference';
 import intersection from 'lodash/intersection';
@@ -84,7 +84,7 @@ export default class FayeLoader {
     });
 
     // @client.disable 'eventsource'
-    if (cookies.get('faye-disable-websocket')) {
+    if (Cookies.get('faye-disable-websocket')) {
       this.client.disable('websocket');
     }
     // console.log 'faye connected' if IS_FAYE_LOGGING

@@ -1,4 +1,4 @@
-import cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 import delay from 'delay';
 
 import View from '@/views/application/view';
@@ -41,7 +41,7 @@ export class AdView extends View {
   _replaceNode() {
     const $close = $(CLOSE_AD_HTML);
 
-    if (cookies.get(`${this.cssClass}_ad_disabled`)) {
+    if (Cookies.get(`${this.cssClass}_ad_disabled`)) {
       this.$node.remove();
     } else {
       const $ad = $(`<div>${this.html}</div>`)
@@ -51,7 +51,7 @@ export class AdView extends View {
       this.$node.replaceWith($ad);
 
       $close.on('click', async () => {
-        cookies.set(`${this.cssClass}_ad_disabled`, '1', { expires: 2 });
+        Cookies.set(`${this.cssClass}_ad_disabled`, '1', { expires: 2 });
         $ad.addClass('removing');
         await delay(1000);
         removeAd(this.cssClass);

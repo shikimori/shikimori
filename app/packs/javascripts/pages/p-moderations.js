@@ -1,6 +1,6 @@
 import TinyUri from 'tiny-uri';
 import Turbolinks from 'turbolinks';
-import cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 import delay from 'delay';
 
 import { initArrayFieldApp } from './p-db_entries/edit_field';
@@ -26,12 +26,12 @@ function datePicker() {
 pageLoad('moderations_show', () => {
   const $form = $('form#sync');
 
-  if (cookies.get('sync_type')) {
-    $form.find('select').val(cookies.get('sync_type'));
+  if (Cookies.get('sync_type')) {
+    $form.find('select').val(Cookies.get('sync_type'));
   }
 
   $form.find('select').on('change', ({ currentTarget }) => (
-    cookies.set('sync_type', currentTarget.value, { expires: 1, path: '/' })
+    Cookies.set('sync_type', currentTarget.value, { expires: 1, path: '/' })
   ));
 
   $form.find('input,select')
