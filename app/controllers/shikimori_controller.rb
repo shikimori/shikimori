@@ -25,9 +25,10 @@ class ShikimoriController < ApplicationController
       elsif @resource.respond_to? :title
         og page_title: @resource.title
       end
-
-      raise AgeRestricted if @resource.try(:censored?) && censored_forbidden?
     end
+
+    raise ActiveRecord::RecordNotFound if @resource.try(:banned?) && !current_user&.staff? && !(params[:action] == 'tooltip' && request.xhr?)
+    raise AgeRestricted if request.get? && @resource.try(:censored?) && censored_forbidden?
   end
 
   def ensure_redirect! expected_url
