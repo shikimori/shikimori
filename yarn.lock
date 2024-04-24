@@ -5579,10 +5579,10 @@ shiki-uploader@^1.1.2:
     "@uppy/xhr-upload" "^1.6.0"
     is-visible "^2.2.0"
 
-shiki-utils@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-1.1.0.tgz#e47d04f0bccdf1821ae20fbf354d0b0a6c81f22a"
-  integrity sha512-0S4n9EmT1n2Qcjm1hCrf0+Uiy4PtyLkZDjpHYrGfqhBYSjMe+09whEFFjlluZuQSher6RJaRVktRqotk3aXm9w==
+shiki-utils@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/shiki-utils/-/shiki-utils-1.1.1.tgz#4f62a64a0ff244e4139822fd54953ed511c5421b"
+  integrity sha512-Dnts2yyGbxgoV7Ukq85msW+EAASVFPse+f6r8vv81BIec0qzlgRIOIpu3ursg7dJWW43XH+fV4lvYb0LQFkYCA==
   dependencies:
     ismobilejs "^1.1.1"
     toastify-js "^1.8.0"

@@ -1,8 +1,8 @@
 describe AnimesCollection::PageQuery do
   let(:query) do
     AnimesCollection::PageQuery.new(
-      klass: klass,
-      filters: filters,
+      klass:,
+      filters:,
       user: nil,
       limit: 20
     )
@@ -15,7 +15,7 @@ describe AnimesCollection::PageQuery do
   let!(:manga) { create :manga, ranked: 1 }
   let!(:ranobe) { create :ranobe, ranked: 2 }
 
-  let(:filters) { { kind: kind } }
+  let(:filters) { { kind: } }
   let(:kind) { nil }
 
   context 'anime' do

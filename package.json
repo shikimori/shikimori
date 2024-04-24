@@ -58,7 +58,7 @@
     "shiki-decorators": "^1.0.1",
     "shiki-editor": "^2.7.3",
     "shiki-uploader": "^1.1.2",
-    "shiki-utils": "^1.1.0",
+    "shiki-utils": "^1.1.1",
     "swiper": "^6.8.4",
     "terser-webpack-plugin": "5",
     "throttle-debounce": "^5.0.0",
