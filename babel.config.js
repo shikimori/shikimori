@@ -24,7 +24,8 @@ module.exports = function config(api) {
           modules: 'auto',
           bugfixes: true,
           exclude: ['transform-typeof-symbol'],
-          targets: 'defaults, not ie <= 11, not ie_mob 11, not dead, chrome 49'
+          targets: 'defaults, not ie <= 11, not ie_mob 11, not dead, chrome 49, > 0.05%, not dead'
+          // targets: '> 0.05%, not dead'
         }
       ]
     ].filter(Boolean),

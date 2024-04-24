@@ -127,6 +127,7 @@ production:
 
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
+
   # compress: false
   # minimize: false
 
