@@ -42,7 +42,7 @@ describe Titles::LocalizedSeasonText do
 
     context '199x' do
       let(:season_text) { '199x' }
-      it { is_expected.to eq '90х годов' }
+      it { is_expected.to eq '90-х годов' }
     end
   end
 end

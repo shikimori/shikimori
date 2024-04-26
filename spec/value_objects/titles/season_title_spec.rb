@@ -33,7 +33,7 @@ describe Titles::SeasonTitle do
     let(:format) { :decade }
 
     it { expect(title.text).to eq '201x' }
-    it { expect(title.catalog_title).to eq '2010е годы' }
+    it { expect(title.catalog_title).to eq '2010-е годы' }
   end
 
   describe 'ancient' do

@@ -105,6 +105,6 @@ describe ContestRound do
 
   describe '#title' do
     let(:round) { build :contest_round, number: 5, additional: true }
-    it { expect(round.title).to eq 'Раунд #5a' }
+    it { expect(round.title).to eq 'Раунд № 5a' }
   end
 end

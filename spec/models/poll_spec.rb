@@ -71,7 +71,7 @@ describe Poll do
 
   describe 'instance methods' do
     describe '#name' do
-      let(:poll) { build_stubbed :poll, name: name }
+      let(:poll) { build_stubbed :poll, name: }
 
       context 'with name' do
         let(:name) { 'Test' }
@@ -80,7 +80,7 @@ describe Poll do
 
       context 'without name' do
         let(:name) { '' }
-        it { expect(poll.name).to eq "Опрос ##{poll.id}" }
+        it { expect(poll.name).to eq "Опрос № #{poll.id}" }
       end
     end
 
