@@ -11,7 +11,7 @@ import I18n from '@/utils/i18n';
 import preventEvent from '@/utils/prevent_event';
 import ShikiView from '@/views/application/shiki_view';
 
-// TODO: refactor constructor
+// TODO: REVEMO outdated editor
 export default class ShikiEditor extends ShikiView {
   initialization = pDefer();
 
@@ -182,7 +182,7 @@ export default class ShikiEditor extends ShikiView {
 
         this.$textarea.insertAtCaret(
           '[quote' +
-            ((!this.value || this.value.isBlank() ? '' : `=${this.value}`)) +
+            ((!this.value || !this.value.trim() ? '' : `=${this.value}`)) +
             ']',
           '[/quote]'
         );
@@ -195,9 +195,10 @@ export default class ShikiEditor extends ShikiView {
       .completable()
       .on('autocomplete:success autocomplete:text', (e, result) => {
         const text = isString(result) ? result : result.value;
+
         this.$textarea.insertAtCaret(
           '[quote' +
-            (!text || text.isBlank() ? '' : `=${text}`) + ']',
+            (!text || !text.trim() ? '' : `=${text}`) + ']',
           '[/quote]'
         );
         this.$('.editor-quote').trigger('click');
