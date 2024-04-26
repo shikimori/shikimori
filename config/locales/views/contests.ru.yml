@@ -21,7 +21,7 @@ ru:
       accept_candidates: Начать приём кандидатов от пользователей
       cleanup_candidates: Очистить голоса пользователей от накруток
       stop_accepting_candidates: Остановить приём кандидатов от пользователей
-      generate_polls: Сгенерировать голосования
+      generate_polls: Создать голосования
       shuffle_polls: Перетасовать голосования
       sure_to_start_contest: Ты @{f:уверена|m:уверен}? После запуска ничего изменить уже будет нельзя!
       start_contest: Запустить турнир

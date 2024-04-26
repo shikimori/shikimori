@@ -4,8 +4,6 @@ en:
     description: >-
 
 
-
-
   topics_controller: &topics_controller
     title: Shikimori Forum
     new_topic: Create a topic
@@ -129,10 +127,7 @@ en:
     description:
       anime: |
 
-
-
       manga: |
-
 
       ranobe: |
 
