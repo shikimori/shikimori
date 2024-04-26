@@ -4,7 +4,7 @@ class ShikimoriSchema < GraphQL::Schema
   trace_with GraphQL::Tracing::ActiveSupportNotificationsTrace
   use GraphQL::Tracing::AppsignalTracing if defined? Appsignal
 
-  instrument :query, LogQueryInstrumentation
+  # instrument :query, LogQueryInstrumentation
 
   query_analyzer LogQueryDepth
   query_analyzer LogQueryComplexityAnalyzer
