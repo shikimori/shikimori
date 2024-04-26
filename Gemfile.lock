@@ -407,10 +407,10 @@ GEM
       request_store (>= 1.0)
     google-protobuf (4.26.0)
       rake (>= 13)
-    graphiql-rails (1.9.0)
+    graphiql-rails (1.10.0)
       railties
-      sprockets-rails
-    graphql (2.0.24)
+    graphql (2.3.2)
+      base64
     graphql-rails_logger (1.2.4)
       actionpack (> 5.0)
       activesupport (> 5.0)
