@@ -17,7 +17,7 @@
                 cached: ->(entry) { cache_keys entry, :studio }
 
       / = render 'spnsrs/ad', ad: Ad.new(:special_x1170), cache_variant: @view.cache_variant
-      = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
+      / = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
 
       .block2
         .fc-user-sections
@@ -176,4 +176,5 @@
           - if @view.news_topic_views.next_page
             = render 'blocks/postloader',
               filter: 'b-topic',
-              next_url: root_page_url(page: @view.news_topic_views.next_page)
+              next_url: root_page_url(page: @view.news_topic_views.next_page),
+              pages_limit: 10

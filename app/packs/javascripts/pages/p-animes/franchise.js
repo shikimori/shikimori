@@ -19,7 +19,7 @@ function render(ShikiMath, FranchiseGraph, d3) {
 
   const $graph = $('.graph').empty();
 
-  d3.json($graph.data('api_url'), (error, data) => {
+  d3.json($graph.data('api_url'), (_error, data) => {
     const graph = new FranchiseGraph(data);
     graph.render_to($graph[0]);
 

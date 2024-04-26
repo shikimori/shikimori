@@ -43,6 +43,7 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
     # high bytes -- suspect
     # /[\x7f-\xff]/,
     # low bytes -- suspect
+    /\\+[\n\r]+/,
     /[\x00-\x08\x0B\x0C\x0E-\x1F]+/,
     /&\#/, # bad charset
     COMMENTS_REGEXP,

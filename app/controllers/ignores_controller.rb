@@ -14,6 +14,6 @@ class IgnoresController < ShikimoriController
 private
 
   def fallback_url
-    edit_profile_url current_user, section: 'ignored_topics'
+    ignored_users_profile_url current_user
   end
 end

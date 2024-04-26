@@ -2,7 +2,7 @@ import delay from 'delay';
 
 $.fn.extend({
   yellowFade() {
-    return this.each(async function () {
+    return this.each(async function() {
       const $root = $(this);
 
       if ($root.hasClass('yellow-fade')) { return; }

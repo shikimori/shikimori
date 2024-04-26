@@ -1,4 +1,4 @@
-class Titles::CollectionTitle # rubocop:disable Metrics/ClassLength
+class Titles::CollectionTitle
   include Translation
   prepend ActiveCacher.instance
 
@@ -23,7 +23,7 @@ class Titles::CollectionTitle # rubocop:disable Metrics/ClassLength
     @studios = Array studios
     @publishers = Array publishers
     @genres = Array genres
-    @genres_v2 = Array genres_v2
+    @genres_v2 = Array(genres_v2).reject(&:temporarily_posters_disabled?)
     @seasons = parse_param season
   end
 

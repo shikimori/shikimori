@@ -9,7 +9,7 @@ $.fn.extend({
         el.setSelectionRange(pos, pos);
         isSelectionDone = true;
       }
-    } catch (error) {} // eslint-disable-line no-empty
+    } catch (error) {}
 
     if (!isSelectionDone && el.createTextRange) {
       const range = el.createTextRange();

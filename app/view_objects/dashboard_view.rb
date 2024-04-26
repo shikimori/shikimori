@@ -42,6 +42,8 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
     49_520
   ]
 
+  MIN_SCORE = 7.3
+
   instance_cache :ongoings, :favourites, :critiques, :contests, :forums,
     :new_ongoings, :old_ongoings, :cache_keys
 
@@ -167,7 +169,7 @@ private
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
       .where("(#{CURRENT_SEASON_SQL.call}) OR (#{PRIOR_SEASON_SQL.call})")
-      .where('score > 7.3')
+      .where("score > #{MIN_SCORE}")
       .decorate
   end
 
@@ -176,7 +178,7 @@ private
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
       .where.not("(#{CURRENT_SEASON_SQL.call}) OR (#{PRIOR_SEASON_SQL.call})")
-      .where('score > 7.3')
+      .where("score > #{MIN_SCORE}")
       .decorate
   end
 

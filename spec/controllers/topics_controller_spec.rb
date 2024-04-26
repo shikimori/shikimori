@@ -203,6 +203,11 @@ describe TopicsController do
     end
   end
 
+  describe '#moderation' do
+    subject! { get :tooltip, params: { id: topic.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#new' do
     let(:topic_params) do
       {

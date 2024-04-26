@@ -103,7 +103,7 @@ ru:
           hentai: хентайные %{localized_entry_type}
           erotica: эротические %{localized_entry_type}
           # kind: 'theme'
-          award_winning: удостоеные наград %{localized_entry_type}
+          award_winning: удостоенные наград %{localized_entry_type}
           educational: образовательные %{localized_entry_type}
           historical: исторические %{localized_entry_type}
           military: военные %{localized_entry_type}
@@ -133,7 +133,7 @@ ru:
           hentai: хентайное %{localized_entry_type}
           erotica: эротическое %{localized_entry_type}
           # kind: 'theme'
-          award_winning: удостоеное наград %{localized_entry_type}
+          award_winning: удостоенное наград %{localized_entry_type}
           educational: образовательное %{localized_entry_type}
           historical: историческое %{localized_entry_type}
           military: военное %{localized_entry_type}

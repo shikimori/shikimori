@@ -57,12 +57,13 @@ Rails.application.configure do
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).
   # TODO: enable when get rid of reverse proxy
-  # if Shikimori::PROTOCOL == 'https'
-  #   config.force_ssl = ENV['SHIKI_TYPE'] != 'db'
-  #   config.ssl_options = {
-  #     hsts: { preload: true, subdomains: true, expires: 3.years }
-  #   }
-  # end
+  if Shikimori::PROTOCOL == 'https'
+    # config.force_ssl = ENV['SHIKI_TYPE'] != 'db'
+    config.force_ssl = true
+    config.ssl_options = {
+      hsts: { preload: true, subdomains: true, expires: 3.years }
+    }
+  end
 
   config.log_level = :fatal
 

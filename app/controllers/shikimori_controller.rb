@@ -17,7 +17,7 @@ class ShikimoriController < ApplicationController
         .restore(resource_id, resource_klass.base_class.name.downcase)
     )
     @resource = @resource.decorate
-    instance_variable_set "@#{resource_klass.name.downcase}", @resource
+    instance_variable_set :"@#{resource_klass.name.downcase}", @resource
 
     if request.get?
       if @resource.respond_to? :name
@@ -25,9 +25,10 @@ class ShikimoriController < ApplicationController
       elsif @resource.respond_to? :title
         og page_title: @resource.title
       end
-
-      raise AgeRestricted if @resource.try(:censored?) && censored_forbidden?
     end
+
+    raise ActiveRecord::RecordNotFound if @resource.respond_to?(:genres_v2) && @resource.banned? && !current_user&.staff? && !(params[:action] == 'tooltip' && request.xhr?)
+    raise AgeRestricted if request.get? && @resource.try(:censored?) && censored_forbidden?
   end
 
   def ensure_redirect! expected_url
@@ -61,7 +62,7 @@ class ShikimoriController < ApplicationController
   end
 
   def resource_id_key
-    key = "#{resource_klass.name.downcase}_id".to_sym
+    key = :"#{resource_klass.name.downcase}_id"
     params[key] ? key : :id
   end
 

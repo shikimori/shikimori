@@ -50,14 +50,6 @@ GIT
       factory_bot
 
 GIT
-  remote: https://github.com/morr/guard-i18n-js.git
-  revision: 9e7210e39be4c9c27487fb9b3ba6cda02baee9ae
-  specs:
-    guard-i18n-js (1.0.0)
-      guard (~> 2.1)
-      i18n-js (~> 3.7)
-
-GIT
   remote: https://github.com/morr/i18n-inflector.git
   revision: fc09423ce687b0362b71a0a488b72b2d0982e8c6
   branch: master
@@ -229,7 +221,7 @@ GEM
     brpoplpush-redis_script (0.1.3)
       concurrent-ruby (~> 1.0, >= 1.0.5)
       redis (>= 1.0, < 6)
-    bugsnag (6.26.3)
+    bugsnag (6.26.4)
       concurrent-ruby (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
@@ -402,6 +394,7 @@ GEM
     gcm (0.1.1)
       httparty
       json
+    glob (0.4.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
     gon (6.4.0)
@@ -462,8 +455,9 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
-    i18n-js (3.9.2)
-      i18n (>= 0.6.6)
+    i18n-js (4.2.3)
+      glob (>= 0.4.0)
+      i18n
     icalendar (2.10.1)
       ice_cube (~> 0.16)
     ice_cube (0.16.4)
@@ -498,7 +492,7 @@ GEM
       letter_opener (~> 1.7)
       railties (>= 5.2)
       rexml
-    listen (3.8.0)
+    listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     lograge (0.12.0)
@@ -516,7 +510,7 @@ GEM
     marcel (1.0.4)
     maruku (0.7.3)
     matrix (0.4.2)
-    method_source (1.0.0)
+    method_source (1.1.0)
     mime-types (3.5.2)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2024.0305)
@@ -585,6 +579,7 @@ GEM
       omniauth-oauth2 (>= 1.5, <= 1.7.1)
     open_uri_redirections (0.2.1)
     orm_adapter (0.5.0)
+    package_json (0.1.0)
     paperclip-i18n (4.3.0)
     parallel (1.24.0)
     parallel_tests (4.2.2)
@@ -608,13 +603,13 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (5.0.4)
-    puma (5.6.5)
+    puma (5.6.8)
       nio4r (~> 2.0)
     racc (1.7.3)
     rack (2.2.9)
     rack-attack (6.7.0)
       rack (>= 1.0, < 4)
-    rack-cors (2.0.1)
+    rack-cors (2.0.2)
       rack (>= 2.0.0)
     rack-protection (3.1.0)
       rack (~> 2.2, >= 2.2.4)
@@ -661,7 +656,7 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     raindrops (0.20.0)
-    rake (13.1.0)
+    rake (13.2.1)
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.11.2)
@@ -752,13 +747,19 @@ GEM
       tilt
     semantic_range (3.0.0)
     sexp_processor (4.17.1)
+    shakapacker (7.2.3)
+      activesupport (>= 5.2)
+      package_json
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     shellany (0.0.1)
     shoulda-matchers (6.2.0)
       activesupport (>= 5.2.0)
     shrine (3.4.0)
       content_disposition (~> 1.0)
       down (~> 5.1)
-    sidekiq (6.5.9)
+    sidekiq (6.5.10)
       connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
@@ -856,11 +857,6 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (5.4.3)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -930,7 +926,7 @@ DEPENDENCIES
   guard
   guard-brakeman
   guard-bundler
-  guard-i18n-js!
+  guard-compat
   guard-pow
   guard-rspec
   guard-rubocop
@@ -998,10 +994,11 @@ DEPENDENCIES
   rubocop-rails
   ruby-esvidi!
   sassc-rails
+  shakapacker
   shallow_attributes!
   shoulda-matchers
   shrine
-  sidekiq (~> 6.5.9)
+  sidekiq (~> 6.5.10)
   sidekiq-delay_extensions
   sidekiq-limit_fetch
   sidekiq-unique-jobs
@@ -1026,7 +1023,6 @@ DEPENDENCIES
   unicorn
   vcr
   webmock
-  webpacker
   xxhash
 
 BUNDLED WITH

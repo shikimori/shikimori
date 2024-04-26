@@ -1,5 +1,5 @@
 import delay from 'delay';
-import cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
 import UserRatesTracker from '@/services/user_rates/tracker';
 import TopicsTracker from '@/services/topics/tracker';
@@ -51,7 +51,7 @@ async function processCurrentDom(root = document.body, jsExports = window.JS_EXP
   // чёрные мелкие тултипы
   $with('.b-tooltipped.unprocessed', $root)
     .removeClass('unprocessed')
-    .each(function () {
+    .each(function() {
       if ((isMobile()) && !this.classList.contains('mobile')) {
         return;
       }
@@ -87,7 +87,7 @@ async function processCurrentDom(root = document.body, jsExports = window.JS_EXP
   $with('.bubbled', $root)
     .addClass('bubbled-processed')
     .removeClass('bubbled')
-    .tooltip(Object.add(COMMON_TOOLTIP_OPTIONS, { offset: [-48, 10, -10] }));
+    .tooltip({ ...COMMON_TOOLTIP_OPTIONS, offset: [-48, 10, -10] });
 
   $with('.b-spoiler.unprocessed', $root).spoiler();
 
@@ -104,7 +104,7 @@ async function processCurrentDom(root = document.body, jsExports = window.JS_EXP
 
   // с задержкой делаем потому, что collapsed блоки могут быть в контенте,
   // загруженном аяксом, а process для таких случаев вызывается ещё до вставки в DOM
-  const collapses = cookies.get('collapses');
+  const collapses = Cookies.get('collapses');
   if (collapses) {
     await delay();
     // сворачиваение всех нужных блоков "свернуть"

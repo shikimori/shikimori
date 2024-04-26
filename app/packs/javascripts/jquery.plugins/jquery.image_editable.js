@@ -2,7 +2,7 @@ import delay from 'delay';
 
 $.fn.extend({
   imageEditable() {
-    return this.each(function () {
+    return this.each(function() {
       const $node = $(this);
 
       if ($node.data('imageEditable')) { return; }
@@ -29,7 +29,7 @@ $.fn.extend({
       });
 
       // подтверждение удаления
-      $('.confirm', $node).on('click', function () {
+      $('.confirm', $node).on('click', function() {
         if ($(this).data('remote')) {
           $(this).callRemote();
         } else {

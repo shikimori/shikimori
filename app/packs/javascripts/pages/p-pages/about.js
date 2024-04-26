@@ -1,3 +1,8 @@
+import first from 'lodash/first';
+import merge from 'lodash/merge';
+
+import I18n from '@/utils/i18n';
+
 pageLoad('pages_about', async () => {
   const Highcharts = await import(/* webpackChunkName: "hs" */ 'highcharts');
   const { colors } = await import(/* webpackChunkName: "hs" */ '@/vendor/highcharts_colors');
@@ -19,7 +24,7 @@ function commentsChart(Highcharts) {
       series: [{
         name: I18n.t('frontend.about.comments_per_day'),
         pointInterval: 24 * 3600 * 1000,
-        pointStart: new Date(data.first().date).getTime(),
+        pointStart: new Date(first(data).date).getTime(),
         data: data.map(v => v.count),
         color,
         fillColor: {
@@ -34,8 +39,7 @@ function commentsChart(Highcharts) {
             [1, new Highcharts.Color(color).setOpacity(0).get('rgba')]
           ]
         }
-      }
-      ],
+      }],
       legend: {
         enabled: false
       }
@@ -52,7 +56,7 @@ function usersChart(Highcharts) {
       series: [{
         name: I18n.t('frontend.about.new_users_per_day'),
         pointInterval: 24 * 3600 * 1000,
-        pointStart: new Date(data.first().date).getTime(),
+        pointStart: new Date(first(data).date).getTime(),
         data: data.map(v => [new Date(v.date).getTime(), v.count]),
         color,
         fillColor: {
@@ -67,8 +71,7 @@ function usersChart(Highcharts) {
             [1, new Highcharts.Color(color).setOpacity(0).get('rgba')]
           ]
         }
-      }
-      ],
+      }],
       legend: {
         enabled: false
       }
@@ -88,7 +91,7 @@ function trafficChart(Highcharts) {
     series: [{
       name: I18n.t('frontend.about.views'),
       pointInterval: 24 * 3600 * 1000,
-      pointStart: new Date(data.first().date).getTime(),
+      pointStart: new Date(first(data).date).getTime(),
       data: data.map(v => v.page_views),
       visible: false,
       color: colors[0],
@@ -107,7 +110,7 @@ function trafficChart(Highcharts) {
     }, {
       name: I18n.t('frontend.about.visits'),
       pointInterval: 24 * 3600 * 1000,
-      pointStart: new Date(data.first().date).getTime(),
+      pointStart: new Date(first(data).date).getTime(),
       data: data.map(v => v.visits),
       visible: false,
       color: colors[1],
@@ -126,7 +129,7 @@ function trafficChart(Highcharts) {
     }, {
       name: I18n.t('frontend.about.unique_visitors'),
       pointInterval: 24 * 3600 * 1000,
-      pointStart: new Date(data.first().date).getTime(),
+      pointStart: new Date(first(data).date).getTime(),
       data: data.map(v => v.visitors),
       color: colors[2],
       fillColor: {
@@ -146,7 +149,7 @@ function trafficChart(Highcharts) {
 }
 
 export function dailyChartOptions(options, { isStacking } = {}) {
-  return Object.merge({
+  return merge({
     chart: {
       zoomType: 'x',
       type: 'areaspline'
@@ -197,5 +200,5 @@ export function dailyChartOptions(options, { isStacking } = {}) {
       }
     },
     credits: false
-  }, options, { deep: true });
+  }, options);
 }

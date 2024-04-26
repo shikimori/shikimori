@@ -1,3 +1,5 @@
+import I18n from '@/utils/i18n';
+
 pageLoad('.polls', async () => {
   if (!$('#vue_poll_variants').exists()) { return; }
 

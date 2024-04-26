@@ -1,26 +1,21 @@
-- cache @resource.ignored_users do
-  .block
-    - if @resource.ignored_users.none?
-      .b-nothing_here = t '.no_ignored_users'
+.block
+  - if @resource.ignored_users.none?
+    .b-nothing_here = t '.no_ignored_users'
 
-    - else
-      table.b-table.b-editable_grid.m0
-        thead
-          tr
-            th = t '.user_nickname'
-            th.actions
-        tbody
-          - @resource.ignored_users.each do |user|
-            tr
-              td
-                = render 'users/user_16', user: user
-              td.actions
-                a.b-js-link[
-                  data-action=api_v2_users_ignore_url(user.id)
-                  data-method="DELETE"
-                  data-remote="true"
-                  data-type="json"
-                ] = t '.stop_ignore'
+  - else
+    table.b-table.b-editable_grid.m0
+      thead
+        tr
+          th = t '.user_nickname'
+          th.actions
+      tbody#ignored_users_tbody
+        = render partial: 'profiles/ignored_user',
+          collection: @collection,
+          as: :user
+    - if @collection.size == controller.class::IGNORED_PER_PAGE
+      = render 'blocks/postloader',
+        next_url: current_url(page: @page + 1),
+        insert_into: '#ignored_users_tbody'
 
 .block
   = form_tag ignores_url, method: :post, class: 'b-form' do |f|

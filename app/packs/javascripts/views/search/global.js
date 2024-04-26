@@ -3,6 +3,8 @@ import TinyUri from 'tiny-uri';
 import delay from 'delay';
 import { bind } from 'shiki-decorators';
 
+import isEmpty from 'lodash/isEmpty';
+
 import View from '@/views/application/view';
 
 import AutocompleteEngine from './autocomplete_engine';
@@ -94,7 +96,7 @@ export default class GlobalSearch extends View {
   }
 
   get isSearching() {
-    return !Object.isEmpty(this.phrase);
+    return !isEmpty(this.phrase);
   }
 
   get phrase() {
@@ -112,7 +114,7 @@ export default class GlobalSearch extends View {
       this.$input[0].value = value;
     }
 
-    this.$input.toggleClass('has-value', !Object.isEmpty(this.phrase));
+    this.$input.toggleClass('has-value', !isEmpty(this.phrase));
 
     if (priorPhrase === undefined) { return; }
 
@@ -288,7 +290,7 @@ export default class GlobalSearch extends View {
   _toggleGlobalSearch() {
     const isShade = this.isActive && (
       !this.isIndexMode ||
-        (this.isIndexMode && Object.isEmpty(this.phrase))
+        (this.isIndexMode && isEmpty(this.phrase))
     );
 
     $('.l-top_menu-v2')

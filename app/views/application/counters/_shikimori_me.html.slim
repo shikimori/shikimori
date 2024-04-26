@@ -18,18 +18,20 @@ javascript:
       accurateTrackBounce:true
   });
 
-  // для совместимости счётчиков с турболинками
-  $(document).on('turbolinks:before-visit', function() {
-  window.turbolinks_referer = location.href;
-  });
+  document.addEventListener('DOMContentLoaded', function() {
+    // для совместимости счётчиков с турболинками
+    $(document).on('turbolinks:before-visit', function() {
+      window.turbolinks_referer = location.href;
+    });
 
-  $(document).on('turbolinks:load', function() {
-    if (window.turbolinks_referer) {
-      if (window.ym) {
-        window.ym(93211525, 'hit', location.href, $('title').html(), window.turbolinks_referer);
+    $(document).on('turbolinks:load', function() {
+      if (window.turbolinks_referer) {
+        if (window.ym) {
+          window.ym(93211525, 'hit', location.href, $('title').html(), window.turbolinks_referer);
+        }
+        if (window.ga) {
+          window.ga('send', 'pageview');
+        }
       }
-      if (window.ga) {
-        window.ga('send', 'pageview');
-      }
-    }
+    });
   });

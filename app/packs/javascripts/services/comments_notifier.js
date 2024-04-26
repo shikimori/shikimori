@@ -16,11 +16,11 @@ const TRACK_EVENTS = [
 // уведомлялка о новых комментариях
 // назначение класса - смотреть на странице новые комментаы и отображать информацию об этом
 export default class CommentsNotifier {
-  $container = null
-  currentCounter = 0
+  $container = null;
+  currentCounter = 0;
 
-  maxTop = 48
-  blockTop = 0
+  maxTop = 48;
+  blockTop = 0;
 
   constructor() {
     $(document).on('turbolinks:before-cache', this._cleanup);
@@ -129,7 +129,7 @@ export default class CommentsNotifier {
   }
 
   _move() {
-    this.blockTop = [0, this.maxTop - this.scroll].max();
+    this.blockTop = Math.max(0, this.maxTop - this.scroll);
     this._$container().css({ top: this.blockTop });
   }
 }

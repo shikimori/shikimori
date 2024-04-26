@@ -1,12 +1,12 @@
 describe MigrateGenreV2Ids do
-  [
-    AnimeGenresRepository,
-    MangaGenresRepository,
-    AnimeGenresV2Repository,
-    MangaGenresV2Repository
-  ].each do |klass|
-    include_context :reset_repository, klass, true
-  end
+  # [
+  #   AnimeGenresRepository,
+  #   MangaGenresRepository,
+  #   AnimeGenresV2Repository,
+  #   MangaGenresV2Repository
+  # ].each do |klass|
+  #   include_context :reset_repository, klass
+  # end
   subject { described_class.call Anime }
 
   describe 'common rules' do

@@ -39,6 +39,8 @@ ru:
         list: Список аниме и манги
         notifications: Уведомления
         misc: Прочее
+        ignored_topics: Игнорируемые топики
+        ignored_users: Игнорируемые пользователи
       roles: Роли
       banned: '@{m:Забанен|f:Забанена}'
       ban_removal: >-
@@ -184,14 +186,18 @@ ru:
       ignored_topics:
         topic_name: Название топика
         topic_author: Автор
-        stop_ignore: прекратить игнор
         no_ignored_topics: Нет игнорируемых топиков
 
       ignored_users:
         user_nickname: Пользователь
-        stop_ignore: прекратить игнор
         no_ignored_users: Нет игнорируемых пользователей
         add_users: Добавить пользователей
+
+    ignored_topic:
+      stop_ignore: прекратить игнор
+
+    ignored_user:
+      stop_ignore: прекратить игнор
 
     stats_bar:
       similar_users: похожие пользователи

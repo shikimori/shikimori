@@ -24,8 +24,7 @@ gem 'non-stupid-digest-assets', github: 'afdev82/non-stupid-digest-assets', bran
 gem 'sassc-rails'
 gem 'turbolinks'
 gem 'uglifier'
-gem 'webpacker'
-# gem 'execjs', '2.7' # do no upgrade until upgrade to ruby 2.7 https://github.com/rails/execjs/issues/99
+gem 'shakapacker'
 gem 'sprockets-rails'
 
 # templates
@@ -42,7 +41,7 @@ gem 'graphql'
 gem 'graphql-rails_logger', group: :development
 
 # background jobs
-gem 'sidekiq', '~> 6.5.9' # sidekiq 7 and redis 5 do not work properly https://stackoverflow.com/questions/74314906/heartbeat-unsupported-command-argument-type-falseclass-redis
+gem 'sidekiq', '~> 6.5.10' # sidekiq 7 and redis 5 do not work properly https://stackoverflow.com/questions/74314906/heartbeat-unsupported-command-argument-type-falseclass-redis
 gem 'sidekiq-limit_fetch'
 # gem 'sidekiq-limit_fetch', github: 'brainopia/sidekiq-limit_fetch', branch: 'master' # <- for sidekiq 6
 gem 'sidekiq-delay_extensions'
@@ -207,9 +206,9 @@ group :development, :test do
   gem 'stackprof', require: false # for flamegraph
 
   gem 'guard', require: false
+  gem 'guard-compat', require: false
   gem 'guard-brakeman', require: false
   gem 'guard-bundler', require: false
-  gem 'guard-i18n-js', require: false, github: 'morr/guard-i18n-js'
   gem 'guard-pow', require: false
   gem 'guard-rspec', require: false
   gem 'guard-rubocop', require: false

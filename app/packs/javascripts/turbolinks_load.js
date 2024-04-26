@@ -1,6 +1,6 @@
 import Turbolinks from 'turbolinks';
 // import bowser from 'bowser';
-import cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 import { flash } from 'shiki-utils';
 import { popFlash } from '@/utils/flash';
 
@@ -30,7 +30,7 @@ $(document).on('turbolinks:load', () => {
 
   // переключатели видов отображения списка
   $('.b-list_switchers .switcher').on('click', ({ currentTarget }) => {
-    cookies.set(
+    Cookies.set(
       $(currentTarget).data('name'),
       $(currentTarget).data('value'),
       { expires: 730, path: '/' }

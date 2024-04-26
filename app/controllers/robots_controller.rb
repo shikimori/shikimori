@@ -24,6 +24,7 @@ class RobotsController < ShikimoriController
       Disallow: /*undefined
       Disallow: /api/*
       Disallow: /*.html
+      Disallow: /*/*.rss
       Disallow: /clubs/3*
       Host: #{Shikimori::PROTOCOLS[:production]}://#{Shikimori::DOMAINS[:production]}
       Sitemap: #{Shikimori::PROTOCOLS[:production]}://#{Shikimori::DOMAINS[:production]}/sitemap.xml

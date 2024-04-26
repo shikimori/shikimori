@@ -4,7 +4,7 @@ ru:
     description: >-
       Шикимори - онлайн энциклопедия аниме и манги.
       Полный список популярной манги на русском.
-      Shikimori.me - лучший аниме-форум для общения.
+      Shikimori.one - лучший аниме-форум для общения.
 
   topics_controller: &topics_controller
     title: Форум Шикимори
@@ -308,6 +308,10 @@ ru:
   moderations/changelogs_controller:
     <<: *moderations_controller
     page_title: Журнал изменений
+
+  moderations/posters_controller:
+    <<: *moderations_controller
+    page_title: Не проверенные 18+ постеры
 
   moderations/mal_more_infos_controller:
     <<: *moderations_controller

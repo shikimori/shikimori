@@ -9,7 +9,6 @@ export class StaticLoader {
     this.batchSize = batchSize;
     this.cache = cache;
 
-
     this._initialize();
   }
 

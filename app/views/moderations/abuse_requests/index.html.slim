@@ -1,22 +1,25 @@
-= cache expires_in: 1.day do
-  header.head
-    h1 = og.headline
-    p.notice = t '.notice'
-    = render 'application/breadcrumbs'
+header.head
+  h1 = og.headline
+  p.notice = t '.notice'
+  = render 'application/breadcrumbs'
 
-  .block
-    .subheadline = t '.instruction'
-    .b-brief
-      .moderators
-        = render partial: 'users/user',
-          collection: @moderators,
-          locals: { content_by: :named_avatar }
+.block
+  - if can? :manage, Ban
+    = t '.instruction'
+  - else
+    = t '.moderators'
+  .b-brief
+    .moderators
+      = render partial: 'users/user',
+        collection: @moderators,
+        locals: { content_by: :named_avatar }
 
+    - if can? :manage, Ban
       ul.b-list.is-wide
         - t('.instructions').each do |instruction|
           li: p = instruction
 
-      p = t '.to_your_discretion'
+    p = t '.to_your_discretion'
 
 - if @pending&.any?
   .block

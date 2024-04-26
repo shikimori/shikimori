@@ -1,6 +1,6 @@
 shared_examples :moderatable_concern do |type|
   describe 'moderatable concern' do
-    subject(:model) { build type, moderation_state: moderation_state }
+    subject(:model) { build type, moderation_state: }
     let(:moderation_state) { Types::Moderatable::State[:pending] }
 
     describe 'validations' do
@@ -111,7 +111,7 @@ shared_examples :moderatable_concern do |type|
       let(:model) { create type, :with_topics }
 
       describe '#to_offtopic' do
-        subject! { model.to_offtopic! }
+        subject! { model.send :to_offtopic! }
 
         it do
           expect(model).to_not be_changed
@@ -120,7 +120,7 @@ shared_examples :moderatable_concern do |type|
       end
 
       describe '#assign_approver' do
-        subject! { model.send :assign_approver, approver: approver }
+        subject! { model.send :assign_approver, approver: }
         let(:approver) { user_2 }
         it do
           expect(model.approver).to eq approver

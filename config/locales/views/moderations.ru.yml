@@ -6,6 +6,7 @@ ru:
       expand_all: раскрыть всё
       history: История
       instruction: Инструкция
+      moderators: Модераторы
       queue: Очередь
       queue_empty: Очередь пуста
       filters: Фильтры
@@ -35,7 +36,7 @@ ru:
       running: Запускается…
       in_progress: Задачи выполняются
       queue: Задачи в очереди
-      proxies_count: Проксей доступно
+      proxies_count: Прокси доступно
 
     missing_screenshots:
       notices:
@@ -137,6 +138,13 @@ ru:
       critique:
         accept: принять
         move_to_offtopic: переместить в оффтопик
+
+    posters:
+      poster:
+        accept: Принять
+        reject: Отклонить
+        cancel: Отменить
+        censore: Зацензурить
 
     collections:
       index:

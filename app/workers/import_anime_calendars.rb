@@ -20,7 +20,7 @@ private
 
     Rails.cache.write 'calendar_unrecognized', (names - imported - FIXES[:ignores])
 
-    { imported: imported, unrecognized: names - imported - FIXES[:ignores] }
+    { imported:, unrecognized: names - imported - FIXES[:ignores] }
   end
 
   def import calendars
@@ -70,7 +70,7 @@ private
 
       {
         anime: nil,
-        title: title,
+        title:,
         start_at: i_data.dtstart,
         episode: episode - (FIXES[:episodes_diff][title] || 0)
       }

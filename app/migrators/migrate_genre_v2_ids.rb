@@ -28,6 +28,25 @@ class MigrateGenreV2Ids
     true
   end
 
+  def migrate genre_v2:, to_id:
+    raise ERROR_MESSAGE if to_id == TEMP_ID && GenreV2.find_by(id: TEMP_ID)
+
+    from_id = genre_v2.id
+    conflicting_genre_v2 = search_conflicting_genre_v2 to_id
+
+    if conflicting_genre_v2
+      log "found conflicting #{genre_log_details genre_v2: conflicting_genre_v2}"
+      migrate genre_v2: conflicting_genre_v2, to_id: TEMP_ID
+    end
+
+    migrate_genre_id(genre_v2:, to_id:)
+    migrate_db_entries(genre_v2:, from_id:, to_id:)
+    migrate_versions(from_id:, to_id:)
+
+    log "updated #{genre_log_details genre_v2:, id: from_id} => id=#{to_id}"
+    migrate genre_v2: conflicting_genre_v2, to_id: from_id if conflicting_genre_v2
+  end
+
 private
 
   def search_maching_genre_v1 genre_v2:
@@ -50,25 +69,6 @@ private
   def search_conflicting_genre_v2 to_id
     genres_v2_repository.find { |v| v.id == to_id } ||
       genres_v2_other_repository.find { |v| v.id == to_id }
-  end
-
-  def migrate genre_v2:, to_id:
-    raise ERROR_MESSAGE if to_id == TEMP_ID && GenreV2.find_by(id: TEMP_ID)
-
-    from_id = genre_v2.id
-    conflicting_genre_v2 = search_conflicting_genre_v2 to_id
-
-    if conflicting_genre_v2
-      log "found conflicting #{genre_log_details genre_v2: conflicting_genre_v2}"
-      migrate genre_v2: conflicting_genre_v2, to_id: TEMP_ID
-    end
-
-    migrate_genre_id(genre_v2:, to_id:)
-    migrate_db_entries(genre_v2:, from_id:, to_id:)
-    migrate_versions(from_id:, to_id:)
-
-    log "updated #{genre_log_details genre_v2:, id: from_id} => id=#{to_id}"
-    migrate genre_v2: conflicting_genre_v2, to_id: from_id if conflicting_genre_v2
   end
 
   def migrate_genre_id genre_v2:, to_id:

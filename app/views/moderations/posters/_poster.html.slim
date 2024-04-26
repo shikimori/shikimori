@@ -1,0 +1,42 @@
+.poster-cell
+  .poster
+    = render 'db_entries/poster_magnificable',
+      resource: poster.target,
+      poster: poster,
+      is_main_poster: true
+    - unless poster.moderation_pending?
+      .approver class=poster.moderation_state
+        = render 'users/user_16', user: poster.approver
+
+    .actions
+      - if poster.may_accept? && can?(:accept, poster)
+        a.accept[
+          href=accept_moderations_poster_path(poster)
+          data-method='post'
+          data-remote='true'
+          data-type='html'
+        ] = t '.accept'
+      - if poster.may_censore? && can?(:censore, poster)
+        a.censore[
+          href=censore_moderations_poster_path(poster)
+          data-method='post'
+          data-remote='true'
+          data-type='html'
+       ] = t '.censore'
+      - if poster.may_reject? && can?(:reject, poster)
+        a.reject[
+          href=reject_moderations_poster_path(poster)
+          data-method='post'
+          data-remote='true'
+          data-type='html'
+        ] = t '.reject'
+      - if poster.may_cancel? && can?(:cancel, poster)
+        a.cancel[
+          href=cancel_moderations_poster_path(poster)
+          data-method='post'
+          data-remote='true'
+          data-type='html'
+       ] = t '.cancel'
+
+  a.name.bubbled href=poster.target.decorate.url
+    = localized_name poster.target

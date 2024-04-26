@@ -33,6 +33,15 @@ describe Misc::SanitizeEvilCss do
     end
 
     context 'sample' do
+      let(:css) do
+        'test /' + ('\\' * rand(10)) +
+          ("\r" * rand(10)) + ("\n" * rand(10)) + ("\r\n" * rand(10)) +
+            '/'
+      end
+      it { is_expected.to eq 'test //' }
+    end
+
+    context 'sample' do
       let(:css) { "url('data:image/svg+xml,%3C%3Fxml asdasdasdasddd')" }
       it { is_expected.to eq "url('image/svg+xml,%3C%3Fxml asdasdasdasddd')" }
     end

@@ -1,3 +1,4 @@
+import isEmpty from 'lodash/isEmpty';
 import IndexEngine from './index_engine';
 
 const VARIANT_SELECTOR = '.b-db_entry-variant-list_item';
@@ -23,7 +24,7 @@ export default class AutocompleteEngine extends IndexEngine {
     this._phrase = value;
     this._buildSearchPromise();
 
-    if (!Object.isEmpty(this.phrase)) {
+    if (!isEmpty(this.phrase)) {
       this._showAjax();
       this.debouncedSearch(this.phrase);
     } else {

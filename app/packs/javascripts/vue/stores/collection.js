@@ -1,4 +1,5 @@
 import filter from 'lodash/filter';
+import isEmpty from 'lodash/isEmpty';
 import uniqBy from 'lodash/uniqBy';
 
 let uniqId = 987654321;
@@ -50,9 +51,9 @@ export default {
 
   getters: {
     collection(store) { return store.collection; },
-    isEmpty(store) {
+    isCollectionEmpty(store) {
       return store.collection.every(item =>
-        Object.isEmpty(item.url) && Object.isEmpty(item.value) && Object.isEmpty(item.name)
+        isEmpty(item.url) && isEmpty(item.value) && isEmpty(item.name)
       );
     }
   },

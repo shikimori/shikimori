@@ -161,7 +161,7 @@ import { isMobile } from 'shiki-utils';
     if (!$trigger.data('no-align')) {
       var old_top = top;
       if (offscreen_bottom_offset > 0 && !conf.no_y_adjustment) {
-        top = [top - offscreen_bottom_offset + 10, 10].max();
+        top = Math.max(top - offscreen_bottom_offset + 10, 10);
       }
 
       if (old_top != top) {
@@ -169,7 +169,7 @@ import { isMobile } from 'shiki-utils';
       }
       var offscreen_top_offset = abs_top - $(window).scrollTop();
       if (offscreen_top_offset < 0) {
-        top = [top - offscreen_top_offset - 10, 10].max();
+        top = Math.max(top - offscreen_top_offset - 10, 10);
       }
     }
 

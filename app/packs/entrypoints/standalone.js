@@ -1,5 +1,4 @@
 const key1 = '$';
-window[key1] = require('jquery'); // eslint-disable-line import/newline-after-import
-
+window[key1] = require('jquery');
 const key2 = 'jQuery';
-window[key2] = require('jquery'); // eslint-disable-line import/newline-after-import
+window[key2] = require('jquery');

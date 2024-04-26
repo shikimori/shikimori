@@ -1,4 +1,6 @@
 import delay from 'delay';
+import round from 'lodash/round';
+
 import View from '@/views/application/view';
 
 let PRIOR_ID = 0;
@@ -55,7 +57,7 @@ export class CuttedCovers extends View {
     if (!this.$poster || !$.contains(document.documentElement, this.$poster[0])) {
       this._fetchPoster();
     }
-    const height = (this.$poster.width() * this.ratioValue).round(2);
+    const height = round(this.$poster.width() * this.ratioValue, 2);
     const width = this.$poster.width();
 
     if ((width > 0) && (height > 0)) {

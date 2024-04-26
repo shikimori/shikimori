@@ -24,7 +24,7 @@ class UserDecorator < BaseDecorator
   def edit_url section:
     h.edit_profile_url(
       will_save_change_to_nickname? ? to_param(changes['nickname'][0]) : self,
-      section: section
+      section:
     )
   end
 
@@ -95,7 +95,7 @@ class UserDecorator < BaseDecorator
       i18n_t 'always_online'
     elsif object.bot?
       i18n_t 'always_online_bot'
-    elsif Time.zone.now - 5.minutes <= exact_last_online_at || object.id == User::GUEST_ID
+    elsif 5.minutes.ago <= exact_last_online_at || object.id == User::GUEST_ID
       i18n_t 'online'
     else
       i18n_t 'offline',

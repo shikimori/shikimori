@@ -31,7 +31,7 @@ set :linked_dirs, %w[
 ]
 set :copy_files, %w[node_modules]
 
-set :keep_releases, 5
+set :keep_releases, 10
 set :log_level, :info
 set :format, :airbrussh
 
@@ -77,7 +77,15 @@ namespace :deploy do
   namespace :i18n_js do
     task :export do
       on roles(:web) do
-        bundle_exec 'rails i18n:js:export', release_path
+        bundle_exec 'i18n export', release_path
+      end
+    end
+  end
+
+  namespace :escheck do
+    task :check_es6_compatibility do
+      on roles(:web) do
+        bundle_exec 'yarn run es-check es6 public/packs/js/*.js', release_path
       end
     end
   end
@@ -240,6 +248,7 @@ after 'deploy:published', 'sidekiq:start'
 # before 'deploy:assets:precompile', 'deploy:yarn:install'
 before 'deploy:assets:precompile', 'deploy:yarn:install'
 before 'deploy:assets:precompile', 'deploy:i18n_js:export'
+after 'deploy:assets:precompile', 'deploy:escheck:check_es6_compatibility'
 
 if fetch(:stage) == :production
   after 'deploy:updated', 'clockwork:stop'

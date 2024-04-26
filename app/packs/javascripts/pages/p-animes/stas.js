@@ -16,7 +16,7 @@ function chart($node, Highcharts) {
   const data = $node.data('stats');
   const colors = Highcharts.getOptions().colors;
 
-  const statFields = keys(data[0]).filter(field => field != 'date');
+  const statFields = keys(data[0]).filter(field => field !== 'date');
 
   return $node.highcharts(dailyChartOptions({
     series: statFields.map((field, index) => ({

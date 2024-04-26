@@ -27,6 +27,7 @@
             = t 'actions.edit'
         - else
           a.b-js-action.is-disabled = t 'moderators_only'
+        = yield
       - else
         - if policy.change_allowed?
           a.b-js-action.to-process[

@@ -24,6 +24,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   COMMENTS_LIMIT = 20
   FRIENDS_LIMIT = 40
   VERSIONS_PER_PAGE = 30
+  IGNORED_PER_PAGE = 40
 
   # name location
   USER_PARAMS = %i[
@@ -198,6 +199,32 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, VERSIONS_PER_PAGE)
       .lazy_map(&:decorate)
+  end
+
+  def ignored_topics
+    @collection = QueryObjectBase.new(@resource.topic_ignores)
+      .includes(:topic)
+      .paginate(@page, IGNORED_PER_PAGE)
+      .lazy_map do |topic_ignore|
+        Topics::TopicViewFactory.new(false, false).build topic_ignore.topic
+      end
+
+    unless json?
+      params[:section] = 'ignored_topics'
+      edit
+      render 'edit'
+    end
+  end
+
+  def ignored_users
+    @collection = QueryObjectBase.new(@resource.ignored_users)
+      .paginate(@page, IGNORED_PER_PAGE)
+
+    unless json?
+      params[:section] = 'ignored_users'
+      edit
+      render 'edit'
+    end
   end
 
   def moderation

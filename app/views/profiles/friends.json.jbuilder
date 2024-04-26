@@ -10,7 +10,7 @@ json.content JsExports::Supervisor.instance.sweep(
   )
 )
 
-if @collection.size == controller.class::REVIEWS_LIMIT
+if @collection.size == controller.class::FRIENDS_LIMIT
   json.postloader render(
     partial: 'blocks/postloader',
     locals: {

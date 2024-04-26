@@ -6,6 +6,7 @@ en:
       expand_all: expand all
       history: History
       instruction: Instructions
+      moderators: Moderators
       queue: Queue
       queue_empty: Queue is empty
       filters: Filters
@@ -137,6 +138,13 @@ en:
       critique:
         accept: accept
         move_to_offtopic: move to offtopic
+
+    posters:
+      poster:
+        accept: Accept
+        reject: Reject
+        cancel: Cancel
+        censore: Censore
 
     collections:
       index:

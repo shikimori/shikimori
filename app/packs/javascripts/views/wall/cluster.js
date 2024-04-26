@@ -1,3 +1,6 @@
+import max from 'lodash/max';
+import min from 'lodash/min';
+
 export default class WallCluster {
   static initClass(maxContainerWidth) {
     this.MARGIN = 4;
@@ -16,7 +19,7 @@ export default class WallCluster {
     this.images.forEach(image => (
       image.normalize(
         // min with maxContainerWidth becase image can't be wider than its container
-        [this.maxWidth, this.maxContainerWidth].min(),
+        Math.min(this.maxWidth, this.maxContainerWidth),
         this.maxHeight
       )
     ));
@@ -26,11 +29,11 @@ export default class WallCluster {
   }
 
   width() {
-    return (this.images.map(v => v.left + v.width)).max() || 0;
+    return max(this.images.map(v => v.left + v.width)) || 0;
   }
 
   height() {
-    return (this.images.map(v => v.top + v.height)).max() || 0;
+    return max(this.images.map(v => v.top + v.height)) || 0;
   }
 
   _positioned() {
@@ -38,7 +41,7 @@ export default class WallCluster {
   }
 
   _put(image) {
-    let left = (this._positioned().map(v => v.left + v.width)).max();
+    let left = max(this._positioned().map(v => v.left + v.width));
 
     if (left) {
       left += WallCluster.MARGIN;
@@ -57,9 +60,9 @@ export default class WallCluster {
     if (images.length === 1) { return; }
 
     const heights = images.map(v => v.height);
-    const minHeight = heights.min();
+    const minHeight = min(heights);
 
-    if (minHeight !== heights.max()) {
+    if (minHeight !== max(heights)) {
       images.forEach(image => {
         image.scaleHeight(minHeight);
         image.positioned = false;

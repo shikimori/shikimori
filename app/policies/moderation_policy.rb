@@ -104,6 +104,17 @@ class ModerationPolicy
     pending_versions_size :links
   end
 
+  def unprocessed_censored_posters_count
+    return 0 unless !@moderation_filter || h.can?(:censore, Poster)
+
+    Animes::CensoredPostersQuery
+      .call(
+        klass: Manga,
+        moderation_state: Types::Moderatable::State[:pending]
+      )
+      .count
+  end
+
   def mal_more_info_count
     return 0 unless !@moderation_filter || @user&.version_moderator?
 

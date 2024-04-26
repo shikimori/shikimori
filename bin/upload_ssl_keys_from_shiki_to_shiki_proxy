@@ -1,0 +1,104 @@
+#!/usr/bin/env zsh
+
+# Exit the script on any error
+set -e
+
+# SSH into 'shiki' to handle SSL keys
+ssh devops@shiki 'sudo rm -rf /tmp/ssl && mkdir /tmp/ssl && \
+echo ">>>shiki: copying ssl keys from shiki:/etc/ssl to shiki:/tmp/ssl" && \
+sudo cp /etc/ssl/shikimori.dhparam.pem /tmp/ssl/ && \
+sudo cp /etc/ssl/shikimori.fullchain.pem /tmp/ssl/ && \
+sudo cp /etc/ssl/shikimori.key /tmp/ssl/ && \
+sudo chown devops:devops -R /tmp/ssl/' && \
+
+# Proceed only if the previous block was successful
+(rm -rf /tmp/ssl && \
+mkdir /tmp/ssl && \
+echo ">>>localhost: downloading ssl keys from shiki:/tmp/ssl to localhost:/tmp/ssl" && \
+scp shiki:/tmp/ssl/shikimori.dhparam.pem /tmp/ssl/ && \
+scp shiki:/tmp/ssl/shikimori.fullchain.pem /tmp/ssl/ && \
+scp shiki:/tmp/ssl/shikimori.key /tmp/ssl/ && 
+
+# SSH into 'shiki' to clean up
+ssh devops@shiki 'echo ">>>shiki: deleting tmp ssl on shiki:/tmp/ssl" && sudo rm -rf /tmp/ssl') && \
+
+# Setup on 'shiki_proxy'
+(echo ">>>localhost: preparing shiki_proxy:/tmp/ssl" && \
+ssh devops@shiki_proxy 'sudo rm -rf /tmp/ssl && mkdir /tmp/ssl') && \
+
+# Upload SSL keys to 'shiki_proxy'
+(echo ">>>localhost: uploading ssl keys from localhost:/tmp/ssl to shiki_proxy:/tmp/ssl" && \
+scp /tmp/ssl/shikimori.dhparam.pem shiki_proxy:/tmp/ssl/ && \
+scp /tmp/ssl/shikimori.fullchain.pem shiki_proxy:/tmp/ssl/ && \
+scp /tmp/ssl/shikimori.key shiki_proxy:/tmp/ssl/ && \
+
+# Clean up localhost's temp files
+echo ">>>localhost: deleting localhost:/tmp/ssl" && \
+rm -rf /tmp/ssl && \
+
+# Back up and update SSL keys on 'shiki_proxy'
+ssh devops@shiki_proxy 'echo ">>>shiki_proxy: backing up ssl keys from shiki_proxy:/etc/ssl to shiki_proxy:/tmp/ssl_backup" && \
+sudo rm -rf /tmp/ssl_backup && \
+mkdir /tmp/ssl_backup && \
+sudo cp /etc/ssl/shikimori.dhparam.pem /tmp/ssl_backup/ && \
+sudo cp /etc/ssl/shikimori.fullchain.pem /tmp/ssl_backup/ && \
+sudo cp /etc/ssl/shikimori.key /tmp/ssl_backup/ && \
+echo ">>>shiki_proxy: copying ssl keys from shiki_proxy:/tmp/ssl to shiki_proxy:/etc/ssl" && \
+sudo chown root:root -R /tmp/ssl/ && \
+sudo cp /tmp/ssl/shikimori.dhparam.pem /etc/ssl/ && \
+sudo cp /tmp/ssl/shikimori.fullchain.pem /etc/ssl/ && \
+sudo cp /tmp/ssl/shikimori.key /etc/ssl/ && \
+sudo /opt/nginx-1.25.4/sbin/nginx -T > /dev/null && \
+echo ">>>shiki_proxy: restarting nginx" && \
+sudo systemctl restart nginx && \
+echo ">>>shiki: deleting tmp ssl on shiki_proxy:/tmp/ssl" && \
+sudo rm -rf /tmp/ssl')
+# original:
+# ssh devops@shiki '\
+#   sudo rm -rf /tmp/ssl && \
+#   mkdir /tmp/ssl && \
+#   echo ">>>shiki: copying ssl keys from shiki:/etc/ssl to shiki:/tmp/ssl" && \
+#   sudo cp /etc/ssl/shikimori.dhparam.pem /tmp/ssl/ && \
+#   sudo cp /etc/ssl/shikimori.fullchain.pem /tmp/ssl/ && \
+#   sudo cp /etc/ssl/shikimori.key /tmp/ssl/ && \
+#   sudo chown devops:devops -R /tmp/ssl/ \
+# ' && \
+# rm -rf /tmp/ssl && \
+# mkdir /tmp/ssl && \
+# echo ">>>localhost: downloadding ssl keys form shiki:/tmp/ssl to localhost:/tmp/ssl" && \
+# scp shiki:/tmp/ssl/shikimori.dhparam.pem /tmp/ssl/ && \
+# scp shiki:/tmp/ssl/shikimori.fullchain.pem /tmp/ssl/ && \
+# scp shiki:/tmp/ssl/shikimori.key /tmp/ssl/ && \
+# ssh devops@shiki_proxy '\
+#   echo ">>>shiki: deleting tmp ssl on shiki:/tmp/ssl" && \
+#   sudo rm -rf /tmp/ssl
+# ' && \
+# echo ">>>localhost: preparing shiki_proxy:/tmp/ssl" && \
+# ssh devops@shiki_proxy '\
+#   sudo rm -rf /tmp/ssl && \
+#   mkdir /tmp/ssl \
+# ' && \
+# echo ">>>localhost: uploading ssl keys from localhost:/tmp/ssl/ to shiki_proxy:/tmp/ssl" && \
+# scp /tmp/ssl/shikimori.dhparam.pem shiki_proxy:/tmp/ssl/ && \
+# scp /tmp/ssl/shikimori.fullchain.pem shiki_proxy:/tmp/ssl/ && \
+# scp /tmp/ssl/shikimori.key shiki_proxy:/tmp/ssl/ && \
+# echo ">>>localhost: deleting localhost:/tmp/ssl" && \
+# rm -rf /tmp/ssl && \
+# ssh devops@shiki_proxy '\
+#   echo ">>>shiki_proxy: backuping ssl keys from shiki_proxy:/etc/ssl to shiki_proxy:/tmp/ssl_backup" && \
+#   sudo rm -rf /tmp/ssl_backup && \
+#   mkdir /tmp/ssl_backup && \
+#   sudo cp /etc/ssl/shikimori.dhparam.pem /tmp/ssl_backup/ && \
+#   sudo cp /etc/ssl/shikimori.fullchain.pem /tmp/ssl_backup/ && \
+#   sudo cp /etc/ssl/shikimori.key /tmp/ssl_backup/ && \
+#   echo ">>>shiki_proxy: copying ssl keys from shiki_proxy:/tmp/ssl to shiki_proxy:/etc/ssl" && \
+#   sudo chown root:root -R /tmp/ssl/ && \
+#   sudo cp /tmp/ssl/shikimori.dhparam.pem /etc/ssl/ && \
+#   sudo cp /tmp/ssl/shikimori.fullchain.pem /etc/ssl/ && \
+#   sudo cp /tmp/ssl/shikimori.key /etc/ssl/ && \
+#   sudo /opt/nginx-1.25.4/sbin/nginx -T > /dev/null && \
+#   echo ">>>shiki_proxy: restarting nginx" && \
+#   sudo systemctl restart nginx && \
+#   echo ">>>shiki: deleting tmp ssl on shiki_proxy:/tmp/ssl" && \
+#   sudo rm -rf /tmp/ssl \
+# '

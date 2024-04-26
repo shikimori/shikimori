@@ -10,7 +10,7 @@ class Api::V1::FriendsController < Api::V1Controller
 
   api :POST, '/friends/:id', 'Create a friend'
   description 'Requires `friends` oauth scope'
-  def create
+  def create # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     @resource = FriendLink.new src: current_user, dst: @user
 
     if @resource.save
@@ -34,6 +34,7 @@ class Api::V1::FriendsController < Api::V1Controller
         status: :unprocessable_entity
     end
   rescue ActiveRecord::RecordNotUnique
+  ensure
     render json: { notice: add_notice }
   end
 

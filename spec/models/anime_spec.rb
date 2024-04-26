@@ -171,7 +171,7 @@ describe Anime do
     end
 
     describe '#actualize_is_censored, #actualize_ranked' do
-      include_context :reset_repository, AnimeGenresV2Repository, true
+      # include_context :reset_repository, AnimeGenresV2Repository
       before do
         allow(DbEntry::CensoredPolicy)
           .to receive(:censored?)

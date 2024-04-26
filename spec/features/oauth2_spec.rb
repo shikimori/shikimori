@@ -1,7 +1,8 @@
 feature 'Authentication', type: :request do
   let(:json) { JSON.parse response.body }
   let(:oauth_application) do
-    create :oauth_application, redirect_uri: Doorkeeper.configuration.native_redirect_uri
+    create :oauth_application,
+      redirect_uri: Doorkeeper.configuration.native_redirect_uri
   end
   let(:user) { create :user, email: 'user@example.com', password: '12345678' }
 
@@ -18,8 +19,8 @@ feature 'Authentication', type: :request do
       end
 
       context 'user' do
-        before { sign_in user }
         before do
+          sign_in user
           visit '/oauth/authorize' \
             "?client_id=#{oauth_application.uid}" \
             "&redirect_uri=#{Doorkeeper.configuration.native_redirect_uri}" \
@@ -29,6 +30,7 @@ feature 'Authentication', type: :request do
         scenario 'authorize user token' do
           expect(current_path).to eq oauth_authorization_path
           find('form.authorize').submit
+
           expect(user.access_grants).to have(1).item
           expect(current_path).to eq '/oauth/authorize/' +
             user.access_grants.first.token

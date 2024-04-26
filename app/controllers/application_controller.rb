@@ -43,14 +43,14 @@ class ApplicationController < ActionController::Base
   }
 
   def self.default_url_options
-    { protocol: Shikimori::PROTOCOL }
+    { protocol: Shikimori::PROTOCOL, port: nil }
   end
 
   def default_url_options options = {}
     if params[:locale]
-      options.merge protocol: Shikimori::PROTOCOL, locale: params[:locale]
+      options.merge protocol: Shikimori::PROTOCOL, port: nil, locale: params[:locale]
     else
-      options.merge protocol: Shikimori::PROTOCOL
+      options.merge protocol: Shikimori::PROTOCOL, port: nil
     end
   end
 

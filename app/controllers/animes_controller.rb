@@ -43,7 +43,6 @@ class AnimesController < DbEntriesController # rubocop:disable Metrics/ClassLeng
   before_action :resource_redirect, if: :resource_id
   before_action :js_export, only: %i[show]
   before_action :og_meta, if: :resource_id
-  before_action :forbid_access_to_banned, if: :resource_id, except: %i[tooltip]
 
   helper_method :main_resource_controller?
 
@@ -232,8 +231,6 @@ class AnimesController < DbEntriesController # rubocop:disable Metrics/ClassLeng
   end
 
   def tooltip
-    return forbid_access_to_banned unless request.xhr?
-
     render formats: :html
   end
 
@@ -284,12 +281,6 @@ private
     og video_duration: @resource.duration * 60 if @resource.duration&.positive?
     og video_release_date: @resource.released_on.date if @resource.released_on.present?
     og video_tags:
-  end
-
-  def forbid_access_to_banned
-    return if current_user&.staff?
-
-    raise ActiveRecord::RecordNotFound if @resource.banned?
   end
 
   def update_params

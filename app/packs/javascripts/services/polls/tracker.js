@@ -1,8 +1,10 @@
+import isEmpty from 'lodash/isEmpty';
+
 import TrackPoll from './track_poll';
 
 export default class PollsTracker {
   static track(jsExports, $root) {
-    if (Object.isEmpty(jsExports) || Object.isEmpty(jsExports.polls)) {
+    if (isEmpty(jsExports) || isEmpty(jsExports.polls)) {
       return;
     }
 
