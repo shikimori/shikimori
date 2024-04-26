@@ -36,7 +36,7 @@ ru:
       running: Запускается…
       in_progress: Задачи выполняются
       queue: Задачи в очереди
-      proxies_count: Проксей доступно
+      proxies_count: Прокси доступно
 
     missing_screenshots:
       notices:

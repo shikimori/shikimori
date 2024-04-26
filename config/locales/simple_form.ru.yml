@@ -30,8 +30,8 @@ ru:
       user:
         nickname: Логин (никнейм)
       anime_video:
-        author_name: Автор (озвучки,субтитров)
-        anime_video_author_id: Автор (озвучки,субтитров)
+        author_name: Автор (озвучки, субтитров)
+        anime_video_author_id: Автор (озвучки, субтитров)
 
     placeholders:
       topic:
