@@ -14,7 +14,7 @@ const hasDuplicate = (links, link) =>
   );
 
 const noLinksToFill = (links, group) =>
-  links.none(v => (v.group === group) && !v.linked_id);
+  !links.some(v => (v.group === group) && !v.linked_id);
 
 export default {
   state: {
