@@ -83,7 +83,7 @@ describe Neko::Rule do
   end
 
   describe '#neko_name' do
-    it { expect(rule.neko_name).to eq 'Неизвестная ачивка' }
+    it { expect(rule.neko_name).to eq 'Неизвестное достижение' }
   end
 
   describe '#progress' do
@@ -93,7 +93,7 @@ describe Neko::Rule do
   describe '#hint' do
     context 'test' do
       let(:neko_id) { Types::Achievement::NekoId[:test] }
-      it { expect(rule.hint nil).to eq 'Неизвестная ачивка 1 уровня' }
+      it { expect(rule.hint nil).to eq 'Неизвестное достижение 1-го уровня' }
     end
 
     context 'animelist' do

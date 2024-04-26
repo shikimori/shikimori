@@ -20,7 +20,7 @@ class Users::Query < QueryObjectBase
   end
 
   def id value
-    return self if value.blank?
+    return self if value.blank? || (value.is_a?(Numeric) && value.zero?)
 
     chain @scope.where(id: value)
   end
