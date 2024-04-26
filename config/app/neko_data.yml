@@ -21540,7 +21540,7 @@
     :border_color: "#20B2AA"
     :title_ru: Это даже не финальная форма
     :text_ru: Ваш единственный путь — вверх. Пора учиться доброй снисходительности.
-    :title_en: It's not even the final form.
+    :title_en: It's not even the final form
     :text_en: Your only way is up. It's time to learn good condescension.
     :topic_id: 0
     :rule: &1105
@@ -21554,7 +21554,7 @@
   border_color: "#20B2AA"
   title_ru: Это даже не финальная форма
   text_ru: Ваш единственный путь — вверх. Пора учиться доброй снисходительности.
-  title_en: It's not even the final form.
+  title_en: It's not even the final form
   text_en: Your only way is up. It's time to learn good condescension.
   topic_id: 0
   rule: *1105
@@ -21634,9 +21634,9 @@
       А четыре — самый шумный
     :title_en: One, two, three, four
     :text_en: |-
-      The first kitten is the whitest
-      The second kitten is the bravest
-      The third kitten is the smartest
+      Kitten one is the whitest
+      Kitten two is the bravest
+      Kitten three is the smartest
       And the fourth is the noisiest
     :topic_id: 0
     :rule: &1108
@@ -21656,9 +21656,9 @@
     А четыре — самый шумный
   title_en: One, two, three, four
   text_en: |-
-    The first kitten is the whitest
-    The second kitten is the bravest
-    The third kitten is the smartest
+    Kitten one is the whitest
+    Kitten two is the bravest
+    Kitten three is the smartest
     And the fourth is the noisiest
   topic_id: 0
   rule: *1108
@@ -22350,7 +22350,7 @@
     :border_color: "#755C48"
     :title_ru: Так мужественно, что не вздохнуть
     :text_ru: Ваши первые шаги в жанре, а борода уже не сбривается.
-    :title_en: So courageous that you can't breathe.
+    :title_en: So courageous that you can't breathe
     :text_en: Your first steps in the genre, and your beard is no longer shaved off.
     :topic_id: 227419
     :rule: &1136
@@ -22876,7 +22876,7 @@
   border_color: "#755C48"
   title_ru: Так мужественно, что не вздохнуть
   text_ru: Ваши первые шаги в жанре, а борода уже не сбривается.
-  title_en: So courageous that you can't breathe.
+  title_en: So courageous that you can't breathe
   text_en: Your first steps in the genre, and your beard is no longer shaved off.
   topic_id: 227419
   rule: *1136
@@ -26050,7 +26050,7 @@
     :title_ru: Настоящее волшебство?
     :text_ru: Вашим силам теперь подвластно само мироздание.
     :title_en: Real magic?
-    :text_en: Your powers allow to change the universe
+    :text_en: Your powers allow to change the universe.
     :topic_id: 0
     :rule: &1171
       :algo: count
@@ -26065,7 +26065,7 @@
   title_ru: Настоящее волшебство?
   text_ru: Вашим силам теперь подвластно само мироздание.
   title_en: Real magic?
-  text_en: Your powers allow to change the universe
+  text_en: Your powers allow to change the universe.
   topic_id: 0
   rule: *1171
   mandatory_attributes: *6
@@ -26170,9 +26170,9 @@
     :image: "/assets/achievements/anime/mecha_4.gif"
     :border_color: "#20B2AA"
     :title_ru: Ньютайп
-    :text_ru: ORE WA GUNDAM
+    :text_ru: ORE WA GUNDAM!
     :title_en: Newtype
-    :text_en: ORE WA GUNDAM
+    :text_en: ORE WA GUNDAM!
     :topic_id: 0
     :rule: &1176
       :algo: count
@@ -26185,9 +26185,9 @@
   image: "/assets/achievements/anime/mecha_4.gif"
   border_color: "#20B2AA"
   title_ru: Ньютайп
-  text_ru: ORE WA GUNDAM
+  text_ru: ORE WA GUNDAM!
   title_en: Newtype
-  text_en: ORE WA GUNDAM
+  text_en: ORE WA GUNDAM!
   topic_id: 0
   rule: *1176
   mandatory_attributes: *6
@@ -26200,7 +26200,7 @@
     :title_ru: Новобранец
     :text_ru: Зачислены на военную службу в очередной призыв.
     :title_en: The Rookie
-    :text_en: Enlisted in the regular draft
+    :text_en: Enlisted in the regular draft.
     :topic_id: 222037
     :rule: &1177
       :algo: count
@@ -26217,7 +26217,7 @@
   title_ru: Новобранец
   text_ru: Зачислены на военную службу в очередной призыв.
   title_en: The Rookie
-  text_en: Enlisted in the regular draft
+  text_en: Enlisted in the regular draft.
   topic_id: 222037
   rule: *1177
   mandatory_attributes: *6
@@ -26926,8 +26926,10 @@
       :algo: count
       :threshold: 20
       :filters: &1187
-        genre_ids:
+        genre_v2_ids:
         - 19
+        - 145
+        - 150
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
   default_values: *4
   neko_id: :music
@@ -26950,7 +26952,7 @@
     :title_ru: Там, где слова бессильны
     :text_ru: Музыка – это язык, на котором душа общается с душою, стирая границы
       условностей.
-    :title_en: Where words are powerless.
+    :title_en: Where words are powerless
     :text_en: Music is a language in which the soul communicates with the soul, erasing
       the boundaries of convention.
     :topic_id: 0
@@ -26966,7 +26968,7 @@
   border_color: "#9DB1CC"
   title_ru: Там, где слова бессильны
   text_ru: Музыка – это язык, на котором душа общается с душою, стирая границы условностей.
-  title_en: Where words are powerless.
+  title_en: Where words are powerless
   text_en: Music is a language in which the soul communicates with the soul, erasing
     the boundaries of convention.
   topic_id: 0
@@ -27969,7 +27971,7 @@
     :border_color: "#6E5160"
     :title_ru: Миг, и ты ее потерял
     :text_ru: Все закончилось не успев начаться, остались лишь приятные воспоминания.
-    :title_en: A moment, and you lost it.
+    :title_en: A moment, and you lost it
     :text_en: It was over before it started, leaving only pleasant memories.
     :topic_id: 245151
     :rule: &1222
@@ -27985,7 +27987,7 @@
   border_color: "#6E5160"
   title_ru: Миг, и ты ее потерял
   text_ru: Все закончилось не успев начаться, остались лишь приятные воспоминания.
-  title_en: A moment, and you lost it.
+  title_en: A moment, and you lost it
   text_en: It was over before it started, leaving only pleasant memories.
   topic_id: 245151
   rule: *1222
@@ -28083,7 +28085,7 @@
     :border_color: "#1a5369"
     :title_ru: Обычный японский школьник
     :text_ru: Довольно заурядно.
-    :title_en: The average Japanese schoolboy (or schoolgirl).
+    :title_en: The average Japanese student.
     :text_en: Pretty ordinary.
     :topic_id: 222056
     :rule: &1227
@@ -28100,7 +28102,7 @@
   border_color: "#1a5369"
   title_ru: Обычный японский школьник
   text_ru: Довольно заурядно.
-  title_en: The average Japanese schoolboy (or schoolgirl).
+  title_en: The average Japanese student.
   text_en: Pretty ordinary.
   topic_id: 222056
   rule: *1227
@@ -28637,7 +28639,7 @@
     :title_ru: 3–2–1... Поехали!
     :text_ru: Маленький шаг для одного человека, но гигантский скачок для всего человечества.
     :title_en: 3-2-1... Poyekhali!
-    :text_en: That's one small step for man, one giant leap for mankind
+    :text_en: That's one small step for man, one giant leap for mankind.
     :topic_id: 227428
     :rule: &1233
       :algo: count
@@ -28654,7 +28656,7 @@
   title_ru: 3–2–1... Поехали!
   text_ru: Маленький шаг для одного человека, но гигантский скачок для всего человечества.
   title_en: 3-2-1... Poyekhali!
-  text_en: That's one small step for man, one giant leap for mankind
+  text_en: That's one small step for man, one giant leap for mankind.
   topic_id: 227428
   rule: *1233
   mandatory_attributes: *6
@@ -29620,7 +29622,7 @@
     :border_color: "#FCD975"
     :title_ru: Это не то, о чем ты подумал
     :text_ru: Н-не то, чтобы я волновалась о тебе, я-ясно?
-    :title_en: It's not what you think.
+    :title_en: It's not what you think
     :text_en: N-not that I'm worried about you, o-okay?
     :topic_id: 227430
     :rule: &1249
@@ -30785,7 +30787,7 @@
   border_color: "#FCD975"
   title_ru: Это не то, о чем ты подумал
   text_ru: Н-не то, чтобы я волновалась о тебе, я-ясно?
-  title_en: It's not what you think.
+  title_en: It's not what you think
   text_en: N-not that I'm worried about you, o-okay?
   topic_id: 227430
   rule: *1249
