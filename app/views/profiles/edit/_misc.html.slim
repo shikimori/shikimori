@@ -6,6 +6,7 @@
       / = f.input :show_hentai_images
       = f.input :is_comments_auto_collapsed
       = f.input :is_comments_auto_loaded
+      / = f.input :is_shiki_editor, wrapper_html: { class: ('hidden' if @resource.preferences.is_shiki_editor && @resource.created_at > Date.parse('2022-06-06')) }
       = f.input :is_shiki_editor
 
     .block

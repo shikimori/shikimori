@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_08_092950) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_26_143752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
@@ -1147,7 +1147,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_08_092950) do
     t.integer "favorites_in_profile", default: 8, null: false
     t.boolean "achievements_in_profile", default: true, null: false
     t.string "dashboard_type", default: "new", null: false
-    t.boolean "is_shiki_editor", default: false, null: false
+    t.boolean "is_shiki_editor", default: true, null: false
     t.boolean "is_show_age", default: true, null: false
     t.boolean "is_view_censored", default: false, null: false
     t.boolean "is_enlarged_favourites_in_profile", default: false, null: false
