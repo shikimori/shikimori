@@ -759,7 +759,7 @@ GEM
     shrine (3.4.0)
       content_disposition (~> 1.0)
       down (~> 5.1)
-    sidekiq (6.5.9)
+    sidekiq (6.5.10)
       connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
@@ -998,7 +998,7 @@ DEPENDENCIES
   shallow_attributes!
   shoulda-matchers
   shrine
-  sidekiq (~> 6.5.9)
+  sidekiq (~> 6.5.10)
   sidekiq-delay_extensions
   sidekiq-limit_fetch
   sidekiq-unique-jobs
