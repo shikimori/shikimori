@@ -56,7 +56,7 @@ ru:
     <<: *profiles_controller
     page_title:
       history: История
-      logs: Журнал истории
+      logs: Changelog
   user_preferences_controller:
     <<: *profiles_controller
   user_rates_controller:
@@ -315,7 +315,7 @@ ru:
 
   moderations/mal_more_infos_controller:
     <<: *moderations_controller
-    page_title: Доп. информация MAL
+    page_title: MAL More Info
 
   animes_controller: &animes_controller
     version_pending: *version_pending

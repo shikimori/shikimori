@@ -27,7 +27,7 @@ ru:
         profile: Видна в профиле автора
         not_profile: Не видна в профиле автора
       to_published: Опубликовать
-      to_private: Сделать закрытой
+      to_private: Сделать приватной
       to_opened: Сделать открытой
       to_collection: К коллекции
       coauthors: Соавторы

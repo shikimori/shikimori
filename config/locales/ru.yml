@@ -142,7 +142,7 @@ ru:
         description: Описание
         seo: Приоритет для SEO
         kind: Тип
-        mal_id: ID на MAL
+        mal_id: MAL ID
       genre_v2:
         <<: *genre
         entry_type: Модель
@@ -228,7 +228,7 @@ ru:
         characters: Персонажи
         music: Звуковой ряд
         overall: Итоговая оценка
-        state: Состояние
+        state: Статус
         <<: *moderation_states
       user_preferences:
         about_on_top: Отображать над статистикой
@@ -266,8 +266,8 @@ ru:
         state/rejected: отказано
         state/broken: сломано
         state/wrong: не к этому аниме
-        state/copyrighted: заблокирован за автор. право
-        state/banned_hosting: сервер заблокирован
+        state/copyrighted: copyrighted
+        state/banned_hosting: хостинг забанен
         author_name: Автор
         anime_video_author_id: Автор
         is_first: Отображать первым среди таких же
@@ -291,8 +291,8 @@ ru:
         page_policy: Возможность создания страниц
         is_censored: Содержит материалы для взрослых (18+)
         is_non_thematic: Не тематический
-        is_shadowbanned: Теневая блокировка
-        is_private: Закрытый
+        is_shadowbanned: Теневой бан
+        is_private: Приватный
         logo: Логотип
       collection:
         user_id: Автор
@@ -302,7 +302,7 @@ ru:
         state: Статус
         state/unpublished: Не опубликованная
         state/published: Опубликованная
-        state/private: Закрытая
+        state/private: Приватная
         state/opened: Открытая
         user: Создатель
         tags: Теги
@@ -667,8 +667,8 @@ ru:
         rejected: отказано
         broken: сломано
         wrong: не к этому аниме
-        banned_hosting: сервер заблокирован
-        copyrighted: заблокирован за автор. право
+        banned_hosting: хостинг забанен
+        copyrighted: copyrighted
     anime_video_report:
       kind:
         uploaded: новое видео
