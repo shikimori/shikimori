@@ -20,7 +20,7 @@ class Users::Query < QueryObjectBase
   end
 
   def id value
-    return self if value.to_i.zero?
+    return self if value.blank?
 
     chain @scope.where(id: value)
   end
