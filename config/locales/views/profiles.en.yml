@@ -39,6 +39,8 @@ en:
         list: Anime & Manga List
         notifications: Notifications
         misc: Misc
+        ignored_topics: Ignored topics
+        ignored_users: Ignored users
       roles: Roles
       banned: Banned
       ban_removal: >-

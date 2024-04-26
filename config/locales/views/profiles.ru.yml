@@ -39,6 +39,8 @@ ru:
         list: Список аниме и манги
         notifications: Уведомления
         misc: Прочее
+        ignored_topics: Игнорируемые топики
+        ignored_users: Игнорируемые пользователи
       roles: Роли
       banned: '@{m:Забанен|f:Забанена}'
       ban_removal: >-
