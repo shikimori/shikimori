@@ -125,7 +125,7 @@ private
         code: 503,
         exception: error.class.name,
         message: error.message,
-        backtrace: error.backtrace.first.sub(Rails.root.to_s, '')
+        # backtrace: error.backtrace.first.sub(Rails.root.to_s, '')
       },
       status: :service_unavailable
     )

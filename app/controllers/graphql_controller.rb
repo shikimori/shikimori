@@ -31,9 +31,11 @@ class GraphqlController < ShikimoriController
 
     render json: result
   rescue StandardError => e
-    raise e unless Rails.env.development?
-
-    handle_error_in_development e
+    if Rails.env.development?
+      handle_error_in_development e
+    else
+      handle_error_in_production e
+    end
   end
 
   private
@@ -66,6 +68,18 @@ class GraphqlController < ShikimoriController
     render json: {
       errors: [{ message: error.message, backtrace: error.backtrace }],
       data: {}
+    }, status: :internal_server_error
+  end
+
+  def handle_error_in_production error
+    notify_erorr error
+
+    render json: {
+      errors: [{
+        exception: error.class.name,
+        message: error.message
+        # backtrace: error.backtrace.first.sub(Rails.root.to_s, '')
+      }]
     }, status: :internal_server_error
   end
 end
