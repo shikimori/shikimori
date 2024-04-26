@@ -65,8 +65,8 @@ ru:
       parse: Выполнить
       torrents:
         torrents_480p: Эпизоды 480p
-        torrents_720p: HD Эпизоды 720p
-        torrents_1080p: FullHD Эпизоды 1080p
+        torrents_720p: HD-эпизоды 720p
+        torrents_1080p: FullHD-эпизоды 1080p
         torrents: Прочие эпизоды
       and_more:
         one: И ещё %{count} человек

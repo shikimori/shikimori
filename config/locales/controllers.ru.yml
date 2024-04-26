@@ -56,7 +56,7 @@ ru:
     <<: *profiles_controller
     page_title:
       history: История
-      logs: Журнал истории
+      logs: Changelog
   user_preferences_controller:
     <<: *profiles_controller
   user_rates_controller:
@@ -73,13 +73,13 @@ ru:
           many: 'В твой список импортировано %{count} манг:'
       updated:
         anime:
-          one: 'В вашем списке обновлено одно аниме:'
-          few: 'В вашем списке обновлены %{count} аниме:'
-          many: 'В вашем списке обновлены %{count} аниме:'
+          one: 'В твоём списке обновлено одно аниме:'
+          few: 'В твоём списке обновлены %{count} аниме:'
+          many: 'В твоём списке обновлены %{count} аниме:'
         manga:
-          one: 'В вашем списке обновлена одна манга:'
-          few: 'В вашем списке обновлено %{count} манги:'
-          many: 'В вашем списке обновлено %{count} манг:'
+          one: 'В твоём списке обновлена одна манга:'
+          few: 'В твоём списке обновлено %{count} манги:'
+          many: 'В твоём списке обновлено %{count} манг:'
       not_imported:
         anime:
           add_manually: 'Пожалуйста, добавь их в свой список самостоятельно:'
@@ -93,7 +93,7 @@ ru:
           many: 'Не удалось импортировать (распознать) %{count} манг.'
       nothing_imported: Ничего нового не импортировано.
       continuation_of_previous_message: (продолжение предыдущего сообщения)
-    error_incorrect_file_format: Произошла ошибка. Возможно, некорректный формат файла.
+    error_incorrect_file_format: Произошла ошибка. Возможно, неправильный формат файла.
   users/achievements_controller:
     <<: *profiles_controller
     franchises: Франшизы
@@ -222,18 +222,18 @@ ru:
     <<: *moderations_controller
     page_title:
       index: Журнал модерации форума
-      show: 'Жалоба #%{id}'
+      show: 'Жалоба № %{id}'
 
   moderations/anime_video_reports_controller:
     <<: *moderations_controller
     page_title: Модерация видео
-    content_change: 'Правка #%{anime_video_report_id}'
+    content_change: 'Правка № %{anime_video_report_id}'
 
   moderations/bans_controller:
     <<: *moderations_controller
     page_title:
       index: Журнал банов
-      show: 'Бан #%{id}'
+      show: 'Бан № %{id}'
 
   moderations/critiques_controller:
     <<: *moderations_controller
@@ -263,11 +263,11 @@ ru:
     <<: *moderations_controller
     page_title:
       index: Журнал истории
-      show: 'Лог истории #%{id}'
+      show: 'Журнал истории № %{id}'
 
   moderations/versions_controller:
     <<: *moderations_controller
-    content_change: 'Правка #%{version_id}'
+    content_change: 'Правка № %{version_id}'
     content_changes:
       all_content: Журнал любых изменений контента
       names: Журнал изменений названий
@@ -307,7 +307,7 @@ ru:
 
   moderations/changelogs_controller:
     <<: *moderations_controller
-    page_title: Changelog
+    page_title: Журнал изменений
 
   moderations/posters_controller:
     <<: *moderations_controller
@@ -403,7 +403,7 @@ ru:
     calendar_of_ongoings: Календарь онгоингов
     privacy_policy: Политика конфиденциальности
     terms_of_service: Пользовательское соглашение
-    how_to_edit_achievements: Как редактировать ачивки
+    how_to_edit_achievements: Как редактировать достижения
 
   studios_controller:
     page_title: Аниме студии
@@ -440,9 +440,9 @@ ru:
 
   user_tokens_controller:
     success: Отключена авторизация через %{type}
-    email: e-mail
+    email: эл. почта
     password: пароль
-    email_password: e-mail и пароль
+    email_password: эл. почта и пароль
     failure: >-
       Ты не можешь отключить единственный способ авторизации, пока не задашь
       %{auth_methods}
@@ -456,7 +456,7 @@ ru:
 
   users/omniauth_callbacks_controller:
     already_linked: >-
-      Выбранный %{provider} аккаунт уже подключён к другому пользователю сайта
+      Выбранный аккаунт %{provider} уже подключён к другому пользователю сайта
     account_linked: >-
       Подключена авторизация через %{provider}
     authentication_failed: Не удалось авторизоваться
@@ -484,13 +484,13 @@ ru:
 
   achievements_controller:
     title: Достижения
-    level: '%{level} уровень'
+    level: '%{level}-й уровень'
 
   doorkeeper/oauth_applications_controller:
     index:
       title: OAuth приложения
     new:
-      title: Новое OAuth приложение
+      title: Новое приложение OAuth
 
   api/v1/topics_controller:
     <<: *topics_controller
@@ -542,8 +542,8 @@ ru:
       anime: Выполнена очистка твоего списка аниме и твоей истории по аниме
       manga: Выполнена очистка твоего списка манги и твоей истории по манге
     scores_reset:
-      anime: Выполнен сброс оценок в вашем списке аниме
-      manga: Выполнен сброс оценок в вашем списке манги
+      anime: Выполнен сброс оценок в твоём списке аниме
+      manga: Выполнен сброс оценок в твоём списке манги
 
   api/v1/favorites_controller:
     cant_add:
