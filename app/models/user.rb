@@ -35,7 +35,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
     news_super_moderator
     forum_moderator
   ]
-  STAFF_ROLES = MODERATION_STAFF_ROLES + %w[
+  MODERATION_VERSIONS_ROLES = %w[
     version_names_moderator
     version_texts_moderator
     version_moderator
@@ -43,6 +43,8 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
     version_videos_moderator
     version_images_moderator
     version_links_moderator
+  ]
+  STAFF_ROLES = MODERATION_STAFF_ROLES + MODERATION_VERSIONS_ROLES + %w[
     critique_moderator
     collection_moderator
     news_moderator
@@ -399,6 +401,10 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def staff?
     (roles.to_a & STAFF_ROLES).any?
+  end
+
+  def moderation_versions?
+    (roles.to_a & MODERATION_VERSIONS_ROLES).any?
   end
 
   def moderation_staff?

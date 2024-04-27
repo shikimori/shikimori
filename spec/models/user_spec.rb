@@ -274,6 +274,20 @@ describe User do
       end
     end
 
+    describe '#moderation_versions?' do
+      let(:user) { build :user, roles: [role] }
+
+      context 'moderation_versions' do
+        let(:role) { User::MODERATION_VERSIONS_ROLES.sample }
+        it { expect(user).to be_moderation_versions }
+      end
+
+      context 'not moderation_versions' do
+        let(:role) { (Types::User::ROLES.map(&:to_s) - User::MODERATION_VERSIONS_ROLES).sample }
+        it { expect(user).to_not be_moderation_versions }
+      end
+    end
+
     describe '#moderation_staff?' do
       let(:user) { build :user, roles: [role] }
 
