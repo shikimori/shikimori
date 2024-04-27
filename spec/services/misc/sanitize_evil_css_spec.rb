@@ -34,8 +34,8 @@ describe Misc::SanitizeEvilCss do
 
     context 'sample' do
       let(:css) do
-        'test /' + ('\\' * rand(10)) +
-          ("\r" * rand(10)) + ("\n" * rand(10)) + ("\r\n" * rand(10)) +
+        'test /' + ('\\' * rand(1..10)) +
+          ("\r" * rand(1..10)) + ("\n" * rand(1..10)) + ("\r\n" * rand(1..10)) +
             '/'
       end
       it { is_expected.to eq 'test //' }
