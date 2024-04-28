@@ -3,7 +3,7 @@ describe VersionsPolicy do
   let(:change_allowed) { described_class.change_allowed? user, item, field }
 
   let(:version) do
-    build :version, item: item, item_diff: item_diff, user: author
+    build :version, item:, item_diff:, user: author
   end
   let(:author) { user }
   let(:user) { seed :user }
@@ -48,7 +48,7 @@ describe VersionsPolicy do
       it { expect(change_allowed).to eq true }
     end
 
-    context 'name field' do
+    context 'restricted field' do
       let(:field) do
         (
           Abilities::VersionNamesModerator::MANAGED_FIELDS -
@@ -227,6 +227,13 @@ describe VersionsPolicy do
 
       it { expect(version_allowed).to eq true }
       it { expect(change_allowed).to eq true }
+
+      context 'genres_v2' do
+        let(:field) { :genres_v2 }
+
+        it { expect(version_allowed).to eq false }
+        it { expect(change_allowed).to eq false }
+      end
     end
 
     context 'from value to value' do
