@@ -1,5 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
 import isString from 'lodash/isString';
+import I18n from '@/utils/i18n';
 
 let gallery;
 
