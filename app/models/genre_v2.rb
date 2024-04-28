@@ -31,7 +31,7 @@ class GenreV2 < ApplicationRecord
 
   def to_param
     temporarily_posters_disabled? ?
-      id :
+      id.to_s :
       "#{id}-#{name.tr ' ', '-'}"
   end
 
