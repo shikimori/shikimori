@@ -84,6 +84,9 @@ function dumpJsExports(keys) {
 function simpleSingularize(word) {
   if (word.endsWith('ies')) {
     return word.slice(0, -3) + 'y';
+  } else if (word.endsWith('tes')) {
+    // Handles cases like "rates" -> "rate"
+    return word.slice(0, -1);
   } else if (word.endsWith('es')) {
     // Handles cases like "boxes" -> "box"
     return word.slice(0, -2);
