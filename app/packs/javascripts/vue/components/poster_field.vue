@@ -1,7 +1,10 @@
 <template lang='pug'>
 label.b-dropzone.block(
   ref='uploaderRef'
-  data-hint='Перетаскивай сюда картинку размером от 450x700 пикселей;'
+  :class="isTwoLinesHint ? 'is-two_lines_hint' : null"
+  :data-hint="isTwoLinesHint ? null : 'Перетаскивай сюда картинку размером от 450x700 пикселей;'"
+  :data-hint_1="isTwoLinesHint ? '1. Минимальный размер постера 225х350. Постер должен иметь соотношение сторон 9*14 (225х350, 450х700 и т.п.).' : null"
+  :data-hint_2="isTwoLinesHint ? '2. Запрещено изменять пропорции исходного изображения посредством сжатия/растягивания. Для соответствия формату 9*14, его нужно обрезать до загрузки на сайт.' : null"
 )
   input.hidden(
     type='file'
@@ -78,7 +81,8 @@ const props = defineProps({
   posterId: { type: Number, required: false, default: null },
   previewTemplateHTML: { type: String, required: true },
   previewWidth: { type: Number, required: true },
-  previewHeight: { type: Number, required: true }
+  previewHeight: { type: Number, required: true },
+  isTwoLinesHint: { type: Boolean, required: true }
 });
 
 const aspectRatio = props.previewWidth / props.previewHeight;

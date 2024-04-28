@@ -14,24 +14,42 @@
   &:hover
     border-color: #006eff
 
-    &:before
+    &:before,
+    &:after
       color: $gray-4
 
-  &:before
+  &:before,
+  &:after
     color: $gray-2
-    content: attr(data-hint)
     font-family: var(--font-alt)
-    font-size: 14px
-    left: 50%
     line-height: 1.3
-    position: absolute
-    text-align: center
-    top: 50%
-    transform: translateX(-50%) translateY(-50%)
     width: 90%
 
-    +iphone
+  &:not(.is-two_lines_hint)
+    &:before
+      content: attr(data-hint)
       font-size: 14px
+      left: 50%
+      position: absolute
+      text-align: center
+      top: 50%
+      transform: translateX(-50%) translateY(-50%)
+
+  &.is-two_lines_hint
+    display: flex
+    align-items: center
+    justify-content: center
+
+    &:before,
+    &:after
+      font-size: 12px
+
+    &:before
+      content: attr(data-hint_1)
+      margin-bottom: 3px
+
+    &:after
+      content: attr(data-hint_2)
 
   .image-container
     margin-right: 11px

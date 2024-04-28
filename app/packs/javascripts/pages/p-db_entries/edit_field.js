@@ -282,6 +282,7 @@ async function initEditPosterApp() {
   const $cropData = $form.find('input[id$=_poster_crop_data]');
   const $posterDataUri = $form.find('input[id$=_poster_data_uri]');
   const $posterId = $form.find('input[id$=_poster_id]');
+  console.log($app.data('is-two_lines_hint'));
 
   const app = createApp(PosterField, {
     src: $app.data('src'),
@@ -289,7 +290,8 @@ async function initEditPosterApp() {
     cropData: JSON.parse($cropData.val()),
     posterId: parseInt($posterId.val()),
     previewWidth: $app.data('preview-width'),
-    previewHeight: $app.data('preview-height')
+    previewHeight: $app.data('preview-height'),
+    isTwoLinesHint: $app.data('is-two_lines_hint')
   });
   app.config.globalProperties.I18n = I18n;
   const posterFieldApp = app.mount('#vue_app');
