@@ -9,7 +9,7 @@ const webpackConfig = require('./base');
 //   config.plugins.push(new BundleAnalyzerPlugin());
 // }
 
-// webpackConfig.optimization.minimize = false;
-// webpackConfig.optimization.minimizer = [];
+webpackConfig.optimization.minimize = false;
+webpackConfig.optimization.minimizer = [];
 
 module.exports = webpackConfig;
