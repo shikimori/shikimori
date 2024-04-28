@@ -24,9 +24,9 @@ function initCatalog() {
   let baseCatalogPath = $('.b-collection-filters').data('base_path');
 
   if (window.location.pathname.match(/\/recommendations\//)) {
-    baseCatalogPath = window.location.pathname.split('/').first(5).join('/');
+    baseCatalogPath = window.location.pathname.split('/').slice(0, 5).join('/');
   } else if (window.location.pathname.match(/\/comparer\//)) {
-    baseCatalogPath = window.location.pathname.split('/').first(6).join('/');
+    baseCatalogPath = window.location.pathname.split('/').slice(0, 6).join('/');
   }
 
   new PaginatedCatalog(baseCatalogPath);
