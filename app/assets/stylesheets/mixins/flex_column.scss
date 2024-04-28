@@ -110,7 +110,7 @@
   // row-gap: $offset;
   // column-gap: $gutter;
   margin-bottom: -$offset;
-  margin-left: -#{$gutter + $columns * 0.01px}; // added 0.01 px per column to fix issue in latest firefox https://shikimori.one/comments/10639462
+  margin-left: -$gutter;
 
   & > #{$selector} {
     // background: rgba(blue, 0.5);
