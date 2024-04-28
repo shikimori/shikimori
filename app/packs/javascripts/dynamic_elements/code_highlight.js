@@ -86,6 +86,7 @@ export default class CodeHighlight extends View {
       };
 
       this.onmessage = function(event) {
+        if (!self.hljs.listLanguages().includes(event.data.language)) { return; }
         if (!self.hljs.listLanguages().includes('shiki')) {
           self.hljs.registerLanguage('shiki', parseJSONfn(event.data.shikiMarkdownJSONfn));
         }
