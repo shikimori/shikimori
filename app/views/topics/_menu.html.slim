@@ -47,7 +47,7 @@
                 alt=localized_name(critique.target)
               ]
               span.title
-                == critique.target.name
+                = critique.target.name
             span.misc
               = t '.user_critique', author: critique.user.nickname
             time.misc.date[
@@ -79,7 +79,7 @@
                   = club_topic.club.name
               - if club_topic.comments.first
                 span.misc title=truncate(club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' ')
-                  == truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
+                  = truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
               - elsif club_topic.is_a? Topics::ClubUserTopic
                 span.misc = t '.new_club_topic'
               - elsif club_topic.is_a? Topics::EntryTopics::ClubPageTopic

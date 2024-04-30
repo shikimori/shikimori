@@ -6,7 +6,7 @@
     - if defined?(render_link) && render_link
       a href=send(url_builder, entry) == entry_name
     - else
-      == entry_name
+      = entry_name
 
     - if defined?(render_after_name) && render_after_name
       == render_after_name

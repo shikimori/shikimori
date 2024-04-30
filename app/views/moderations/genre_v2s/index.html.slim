@@ -43,7 +43,7 @@ table.b-table.b-editable_grid.block2
         - if can? :update, GenreV2
           td = genre.seo
           td ##{genre.mal_id}
-        td.text == truncate_html(BbCodes::Text.call(genre.description),
+        td.text = truncate_html(BbCodes::Text.call(genre.description),
           length: 50,
           separator: ' ',
           word_boundary: /\S[\.\?\!<>]/)

@@ -11,11 +11,11 @@ article.c-column.b-catalog_entry.c-person[
 ]
   meta[
     itemprop='image'
-    content="#{{meta_image_url person.image, :original, false}}"
+    content=meta_image_url(person.image, :original, false)
   ]
   meta[
     itemprop='thumbnailUrl'
-    content="#{{meta_image_url person.image, :x48, false}}"
+    content=meta_image_url(person.image, :x48, false)
   ]
 
   a.cover[
