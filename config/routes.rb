@@ -139,7 +139,7 @@ Rails.application.routes.draw do
   end
   get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen
 
-  resources :spnsrs, only: %i[show]
+  # resources :spnsrs, only: %i[show]
 
   namespace :moderations do
     resources :users, only: %i[index] do
