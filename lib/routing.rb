@@ -15,6 +15,7 @@ module Routing # rubocop:disable Metrics/ModuleLength
       ([\w-]+\.)?userapi.com |
       ([\w-]+\.)?cloudinary.com |
       ([\w-]+\.)?imagekit.io |
+      ([\w-]+\.)?imageshack.us |
       animesher.com |
       raw.githubusercontent.com |
       \d+\.media.tumblr.com |
