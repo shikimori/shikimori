@@ -73,7 +73,7 @@ class BbCodes::CleanupCssClass
     tooltip
     tooltip-inner
     turbolinks-progress-bar
-  ]
+  ].sort_by(&:length).reverse # сначала заменять самые длинные совпадения
 
   CLEANUP_REGEXP = /
     #{FORBIDDEN_CSS_CLASSES.join '|'} |
