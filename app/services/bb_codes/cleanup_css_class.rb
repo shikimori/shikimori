@@ -23,6 +23,24 @@ class BbCodes::CleanupCssClass
     b-summary_marker
     b-to-top
     ban
+    CodeMirror
+    CodeMirror-activeline-background
+    CodeMirror-cursor
+    CodeMirror-dialog
+    CodeMirror-fullscreen
+    CodeMirror-gutter-background
+    CodeMirror-gutter-elt
+    CodeMirror-gutter-filler
+    CodeMirror-gutter-wrapper
+    CodeMirror-gutters
+    CodeMirror-hints
+    CodeMirror-hscrollbar
+    CodeMirror-linebackground
+    CodeMirror-matchingtag
+    CodeMirror-ruler
+    CodeMirror-rulers
+    CodeMirror-scrollbar-filler
+    CodeMirror-vscrollbar
     comments-loader
     expand
     item-add
