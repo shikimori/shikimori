@@ -2,21 +2,35 @@ class BbCodes::CleanupCssClass
   method_object :value
 
   FORBIDDEN_CSS_CLASSES = %w[
+    b-abuse_marker
     b-achievements_notifier
     b-admin_panel
+    b-anime_status_tag
     b-appear_marker
-    b-comments-notifier
+    b-broadcast_marker
+    b-collection_item
+    b-comment
     b-comments
+    b-comments-notifier
     b-fancy_loader
     b-feedback
     b-height_shortener
     b-modal
     b-new_marker
+    b-offtopic_marker
     b-postloader
+    b-spoiler_marker
+    b-summary_marker
     b-to-top
     ban
     comments-loader
     expand
+    item-add
+    item-cancel
+    item-mobile
+    item-moderation
+    item-quote
+    item-reply
     l-footer
     l-menu
     l-page
@@ -30,13 +44,17 @@ class BbCodes::CleanupCssClass
     mfp-webm-holder
     mfp-wrap
     shade
-    turbolinks-progress-bar
+    sortable-drag
+    toast-close
     toastify
+    toastify-bottom
     toastify-left
     toastify-right
-    toastify-top
-    toastify-bottom
     toastify-rounded
+    toastify-top
+    tooltip
+    tooltip-inner
+    turbolinks-progress-bar
   ]
 
   CLEANUP_REGEXP = /
