@@ -23,7 +23,7 @@ module Types::Concerns::AniMangaFields
 
     field :external_links, [Types::ExternalLinkType], complexity: 10
     def external_links
-      decorated_object.menu_external_links
+      decorated_object.available_external_links
     end
 
     field :character_roles, [Types::CharacterRoleType], complexity: 10
