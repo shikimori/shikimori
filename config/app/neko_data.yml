@@ -5021,6 +5021,7 @@
       :generator: &231
         ignore_latest_ids:
         - 34437
+        - 49877
         not_ignored_ids:
         - 34439
         - 34440
@@ -6010,7 +6011,7 @@
         franchise: psycho_pass
         not_anime_ids:
         - 17901
-      :threshold: 92.8%
+      :threshold: 95%
       :generator: &286
         ignore_latest_ids:
         - 52747
