@@ -41,6 +41,7 @@ ru:
         misc: Прочее
         ignored_topics: Игнорируемые топики
         ignored_users: Игнорируемые пользователи
+        password: Изменение пароля
       roles: Роли
       banned: '@{m:Забанен|f:Забанена}'
       ban_removal: >-

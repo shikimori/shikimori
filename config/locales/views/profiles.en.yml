@@ -41,6 +41,7 @@ en:
         misc: Misc
         ignored_topics: Ignored topics
         ignored_users: Ignored users
+        password: Change password
       roles: Roles
       banned: Banned
       ban_removal: >-
