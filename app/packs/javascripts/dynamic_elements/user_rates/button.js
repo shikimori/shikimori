@@ -68,7 +68,10 @@ export default class UserRateButton extends View {
   @bind
   _ajaxBefore() {
     if (!window.SHIKI_USER.isSignedIn) {
-      flash.info(I18n.t(`${AuthorizedAction.I18N_KEY}.register_to_complete_action`));
+      flash.info(
+        I18n.t(`${AuthorizedAction.I18N_KEY}.register_to_complete_action`),
+        { escapeMarkup: false }
+      );
       return false;
     }
 
