@@ -16,26 +16,36 @@ class NameValidator < ActiveModel::EachValidator
     characters
     contests
     country
+    csrf_token
     dashboards
     development
+    facebook
     faye
     feedback
     for_right_holders
     forum
+    hentai
+    how_to_edit_achievements
+    http_headers
     ignores
     imageboards
     info
     mangas
     messages
     moderations
+    my_target_ad
     oauth
     oauth2
+    oauth_request
     ongoings
+    page404
+    page503
     podcast
     polls
     privacy
     proxies
     proxy
+    raise_exception
     ranobe
     redirect
     sitemap
@@ -43,6 +53,8 @@ class NameValidator < ActiveModel::EachValidator
     tableau
     terms
     tests
+    timeout_120s
+    twitter
     user_agent
     users
     what_is_my_ip
