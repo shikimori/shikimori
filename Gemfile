@@ -116,7 +116,6 @@ gem 'icalendar' # for anime calendar
 gem 'matrix' # ruby 3.2 dependency of ruby-esvidi
 gem 'ruby-esvidi', github: 'shikimori/ruby-esvidi'
 
-gem 'unicode' # to downcase russian words
 gem 'xxhash' # очень быстрый несекьюрный алгоритм хеширования (для comments_helper)
 
 gem 'faraday'

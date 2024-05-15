@@ -852,7 +852,6 @@ GEM
       concurrent-ruby (~> 1.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
-    unicode (0.4.4.4)
     unicode-display_width (2.5.0)
     unicorn (6.1.0)
       kgio (~> 2.6)
@@ -1026,7 +1025,6 @@ DEPENDENCIES
   truncate_html
   turbolinks
   uglifier
-  unicode
   unicorn
   vcr
   webmock
