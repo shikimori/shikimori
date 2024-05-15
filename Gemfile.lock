@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/EvgeniyShelest/russian.git
-  revision: 3ad6891b48278695d79849ee153213cf6b523b38
-  branch: master
-  specs:
-    russian (1.0.1)
-      i18n (= 1.8.11)
-
-GIT
   remote: https://github.com/afdev82/non-stupid-digest-assets.git
   revision: 38a626bf1e93c345c3f241bdec404b9df3478b61
   branch: patch-1
@@ -64,6 +56,14 @@ GIT
   specs:
     i18n-inflector (2.6.7)
       i18n (>= 0.4.1)
+
+GIT
+  remote: https://github.com/morr/russian.git
+  revision: 7c1e2c1dcb02291b871387daf1634502befea269
+  branch: master
+  specs:
+    russian (1.0.1)
+      i18n (= 1.8.11)
 
 GIT
   remote: https://github.com/morr/shallow_attributes.git
