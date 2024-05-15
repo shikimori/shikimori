@@ -79,7 +79,7 @@ gem 'active_model_serializers'
 gem 'concurrent-ruby-edge'
 gem 'kt-paperclip'
 gem 'paperclip-i18n'
-gem 'rs_russian', github: 'morr/rs_russian', branch: 'master'
+gem 'russian', github: 'EvgeniyShelest/russian', branch: 'master'
 gem 'simple_form'
 gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit', branch: 'master'
 gem 'sixarm_ruby_unaccent' # adds method `unaccent`. it is used in Tags::GenerateNames
