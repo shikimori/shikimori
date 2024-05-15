@@ -1,7 +1,7 @@
 describe ContestsController do
   include_context :authenticated, :admin
 
-  let(:contest) { create :contest, user: user }
+  let(:contest) { create :contest, user: }
 
   describe '#index' do
     subject! { get :index }
@@ -10,21 +10,21 @@ describe ContestsController do
 
   describe '#grid' do
     context 'created' do
-      let(:contest) { create :contest, user: user }
+      let(:contest) { create :contest, user: }
       subject! { get :grid, params: { id: contest.to_param } }
 
       it { expect(response).to redirect_to contests_url }
     end
 
     context 'proposing' do
-      let(:contest) { create :contest, :proposing, user: user }
+      let(:contest) { create :contest, :proposing, user: }
       subject! { get :grid, params: { id: contest.to_param } }
 
       it { expect(response).to redirect_to contest_url(contest) }
     end
 
     context 'started' do
-      let(:contest) { create :contest, :with_5_members, user: user }
+      let(:contest) { create :contest, :with_5_members, user: }
       before { Contest::Start.call contest }
       subject! { get :grid, params: { id: contest.to_param } }
 
@@ -33,7 +33,7 @@ describe ContestsController do
   end
 
   describe '#show' do
-    let(:contest) { create :contest, :with_5_members, :with_topics, user: user }
+    let(:contest) { create :contest, :with_5_members, :with_topics, user: }
 
     context 'started' do
       before { Contest::Start.call contest }
@@ -69,7 +69,7 @@ describe ContestsController do
     end
 
     context 'proposing' do
-      let(:contest) { create :contest, :with_topics, :proposing, user: user }
+      let(:contest) { create :contest, :with_topics, :proposing, user: }
       subject! { get :show, params: { id: contest.to_param } }
 
       it { expect(response).to have_http_status :success }
@@ -143,7 +143,7 @@ describe ContestsController do
   end
 
   describe '#start' do
-    let(:contest) { create :contest, :with_5_members, user: user }
+    let(:contest) { create :contest, :with_5_members, user: }
     subject! { post :start, params: { id: contest.to_param } }
 
     it do
@@ -153,7 +153,7 @@ describe ContestsController do
   end
 
   describe '#propose' do
-    let(:contest) { create :contest, user: user }
+    let(:contest) { create :contest, user: }
     subject! { post :propose, params: { id: contest.to_param } }
 
     it do
@@ -163,7 +163,7 @@ describe ContestsController do
   end
 
   describe '#cleanup_suggestions' do
-    let(:contest) { create :contest, :proposing, user: user }
+    let(:contest) { create :contest, :proposing, user: }
     before { allow(Contest::CleanupSuggestions).to receive :call }
 
     subject! { post :cleanup_suggestions, params: { id: contest.to_param } }
@@ -175,7 +175,7 @@ describe ContestsController do
   end
 
   describe '#stop_propose' do
-    let(:contest) { create :contest, state: :proposing, user: user }
+    let(:contest) { create :contest, state: :proposing, user: }
     subject! { post :stop_propose, params: { id: contest.to_param } }
 
     it do
@@ -185,7 +185,7 @@ describe ContestsController do
   end
 
   describe '#build' do
-    let(:contest) { create :contest, :with_5_members, user: user }
+    let(:contest) { create :contest, :with_5_members, user: }
     subject! { post :build, params: { id: contest.to_param } }
 
     it do
