@@ -39,6 +39,7 @@ export default class GlobalSearch extends View {
     this.$input
       .on('focus', () => this._activate())
       .on('change blur paste keyup', () => this.phrase = this.inputSearchPhrase)
+      .on('paste', () => delay().then(() => this.phrase = this.inputSearchPhrase))
       .on('blur', this._onBlur);
 
     this.$('.field .clear')
