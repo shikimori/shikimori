@@ -683,7 +683,8 @@ GEM
     retryable (3.0.5)
     reverse_markdown (2.1.1)
       nokogiri
-    rexml (3.2.6)
+    rexml (3.2.7)
+      strscan (>= 3.0.9)
     rouge (3.30.0)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
@@ -827,6 +828,7 @@ GEM
       net-sftp (>= 2.1.2)
       net-ssh (>= 2.8.0)
     stackprof (0.2.26)
+    strscan (3.1.0)
     sync (0.5.0)
     temple (0.8.2)
     terrapin (1.0.1)
