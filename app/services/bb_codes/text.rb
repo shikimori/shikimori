@@ -60,7 +60,7 @@ class BbCodes::Text # rubocop:disable ClassLength
 
   OBSOLETE_TAGS = %r{\[user_change=\d+\] | \[/user_change\]}mix
 
-  SPAM_LINKS = %r{
+  BANNED_DOMAINS = %r{
     (?:https?://)?
       (?:
         shikimori.(?:online|cc) |
@@ -127,7 +127,7 @@ class BbCodes::Text # rubocop:disable ClassLength
   end
 
   def remove_spam text
-    text.gsub SPAM_LINKS, BANNED_TEXT
+    text.gsub BANNED_DOMAINS, BANNED_TEXT
   end
 
 private
