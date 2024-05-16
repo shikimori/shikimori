@@ -73,7 +73,7 @@ class BbCodes::Text # rubocop:disable ClassLength
         fillboards.com |
         t.me/rezero_translation | # copyright request
         discord.com/invite/(?:GzzMYBZK|mhnEZBYBuY|hVybUWQQGS|4mgGDtjpaS|CwkQRUnH) |
-        discord.gg/(?:qvQQmVjR|HY8Jq8rHuM|jfqC3zemym|sphGbbkUnq)
+        discord.gg/(?:qvQQmVjR|HY8Jq8rHuM|jfqC3zemym|sphGbbkUnq|fkcDCRUG|G6EZsCfX)
       )
   }mix
   BANNED_TEXT = '[deleted]'
