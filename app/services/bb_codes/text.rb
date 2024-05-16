@@ -60,19 +60,20 @@ class BbCodes::Text # rubocop:disable ClassLength
 
   OBSOLETE_TAGS = %r{\[user_change=\d+\] | \[/user_change\]}mix
 
-  BANNED_DOMAINS = %r{
+  SPAM_LINKS = %r{
     (?:https?://)?
       (?:
-       shikimori.online |
-       images.webpark.ru |
-       18xxx.me |
-       myflirtcontacts1.com |
-       (?:[^.]\.)?chatchu.com |
-       (?:[^.]\.)?chatree.net |
-       #{Users::CheckHacked::SPAM_DOMAINS.join '|'} |
-       shikimori.cc |
-       fillboards.com |
-       t.me/rezero_translation # copyright request
+        shikimori.(?:online|cc) |
+        images.webpark.ru |
+        18xxx.me |
+        myflirtcontacts1.com |
+        (?:[^.]\.)?chatchu.com |
+        (?:[^.]\.)?chatree.net |
+        #{Users::CheckHacked::SPAM_DOMAINS.join '|'} |
+        fillboards.com |
+        t.me/rezero_translation | # copyright request
+        discord.com/invite/(?:GzzMYBZK|mhnEZBYBuY|hVybUWQQGS|4mgGDtjpaS|CwkQRUnH) |
+        discord.gg/(?:qvQQmVjR|HY8Jq8rHuM|jfqC3zemym|sphGbbkUnq)
       )
   }mix
   BANNED_TEXT = '[deleted]'
@@ -126,7 +127,7 @@ class BbCodes::Text # rubocop:disable ClassLength
   end
 
   def remove_spam text
-    text.gsub BANNED_DOMAINS, BANNED_TEXT
+    text.gsub SPAM_LINKS, BANNED_TEXT
   end
 
 private
