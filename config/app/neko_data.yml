@@ -561,6 +561,8 @@
         - 4103
         - 49357
         - 42310
+        - 40313
+        - 39991
       :generator: &29
         person_id: 2349
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -806,8 +808,6 @@
         - 5957
         - 7311
         - 5118
-        - 4382
-        - 253
         - 13469
         - 13259
         - 13375
@@ -3641,6 +3641,7 @@
         - 1549
         - 1548
         - 8561
+        - 1236
       :generator: &161
         person_id: 2597
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
