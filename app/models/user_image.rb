@@ -8,15 +8,26 @@ class UserImage < ApplicationRecord
       preview: ['700x700>', :jpg],
       thumbnail: ['235x235>', :jpg]
     },
-    url: '/system/user_images/:style/:user_id/:id.:extension',
-    path: ':rails_root/public/system/user_images/:style/:user_id/:id.:extension'
+    url: '/system/user_images/:style/:user_id/:hash.:extension',
+    path: ':rails_root/public/system/user_images/:style/:user_id/:hash.:extension'
 
-  validates :user, presence: true
   validates :image,
     attachment_presence: true,
     attachment_content_type: { content_type: /\Aimage/ }
 
   before_create :set_dimentions
+
+  Paperclip.interpolates :hash do |attachment, _style|
+    attachment.instance.generate_image_hash
+  end
+
+  def generate_image_hash
+    return id if id <= 2_608_297
+
+    secret_key = Rails.application.secrets.secret_key_base
+
+    Digest::SHA256.hexdigest("#{id}-#{secret_key}")
+  end
 
 private
 
