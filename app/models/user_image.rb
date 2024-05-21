@@ -8,8 +8,8 @@ class UserImage < ApplicationRecord
       preview: ['700x700>', :jpg],
       thumbnail: ['235x235>', :jpg]
     },
-    url: '/system/user_images/:style/:user_id/:hash.:extension',
-    path: ':rails_root/public/system/user_images/:style/:user_id/:hash.:extension'
+    url: '/system/:folder_name/:style/:user_id_hash/:id_hash.:extension',
+    path: ':rails_root/public/system/:folder_name/:style/:user_id_hash/:id_hash.:extension'
 
   validates :image,
     attachment_presence: true,
@@ -17,16 +17,41 @@ class UserImage < ApplicationRecord
 
   before_create :set_dimentions
 
-  Paperclip.interpolates :hash do |attachment, _style|
-    attachment.instance.generate_image_hash
+  Paperclip.interpolates :folder_name do |attachment, _style|
+    attachment.instance.generate_folder_name
+  end
+  Paperclip.interpolates :user_id_hash do |attachment, _style|
+    attachment.instance.generate_user_id_hash
+  end
+  Paperclip.interpolates :id_hash do |attachment, _style|
+    attachment.instance.generate_image_id_hash
   end
 
-  def generate_image_hash
-    return id if id <= 2_608_297
+  FIRST_FIX_IMAGE_ID = 2_608_298
+  SECOND_FIX_IMAGE_ID = 2_608_595
 
-    secret_key = Rails.application.secrets.secret_key_base
+  def generate_folder_name
+    if id < SECOND_FIX_IMAGE_ID
+      'user_images'
+    else
+      'user_images_h'
+    end
+  end
 
-    Digest::SHA256.hexdigest("#{id}-#{secret_key}")
+  def generate_user_id_hash
+    return user_id if id < SECOND_FIX_IMAGE_ID
+
+    Digest::SHA256.hexdigest(
+      "#{user_id}-#{Rails.application.secrets.secret_key_base}"
+    )[0..23]
+  end
+
+  def generate_image_id_hash
+    return id if id < FIRST_FIX_IMAGE_ID
+
+    Digest::SHA256.hexdigest(
+      "#{id}-#{Rails.application.secrets.secret_key_base}"
+    )
   end
 
 private
