@@ -9,6 +9,7 @@ module Routing # rubocop:disable Metrics/ModuleLength
       shikimori \. (?: org|one|dev|local|test|me ) |
       static\d?.wallpapers-anime.com |
       images\d.alphacoders.com |
+      ([\w-]+\.)?discordapp.net |
       ([\w-]+\.)?radikal.ru |
       ([\w-]+\.)?imgur.com |
       ([\w-]+\.)?ibb.co |
