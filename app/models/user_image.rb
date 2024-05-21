@@ -31,27 +31,31 @@ class UserImage < ApplicationRecord
   SECOND_FIX_IMAGE_ID = 2_608_595
 
   def generate_folder_name
-    if id < SECOND_FIX_IMAGE_ID
-      'user_images'
-    else
+    if id >= SECOND_FIX_IMAGE_ID || is_hashed
       'user_images_h'
+    else
+      'user_images'
     end
   end
 
   def generate_user_id_hash
-    return user_id if id < SECOND_FIX_IMAGE_ID
-
-    Digest::SHA256.hexdigest(
-      "#{user_id}-#{Rails.application.secrets.secret_key_base}"
-    )[0..23]
+    if id >= SECOND_FIX_IMAGE_ID || is_hashed
+      Digest::SHA256.hexdigest(
+        "#{user_id}-#{Rails.application.secrets.secret_key_base}"
+      )[0..23]
+    else
+      user_id
+    end
   end
 
   def generate_image_id_hash
-    return id if id < FIRST_FIX_IMAGE_ID
-
-    Digest::SHA256.hexdigest(
-      "#{id}-#{Rails.application.secrets.secret_key_base}"
-    )
+    if id >= FIRST_FIX_IMAGE_ID || is_hashed
+      Digest::SHA256.hexdigest(
+        "#{id}-#{Rails.application.secrets.secret_key_base}"
+      )
+    else
+      id
+    end
   end
 
 private

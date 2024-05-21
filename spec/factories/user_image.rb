@@ -4,6 +4,7 @@ FactoryBot.define do
     user { seed :user }
     width { 1000 }
     height { 1000 }
+    is_hashed { true }
 
     after :build do |user_image|
       user_image.stub :set_dimentions
