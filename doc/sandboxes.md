@@ -686,3 +686,45 @@ query($ids: [ID!]) {
   variables: { id: 1 }
 )['data']
 ```
+
+
+### Migrate private images to be hashed
+```ruby
+possibly_ids = Message.
+  where(kind: MessageType::PRIVATE).
+  where(
+    <<~SQL.squish
+      body like '%[image=]%'
+        or body like '%[poster=]%'
+        or body like '%[image=%'
+        or body like '%[poster=%'
+    SQL
+  ).
+  pluck(:body).
+  flat_map { |text| Comment::Cleanup.scan_user_image_ids text }.
+  sort.
+  uniq;
+ids = UserImage.where(id: possibly_ids).pluck(:id).sort.reverse;
+
+def move_file user_image_id, location1, location2
+  destination_directory = File.dirname location2
+  FileUtils.mkdir_p destination_directory
+  FileUtils.mv location1, location2
+
+  NamedLogger.images_hasher.info "#{user_image_id};#{location1};#{location2}"
+end
+
+UserImage.where(id: ids).find_each do |user_image|
+  original_file = user_image.image.path :original
+  thumbnail_file = user_image.image.path :thumbnail
+  preview_file = user_image.image.path :preview
+
+  user_image.is_hashed = true
+
+  move_file user_image.id, original_file, user_image.image.path(:original)
+  move_file user_image.id, thumbnail_file, user_image.image.path(:thumbnail)
+  move_file user_image.id, preview_file, user_image.image.path(:preview)
+
+  user_image.save!
+end;
+```
