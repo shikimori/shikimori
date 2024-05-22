@@ -40,7 +40,8 @@ private
 
     !topic.is_a?(Topics::NewsTopic) ||
       expired?(topic) ||
-      music?(topic)
+      music?(topic) ||
+      banned?(topic)
   end
 
   def music? topic
@@ -49,6 +50,10 @@ private
 
   def censored? topic
     topic.linked.try(:censored?) || false
+  end
+
+  def banned? topic
+    topic.linked.respond_to?(:genres_v2) && topic.linked.banned?
   end
 
   def expired? topic

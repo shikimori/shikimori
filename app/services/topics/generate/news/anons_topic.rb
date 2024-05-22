@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Topics::Generate::News::AnonsTopic < Topics::Generate::News::BaseTopic
-private
+  private
 
   def action
     Types::Topic::NewsTopic::Action[AnimeHistoryAction::Anons]
