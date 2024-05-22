@@ -30,6 +30,7 @@ class TopicsController < ShikimoriController # rubocop:disable Metris/ClassLengt
 
   def show
     return redirect_to @forums_view.redirect_url if @forums_view.hidden?
+    raise ActiveRecord::RecordNotFound if linked_resource_banned?
 
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
     og noindex: true if noindex?
@@ -252,5 +253,10 @@ private
 
   def copyrighted_resource_id_key
     :linked_id
+  end
+
+  def linked_resource_banned?
+    linked = @forums_view.linked || @resource&.linked
+    linked.respond_to?(:genres_v2) && linked.banned? && !current_user&.staff?
   end
 end
