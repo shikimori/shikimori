@@ -14711,6 +14711,7 @@
       :generator: &752
         ignore_latest_ids:
         - 36419
+        - 58894
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :touken_ranbu
