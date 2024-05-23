@@ -213,11 +213,24 @@ describe BbCodes::Markdown::ListQuoteParserState do
       it do
         is_expected.to eq(
           [
-            "<blockquote class='b-quote-v2' data-attrs='a'><div class='quoteable'>"\
+            "<blockquote class='b-quote-v2' data-attrs='a'><div class='quoteable'>" \
               "[user]a[/user]</div><div class='quote-content'>b</div></blockquote>",
             nil
           ]
         )
+      end
+
+      context 'xss by breaking out of data-attr' do
+        let(:text) { ">?[img]\n> b" }
+        it do
+          is_expected.to eq(
+            [
+              "<blockquote class='b-quote-v2' data-attrs='&#91;img&#93'><div class='quoteable'>" \
+                "[user][img][/user]</div><div class='quote-content'>b</div></blockquote>",
+              nil
+            ]
+          )
+        end
       end
 
       context 'w/o quote' do
