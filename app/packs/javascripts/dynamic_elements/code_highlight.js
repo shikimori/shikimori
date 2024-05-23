@@ -86,14 +86,22 @@ export default class CodeHighlight extends View {
       };
 
       this.onmessage = function(event) {
-        if (!self.hljs.listLanguages().includes(event.data.language)) { return; }
-        if (!self.hljs.listLanguages().includes('shiki')) {
+        if (!self.hljs.getLanguage('shiki')) {
           self.hljs.registerLanguage('shiki', parseJSONfn(event.data.shikiMarkdownJSONfn));
         }
+        if (!self.hljs.getLanguage('js')) {
+          self.hljs.registerAliases('js', { languageName: 'javascript' });
+        }
+        if (!self.hljs.getLanguage('sass')) {
+          self.hljs.registerAliases('sass', { languageName: 'scss' });
+        }
+
+        const hljsLanguage = self.hljs.getLanguage(event.data.language);
+        if (!hljsLanguage) { return; }
 
         const result = self
           .hljs
-          .highlight(event.data.language, event.data.code, true);
+          .highlight(hljsLanguage.name, event.data.code, true);
 
         postMessage({
           html: result.value,
