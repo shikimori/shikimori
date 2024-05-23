@@ -31,7 +31,7 @@ class BbCodes::Tags::ImgTag
         height: $LAST_MATCH_INFO[:height].to_i,
         css_class: $LAST_MATCH_INFO[:css_class],
         is_no_zoom: $LAST_MATCH_INFO[:no_zoom].present?,
-        text_hash: text_hash
+        text_hash:
       )
     end
   end
