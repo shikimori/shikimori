@@ -45,9 +45,9 @@ sudo cp /etc/ssl/shikimori.fullchain.pem /tmp/ssl_backup/ && \
 sudo cp /etc/ssl/shikimori.key /tmp/ssl_backup/ && \
 echo ">>>shiki_proxy: copying ssl keys from shiki_proxy:/tmp/ssl to shiki_proxy:/etc/ssl" && \
 sudo chown root:root -R /tmp/ssl/ && \
-sudo cp /tmp/ssl/shikimori.dhparam.pem /etc/ssl/ && \
-sudo cp /tmp/ssl/shikimori.fullchain.pem /etc/ssl/ && \
-sudo cp /tmp/ssl/shikimori.key /etc/ssl/ && \
+[ -f /etc/ssl/shikimori.dhparam.pem ] && sudo cp /etc/ssl/shikimori.dhparam.pem /tmp/ssl_backup/ || echo ">>>shiki_proxy: /etc/ssl/shikimori.dhparam.pem does not exist, skipping backup" && \
+[ -f /etc/ssl/shikimori.fullchain.pem ] && sudo cp /etc/ssl/shikimori.fullchain.pem /tmp/ssl_backup/ || echo ">>>shiki_proxy: /etc/ssl/shikimori.fullchain.pem does not exist, skipping backup" && \
+[ -f /etc/ssl/shikimori.key ] && sudo cp /etc/ssl/shikimori.key /tmp/ssl_backup/ || echo ">>>shiki_proxy: /etc/ssl/shikimori.key does not exist, skipping backup" && \
 sudo /opt/nginx-1.25.4/sbin/nginx -T > /dev/null && \
 echo ">>>shiki_proxy: restarting nginx" && \
 sudo systemctl restart nginx && \
