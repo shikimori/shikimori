@@ -37,7 +37,8 @@ production:
   history_jobs: 1
   scores_jobs: 40
   cleanup_jobs: 1
-  mal_parsers: 40
+  # mal_parsers: 40
+  mal_parsers: 0
   anime365_parsers: 3
   push_notifications: 5
   imports: 2
