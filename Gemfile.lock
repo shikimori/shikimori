@@ -90,7 +90,7 @@ GIT
 
 GIT
   remote: https://github.com/shikimori/mal_parser.git
-  revision: d2548aba7f51cc48a71492c11095eddd6a1cd29e
+  revision: 1022b03aba3664af91b1438da4dd2a94875ba65a
   specs:
     mal_parser (0.2.0)
       attr_extras
@@ -608,7 +608,7 @@ GEM
     public_suffix (5.0.5)
     puma (5.6.8)
       nio4r (~> 2.0)
-    racc (1.7.3)
+    racc (1.8.0)
     rack (2.2.9)
     rack-attack (6.7.0)
       rack (>= 1.0, < 4)
