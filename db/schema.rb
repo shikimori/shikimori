@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_21_175705) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_25_104127) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
@@ -931,6 +931,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_21_175705) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.integer "manga_id"
+    t.string "relation_kind", null: false
     t.index ["source_id"], name: "index_related_animes_on_source_id"
   end
 
@@ -941,6 +942,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_21_175705) do
     t.string "relation", limit: 255
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.string "relation_kind", null: false
     t.index ["source_id", "manga_id"], name: "index_related_mangas_on_source_id_and_manga_id"
   end
 
