@@ -14,13 +14,15 @@ class Queries::UserRatesQuery < Queries::BaseQuery
     description: 'ID of current user is used by default'
   argument :target_type, Types::Enums::UserRate::TargetTypeEnum, required: true
   argument :status, Types::Enums::UserRate::StatusEnum, required: false
+  argument :order, Types::Inputs::UserRate::OrderInputType, required: false
 
-  def resolve(
+  def resolve( # rubocop:disable Metrics/ParameterLists
     page:,
     limit:,
     target_type:,
     user_id: current_user&.id,
-    status: nil
+    status: nil,
+    order: nil
   )
     return [] if user_id.blank?
 
@@ -28,7 +30,7 @@ class Queries::UserRatesQuery < Queries::BaseQuery
       .lazy_preload(*PRELOADS)
       .where(user_id:)
       .where(target_type:)
-      .order(:id)
+      .order(order ? { order.field.to_sym => order.order.to_sym } : :id)
 
     scope = scope.where(status:) if status.present?
     scope

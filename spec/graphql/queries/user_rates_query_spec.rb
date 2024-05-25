@@ -9,22 +9,24 @@ describe Queries::UserRatesQuery do
         $userId: ID,
         $targetType: UserRateTargetTypeEnum!
         $status: UserRateStatusEnum
+        $order: UserRateOrderInputType
       ) {
         userRates(
           page: $page,
           limit: $limit,
           userId: $userId,
           targetType: $targetType,
-          status: $status
+          status: $status,
+          order: $order
         ) {
           id
         }
       }
     GQL
   end
-  let!(:user_rate_1) { create :user_rate, user: user, target: create(:anime) }
-  let!(:user_rate_2) { create :user_rate, :watching, user: user, target: create(:anime) }
-  let!(:user_rate_3) { create :user_rate, user: user, target: create(:manga) }
+  let!(:user_rate_1) { create :user_rate, user:, target: create(:anime) }
+  let!(:user_rate_2) { create :user_rate, :watching, user:, target: create(:anime) }
+  let!(:user_rate_3) { create :user_rate, user:, target: create(:manga) }
   let!(:user_rate_4) { create :user_rate, user: user_2, target: create(:anime) }
 
   let(:variables) do
@@ -107,6 +109,25 @@ describe Queries::UserRatesQuery do
       is_expected.to eq(
         'userRates' => [{
           'id' => user_rate_4.id.to_s
+        }]
+      )
+    end
+  end
+
+  context 'order' do
+    let(:variables) do
+      {
+        targetType: 'Anime',
+        order: { field: 'id', order: 'desc' }
+      }
+    end
+
+    it do
+      is_expected.to eq(
+        'userRates' => [{
+          'id' => user_rate_2.id.to_s
+        }, {
+          'id' => user_rate_1.id.to_s
         }]
       )
     end
