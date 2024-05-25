@@ -4,7 +4,7 @@ describe Api::V1::AnimesController, :show_in_doc do
 
     let(:genre) { create :genre }
     let(:studio) { create :studio }
-    let!(:user_rate) { create :user_rate, target: anime, user: user, status: 1 }
+    let!(:user_rate) { create :user_rate, target: anime, user:, status: 1 }
     let(:anime) do
       create :anime,
         :released,
@@ -78,8 +78,8 @@ describe Api::V1::AnimesController, :show_in_doc do
     let(:anime) { create :anime }
     let(:character) { create :character }
     let(:person) { create :person }
-    let!(:role_1) { create :person_role, anime: anime, character: character, roles: %w[Main] }
-    let!(:role_2) { create :person_role, anime: anime, person: person, roles: %w[Director] }
+    let!(:role_1) { create :person_role, anime:, character:, roles: %w[Main] }
+    let!(:role_2) { create :person_role, anime:, person:, roles: %w[Director] }
     subject! { get :roles, params: { id: anime.id }, format: :json }
 
     it do
@@ -95,7 +95,8 @@ describe Api::V1::AnimesController, :show_in_doc do
       create :related_anime,
         source: anime,
         anime: create(:anime),
-        relation: 'Adaptation'
+        relation: 'Adaptation',
+        relation_kind: Types::RelatedAniManga::RelationKind[:adaptation]
     end
     subject! { get :related, params: { id: anime.id }, format: :json }
 
@@ -108,7 +109,7 @@ describe Api::V1::AnimesController, :show_in_doc do
 
   describe '#screenshots' do
     let(:anime) { create :anime }
-    let!(:screenshot) { create :screenshot, anime: anime }
+    let!(:screenshot) { create :screenshot, anime: }
     subject! { get :screenshots, params: { id: anime.id }, format: :json }
 
     it do
@@ -120,7 +121,7 @@ describe Api::V1::AnimesController, :show_in_doc do
 
   describe '#videos' do
     let(:anime) { create :anime }
-    let!(:video) { create :video, :confirmed, anime: anime }
+    let!(:video) { create :video, :confirmed, anime: }
     subject! { get :videos, params: { id: anime.id }, format: :json }
 
     it do
@@ -138,7 +139,6 @@ describe Api::V1::AnimesController, :show_in_doc do
     let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
 
     subject! { get :franchise, params: { id: anime.id }, format: :json }
-
 
     it do
       expect(response).to have_http_status :success

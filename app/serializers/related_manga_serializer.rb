@@ -4,6 +4,6 @@ class RelatedMangaSerializer < ActiveModel::Serializer
   has_one :manga
 
   def relation_russian
-    I18n.t "relation.#{object.relation}"
+    object.relation_kind_text
   end
 end
