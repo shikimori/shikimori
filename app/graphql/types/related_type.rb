@@ -13,13 +13,13 @@ class Types::RelatedType < Types::BaseObject
     null: false,
     deprecation_reason: 'use relation_kind/relation_text instead. This field will be deleted after 2025-01-01'
   def relation_ru
-    I18n.t "relation.#{object.relation}"
+    I18n.t("enumerize.related_anime.relation_kind.#{object.relation_kind}", locale: :ru)
   end
 
   field :relation_en, String,
     null: false,
     deprecation_reason: 'use relation_kind/relation_text instead. This field will be deleted after 2025-01-01'
   def relation_en
-    object.relation
+    I18n.t("enumerize.related_anime.relation_kind.#{object.relation_kind}", locale: :en)
   end
 end
