@@ -2,10 +2,11 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
   instance_cache :related, :similar, :all
 
   def related
-    return [] if object.rkn_abused?
-
-    all.map do |v|
-      RelatedEntry.new (v.anime || v.manga).decorate, v.relation
+    all.map do |relation|
+      RelatedEntry.new(
+        (relation.anime || relation.manga).decorate,
+        relation.relation_kind_text
+      )
     end
   end
 
@@ -13,7 +14,7 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
     return [] if object.rkn_abused?
 
     object
-      .send("similar_#{object.class.base_class.name.downcase.pluralize}")
+      .send(:"similar_#{object.class.base_class.name.downcase.pluralize}")
       .map(&:decorate)
   end
 
@@ -24,20 +25,21 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
   end
 
   def chronology?
-    related.any? { |v| v.relation.downcase != 'adaptation' }
+    all.any? do |relation|
+      relation.relation_kind != Types::RelatedAniManga::RelationKind[:adaptation]
+    end
   end
 
-  def all
+  def all # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+    return [] if object.rkn_abused?
+
     object
       .related
       .includes(:anime, :manga)
-      .select do |v|
-        (v.anime_id && v.anime && v.anime.name) ||
-          (v.manga_id && v.manga && v.manga.name)
-      end
-      .sort_by do |v|
-        (v.anime.aired_on.presence if v.anime_id) ||
-          (v.manga.aired_on.presence if v.manga_id) ||
+      .select { |relation| relation.anime || relation.manga }
+      .sort_by do |relation|
+        relation.anime&.aired_on.presence ||
+          relation.manga&.aired_on.presence ||
           Date.new(9999)
       end
   end

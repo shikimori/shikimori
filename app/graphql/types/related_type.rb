@@ -3,12 +3,12 @@ class Types::RelatedType < Types::BaseObject
   field :anime, Types::AnimeType
   field :manga, Types::MangaType
 
-  field :relation_ru, String, null: false
+  field :relation_ru, String, null: false, deprecated: true
   def relation_ru
     I18n.t "relation.#{object.relation}"
   end
 
-  field :relation_en, String, null: false
+  field :relation_en, String, null: false, deprecated: true
   def relation_en
     object.relation
   end

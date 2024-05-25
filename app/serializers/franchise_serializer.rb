@@ -27,7 +27,7 @@ class FranchiseSerializer < ActiveModel::Serializer
         source: source_index,
         target: target_index,
         weight: all_links.count { |v| v.source_id == link.source_id },
-        relation: link.relation.downcase.gsub(/[ -]/, '_')
+        relation: link.relation_kind
       }
     end
   end
