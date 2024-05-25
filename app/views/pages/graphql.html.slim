@@ -664,7 +664,7 @@ html
               }
               relationKind
               relationText
-r           }
+            }
 
             scoresStats { score count }
             statusesStats { status count }
@@ -723,6 +723,17 @@ r           }
             deceasedOn { year month day date }
 
             poster { id originalUrl mainUrl }
+          }
+        }`
+            }, {
+              endpoint,
+              name: 'user_rates',
+              query: `{
+          # look for more query params in the documentation
+          userRates(page: 1, limit: 5, targetType: Anime, order: { field: updated_at, order: desc }) {
+            id
+            anime { id name }
+            createdAt
           }
         }`
             }, {
