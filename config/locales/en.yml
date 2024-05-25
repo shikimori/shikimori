@@ -540,6 +540,23 @@ en:
         score_filter_9_8000: *score_filter_9_8000
     ranobe:
       <<: *manga_enumerize
+    related_anime:
+      relation_kind: &relation_kind
+        adaptation: Adaptation
+        alternative_setting: Alternative Setting
+        alternative_version: Alternative Version
+        character: Character
+        full_story: Full Story
+        other: Other
+        parent_story: Parent Story
+        prequel: Prequel
+        sequel: Sequel
+        side_story: Side Story
+        spin_off: Spin-off
+        summary: Summary
+    related_manga:
+      relation_kind:
+        <<: *relation_kind
     genre:
       kind:
         anime: Anime

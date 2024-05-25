@@ -540,6 +540,23 @@ ru:
         score_filter_9_8000: *score_filter_9_8000
     ranobe:
       <<: *manga_enumerize
+    related_anime:
+      relation_kind: &relation_kind
+        adaptation: Адаптация
+        alternative_setting: Альтернативная вселенная
+        alternative_version: Альтернативная история
+        character: Общий персонаж
+        full_story: Развёрнутая история
+        other: Прочее
+        parent_story: Изначальная история
+        prequel: Предыстория
+        sequel: Продолжение
+        side_story: Другая история
+        spin_off: Ответвление от оригинала
+        summary: Обобщение
+    related_manga:
+      relation_kind:
+        <<: *relation_kind
     genre:
       kind:
         anime: Аниме
