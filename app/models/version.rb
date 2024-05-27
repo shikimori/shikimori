@@ -22,7 +22,7 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
     user_id_key: :user_id
   )
   antispam(
-    per_day: 3,
+    per_day: 1,
     disable_if: -> {
       item_diff['description_ru'].blank? ||
         user.moderation_versions? ||
