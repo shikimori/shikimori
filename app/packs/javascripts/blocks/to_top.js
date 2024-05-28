@@ -26,6 +26,13 @@ $(document).on('turbolinks:load', () => {
   }
 });
 
+$(document).on('turbolinks:before-cache', () => {
+  if (scrollBinded) {
+    scrollBinded = false;
+    $(window).off('scroll:throttled', toggle);
+  }
+});
+
 function toggle() {
   if (scrollDisabled) { return; }
 
