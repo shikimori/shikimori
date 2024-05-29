@@ -22,6 +22,9 @@ set :linked_dirs, %w[
   log
   tmp/pids
   tmp/cache
+  tmp/cache/assets
+  tmp/cache/bootsnap-compile-cache
+  tmp/cache/shakapacker
   tmp/sockets
   public/assets
   public/system
