@@ -35,8 +35,8 @@ const props = defineProps({
   isDowncase: { type: Boolean, required: false, default: false }
 });
 
-let tagModel = ref('');
-let tags = ref(props.value.map(v => ({ text: v })));
+const tagModel = ref('');
+const tags = ref(props.value.map(v => ({ text: v })));
 
 const autocompleteItems = computed(() => (
   (
@@ -44,7 +44,7 @@ const autocompleteItems = computed(() => (
       props.autocompleteOther :
       props.autocompleteBasic
   )
-    .filter(v => !tags.value.find(tag_value => tag_value.text === v))
+    .filter(v => !tags.value.find(tagValue => tagValue.text === v))
     .filter(v => (tagModel.value ? v.startsWith(tagModel.value) : true))
     .map(v => ({ text: v }))
 ));

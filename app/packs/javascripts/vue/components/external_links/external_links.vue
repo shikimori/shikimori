@@ -119,10 +119,8 @@ defineExpose({
         link.kind === kind && (!isWikipedia || link.url.startsWith(wikipediaPrefix))
       ));
       nullifyLink(matchedLink, nullifiedUrl, matchedByKindInputs[0]);
-
     } else if (matchedByValueInput) {
       matchedByValueInput.focus();
-
     } else {
       createLink(kind, nullifiedUrl);
     }
