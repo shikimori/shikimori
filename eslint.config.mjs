@@ -2,31 +2,25 @@ import globals from 'globals';
 import pluginVue from 'eslint-plugin-vue';
 // import pluginImport from "eslint-plugin-import"; // not yet support eslint 9 https://github.com/import-js/eslint-plugin-import/pull/2996
 import babelParser from '@babel/eslint-parser';
-
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
 import pluginJs from '@eslint/js';
 
-// mimic CommonJS variables -- not needed if using CommonJS
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({ baseDirectory: __dirname, recommendedConfig: pluginJs.configs.recommended });
-
-// console.log(pluginImport);
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: pluginJs.configs.recommended
+});
 
 export default [
-  {
-    languageOptions: {
-      globals: globals.browser
-    }
-  },
   ...compat.extends('standard'),
   ...pluginVue.configs['flat/recommended'],
-  // pluginImport,
   {
     languageOptions: {
       globals: {
+        ...globals.browser,
         pageLoad: 'readonly',
         pageUnload: 'readonly',
         $: 'readonly',
@@ -38,7 +32,7 @@ export default [
         sourceType: 'module',
         requireConfigFile: false,
         babelOptions: {
-          configFile: './babel.config.js' // path to your Babel config file
+          configFile: './babel.config.js'
         }
       }
     },
@@ -117,7 +111,24 @@ export default [
         vue: 'never'
       }],
       'import/first': 'off',
-      'import/order': 'off',
+      'import/order': 'off'
+    }
+  },
+  {
+    files: ['*.vue', '**/*.vue'],
+    languageOptions: {
+      ...pluginVue.configs['flat/recommended'][1].languageOptions,
+      parserOptions: {
+        parser: '@babel/eslint-parser',
+        ecmaVersion: 2021,
+        sourceType: 'module',
+        requireConfigFile: false,
+        babelOptions: {
+          configFile: './babel.config.js'
+        }
+      }
+    },
+    rules: {
       'vue/max-attributes-per-line': ['error', {
         singleline: 3,
         multiline: 1
@@ -132,149 +143,3 @@ export default [
     }
   }
 ];
-
-// ---
-// root: true
-//
-// env:
-//   node: true
-//   es6: true
-//   jquery: true
-//
-// parser: vue-eslint-parser
-//
-// extends:
-//   - plugin:vue/vue3-recommended
-//   - eslint:recommended
-//   - plugin:import/errors
-//   - plugin:import/warnings
-//
-// plugins:
-//   - vue
-//
-// globals:
-//   I18n: true
-//   gon: true
-//   p: true
-//   pageLoad: true
-//   pageUnload: true
-//
-// parserOptions:
-//   ecmaVersion: 2018
-//   sourceType: module
-//   parser: babel-eslint
-//
-// rules:
-//   quotes:
-//     - error
-//     - single
-//   object-curly-spacing:
-//     - error
-//     - always
-//   semi:
-//     - error
-//     - always
-//   space-before-function-paren:
-//     - error
-//     - anonymous: never
-//       named: never
-//       asyncArrow: always
-//   object-curly-newline: 0
-//   arrow-body-style:
-//     - 2
-//     - as-needed
-//   arrow-parens:
-//     - 2
-//     - as-needed
-//   no-console: 1
-//   no-alert: 0
-//   no-debugger: 1
-//   no-trailing-spaces:
-//     - error
-//   no-return-assign: 0
-//   no-param-reassign:
-//     - 2
-//     - props: false
-//   no-underscore-dangle: 0
-//   no-unused-vars: 0 # temporarily disabled because it does not work with vue-3 script setup syntax
-//     # - error
-//     # - argsIgnorePattern: ^_
-//     #   varsIgnorePattern: ^_
-//   no-use-before-define: 0
-//   no-mixed-operators: 0
-//   no-new: 0
-//   no-shadow:
-//     - 2
-//     - allow:
-//       - '_'
-//   function-paren-newline: 0
-//   comma-dangle:
-//     - warn
-//     - never
-//   max-len:
-//     - warn
-//     - 100
-//     - ignoreComments: true
-//       ignoreUrls: true
-//       ignorePattern: "\\s*<"
-//   indent:
-//     - error
-//     - 2
-//     - ignoreComments: true
-//       SwitchCase: 1
-//   linebreak-style:
-//     - error
-//     - unix
-//   func-names: 0
-//   implicit-arrow-linebreak: 0
-//   prefer-template: 0
-//   class-methods-use-this: 0
-//   radix: 0
-//   operator-linebreak:
-//     - 2
-//     - after
-//     - overrides:
-//         '|>': 'before'
-//   keyword-spacing:
-//     - error
-//     - after: true
-//       before: true
-//   lines-between-class-members: 0
-//   default-case: 0
-//   import/no-extraneous-dependencies: 0
-//   import/no-unresolved: 2
-//   import/no-webpack-loader-syntax: 0
-//   import/prefer-default-export: 0
-//   import/extensions:
-//     - error
-//     - always
-//     - js: never
-//       coffee: never
-//       vue: never
-//   import/first: 0
-//   import/order: 0
-//   vue/max-attributes-per-line:
-//     - error
-//     - singleline: 3
-//       # multiline:
-//       #   max: 1
-//       #   allowFirstLine: false
-//   vue/singleline-html-element-content-newline: 0
-//   vue/html-quotes: 0
-//     # - 1
-//     # - single
-//   vue/component-name-in-template-casing:
-//     - 2
-//     - PascalCase
-//     - ignores:
-//       - router-view
-//       - router-link
-//
-// settings:
-//   import/resolver:
-//     webpack:
-//       config: './config/webpack/development.js'
-//     node:
-//       extensions:
-//         - '.js'
-//         - '.vue'
