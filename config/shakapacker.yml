@@ -54,8 +54,8 @@ default: &default
   # Select loader to use, available options are 'babel' (default), 'swc' or 'esbuild'
   webpack_loader: 'babel'
 
-  # Set to true to enable check for matching versions of shakapacker gem and NPM package - will raise an error if there is a mismatch or wildcard versioning is used
-  ensure_consistent_versioning: false
+  # Raises an error if there is a mismatch in the shakapacker gem and npm package being used
+  ensure_consistent_versioning: true
 
   # Select whether the compiler will use SHA digest ('digest' option) or most most recent modified timestamp ('mtime') to determine freshness
   compiler_strategy: digest
@@ -107,7 +107,7 @@ development:
     compress: true
     # Note that apps that do not check the host are vulnerable to DNS rebinding attacks
     allowed_hosts: 'all'
-    # Shows progress and colorizes output of bin/webpacker[-dev-server]
+    # Shows progress and colorizes output of bin/shakapacker[-dev-server]
     pretty: true
     headers:
       'Access-Control-Allow-Origin': '*'
@@ -136,3 +136,6 @@ production:
 
   # Cache manifest.json for performance
   cache_manifest: true
+
+  # Use content hash for naming assets. Cannot be overridden by for production.
+  useContentHash: true
