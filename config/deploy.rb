@@ -22,7 +22,6 @@ set :linked_dirs, %w[
   log
   tmp/pids
   tmp/cache
-  tmp/cache/assets
   tmp/cache/bootsnap-compile-cache
   tmp/cache/shakapacker
   tmp/sockets
@@ -72,7 +71,11 @@ namespace :deploy do
   namespace :yarn do
     task :install do
       on roles(:web) do
-        bundle_exec 'yarn install', release_path
+        # bundle_exec 'yarn install', release_path
+        within release_path do
+          # https://github.com/shakacode/shakapacker/blob/main/docs/v8_upgrade.md#javascript-dependencies-are-no-longer-installed-automatically-as-part-of-assetsprecompile
+          system 'yarn install --frozen-lockfile'
+        end
       end
     end
   end

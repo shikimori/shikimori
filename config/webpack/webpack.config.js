@@ -12,5 +12,4 @@ const envSpecificConfig = () => {
   }
 };
 
-const config = envSpecificConfig();
-module.exports = config;
+module.exports = envSpecificConfig();

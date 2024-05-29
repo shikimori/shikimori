@@ -54,7 +54,7 @@
     "pug-plain-loader": "^1.1.0",
     "sass": "^1.75.0",
     "sass-loader": "^14.2.1",
-    "shakapacker": "7.2.3",
+    "shakapacker": "8",
     "shiki-decorators": "^1.0.1",
     "shiki-editor": "^2.7.3",
     "shiki-uploader": "^1.1.2",
@@ -95,5 +95,6 @@
   },
   "optionalDependencies": {
     "fsevents": "^2.3.1"
-  }
+  },
+  "packageManager": "yarn@1.22"
 }

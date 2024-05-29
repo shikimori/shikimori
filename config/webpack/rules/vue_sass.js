@@ -1,4 +1,4 @@
-const getStyleRule = require('shakapacker/package/utils/get_style_rule');
+const getStyleRule = require('shakapacker/package/utils/getStyleRule');
 const { canProcess } = require('shakapacker/package/utils/helpers');
 const {
   additional_paths: includePaths
