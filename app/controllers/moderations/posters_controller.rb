@@ -3,7 +3,7 @@ class Moderations::PostersController < ModerationsController
 
   PER_PAGE = 20
 
-  def index # rubocop:disable Metrics/AbcSize
+  def index # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     og noindex: true, nofollow: true
     og page_title: i18n_t('page_title')
 
@@ -19,6 +19,13 @@ class Moderations::PostersController < ModerationsController
 
     if params[:id]
       @collection = @collection.where(id: params[:id])
+
+      if @collection.none?
+        poster = Poster.find_by(id: params[:id])
+        if poster
+          return redirect_to current_url(state: poster.moderation_state)
+        end
+      end
     end
 
     @collection = @collection.paginate(page, PER_PAGE)
