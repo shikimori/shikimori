@@ -100,7 +100,7 @@
                 }[field],
                 is_force_value: field == :poster do
               - if field == :poster && can?(:read, Poster)
-                - if @resource.kinda_manga? && @resource.object.poster && @resource.poster_disabled_by_genres?
+                - if @resource.object.poster && @resource.apply_poster_moderation?
                   br
                   a.poster-moderation href=moderations_posters_url(id: @resource.object.poster.id, state: @resource.object.poster.moderation_state)
                     | Модерация 18+ постера
