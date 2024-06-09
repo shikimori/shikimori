@@ -8,6 +8,7 @@ BAD_ID_ERRORS = [
   'No series found, check the series id and try again'
 ]
 BAN_TEXTS = [
+  'Human Verification',
   'Access has been restricted for this account',
   'your IP has been banned from our website'
 ]
