@@ -4,7 +4,12 @@ describe Moderations::PostersController do
 
   describe '#index' do
     include_context :authenticated, :super_moderator
-    subject! { get :index }
+    subject! do
+      get :index, params: {
+        state: Types::Moderatable::State.values.sample,
+        kind: controller.class::Kind.values.sample
+      }
+    end
 
     it { expect(response).to have_http_status :success }
   end
