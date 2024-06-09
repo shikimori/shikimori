@@ -95,7 +95,6 @@ describe Api::V1::AnimesController, :show_in_doc do
       create :related_anime,
         source: anime,
         anime: create(:anime),
-        relation: 'Adaptation',
         relation_kind: Types::RelatedAniManga::RelationKind[:adaptation]
     end
     subject! { get :related, params: { id: anime.id }, format: :json }
@@ -136,7 +135,12 @@ describe Api::V1::AnimesController, :show_in_doc do
     after(:all) { Animes::BannedRelations.instance.clear_cache! }
 
     let(:anime) { create :anime }
-    let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
+    let!(:similar) do
+      create :related_anime,
+        source: anime,
+        anime: create(:anime),
+        relation_kind: Types::RelatedAniManga::RelationKind[:adaptation]
+    end
 
     subject! { get :franchise, params: { id: anime.id }, format: :json }
 

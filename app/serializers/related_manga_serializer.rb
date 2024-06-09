@@ -3,7 +3,13 @@ class RelatedMangaSerializer < ActiveModel::Serializer
   has_one :anime
   has_one :manga
 
+  def relation
+    I18n.t "enumerize.related_manga.relation_kind.#{object.relation_kind}",
+      locale: :en
+  end
+
   def relation_russian
-    object.relation_kind_text
+    I18n.t "enumerize.related_manga.relation_kind.#{object.relation_kind}",
+      locale: :ru
   end
 end
