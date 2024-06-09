@@ -48,6 +48,7 @@ class ShikimoriSchema < GraphQL::Schema
   #   GlobalID.find(global_id)
   # end
 
+  # TODO: get rid of normalization after 2025-01-01
   class << self
     def execute(query, *, **)
       super(normalize_positive_integer_types(query), *, **)
