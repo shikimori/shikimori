@@ -245,7 +245,11 @@ Rails.application.routes.draw do
       get '(/page/:page)' => :index, as: '', on: :collection
     end
     resources :posters, only: %i[index] do
-      get '(state/:state)(/page/:page)' => :index, as: '', on: :collection
+      get ':kind/(state/:state)(/page/:page)' => :index,
+        as: '',
+        on: :collection,
+        kind: /#{Moderations::PostersController::Kind.values.join('|')}/,
+        state: /#{Types::Moderatable::State.values.join('|')}/
       member do
         post :accept
         post :reject

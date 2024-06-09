@@ -152,7 +152,7 @@ header.head
         - if can? :censore, Poster
           li
             a.b-link[
-              href=moderations_posters_url
+              href=moderations_posters_url(Moderations::PostersController::Kind[:anime])
             ]
               = t 'moderations/posters_controller.page_title'
               - if moderation_policy.unprocessed_censored_posters_count.positive?
