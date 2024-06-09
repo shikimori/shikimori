@@ -242,7 +242,7 @@ describe DbImport::Anime do
         expect(entry.related.first).to have_attributes(
           anime_id: 16_099,
           manga_id: nil,
-          relation: 'Other'
+          relation_kind: Types::RelatedAniManga::RelationKind[:other].to_s
         )
       end
     end
@@ -260,8 +260,8 @@ describe DbImport::Anime do
       let!(:related_anime) do
         create :related_anime,
           source_id: id,
-          relation: 'Adaptation',
-          manga_id: 21_479
+          manga_id: 21_479,
+          relation_kind: Types::RelatedAniManga::RelationKind[:adaptation]
       end
       let(:related) { {} }
       before { subject }

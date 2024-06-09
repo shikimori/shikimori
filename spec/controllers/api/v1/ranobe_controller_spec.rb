@@ -4,7 +4,7 @@ describe Api::V1::RanobeController, :show_in_doc do
 
     let(:genre) { create :genre }
     let(:publisher) { create :publisher }
-    let!(:user_rate) { create :user_rate, target: ranobe, user: user, status: 1 }
+    let!(:user_rate) { create :user_rate, target: ranobe, user:, status: 1 }
     let(:ranobe) do
       create :ranobe,
         name: 'Test',
@@ -68,8 +68,8 @@ describe Api::V1::RanobeController, :show_in_doc do
     let(:ranobe) { create :ranobe }
     let(:character) { create :character }
     let(:person) { create :person }
-    let!(:role_1) { create :person_role, manga: ranobe, character: character, roles: %w[Main] }
-    let!(:role_2) { create :person_role, manga: ranobe, person: person, roles: %w[Director] }
+    let!(:role_1) { create :person_role, manga: ranobe, character:, roles: %w[Main] }
+    let!(:role_2) { create :person_role, manga: ranobe, person:, roles: %w[Director] }
 
     subject! { get :roles, params: { id: ranobe.id }, format: :json }
 
@@ -82,7 +82,12 @@ describe Api::V1::RanobeController, :show_in_doc do
 
   describe '#related' do
     let(:ranobe) { create :ranobe }
-    let!(:similar) { create :related_manga, source: ranobe, manga: create(:ranobe), relation: 'Adaptation' }
+    let!(:similar) do
+      create :related_manga,
+        source: ranobe,
+        manga: create(:ranobe),
+        relation_kind: Types::RelatedAniManga::RelationKind[:adaptation]
+    end
 
     subject! { get :related, params: { id: ranobe.id }, format: :json }
 
@@ -98,7 +103,12 @@ describe Api::V1::RanobeController, :show_in_doc do
     after(:all) { Animes::BannedRelations.instance.clear_cache! }
 
     let(:ranobe) { create :ranobe }
-    let!(:similar) { create :related_manga, source: ranobe, manga: create(:ranobe), relation: 'Adaptation' }
+    let!(:similar) do
+      create :related_manga,
+        source: ranobe,
+        manga: create(:ranobe),
+        relation_kind: Types::RelatedAniManga::RelationKind[:adaptation]
+    end
 
     subject! { get :franchise, params: { id: ranobe.id }, format: :json }
 

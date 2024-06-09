@@ -2,15 +2,15 @@ describe DbImport::Manga do
   let(:service) { described_class.new data }
   let(:data) do
     {
-      id: id,
+      id:,
       name: 'Test test 2',
-      genres: genres,
-      publishers: publishers,
-      related: related,
+      genres:,
+      publishers:,
+      related:,
       recommendations: similarities,
       characters: characters_data,
-      synopsis: synopsis,
-      image: image,
+      synopsis:,
+      image:,
       is_more_info: true
     }
   end
@@ -19,7 +19,7 @@ describe DbImport::Manga do
   let(:publishers) { [] }
   let(:related) { {} }
   let(:similarities) { [] }
-  let(:characters_data) { { characters: characters, staff: staff } }
+  let(:characters_data) { { characters:, staff: } }
   let(:characters) { [] }
   let(:staff) { [] }
   let(:synopsis) { '' }
@@ -106,7 +106,7 @@ describe DbImport::Manga do
         create :publisher,
           id: publishers.first[:id],
           name: publisher_name,
-          desynced: desynced
+          desynced:
       end
       let(:publisher_name) { publishers.first[:name] }
       let(:desynced) { [] }
@@ -168,7 +168,7 @@ describe DbImport::Manga do
         expect(entry.related.first).to have_attributes(
           anime_id: nil,
           manga_id: 16_099,
-          relation: 'Other'
+          relation_kind: Types::RelatedAniManga::RelationKind[:other].to_s
         )
       end
     end
@@ -186,8 +186,8 @@ describe DbImport::Manga do
       let!(:related_manga) do
         create :related_manga,
           source_id: id,
-          relation: 'Adaptation',
-          anime_id: 21_479
+          anime_id: 21_479,
+          relation_kind: Types::RelatedAniManga::RelationKind[:adaptation]
       end
       let(:related) { {} }
       before { subject }
@@ -295,10 +295,10 @@ describe DbImport::Manga do
       it do
         expect(DbImport::MalImage)
           .to have_received(:call)
-          .with entry: entry, image_url: image
+          .with entry:, image_url: image
         expect(DbImport::MalPoster)
           .to have_received(:call)
-          .with entry: entry, image_url: image
+          .with entry:, image_url: image
       end
     end
   end
