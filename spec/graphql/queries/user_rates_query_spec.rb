@@ -5,7 +5,7 @@ describe Queries::UserRatesQuery do
     <<~GQL
       query(
         $page: Int,
-        $limit: PositiveInteger,
+        $limit: PositiveInt,
         $userId: ID,
         $targetType: UserRateTargetTypeEnum!
         $status: UserRateStatusEnum

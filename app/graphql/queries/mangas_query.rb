@@ -20,8 +20,8 @@ class Queries::MangasQuery < Queries::BaseQuery
     }
   }]
 
-  argument :page, Types::Scalars::PositiveInteger, required: false, default_value: 1
-  argument :limit, Types::Scalars::PositiveInteger,
+  argument :page, Types::Scalars::PositiveInt, required: false, default_value: 1
+  argument :limit, Types::Scalars::PositiveInt,
     required: false,
     default_value: 2,
     description: "Maximum #{LIMIT}"

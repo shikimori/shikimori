@@ -1,4 +1,4 @@
-class Types::Scalars::PositiveInteger < GraphQL::Types::Int
+class Types::Scalars::PositiveInt < GraphQL::Types::Int
   description 'A positive integer (>= 1)'
 
   def self.coerce_input(input_value, ctx)

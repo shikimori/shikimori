@@ -55,8 +55,8 @@ class ShikimoriSchema < GraphQL::Schema
 
     def normalize_positive_integer_types query
       query
-        .gsub('$page: Int', '$page: PositiveInteger')
-        .gsub('$limit: Int', '$limit: PositiveInteger')
+        .gsub('$page: Int', '$page: PositiveInt')
+        .gsub('$limit: Int', '$limit: PositiveInt')
     end
   end
 end
