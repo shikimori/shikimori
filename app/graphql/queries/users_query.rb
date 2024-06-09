@@ -3,8 +3,8 @@ class Queries::UsersQuery < Queries::BaseQuery
 
   LIMIT = 50
 
-  argument :page, Integer, required: false, default_value: 1
-  argument :limit, Integer,
+  argument :page, Types::Scalars::PositiveInteger, required: false, default_value: 1
+  argument :limit, Types::Scalars::PositiveInteger,
     required: false,
     default_value: 2,
     description: "Maximum #{LIMIT}"
