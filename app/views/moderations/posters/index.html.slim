@@ -11,7 +11,16 @@ header.head
         span = @counts[state]
   .subheadline
     = Poster.human_attribute_name "moderation_state/#{@state}"
-    .count = @counts[@state]
+    .misc-links
+      - controller.class::Klass.values.each do |klass|
+        - if klass == @klass
+          a.selected href=current_url(id: nil)
+            = klass.model_name.human
+            .count = @counts[@state]
+        - else
+          a href=current_url(kind: controller.class::Kind[klass.name.downcase], id: nil)
+            = klass.model_name.human
+            .count = scope(klass: klass, moderation_state: @state).count
 
   .posters
     - if @collection.any?

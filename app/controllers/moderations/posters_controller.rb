@@ -11,6 +11,8 @@ class Moderations::PostersController < ModerationsController
     .constructor { |v| v.to_s.classify.constantize }
     .enum(Anime, Manga)
 
+  helper_method :scope
+
   def index # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     og noindex: true, nofollow: true
     og page_title: i18n_t('page_title')
@@ -18,11 +20,16 @@ class Moderations::PostersController < ModerationsController
     @default_state = Types::Moderatable::State[:pending].to_s
     @state = params[:state].presence || @default_state
     @states = Poster.aasm(:moderation_state).states.map { |v| v.name.to_s }
+    @klass = Klass[Kind[params[:kind]]]
 
-    @counts = @states.index_with { |state| scope(state).count } unless json?
+    unless json?
+      @counts = @states.index_with do |state|
+        scope(klass: @klass, moderation_state: state).count
+      end
+    end
 
     @collection = QueryObjectBase
-      .new(scope(@state))
+      .new(scope(klass: @klass, moderation_state: @state))
       .includes(:manga, :approver)
 
     if params[:id]
@@ -62,9 +69,9 @@ class Moderations::PostersController < ModerationsController
 
 private
 
-  def scope moderation_state
+  def scope klass:, moderation_state:
     scope = Animes::CensoredPostersQuery.call(
-      klass: Klass[Kind[params[:kind]]],
+      klass:,
       moderation_state:
     )
 
