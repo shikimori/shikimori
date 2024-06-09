@@ -6,7 +6,7 @@ shared_context :graphql do
     ShikimoriSchema.execute(
       query_string,
       context: base_context.merge(context),
-      variables: variables
+      variables:
     )
   end
   subject { result['data'] }
