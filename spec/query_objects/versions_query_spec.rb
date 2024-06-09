@@ -2,6 +2,12 @@ describe VersionsQuery do
   let(:query) { described_class.by_item anime, nil }
   let(:anime) { create :anime }
 
+  around(:each) do |example|
+    Version.wo_antispam do
+      example.run
+    end
+  end
+
   describe '.by_item' do
     it { expect(query).to eq [] }
 
@@ -102,7 +108,7 @@ describe VersionsQuery do
     describe 'videos + associated' do
       let!(:version_1) { create :version, item: anime, item_diff: { 'videos' => [] } }
       let!(:version_2) { create :video_version, item: video, associated: anime }
-      let(:video) { create :video, anime: anime }
+      let(:video) { create :video, anime: }
 
       it { expect(query.by_field 'videos').to eq [version_2, version_1] }
 
@@ -118,7 +124,7 @@ describe VersionsQuery do
     describe 'poster + associated' do
       let!(:version_1) { create :version, item: anime }
       let!(:version_2) { create :poster_version, item: poster, associated: anime }
-      let(:poster) { create :poster, anime: anime }
+      let(:poster) { create :poster, anime: }
 
       it { expect(query.by_field 'poster').to eq [version_2] }
     end

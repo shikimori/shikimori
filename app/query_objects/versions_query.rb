@@ -11,9 +11,9 @@ class VersionsQuery < QueryObjectBase
       if associated? field
         scope.where associated: item
       elsif item? field
-        scope.where item: item
+        scope.where(item:)
       else
-        scope.where(item: item).or(scope.where(associated: item))
+        scope.where(item:).or(scope.where(associated: item))
       end
     )
   end
@@ -31,12 +31,12 @@ class VersionsQuery < QueryObjectBase
   end
 
   def by_field field
-    chain @scope.where(field_sql(field), field: field)
+    chain @scope.where(field_sql(field), field:)
   end
 
   def authors field
     by_field(field)
-      .where(field_sql(field), field: field)
+      .where(field_sql(field), field:)
       .where(state_condition(field))
       .where(state: %i[accepted auto_accepted])
       .except(:order)
