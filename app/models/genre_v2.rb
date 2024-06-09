@@ -25,8 +25,10 @@ class GenreV2 < ApplicationRecord
 
   CENSORED_IDS = EROTICA_IDS + HENTAI_IDS + BANNED_IDS + AI_IDS
   TEMPORARILY_POSTERS_DISABLED_IDS = [
-    601, # Erotica
-    602 # Hentai
+    539, # Anime Erotica
+    12, # Anime Hentai
+    601, # Manga Erotica
+    602 # Manga Hentai
   ]
 
   def to_param
