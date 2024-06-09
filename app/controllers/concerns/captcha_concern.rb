@@ -1,6 +1,8 @@
 module CaptchaConcern
   extend ActiveSupport::Concern
 
+  ALLOWED_EXCEPTIONS = Network::FaradayGet::NET_ERRORS
+
   def valid_captcha? action
     return true if Rails.env.test?
 
@@ -28,19 +30,22 @@ private
     end
   end
 
-  def verify_turnstile # rubocop:disable Metrics/AbcSize
+  def verify_turnstile # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     return false if params[:'cf-turnstile-response'].blank?
 
-    cf_response = Faraday.post do |req|
-      req.url 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
-      req.headers['Content-Type'] = 'application/json'
-      req.options.timeout = 15
-      req.options.open_timeout = 15
-      req.body = {
-        secret: Rails.application.secrets.turnstile[:secret_key],
-        response: params[:'cf-turnstile-response']
-      }.to_json
-    end
+    cf_response =
+      Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
+        Faraday.post do |req|
+          req.url 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+          req.headers['Content-Type'] = 'application/json'
+          req.options.timeout = 15
+          req.options.open_timeout = 15
+          req.body = {
+            secret: Rails.application.secrets.turnstile[:secret_key],
+            response: params[:'cf-turnstile-response']
+          }.to_json
+        end
+      end
 
     JSON.parse(cf_response.body, symbolize_names: true)[:success]
   rescue JSON::ParserError
