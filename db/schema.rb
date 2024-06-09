@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_25_104127) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_09_093858) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
@@ -927,7 +927,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_25_104127) do
   create_table "related_animes", force: :cascade do |t|
     t.bigint "source_id"
     t.bigint "anime_id"
-    t.string "relation", limit: 255
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.integer "manga_id"
@@ -939,7 +938,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_25_104127) do
     t.bigint "source_id"
     t.bigint "anime_id"
     t.bigint "manga_id"
-    t.string "relation", limit: 255
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "relation_kind", null: false
