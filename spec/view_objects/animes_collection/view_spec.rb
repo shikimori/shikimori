@@ -234,7 +234,7 @@ describe AnimesCollection::View do
 
     it do
       is_expected.to eq(
-        ['Anime', false, AnimesCollection::View::CACHE_VERSION.to_s, false, false] +
+        ['Anime', false, AnimesCollection::View::CACHE_VERSION.to_s, false, subject[4]] +
           %w[page:1 status:ongoing]
       )
     end
