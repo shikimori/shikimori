@@ -9,7 +9,7 @@ class GraphqlController < ShikimoriController
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
 
-  def execute
+  def execute # rubocop:disable Metrics/MethodLength
     variables = prepare_variables(params[:variables])
     query = params[:query] || ''
     operation_name = params[:operationName]

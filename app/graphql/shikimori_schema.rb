@@ -47,4 +47,16 @@ class ShikimoriSchema < GraphQL::Schema
   #   # For example, use Rails' GlobalID library (https://github.com/rails/globalid):
   #   GlobalID.find(global_id)
   # end
+
+  class << self
+    def execute(query, *, **)
+      super(normalize_positive_integer_types(query), *, **)
+    end
+
+    def normalize_positive_integer_types query
+      query
+        .gsub('$page: Int', '$page: PositiveInteger')
+        .gsub('$limit: Int', '$limit: PositiveInteger')
+    end
+  end
 end
