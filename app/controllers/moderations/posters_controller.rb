@@ -3,6 +3,14 @@ class Moderations::PostersController < ModerationsController
 
   PER_PAGE = 20
 
+  Kind = Types::Strict::Symbol
+    .constructor(&:to_sym)
+    .enum(:anime, :manga)
+
+  Klass = Types::Strict::Class
+    .constructor { |v| v.to_s.classify.constantize }
+    .enum(Anime, Manga)
+
   def index # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     og noindex: true, nofollow: true
     og page_title: i18n_t('page_title')
@@ -23,7 +31,8 @@ class Moderations::PostersController < ModerationsController
       if @collection.none?
         poster = Poster.find_by(id: params[:id])
         if poster
-          return redirect_to current_url(state: poster.moderation_state)
+          return redirect_to current_url(state: poster.moderation_state,
+            kind: poster.target.class.base_class.name.downcase)
         end
       end
     end
@@ -55,7 +64,7 @@ private
 
   def scope moderation_state
     scope = Animes::CensoredPostersQuery.call(
-      klass: Manga,
+      klass: Klass[Kind[params[:kind]]],
       moderation_state:
     )
 
