@@ -120,7 +120,7 @@ private
   def open_uri_options
     {
       **self.class::OPEN_URI_OPTIONS,
-      **Proxy.prepaid_proxy
+      **Proxy.prepaid_proxy_open_uri
     }
   end
 end

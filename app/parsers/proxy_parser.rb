@@ -152,7 +152,7 @@ private
       OpenURI.open_uri(
         'https://webanetlabs.net/publ/24',
         ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
-        **Proxy.prepaid_proxy
+        **Proxy.prepaid_proxy_open_uri
       ).read
     )
       .css('.uSpoilerText a.link')
@@ -165,7 +165,7 @@ private
   def getfreeproxylists url = 'https://getfreeproxylists.blogspot.com/'
     return []
 
-    html = Nokogiri::HTML(OpenURI.open_uri(url, Proxy.prepaid_proxy).read)
+    html = Nokogiri::HTML(OpenURI.open_uri(url, Proxy.prepaid_proxy_open_uri).read)
     links = html.css('ul.posts a').map { |v| v.attr :href }
 
     [url] + links
@@ -213,7 +213,7 @@ private
 
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
-        OpenURI.open_uri(url, Proxy.prepaid_proxy).read
+        OpenURI.open_uri(url, Proxy.prepaid_proxy_open_uri).read
       end
 
     JSON.parse(data, symbolize_names: true).map do |entry|
@@ -241,7 +241,7 @@ private
     url = 'https://proxylist.geonode.com/api/proxy-list?limit=5000&page=1&sort_by=lastChecked&sort_type=desc&protocols=http%2Chttps%2Csocks4%2Csocks5'
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
-        OpenURI.open_uri(url, Proxy.prepaid_proxy).read
+        OpenURI.open_uri(url, Proxy.prepaid_proxy_open_uri).read
       rescue *Network::FaradayGet::NET_ERRORS
         '{"data":[]}'
       end

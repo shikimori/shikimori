@@ -135,7 +135,12 @@ private
     log "downloading #{TAGS_URL} to #{LOCAL_GZ_PATH}"
 
     if Rails.env.production? || !File.exist?(LOCAL_GZ_PATH)
-      `wget '#{TAGS_URL}' -P '/tmp' -q -O '#{LOCAL_GZ_PATH}'`
+      command = "wget '#{TAGS_URL}' -P '/tmp' -q -O '#{LOCAL_GZ_PATH}'"
+      if Proxy.prepaid_proxy_url
+        `#{command} -e use_proxy=on -e http_proxy="#{Proxy.prepaid_proxy_url}"`
+      else
+        `#{command}`
+      end
     end
   end
 

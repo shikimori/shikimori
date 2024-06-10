@@ -37,8 +37,8 @@ class Proxy < ApplicationRecord
     end
 
     # https://proxy6.net/user/proxy
-    def prepaid_proxy
-      @prepaid_proxy ||=
+    def prepaid_proxy_open_uri
+      @prepaid_proxy_open_uri ||=
         if Rails.application.secrets.proxy[:url]
           {
             proxy_http_basic_authentication: [
@@ -50,6 +50,18 @@ class Proxy < ApplicationRecord
         else
           {}
         end
+    end
+
+    def prepaid_proxy_url
+      return if Rails.application.secrets.proxy[:url].blank?
+
+      proxy_url = Rails.application.secrets.proxy[:url]
+      proxy_login = Rails.application.secrets.proxy[:login]
+      proxy_password = Rails.application.secrets.proxy[:password]
+
+      uri = URI.parse(proxy_url)
+
+      "http://#{proxy_login}:#{proxy_password}@#{uri.host}:#{uri.port}"
     end
 
     def preload
@@ -257,7 +269,7 @@ class Proxy < ApplicationRecord
           'User-Agent' => user_agent(url),
           ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
           allow_redirections: :all,
-          **Proxy.prepaid_proxy
+          **Proxy.prepaid_proxy_open_uri
         )
       end
     end
