@@ -14,6 +14,7 @@ class NameValidator < ActiveModel::EachValidator
     api
     bb_codes
     characters
+    comments
     contests
     country
     csrf_token
@@ -51,6 +52,7 @@ class NameValidator < ActiveModel::EachValidator
     sitemap
     styles
     tableau
+    topics
     terms
     tests
     timeout_120s
