@@ -62,7 +62,7 @@ class Profiles::LibraryView < ViewObjectBase
   def full_list
     Rails.cache.fetch cache_key do
       UserListQuery.call(
-        klass: klass,
+        klass:,
         user: @user,
         params: h.params.merge(censored: false, order: sort_order)
       )
@@ -74,7 +74,9 @@ class Profiles::LibraryView < ViewObjectBase
   end
 
   def list_view
-    h.cookies['list_view'] || 'lines'
+    ENTRIES_PER_PAGE.key?(h.cookies['list_view']) ?
+      h.cookies['list_view'] :
+      'lines'
   end
 
 private
