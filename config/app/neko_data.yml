@@ -22570,7 +22570,7 @@
   attributes:
     :neko_id: :detektiv
     :level: 3
-    :image: "/assets/achievements/anime/detektivy_3.jpg"
+    :image: "/assets/achievements/anime/detektiv_3.jpg"
     :border_color: "#3D2B1F"
     :title_ru: За семью печатями
     :text_ru: Мэтры детективного дела обращаются к вам за советами.
@@ -22585,7 +22585,7 @@
   default_values: *4
   neko_id: :detektiv
   level: 3
-  image: "/assets/achievements/anime/detektivy_3.jpg"
+  image: "/assets/achievements/anime/detektiv_3.jpg"
   border_color: "#3D2B1F"
   title_ru: За семью печатями
   text_ru: Мэтры детективного дела обращаются к вам за советами.
