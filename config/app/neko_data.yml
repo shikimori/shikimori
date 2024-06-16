@@ -18547,7 +18547,7 @@
         franchise: tsukipro_the_animation
         not_anime_ids:
         - 43288
-      :threshold: 100%
+      :threshold: 94.1%
       :generator: &956
         ignore_latest_ids:
         - 51539
