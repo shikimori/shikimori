@@ -45,8 +45,7 @@ module Types
         josei
         kids
         military
-        mystery
-        police
+        detektiv
         space
         sports
 
