@@ -41,11 +41,10 @@
             title=critique_topic.title
           ]
             .image-name
-              img[
-                src=cdn_image_url(critique.target, :x48)
-                srcset="#{cdn_image_url critique.target, :x96} 2x"
-                alt=localized_name(critique.target)
-              ]
+              = render 'db_entries/poster',
+                db_entry: critique.target,
+                poster: critique.target.poster,
+                derivative: :preview
               span.title
                 = critique.target.name
             span.misc
