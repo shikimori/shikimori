@@ -22517,10 +22517,15 @@
     :topic_id: 222047
     :rule: &1146
       :algo: count
-      :threshold: 25
+      :threshold: 15
       :filters: &1147
         genre_v2_ids:
         - 39
+        or:
+          anime_ids:
+          - 1535
+          - 2994
+          - 49519
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/detektiv.yml
   default_values: *4
   neko_id: :detektiv
@@ -22549,7 +22554,7 @@
     :topic_id: 0
     :rule: &1148
       :algo: count
-      :threshold: 40
+      :threshold: 25
       :filters: *1147
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/detektiv.yml
   default_values: *4
@@ -22579,7 +22584,7 @@
     :topic_id: 0
     :rule: &1149
       :algo: count
-      :threshold: 60
+      :threshold: 45
       :filters: *1147
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/detektiv.yml
   default_values: *4
@@ -22609,7 +22614,7 @@
     :topic_id: 0
     :rule: &1150
       :algo: count
-      :threshold: 100
+      :threshold: 80
       :filters: *1147
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/detektiv.yml
   default_values: *4
