@@ -150,7 +150,7 @@ group :beta, :production do
   # gem 'sentry-rails'
   gem 'bugsnag'
   gem 'lograge'
-  # gem 'newrelic_rpm'
+  gem 'newrelic_rpm'
 end
 
 group :development do
