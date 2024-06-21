@@ -2,13 +2,13 @@ describe DbImport::Character do
   let(:service) { DbImport::Character.new data }
   let(:data) do
     {
-      id: id,
+      id:,
       name: 'Hitagi Senjougahara',
-      image: image,
+      image:,
       japanese: '戦場ヶ原 ひたぎ',
       fullname: 'Hitagi "Tsundere-chan, Gahara-san, Senshougahara-san" Senjougahara',
-      seyu: seyu,
-      synopsis: synopsis
+      seyu:,
+      synopsis:
     }
   end
   let(:id) { 22_037 }
@@ -46,12 +46,12 @@ describe DbImport::Character do
         allow(DbImport::MalPoster).to receive :call
       end
       it do
-        expect(DbImport::MalImage)
-          .to have_received(:call)
-          .with entry: entry, image_url: image
+        expect(DbImport::MalImage).to_not have_received :call
+          # .to have_received(:call)
+          # .with entry:, image_url: image
         expect(DbImport::MalPoster)
           .to have_received(:call)
-          .with entry: entry, image_url: image
+          .with entry:, image_url: image
       end
     end
   end

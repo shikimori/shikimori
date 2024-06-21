@@ -398,9 +398,9 @@ describe DbImport::Anime do
         allow(DbImport::MalPoster).to receive :call
       end
       it do
-        expect(DbImport::MalImage)
-          .to have_received(:call)
-          .with entry:, image_url: image
+        expect(DbImport::MalImage).to_not have_received :call
+          # .to have_received(:call)
+          # .with entry:, image_url: image
         expect(DbImport::MalPoster)
           .to have_received(:call)
           .with entry:, image_url: image

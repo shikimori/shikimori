@@ -2,9 +2,9 @@ describe DbImport::Person do
   let(:service) { DbImport::Person.new data }
   let(:data) do
     {
-      id: id,
+      id:,
       name: 'Anja Stadlober',
-      image: image,
+      image:,
       japanese: '戦場ヶ原 ひたぎ',
       website: 'http://lenta.ru',
       birth_on: Date.parse('Wed, 04 Apr 1984'),
@@ -36,12 +36,12 @@ describe DbImport::Person do
         allow(DbImport::MalPoster).to receive :call
       end
       it do
-        expect(DbImport::MalImage)
-          .to have_received(:call)
-          .with entry: entry, image_url: image
+        expect(DbImport::MalImage).to_not have_received :call
+          # .to have_received(:call)
+          # .with entry:, image_url: image
         expect(DbImport::MalPoster)
           .to have_received(:call)
-          .with entry: entry, image_url: image
+          .with entry:, image_url: image
       end
     end
   end
