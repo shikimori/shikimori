@@ -22526,6 +22526,7 @@
           - 1535
           - 2994
           - 49519
+          - 12259
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/detektiv.yml
   default_values: *4
   neko_id: :detektiv
