@@ -2,10 +2,8 @@ class BbCodes::CleanupCssClass
   method_object :value
 
   FORBIDDEN_CSS_CLASSES = %w[
-    b-abuse_marker
     b-achievements_notifier
     b-admin_panel
-    b-anime_status_tag
     b-appear_marker
     b-broadcast_marker
     b-collection_item
@@ -17,10 +15,7 @@ class BbCodes::CleanupCssClass
     b-height_shortener
     b-modal
     b-new_marker
-    b-offtopic_marker
     b-postloader
-    b-spoiler_marker
-    b-summary_marker
     b-to-top
     ban
     CodeMirror
