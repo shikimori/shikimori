@@ -7,15 +7,15 @@
 class NameMatch < ApplicationRecord
   belongs_to :target, polymorphic: true
   belongs_to :anime,
-    class_name: Anime.name,
+    class_name: 'Anime',
     foreign_key: :target_id,
     optional: true
   belongs_to :manga,
-    class_name: Manga.name,
+    class_name: 'Manga',
     foreign_key: :target_id,
     optional: true
 
-  validates :target_id, :target_type, :phrase, presence: true
+  validates :target_type, :phrase, presence: true
   validates :group, :priority,
     presence: true,
     numericality: { greater_than_or_equal_to: 0 }

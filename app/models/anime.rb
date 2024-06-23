@@ -274,7 +274,7 @@ class Anime < DbEntry
   after_save :generate_news, if: :saved_change_to_status?
 
   def episodes= value
-    value.blank? ? super(0) : super(value)
+    value.blank? ? super(0) : super
   end
 
   def latest?

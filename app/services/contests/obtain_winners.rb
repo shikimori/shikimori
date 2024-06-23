@@ -11,7 +11,7 @@ private
     results.each_with_index.map do |item, index|
       ContestWinner.new(
         contest: @contest,
-        item: item,
+        item:,
         position: index + 1
       )
     end

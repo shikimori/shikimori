@@ -6,7 +6,6 @@ describe NameMatch do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :target_id }
     it { is_expected.to validate_presence_of :target_type }
     it { is_expected.to validate_presence_of :phrase }
     it { is_expected.to validate_presence_of :group }
