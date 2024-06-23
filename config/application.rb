@@ -92,7 +92,7 @@ module Shikimori
     end
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.1
     config.active_support.cache_format_version = 7.0
 
     # This option is not backwards compatible with earlier Rails versions.
@@ -110,7 +110,9 @@ module Shikimori
     # config.autoload_paths += Dir["#{config.root}/app/**/"]
     # config.paths.add 'lib', eager_load: true
 
-    config.autoload_paths << "#{config.root}/app/*"
+    config.autoload_lib(ignore: %w(assets tasks))
+
+    # config.autoload_paths << "#{config.root}/app/*"
     config.autoload_paths << "#{Rails.root}/lib"
     config.eager_load_paths << "#{Rails.root}/lib"
 
