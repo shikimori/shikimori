@@ -5,8 +5,11 @@ class BbCodes::CleanupCssClass
     b-achievements_notifier
     b-admin_panel
     b-appear_marker
-    b-comments-notifier
+    b-broadcast_marker
+    b-collection_item
+    b-comment
     b-comments
+    b-comments-notifier
     b-fancy_loader
     b-feedback
     b-height_shortener
@@ -15,8 +18,32 @@ class BbCodes::CleanupCssClass
     b-postloader
     b-to-top
     ban
+    CodeMirror
+    CodeMirror-activeline-background
+    CodeMirror-cursor
+    CodeMirror-dialog
+    CodeMirror-fullscreen
+    CodeMirror-gutter-background
+    CodeMirror-gutter-elt
+    CodeMirror-gutter-filler
+    CodeMirror-gutter-wrapper
+    CodeMirror-gutters
+    CodeMirror-hints
+    CodeMirror-hscrollbar
+    CodeMirror-linebackground
+    CodeMirror-matchingtag
+    CodeMirror-ruler
+    CodeMirror-rulers
+    CodeMirror-scrollbar-filler
+    CodeMirror-vscrollbar
     comments-loader
     expand
+    item-add
+    item-cancel
+    item-mobile
+    item-moderation
+    item-quote
+    item-reply
     l-footer
     l-menu
     l-page
@@ -30,14 +57,18 @@ class BbCodes::CleanupCssClass
     mfp-webm-holder
     mfp-wrap
     shade
-    turbolinks-progress-bar
+    sortable-drag
+    toast-close
+    toastify
+    toastify-bottom
     toastify-left
     toastify-right
-    toastify-top
-    toastify-bottom
     toastify-rounded
-    toastify
-  ]
+    toastify-top
+    tooltip
+    tooltip-inner
+    turbolinks-progress-bar
+  ].sort_by(&:length).reverse # сначала заменять самые длинные совпадения
 
   CLEANUP_REGEXP = /
     #{FORBIDDEN_CSS_CLASSES.join '|'} |
