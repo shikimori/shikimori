@@ -6,6 +6,23 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+module SecretsDeprecationWarningSilencer
+  def secrets
+    @secrets ||= begin
+      secrets = ActiveSupport::OrderedOptions.new
+      files = config.paths["config/secrets"].existent
+      files = files.reject { |path| path.end_with?(".enc") } unless config.read_encrypted_secrets
+      secrets.merge! Rails::Secrets.parse(files, env: Rails.env)
+
+      # Fallback to config.secret_key_base if secrets.secret_key_base isn't set
+      secrets.secret_key_base ||= config.secret_key_base
+
+      secrets
+    end
+  end
+end
+Rails::Application.send :prepend, SecretsDeprecationWarningSilencer
+
 require_relative '../lib/shikimori_domain'
 require_relative '../lib/string'
 require_relative '../lib/responders/json_responder'
