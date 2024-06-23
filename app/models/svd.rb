@@ -1,7 +1,7 @@
 class Svd < ApplicationRecord
-  serialize :lsa
-  serialize :entry_ids
-  serialize :user_ids
+  serialize :lsa, coder: YAML
+  serialize :entry_ids, coder: YAML
+  serialize :user_ids, coder: YAML
 
   validates :lsa, presence: true
   validates :entry_ids, presence: true
