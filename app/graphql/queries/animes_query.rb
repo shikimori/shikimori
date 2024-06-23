@@ -22,8 +22,8 @@ class Queries::AnimesQuery < Queries::BaseQuery
     }
   }]
 
-  argument :page, Integer, required: false, default_value: 1
-  argument :limit, Integer,
+  argument :page, Types::Scalars::PositiveInt, required: false, default_value: 1
+  argument :limit, Types::Scalars::PositiveInt,
     required: false,
     default_value: 2,
     description: "Maximum #{LIMIT}"

@@ -3,7 +3,7 @@
   input(
     type='hidden'
     :name='emptyInputName || `${resourceType.toLowerCase()}[${field}][]`'
-    v-if='isEmpty'
+    v-if='isCollectionEmpty'
   )
   .b-nothing_here(
     v-if='!collection.length'
@@ -43,6 +43,7 @@
 import { mapGetters, mapState, mapActions } from 'vuex';
 import draggable from 'vuedraggable';
 import delay from 'delay';
+import isEmpty from 'lodash/isEmpty';
 
 const PLAIN_AUTOCOMPLETE_TYPE = 'plain';
 
@@ -65,7 +66,7 @@ export default {
   }),
   computed: {
     ...mapState({ items: 'collection' }),
-    ...mapGetters(['isEmpty']),
+    ...mapGetters(['isCollectionEmpty']),
     collection: {
       get() {
         return this.items;
@@ -98,7 +99,7 @@ export default {
       }
     },
     removeEmpty(entry) {
-      if (Object.isEmpty(entry.value) && this.collection.length > 1) {
+      if (isEmpty(entry.value) && this.collection.length > 1) {
         this.remove(entry.key);
         this.focusLast();
       }

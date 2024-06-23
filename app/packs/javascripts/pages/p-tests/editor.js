@@ -225,7 +225,8 @@ pageLoad('tests_editor', async () => {
 });
 
 const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES && TEST_DEMO_CONTENT ?
-  TEST_DEMO_CONTENT : `
+  TEST_DEMO_CONTENT :
+  `
 [spoiler_block=Заголовки is-fullwidth]
 [spoiler_block=Заголовки без подчёркивания is-fullwidth]
 # Заголовок уровень 1

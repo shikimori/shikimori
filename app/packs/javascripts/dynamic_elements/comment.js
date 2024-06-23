@@ -4,6 +4,7 @@ import { bind } from 'shiki-decorators';
 
 import ShikiEditable from '@/views/application/shiki_editable';
 import { loadImagesFinally, imagePromiseFinally } from '@/utils/load_image';
+import I18n from '@/utils/i18n';
 
 const I18N_KEY = 'frontend.dynamic_elements.comment';
 
@@ -72,9 +73,9 @@ export default class Comment extends ShikiEditable {
         $(`.b-comment#${id}`).view()?.mark(data.kind, data.value)
       ));
       flash.notice(markerMessage(data));
-      super._processAbuseRequest(e, data, false)
+      super._processAbuseRequest(e, data, false);
     } else {
-      super._processAbuseRequest(e, data)
+      super._processAbuseRequest(e, data);
     }
   }
 

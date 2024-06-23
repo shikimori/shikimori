@@ -1,4 +1,4 @@
-class BbCodes::Text # rubocop:disable ClassLength
+class BbCodes::Text
   method_object :text, %i[object is_event]
 
   # TODO: cleanup
@@ -6,7 +6,7 @@ class BbCodes::Text # rubocop:disable ClassLength
   # delete BB_CODE_REPLACERS
   # delete include Rails.application.routes.url_helpers
   include CommentHelper
-  BB_CODE_REPLACERS = COMPLEX_BB_CODES.map { |v| "#{v}_to_html".to_sym }.reverse
+  BB_CODE_REPLACERS = COMPLEX_BB_CODES.map { |v| :"#{v}_to_html" }.reverse
   include Rails.application.routes.url_helpers
 
   SIMPLE_BB_CODES = %i[
@@ -63,16 +63,17 @@ class BbCodes::Text # rubocop:disable ClassLength
   BANNED_DOMAINS = %r{
     (?:https?://)?
       (?:
-       shikimori.online |
-       images.webpark.ru |
-       18xxx.me |
-       myflirtcontacts1.com |
-       (?:[^.]\.)?chatchu.com |
-       (?:[^.]\.)?chatree.net |
-       #{Users::CheckHacked::SPAM_DOMAINS.join '|'} |
-       shikimori.cc |
-       fillboards.com |
-       t.me/rezero_translation # copyright request
+        shikimori.(?:online|cc) |
+        images.webpark.ru |
+        18xxx.me |
+        myflirtcontacts1.com |
+        (?:[^.]\.)?chatchu.com |
+        (?:[^.]\.)?chatree.net |
+        #{Users::CheckHacked::SPAM_DOMAINS.join '|'} |
+        fillboards.com |
+        t.me/rezero_translation | # copyright request
+        discord.com/invite/(?:GzzMYBZK|mhnEZBYBuY|hVybUWQQGS|4mgGDtjpaS|CwkQRUnH) |
+        discord.gg/(?:qvQQmVjR|HY8Jq8rHuM|jfqC3zemym|sphGbbkUnq|fkcDCRUG|G6EZsCfX)
       )
   }mix
   BANNED_TEXT = '[deleted]'
@@ -174,7 +175,7 @@ private
   end
 
   def new_lines_to_br text
-    text.gsub(/\n/, '<br>')
+    text.gsub("\n", '<br>')
   end
 
   def mark_sequential_br text

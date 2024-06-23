@@ -37,12 +37,12 @@ en:
       seyu: Seiyu
       vocalist: Vocalist
       anime_manga_projects_participant: Anime & Manga projects participant
-      # anime_manga_ranobe_projects_participant: Anime, Manga & Ranobe projects participant
+      # anime_manga_ranobe_projects_participant: Anime, Manga & Light novel projects participant
       anime_projects_participant: Anime projects participant
-      # anime_ranobe_projects_participant: Anime & Ranobe projects participant
+      # anime_ranobe_projects_participant: Anime & Light novel projects participant
       manga_projects_participant: Manga projects participant
-      # manga_ranobe_projects_participant: Manga & Ranobe projects participant
-      # ranobe_projects_participant: Ranobe projects participant
+      # manga_ranobe_projects_participant: Manga & Light novel projects participant
+      # ranobe_projects_participant: Light novel projects participant
       _projects_participant: ''
   seyu_decorator:
     <<: *person_decorator

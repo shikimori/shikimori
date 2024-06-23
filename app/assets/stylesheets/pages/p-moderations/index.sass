@@ -99,3 +99,149 @@
 
       .avatar
         margin-bottom: 2px
+
+.p-moderations-index.p-posters-index
+  .b-options-floated > a
+    span
+      +brackets_surrounded
+      margin-left: 4px
+
+  .posters
+    row-gap: 10px
+    display: flex
+
+    +iphone
+      flex-direction: column
+
+    +gte_ipad
+      flex-wrap: wrap
+
+  .poster-cell
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    min-width: 0 // to make ellipsis works
+
+    +gte_ipad
+      flex-basis: 20%
+
+    .name
+      font-weight: bold
+      line-height: 2.5
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+    .poster
+      position: relative
+
+      .b-image
+        vertical-align: baseline
+        display: block
+
+      +gte_laptop
+        &:hover
+          .actions
+            display: flex
+
+          .approver
+            display: none
+
+      .approver
+        background: rgba(#fff, 0.85)
+        height: 32px
+        position: absolute
+        display: flex
+        align-items: center
+        justify-content: center
+        top: 0
+        width: 100%
+
+        &.rejected
+          background: rgba(255, 200, 200, 0.85)
+
+        &.accepted
+          background: rgba(200, 255, 200, 0.85)
+
+        &.censored
+          background: rgba(200, 200, 255, 0.85)
+
+      +lte_ipad
+        .approver + .actions
+          top: 32px
+
+      .actions
+        display: flex
+        flex-direction: column
+        height: 100%
+        position: absolute
+        top: 0
+
+        +iphone
+          right: 0
+          width: 35%
+
+        +gte_ipad
+          left: 0
+          width: 50%
+
+        +gte_laptop
+          display: none
+
+        a
+          +link(#fff)
+          align-items: center
+          color: #fff !important
+          cursor: pointer
+          display: flex
+          font-size: 16px
+          font-weight: bold
+          height: 50%
+          justify-content: center
+          transition: background 0.25s
+
+        .accept
+          background: rgba($green, 0.65)
+
+          +gte_laptop
+            &:hover
+              background: rgba($green, 1)
+
+          &:active
+            background: rgba($green, 0.8)
+
+        .censore
+          background: rgba($blue, 0.65)
+
+          +gte_laptop
+            &:hover
+              background: rgba($blue, 1)
+
+          &:active
+            background: rgba($blue, 0.8)
+
+        .reject
+          background: rgba($red, 0.65)
+
+          +gte_laptop
+            &:hover
+              background: rgba($red, 1)
+
+          &:active
+            background: rgba($red, 0.8)
+
+        .cancel
+          background: rgba($gray, 0.65)
+
+          +gte_laptop
+            &:hover
+              background: rgba($gray, 1)
+
+          &:active
+            background: rgba($gray, 0.8)
+
+      img.is-moderation_censored
+        filter: none !important
+
+  .b-postloader
+    flex-basis: 100%

@@ -1,6 +1,6 @@
 ru:
   contest_round:
-    title: 'Раунд #%{number}%{additional}'
+    title: 'Раунд № %{number}%{additional}'
 
   ban:
     warn_message: предупреждение. %{reason}.
@@ -215,7 +215,7 @@ ru:
         Защита от спама. Подожди до завтра.
 
   list_import:
-    name: 'Импорт списка #%{id}'
+    name: 'Импорт списка № %{id}'
 
   poll:
-    name: 'Опрос #%{id}'
+    name: 'Опрос № %{id}'

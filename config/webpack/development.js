@@ -1,10 +1,23 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-const environment = require('./environment');
+const { merge } = require('shakapacker');
+const webpackConfig = require('./base');
 const WebpackBar = require('webpackbar');
 
-environment.plugins.append('progress', new WebpackBar());
+const customConfig = merge(webpackConfig, {
+  devServer: {
+    devMiddleware: {
+      stats: {
+        colors: true
+      }
+    }
+  },
+  // resolve: {
+  //   symlinks: true
+  // },
+  plugins: [
+    new WebpackBar()
+  ]
+});
+module.exports = customConfig;
 
-const config = environment.toWebpackConfig();
-config.resolve.symlinks = true;
-module.exports = config;

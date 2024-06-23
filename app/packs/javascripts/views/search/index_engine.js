@@ -2,10 +2,12 @@ import TinyUri from 'tiny-uri';
 import { debounce } from 'throttle-debounce';
 import pDefer from 'p-defer';
 import { flash } from 'shiki-utils';
+import isEmpty from 'lodash/isEmpty';
 
 import ajaxCacher from '@/services/ajax_cacher';
 
 import JST from '@/utils/jst';
+import I18n from '@/utils/i18n';
 
 export default class IndexEngine {
   constructor() {
@@ -38,7 +40,7 @@ export default class IndexEngine {
     if (this.phrase !== undefined) {
       this._showAjax();
 
-      if (Object.isEmpty(this.phrase)) {
+      if (isEmpty(this.phrase)) {
         this._search(this.phrase);
       } else {
         this.debouncedSearch(this.phrase);
@@ -78,7 +80,7 @@ export default class IndexEngine {
     }
 
     return (
-      Object.isEmpty(this.phrase) ?
+      isEmpty(this.phrase) ?
         '' :
         JST['search/nothing_found']({ isAutocomplete: this.isAutocomplete })
     );

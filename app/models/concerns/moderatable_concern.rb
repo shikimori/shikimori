@@ -1,7 +1,7 @@
 module ModeratableConcern
   extend ActiveSupport::Concern
 
-  included do
+  included do |klass|
     include AASM
     belongs_to :approver,
       class_name: 'User',
@@ -37,15 +37,34 @@ module ModeratableConcern
       end
       event :cancel do
         transitions(
-          from: Types::Moderatable::State[:accepted],
+          from: [
+            Types::Moderatable::State[:accepted],
+            (
+              klass.const_defined?(:IS_ALLOW_MODERATABLE_REJECTED_TO_CANCEL) ?
+                Types::Moderatable::State[:rejected] :
+                nil
+            ),
+            (
+              klass.const_defined?(:IS_ALLOW_MODERATABLE_CENSORED) ?
+                Types::Moderatable::State[:censored] :
+                nil
+            )
+          ].compact,
           to: Types::Moderatable::State[:pending]
         )
       end
-    end
-  end
 
-  def to_offtopic!
-    topic.update_column :forum_id, Forum::OFFTOPIC_ID
+      if klass.const_defined?(:IS_ALLOW_MODERATABLE_CENSORED)
+        state Types::Moderatable::State[:censored]
+        event :censore do
+          transitions(
+            from: Types::Moderatable::State[:pending],
+            to: Types::Moderatable::State[:censored],
+            after: :assign_approver
+          )
+        end
+      end
+    end
   end
 
 private
@@ -55,10 +74,16 @@ private
   end
 
   def postprocess_rejection **_args
+    return unless respond_to? :topic
+
     to_offtopic!
 
     Messages::CreateNotification
       .new(self)
       .moderatable_banned(nil)
+  end
+
+  def to_offtopic!
+    topic.update_column :forum_id, Forum::OFFTOPIC_ID
   end
 end

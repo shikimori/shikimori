@@ -18,9 +18,11 @@ class Users::CheckHacked
     dream69.fun
   ]
   SPAM_LINKS = %w[
+    discord.com/invite/4mgGDtjpaS
     discord.com/invite/hVybUWQQGS
     discord.gg/HY8Jq8rHuM
     discord.gg/jfqC3zemym
+    discord.gg/sphGbbkUnq
   ]
   NOT_SPAM_DOMAINS = %w[
     shikimori.org

@@ -2,12 +2,12 @@
   - if @forums_view.next_page_url
     link[
       rel="next"
-      href="#{{@forums_view.next_page_url}}"
+      href=@forums_view.next_page_url
     ]
   - if @forums_view.prev_page_url
     link[
       rel="prev"
-      href="#{{@forums_view.prev_page_url}}"
+      href=@forums_view.prev_page_url
     ]
 
 = render layout: 'clubs/page' do

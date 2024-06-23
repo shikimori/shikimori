@@ -686,3 +686,65 @@ query($ids: [ID!]) {
   variables: { id: 1 }
 )['data']
 ```
+
+
+### Migrate private images to be hashed
+```ruby
+possibly_ids = Message.
+  where(kind: MessageType::PRIVATE).
+  where(
+    <<~SQL.squish
+      body like '%[image=]%'
+        or body like '%[poster=]%'
+        or body like '%[image=%'
+        or body like '%[poster=%'
+    SQL
+  ).
+  pluck(:body).
+  flat_map { |text| Comment::Cleanup.scan_user_image_ids text }.
+  sort.
+  uniq;
+ids = UserImage.where(id: possibly_ids).where(is_hashed: false).pluck(:id).sort.reverse;
+
+def move_file user_image_id, location1, location2
+  destination_directory = File.dirname location2
+  FileUtils.mkdir_p destination_directory
+  FileUtils.mv location1, location2
+
+  NamedLogger.images_hasher.info "#{user_image_id};#{location1};#{location2}"
+end
+
+#missing_files_ids = UserImage.
+#  where(id: ids).
+#  select do |user_image|
+#    original_file = user_image.image.path :original
+#    thumbnail_file = user_image.image.path :thumbnail
+#    preview_file = user_image.image.path :preview
+#
+#    !(File.exist?(original_file) && File.exist?(thumbnail_file) && File.exist?(preview_file))
+#  end.
+#  pluck(:id);
+
+UserImage.
+  where(id: ids).
+  order(id: :desc).
+  each do |user_image|
+    original_file = user_image.image.path :original
+    thumbnail_file = user_image.image.path :thumbnail
+    preview_file = user_image.image.path :preview
+
+    unless File.exist?(original_file) && File.exist?(thumbnail_file) && File.exist?(preview_file)
+      puts "#{user_image.id}: missing files"
+      next
+    end
+
+    user_image.is_hashed = true
+
+    move_file user_image.id, original_file, user_image.image.path(:original)
+    move_file user_image.id, thumbnail_file, user_image.image.path(:thumbnail)
+    move_file user_image.id, preview_file, user_image.image.path(:preview)
+
+    user_image.save!
+    puts "#{user_image.id}: processed"
+  end;
+```

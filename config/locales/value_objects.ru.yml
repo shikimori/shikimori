@@ -8,7 +8,7 @@ ru:
           summer: Лето %{year}
           fall: Осень %{year}
         year: '%{year} год'
-        decade: '%{decade}0е годы'
+        decade: '%{decade}0-е годы'
         ancient: Более старые
       short:
         season:

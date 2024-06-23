@@ -6,7 +6,8 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     NekoRepository.instance.cache_key(
       params[:controller],
       params[:action],
-      Anime.count
+      Anime.count,
+      :v2
     ).to_json
   }
 
@@ -298,6 +299,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
         :id,
         :aired_on,
         :genre_ids,
+        :genre_v2_ids,
         :status,
         :episodes,
         :episodes_aired,
@@ -309,6 +311,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
       {
         id: anime.id,
         genre_ids: anime.genre_ids.map(&:to_i),
+        genre_v2_ids: anime.genre_v2_ids.map(&:to_i),
         episodes: Neko::Episodes.call(anime),
         duration: anime.duration,
         year: anime.year,

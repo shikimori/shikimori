@@ -1,7 +1,12 @@
 // TODO: refactor to normal classes
-import inNewTab from '@/utils/in_new_tab';
-import urlParse from 'url-parse';
 import TinyUri from 'tiny-uri';
+import urlParse from 'url-parse';
+
+import difference from 'lodash/difference';
+import isEmpty from 'lodash/isEmpty';
+import last from 'lodash/last';
+
+import inNewTab from '@/utils/in_new_tab';
 
 export const ORDER_FIELD = 'order'; // 'order-by'
 const DEFAULT_ORDER = 'ranked';
@@ -200,7 +205,7 @@ export default function(basePath, currentUrl, changeCallback) {
 
     // выбор элемента
     add(field, value) {
-      if ((field === Object.keys(this.params).last()) && (this.params[field].length > 0)) {
+      if ((field === last(Object.keys(this.params))) && (this.params[field].length > 0)) {
         this.set(field, value);
       } else {
         this.params[field].push(value);
@@ -241,7 +246,7 @@ export default function(basePath, currentUrl, changeCallback) {
     remove(field, rawValue) {
       // т.к. сюда значение приходит как с !, так и без, то удалять надо оба варианта
       const value = removeBang(rawValue);
-      this.params[field] = this.params[field].subtract([value, `!${value}`]);
+      this.params[field] = difference(this.params[field], [value, `!${value}`]);
 
       try { // because there can bad order, and it will break jQuery selector
         const $li = $(`li[data-field='${field}'][data-value='${value}']`, $root);
@@ -252,7 +257,7 @@ export default function(basePath, currentUrl, changeCallback) {
 
         // скрытие плюсика/минусика
         return $li.children('.filter').hide();
-      } catch (error) {} // eslint-disable-line no-empty
+      } catch (error) {}
     },
 
     // формирование строки урла по выбранным элементам
@@ -260,22 +265,24 @@ export default function(basePath, currentUrl, changeCallback) {
       let pathFilters = '';
       const locationFilters = urlParse(window.location.href, true).query;
 
-      Object.forEach(this.params, function(values, field) {
-        delete locationFilters[field];
+      Object
+        .entries(this.params)
+        .forEach(([field, values]) => {
+          delete locationFilters[field];
 
-        if (field === ORDER_FIELD && (values[0] === DEFAULT_ORDER) &&
-            !location.href.match(/\/list\/(anime|manga)/)) {
-          return;
-        }
-
-        if (GET_FILTERS.includes(field)) {
-          if ((values != null ? values.length : undefined)) {
-            locationFilters[field] = values.join(',');
+          if (field === ORDER_FIELD && (values[0] === DEFAULT_ORDER) &&
+              !location.href.match(/\/list\/(anime|manga)/)) {
+            return;
           }
-        } else if (values != null ? values.length : undefined) {
-          pathFilters += `/${field}/${values.join(',')}`;
-        }
-      });
+
+          if (GET_FILTERS.includes(field)) {
+            if ((values != null ? values.length : undefined)) {
+              locationFilters[field] = values.join(',');
+            }
+          } else if (values != null ? values.length : undefined) {
+            pathFilters += `/${field}/${values.join(',')}`;
+          }
+        });
 
       if (page && (page !== 1)) {
         pathFilters += `/page/${page}`;
@@ -303,10 +310,12 @@ export default function(basePath, currentUrl, changeCallback) {
         .match(/[\w-]+\/[^/]+/g);
 
       const uriQuery = urlParse(window.location.href, true).query;
-      Object.forEach(uriQuery, function(values, field) {
-        if (!GET_FILTERS.includes(field)) { return; }
-        parts = (parts || []).concat([`${field}/${values}`]);
-      });
+      Object
+        .entries(uriQuery)
+        .forEach(([field, values]) => {
+          if (!GET_FILTERS.includes(field)) { return; }
+          parts = (parts || []).concat([`${field}/${values}`]);
+        });
 
       (parts || []).forEach(match => {
         const field = match.split('/')[0];
@@ -329,7 +338,7 @@ export default function(basePath, currentUrl, changeCallback) {
       // hide sortings if there is anything in the search
       syncSortings();
 
-      if (Object.isEmpty(this.params[ORDER_FIELD])) {
+      if (isEmpty(this.params[ORDER_FIELD])) {
         return this.add(ORDER_FIELD, DEFAULT_ORDER);
       }
     }

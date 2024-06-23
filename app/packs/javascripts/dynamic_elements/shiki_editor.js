@@ -1,17 +1,19 @@
 import delay from 'delay';
 import pDefer from 'p-defer';
 import { bind } from 'shiki-decorators';
-import { flash } from 'shiki-utils';
+import { flash, isMobile } from 'shiki-utils';
+
+import compact from 'lodash/compact';
+import isString from 'lodash/isString';
 
 import axios from '@/utils/axios';
+import I18n from '@/utils/i18n';
 import preventEvent from '@/utils/prevent_event';
 import ShikiView from '@/views/application/shiki_view';
 
-import { isMobile } from 'shiki-utils';
-
-// TODO: refactor constructor
+// TODO: REVEMO outdated editor
 export default class ShikiEditor extends ShikiView {
-  initialization = pDefer()
+  initialization = pDefer();
 
   async initialize() {
     const { $node } = this;
@@ -113,7 +115,7 @@ export default class ShikiEditor extends ShikiView {
         const radioType = $radio.val();
 
         const param = (() => {
-          if (Object.isString(result)) {
+          if (isString(result)) {
             if (radioType === 'url') {
               return result;
             }
@@ -180,7 +182,7 @@ export default class ShikiEditor extends ShikiView {
 
         this.$textarea.insertAtCaret(
           '[quote' +
-            ((!this.value || this.value.isBlank() ? '' : `=${this.value}`)) +
+            ((!this.value || !this.value.trim() ? '' : `=${this.value}`)) +
             ']',
           '[/quote]'
         );
@@ -192,10 +194,11 @@ export default class ShikiEditor extends ShikiView {
     this.$('.quotes input[type=text]')
       .completable()
       .on('autocomplete:success autocomplete:text', (e, result) => {
-        const text = Object.isString(result) ? result : result.value;
+        const text = isString(result) ? result : result.value;
+
         this.$textarea.insertAtCaret(
           '[quote' +
-            (!text || text.isBlank() ? '' : `=${text}`) + ']',
+            (!text || !text.trim() ? '' : `=${text}`) + ']',
           '[/quote]'
         );
         this.$('.editor-quote').trigger('click');
@@ -402,7 +405,7 @@ export default class ShikiEditor extends ShikiView {
     let reply;
 
     if (url) {
-      const ids = [id, userId].compact();
+      const ids = compact([id, userId]);
       reply = `[${type}=${ids.join(';')}], `;
     } else {
       const ids = [id, userId, nickname];

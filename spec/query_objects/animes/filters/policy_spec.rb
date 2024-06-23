@@ -253,7 +253,7 @@ describe Animes::Filters::Policy do
 
   describe 'genre_v2' do
     let(:hentai_genre_v2s) do
-      GenreV2::HENTAI_IDS + Genre::EROTICA_IDS # + GenreV2::YAOI_IDS + GenreV2::YURI_IDS
+      GenreV2::HENTAI_IDS + GenreV2::EROTICA_IDS # + GenreV2::YAOI_IDS + GenreV2::YURI_IDS
     end
     context 'hentai, yaoi or yuri' do
       let(:genre_v2) do

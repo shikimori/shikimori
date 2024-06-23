@@ -1,15 +1,17 @@
 describe Recommendations::Metrics::AvgScore do
   let(:metric) { Recommendations::Metrics::AvgScore.new }
-  let(:all_rates) {{
-    user_1: {
-      sample_1: 1,
-      sample_2: 3,
-    },
-    user_2: {
-      sample_1: 9,
-      sample_2: 9,
+  let(:all_rates) do
+    {
+      user_1: {
+        sample_1: 1,
+        sample_2: 3
+      },
+      user_2: {
+        sample_1: 9,
+        sample_2: 9
+      }
     }
-  }}
+  end
 
   describe '#predict' do
     before { metric.learn :user_1, all_rates[:user_1], all_rates[:user_1], all_rates }

@@ -11,7 +11,7 @@ describe Comments::ForbidTagChange do
     create :comment, :skip_forbid_tags_change, body: initial_body
   end
   let(:initial_body) { 'test [ban=123]' }
-  let(:error_message) { '[ban] тег изменять нельзя' }
+  let(:error_message) { 'Тег "[ban]" изменять нельзя' }
 
   before { comment.body = new_body }
 

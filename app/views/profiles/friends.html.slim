@@ -1,4 +1,12 @@
 = render layout: 'page' do
   h2.subheadline = og.headline
   .cc
-    = render @resource.friends, content_by: :named_avatar
+    - if @collection.any?
+      = render @collection, content_by: :named_avatar
+    - else
+      p.b-nothing_here = t 'no_friends'
+
+    - if @collection.size == controller.class::FRIENDS_LIMIT
+      = render 'blocks/postloader',
+        filter: 'b-user',
+        next_url: current_url(page: @page + 1)

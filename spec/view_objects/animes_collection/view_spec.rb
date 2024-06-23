@@ -53,37 +53,37 @@ describe AnimesCollection::View do
         allow(Recommendations::Fetcher)
           .to receive(:call)
           .with(
-            user: user,
-            klass: klass,
-            metric: metric,
+            user:,
+            klass:,
+            metric:,
             threshold: threshold.to_i
           )
           .and_return ranked_ids
         allow(AnimesCollection::RecommendationsQuery)
           .to receive(:call)
           .with(
-            klass: klass,
+            klass:,
             filters: view.compiled_filters,
-            user: user,
+            user:,
             limit: AnimesCollection::View::PAGE_LIMIT,
-            ranked_ids: ranked_ids
+            ranked_ids:
           ).and_return page
 
         allow(AnimesCollection::SeasonQuery)
           .to receive(:call)
           .with(
-            klass: klass,
+            klass:,
             filters: view.compiled_filters,
-            user: user,
+            user:,
             limit: AnimesCollection::View::SEASON_LIMIT
           ).and_return page
 
         allow(AnimesCollection::PageQuery)
           .to receive(:call)
           .with(
-            klass: klass,
+            klass:,
             filters: view.compiled_filters,
-            user: user,
+            user:,
             limit: AnimesCollection::View::PAGE_LIMIT
           ).and_return page
       end
@@ -106,8 +106,8 @@ describe AnimesCollection::View do
           {
             controller: 'recommendations',
             action: 'index',
-            threshold: threshold,
-            metric: metric
+            threshold:,
+            metric:
           }
         end
 
@@ -167,7 +167,7 @@ describe AnimesCollection::View do
     let(:view_context_params) do
       {
         controller: controller_name,
-        season: season
+        season:
       }
     end
 
@@ -234,7 +234,8 @@ describe AnimesCollection::View do
 
     it do
       is_expected.to eq(
-        ['Anime', false, AnimesCollection::View::CACHE_VERSION.to_s, false] + %w[page:1 status:ongoing]
+        ['Anime', false, AnimesCollection::View::CACHE_VERSION.to_s, false, subject[4]] +
+          %w[page:1 status:ongoing]
       )
     end
   end

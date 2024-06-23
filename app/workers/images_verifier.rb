@@ -19,7 +19,6 @@ class ImagesVerifier
     NamedLogger.images_verifier.info "#{entry.class.name.downcase} #{entry.to_param}"
     puts "reloading #{entry.class.name.downcase} #{entry.to_param} image..."
     ImageReloader.call entry
-
   rescue EmptyContentError, NoMethodError
     puts "empty content for #{entry.class.name.downcase} #{entry.to_param}"
   end

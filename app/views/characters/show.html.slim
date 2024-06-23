@@ -81,11 +81,11 @@
         .block
           meta[
             itemprop='image'
-            content="#{{meta_image_url @resource.image, :original, false}}"
+            content=meta_image_url(@resource.image, :original, false)
           ]
           meta[
             itemprop='thumbnailUrl'
-            content="#{{meta_image_url @resource.image, :x64, false}}"
+            content=meta_image_url(@resource.image, :x64, false)
           ]
           = render 'blocks/description', resource: @resource
 

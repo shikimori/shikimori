@@ -221,7 +221,7 @@ describe Api::V1::UserRatesController do
             .to have_received(:perform_async)
             .with user.id, nil, Types::Neko::Action[:reset]
 
-          expect(json[:notice]).to eq 'Выполнен сброс оценок в вашем списке аниме'
+          expect(json[:notice]).to eq 'Выполнен сброс оценок в твоём списке аниме'
           expect(response).to have_http_status :success
         end
       end
@@ -235,7 +235,7 @@ describe Api::V1::UserRatesController do
 
           expect(Achievements::Track).to_not have_received :perform_async
 
-          expect(json[:notice]).to eq 'Выполнен сброс оценок в вашем списке манги'
+          expect(json[:notice]).to eq 'Выполнен сброс оценок в твоём списке манги'
           expect(response).to have_http_status :success
         end
       end

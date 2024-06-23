@@ -18,21 +18,24 @@ javascript:
       accurateTrackBounce:true
   });
 
-  // для совместимости счётчиков с турболинками
-  $(document).on('turbolinks:before-visit', function() {
-  window.turbolinks_referer = location.href;
+  document.addEventListener('DOMContentLoaded', function() {
+    // для совместимости счётчиков с турболинками
+    $(document).on('turbolinks:before-visit', function() {
+      window.turbolinks_referer = location.href;
+    });
+
+    $(document).on('turbolinks:load', function() {
+      if (window.turbolinks_referer) {
+        if (window.ym) {
+          window.ym(53670769, 'hit', location.href, $('title').html(), window.turbolinks_referer);
+        }
+        if (window.ga) {
+          window.ga('send', 'pageview');
+        }
+      }
+    });
   });
 
-  $(document).on('turbolinks:load', function() {
-    if (window.turbolinks_referer) {
-      if (window.ym) {
-        window.ym(53670769, 'hit', location.href, $('title').html(), window.turbolinks_referer);
-      }
-      if (window.ga) {
-        window.ga('send', 'pageview');
-      }
-    }
-  });
 / javascript:
 /   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 /   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

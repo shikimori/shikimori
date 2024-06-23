@@ -150,8 +150,11 @@ private
   end
 
   def fetch_content url
-    OpenURI
-      .open_uri(url, Proxy.prepaid_proxy)
-      .read
+    Proxy.get(
+      url,
+      timeout: 30,
+      required_text: 'JP Works DB',
+      log: !Rails.env.test?
+    )
   end
 end

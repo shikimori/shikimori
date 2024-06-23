@@ -1,10 +1,11 @@
 # TODO: move forum topics actions to Forum::TopicsController other actions should stay here
-class TopicsController < ShikimoriController
+class TopicsController < ShikimoriController # rubocop:disable Metris/ClassLength
   before_action :check_post_permission, only: %i[create update destroy]
 
-  load_and_authorize_resource class: Topic, only: %i[new create edit update destroy]
+  load_and_authorize_resource class: Topic,
+    only: %i[new create edit update destroy]
 
-  before_action :fetch_resource, only: %i[show tooltip reload]
+  before_action :fetch_resource, only: %i[show tooltip moderation reload]
   before_action :set_view
   before_action :set_breadcrumbs
 
@@ -29,6 +30,7 @@ class TopicsController < ShikimoriController
 
   def show
     return redirect_to @forums_view.redirect_url if @forums_view.hidden?
+    raise ActiveRecord::RecordNotFound if linked_resource_banned?
 
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
     og noindex: true if noindex?
@@ -50,6 +52,12 @@ class TopicsController < ShikimoriController
       og noindex: true
       render :show
     end
+  end
+
+  def moderation
+    authorize! :manage, Ban
+
+    render partial: 'moderation', locals: { moderatable: @resource }
   end
 
   def chosen
@@ -91,7 +99,7 @@ class TopicsController < ShikimoriController
 
   def create
     @resource = Topic::Create.call(
-      faye: faye,
+      faye:,
       params: topic_params
     )
 
@@ -245,5 +253,10 @@ private
 
   def copyrighted_resource_id_key
     :linked_id
+  end
+
+  def linked_resource_banned?
+    linked = @forums_view.linked || @resource&.linked
+    linked.respond_to?(:genres_v2) && linked.banned? && !current_user&.staff?
   end
 end

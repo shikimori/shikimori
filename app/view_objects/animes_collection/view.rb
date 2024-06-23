@@ -1,4 +1,4 @@
-class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLength
+class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLengthanimecolview
   vattr_initialize :klass, :user
 
   instance_cache :collection, :results
@@ -67,7 +67,8 @@ class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLength
       search_russian?,
       censored_rejected?,
       CACHE_VERSION.to_s,
-      !!h.current_user&.staff?
+      !!h.current_user&.staff?,
+      h.json? # added because of postloader block display linked on this
     ]
 
     h.url_params

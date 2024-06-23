@@ -89,7 +89,16 @@ RSpec.configure do |config|
     FactoryBotSeeds.generate!
   end
 
-  config.before :each do
+  config.before :each, type: :feature do
+    Capybara.default_host = "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}"
+    Capybara.app_host = "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}"
+  end
+
+  config.before :each, type: :request do
+    host! Shikimori::DOMAIN
+  end
+
+ config.before :each do
     if respond_to?(:controller) && controller
       allow(controller)
         .to receive(:default_url_options)
@@ -116,7 +125,9 @@ RSpec.configure do |config|
   config.after :each do
     [
       AnimeGenresRepository,
+      AnimeGenresV2Repository,
       MangaGenresRepository,
+      MangaGenresV2Repository,
       StudiosRepository,
       PublishersRepository
     ].each do |klass|

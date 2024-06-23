@@ -9,7 +9,7 @@ ru:
 
     contest_match:
       candidates_not_selected: Номинанты ещё не определены
-      click_candidate: Кликни по одному из двух вариантов
+      click_candidate: Нажми по одному из двух вариантов
       your_vote_counted: Твой голос учтён!
       you_have_abstained_from_voting: Ты @{f:воздержалась|m:воздержался} в этом голосовании
       abstain_from_voting: Воздержаться

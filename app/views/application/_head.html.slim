@@ -118,12 +118,8 @@ title = og.meta_title
 
 = csrf_meta_tag
 
-/ script src='//d2wy8f7a9ursnm.cloudfront.net/v6/bugsnag.min.js'
-/ javascript:
-/   window.bugsnagClient = bugsnag('0e494b504273dee6b0076b92857bcb4c')
-
-/ - if Rails.env.production?
-  script src='//dmc1acwvwny3.cloudfront.net/atatus.js'
+- if Rails.env.production?
+  = render partial: 'application/bugsnag'
 
 script[
   src='/outdated-browser.js'
@@ -131,15 +127,12 @@ script[
 ]
 
 - unless Rails.env.test?
-  / = stylesheet_pack_tag 'vendor', media: 'all', data: { 'turbolinks-track' => 'reload'  }
-  / = stylesheet_pack_tag 'application', media: 'all', data: { 'turbolinks-track' => 'reload'  }
-  = stylesheet_pack_tag 'vendors', media: 'all', data: { 'turbolinks-track' => 'reload' }
+  = stylesheet_pack_tag 'application', media: 'all', data: { 'turbolinks-track' => 'reload'  }
   = stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => 'reload' }
 
   = yield :head
 
-  = javascript_pack_tag 'application', data: { 'turbolinks-track' => 'reload' }
-  = javascript_pack_tag 'vendors', data: { 'turbolinks-track' => 'reload' }
+  = javascript_pack_tag :application, data: { 'turbolinks-track' => 'reload' }
 
   - if Rails.env.production?
     - if new_host?

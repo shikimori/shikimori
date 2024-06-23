@@ -13,5 +13,7 @@ class Abilities::VersionImagesModerator < Abilities::VersionFieldsModeratorBase
     super
 
     can %i[manage_not_trusted_images_changer_role], User
+    can %i[read], Poster
+    can_sync
   end
 end

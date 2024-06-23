@@ -23,6 +23,7 @@
 
 config/database.yml
 
+public/assets
 public/system
 public/storage
 public/uploads
@@ -33,6 +34,7 @@ public/uploads
 .byebug_history
 
 app/packs/javascripts/i18n/translations.js
+app/packs/javascripts/i18n/translations.json
 public/javascripts/i18n.js
 spec/test_files/*
 /public/packs

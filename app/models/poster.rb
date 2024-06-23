@@ -1,4 +1,7 @@
 class Poster < ApplicationRecord
+  IS_ALLOW_MODERATABLE_REJECTED_TO_CANCEL = true # must be before ModeratableConcern
+  IS_ALLOW_MODERATABLE_CENSORED = true
+  include ModeratableConcern
   include Uploaders::PosterUploader::Attachment(:image)
 
   belongs_to :anime, optional: true, touch: true
@@ -29,7 +32,8 @@ class Poster < ApplicationRecord
   end
 
   def magnificable?
-    (image_data&.dig('metadata', 'width') || 0) > WIDTH
+    (image_data&.dig('metadata', 'width') || 0) > WIDTH ||
+      !!(image_data&.dig('metadata', 'width') && moderation_censored?)
   end
 
   def cropped?

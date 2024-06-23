@@ -12,7 +12,7 @@ ru:
       contest: Турнир
       forum: Раздел
       genre: Жанр
-      genre_v2: Жанр v2
+      genre_v2: Жанр вер. 2
       studio: Студия
       publisher: Издатель
       manga: Манга
@@ -31,9 +31,7 @@ ru:
       moderation_state/pending: ожидает модерации
       moderation_state/accepted: принято
       moderation_state/rejected: отклонено
-      # events:
-      #   publish: Опубликовать
-      #   unpublish: Отменить публикацию
+      moderation_state/censored: зацензурено
     attributes:
       anime: &anime_attributes
         aired_on: Дата начала показа
@@ -48,15 +46,15 @@ ru:
         episodes: Эпизоды
         episodes_aired: Эпизодов вышло
         external_links: Ссылки
-        genres: Жанры v1
+        genres: Жанры вер. 1
         genres_v2: Жанры
-        genre_ids: Жанры v1 # used for item_diff in versions
+        genre_ids: Жанры вер. 1 # used for item_diff in versions
         genre_v2_ids: Жанры # used for item_diff in versions
         image: &poster Постер
         kind: Тип
         name: Английское название
         japanese: Японское название
-        synonyms: Альтернативные названия
+        synonyms: Другие названия
         poster: *poster
         rating: Рейтинг
         released_on: Дата конца показа
@@ -166,7 +164,7 @@ ru:
         avatar: Аватар
         birth_on: Дата рождения
         current_password: Текущий пароль
-        email: E-mail
+        email: Эл. почта
         location: Откуда
         name: Реальное имя
         nickname: Логин
@@ -242,7 +240,7 @@ ru:
         is_enlarged_favourites_in_profile: Улучшить качество картинок избранного в профиле
         comment_policy: Могут комментировать мой профиль
         comments_in_profile: Отображать комментарии в профиле
-        achievements_in_profile: Отображать ачивки в профиле
+        achievements_in_profile: Отображать достижения в профиле
         is_show_age: Отображать возраст в профиле
         is_comments_auto_collapsed: Сворачивать длинные комментарии
         is_comments_auto_loaded: Автоподгрузка новых комментариев
@@ -257,7 +255,7 @@ ru:
         is_shiki_editor: Новый WYSIWYG текстовый редактор
         is_view_censored: Отображать 18+ контент
       anime_video:
-        url: Url
+        url: URL
         episode: Эпизод
         kind: Перевод
         language: Язык перевода
@@ -277,7 +275,7 @@ ru:
         name: Название
         is_verified: Проверен
       video:
-        url: Url
+        url: URL
         kind: Тип
         name: Название
         hosting: Хостинг
@@ -383,6 +381,8 @@ ru:
         description: Описание
         description_ru: Описание
         description_en: Описание (англ.)
+      poster:
+        <<: *moderation_states
 
     errors:
       messages:
@@ -391,7 +391,7 @@ ru:
         invalid_transition: cannot transition
       models:
         base:
-          forbidden_tag_change: '%{tag_error_label} тег изменять нельзя'
+          forbidden_tag_change: 'Тег "%{tag_error_label}" изменять нельзя'
         comments:
           not_a_club_member: Комментирование разрешено только членам клуба
           not_a_club_admin: Комментирование разрешено только админам клуба
@@ -405,16 +405,16 @@ ru:
             base:
               banned: Пользователь забанен в этом клубе. Приглашение невозможно
               joined: Пользователь уже находится в клубе
-              limited: Сегодня больше нельзя отправлять инвайты для этого клуба
+              limited: Сегодня больше нельзя отправлять приглашения для этого клуба
             dst_id:
-              taken: уже был приглашён в этот клуб
+              taken: уже пригласили в этот клуб
             dst:
               empty: не задан
               blank: не найден
         videos:
           attributes:
             url:
-              incorrect: некорректен. Видео не поддерживается или не доступно для вставки.
+              incorrect: неверен. Видео не поддерживается или не доступно для вставки.
               taken: видео с такой ссылкой уже добавлено
             hosting:
               incorrect: видео с данного хостинга не поддерживается
@@ -425,7 +425,7 @@ ru:
         review:
           attributes:
             body:
-              abusive_content: &abusive_content содержит мат или другие запрещенные на сайте слова
+              abusive_content: &abusive_content содержит мат или другие запрещённые на сайте слова
         topic:
           attributes:
             body:
@@ -448,7 +448,7 @@ ru:
         my_ongoing: Мой онгоинг, выход первой серии добавленного в мой список онгоинга
         my_released: Мой релиз, выход последней серии добавленного в мой список онгоинга
         my_episode: Мой эпизод, выход эпизода добавленного в мой список онгоинга
-        private_message_email: Отсылать личные сообщения мне на e-mail
+        private_message_email: Отсылать личные сообщения мне на эл. почту
         friend_nickname_change: Уведомления о смене ников друзей
         contest_event: Уведомления о турнирах
         mention_event: Уведомления об упоминаниях на форуме
@@ -540,6 +540,23 @@ ru:
         score_filter_9_8000: *score_filter_9_8000
     ranobe:
       <<: *manga_enumerize
+    related_anime:
+      relation_kind: &relation_kind
+        adaptation: Адаптация
+        alternative_setting: Альтернативная вселенная
+        alternative_version: Альтернативная история
+        character: Общий персонаж
+        full_story: Развёрнутая история
+        other: Прочее
+        parent_story: Изначальная история
+        prequel: Предыстория
+        sequel: Продолжение
+        side_story: Другая история
+        spin_off: Ответвление от оригинала
+        summary: Обобщение
+    related_manga:
+      relation_kind:
+        <<: *relation_kind
     genre:
       kind:
         anime: Аниме
@@ -579,7 +596,7 @@ ru:
         remanga: ReManga
         mangadex: MangaDex
         more_tv: more.tv
-        twitter: Twitter
+        twitter: Twitter/X
       source:
         shikimori: Shikimori
         myanimelist: MyAnimeList

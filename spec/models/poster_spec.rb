@@ -8,11 +8,17 @@ describe Poster do
 
   describe 'instance method' do
     describe '#magnificable?' do
-      subject { build :poster, image_data: }
+      subject { build :poster, moderation_state, image_data: }
+      let(:moderation_state) { Types::Moderatable::State[:pending] }
 
       context 'no image' do
         let(:image_data) { [nil, {}].sample }
         its(:magnificable?) { is_expected.to eq false }
+
+        context 'moderation_censored' do
+          let(:moderation_state) { Types::Moderatable::State[:censored] }
+          its(:magnificable?) { is_expected.to eq false }
+        end
       end
 
       context 'has image' do
@@ -21,6 +27,11 @@ describe Poster do
         context 'narrow image' do
           let(:width) { described_class::WIDTH }
           its(:magnificable?) { is_expected.to eq false }
+
+          context 'moderation_censored' do
+            let(:moderation_state) { Types::Moderatable::State[:censored] }
+            its(:magnificable?) { is_expected.to eq true }
+          end
         end
 
         context 'wide image' do

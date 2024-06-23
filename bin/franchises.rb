@@ -267,10 +267,11 @@ popularity = {}
 begin
   puts "\nsorting by popularity...\n"
   data = data
-    .sort_by do |rule|
+    .sort_by.with_index do |rule, index|
       franchise = rule['filters']['franchise']
       popularity[franchise] ||= Rails.cache.fetch [:franchise, :popularity, franchise] do
-        puts "calculating for #{franchise}"
+        next unless franchise == 'a_mortal_s_journey'
+        puts "calculating for #{franchise} #{index}/#{data.size - 1}"
         neko_rule = Neko::Rule.new(
           Neko::Rule::NO_RULE.attributes.merge(
             rule: rule.except('neko_id', 'level', 'metadata').symbolize_keys

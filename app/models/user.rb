@@ -1,5 +1,5 @@
 # TODO: refactor UserNotifications module inclusion
-class User < ApplicationRecord
+class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include PermissionsPolicy
   include Behaviour::Commentable
   include User::NotificationsConcern
@@ -35,7 +35,7 @@ class User < ApplicationRecord
     news_super_moderator
     forum_moderator
   ]
-  STAFF_ROLES = MODERATION_STAFF_ROLES + %w[
+  MODERATION_VERSIONS_ROLES = %w[
     version_names_moderator
     version_texts_moderator
     version_moderator
@@ -43,6 +43,8 @@ class User < ApplicationRecord
     version_videos_moderator
     version_images_moderator
     version_links_moderator
+  ]
+  STAFF_ROLES = MODERATION_STAFF_ROLES + MODERATION_VERSIONS_ROLES + %w[
     critique_moderator
     collection_moderator
     news_moderator
@@ -401,6 +403,10 @@ class User < ApplicationRecord
     (roles.to_a & STAFF_ROLES).any?
   end
 
+  def moderation_versions?
+    (roles.to_a & MODERATION_VERSIONS_ROLES).any?
+  end
+
   def moderation_staff?
     (roles.to_a & MODERATION_STAFF_ROLES).any?
   end
@@ -491,11 +497,6 @@ private
 protected
 
   def extract_ip_from request
-    (
-      request.env['HTTP_X_FORWARDED_FOR'].presence ||
-        request.env['HTTP_X_REAL_IP'].presence ||
-        request.env['REMOTE_ADDR'].presence ||
-        request.remote_ip
-    )&.split(',')&.first
+    ExtractIpFromRequest.call request
   end
 end

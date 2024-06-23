@@ -1,3 +1,6 @@
+import first from 'lodash/first';
+import last from 'lodash/last';
+
 import axios from '@/utils/axios';
 
 import View from '@/views/application/view';
@@ -46,12 +49,12 @@ export default class ContestRound extends View {
 
   nextMatchId(matchId) {
     const index = this.model.matches.findIndex(v => v.id === matchId);
-    return (this.model.matches[index + 1] || this.model.matches.first()).id;
+    return (this.model.matches[index + 1] || first(this.model.matches)).id;
   }
 
   prevMatchId(matchId) {
     const index = this.model.matches.findIndex(v => v.id === matchId);
-    return (this.model.matches[index - 1] || this.model.matches.last()).id;
+    return (this.model.matches[index - 1] || last(this.model.matches)).id;
   }
 
   nextNotVotedMatchId(matchId) {
@@ -61,11 +64,13 @@ export default class ContestRound extends View {
 
   // private functions
   _setVotes(votes) {
-    Object.forEach(votes, vote => {
-      if (vote.vote) {
-        this.setVote(vote.match_id, vote.vote);
-      }
-    });
+    Object
+      .entries(votes)
+      .forEach(([_, vote]) => {
+        if (vote.vote) {
+          this.setVote(vote.match_id, vote.vote);
+        }
+      });
   }
 
   _$matchLine(matchId) {

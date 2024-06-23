@@ -15,7 +15,7 @@ html
       = stylesheet_link_tag 'rkn_banned', media: 'all', data: { 'turbolinks-track' => 'reload' }
 
       = javascript_pack_tag 'application', data: { 'turbolinks-track' => 'reload' }
-      = javascript_pack_tag 'vendors', data: { 'turbolinks-track' => 'reload' }
+      / = javascript_pack_tag 'vendors', data: { 'turbolinks-track' => 'reload' }
 
   body.p-rkn_banned#rkn_banned[
     data-env=Rails.env
@@ -24,3 +24,4 @@ html
     data-server_time=Time.zone.now.iso8601
   ]
     = render 'application/rkn_banned'
+    = Gon::Base.render_data

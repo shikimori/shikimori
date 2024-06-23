@@ -10,7 +10,7 @@ module OpenGraphConcern
 
     if options&.any?
       options.each do |(key, value)|
-        @open_graph.send "#{key}=", value
+        @open_graph.send :"#{key}=", value
       end
     end
 

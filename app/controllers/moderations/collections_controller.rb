@@ -4,6 +4,11 @@ class Moderations::CollectionsController < ModerationsController
 
   def index
     og page_title: i18n_t('page_title')
+
+    @moderators = User
+      .where("roles && '{#{Types::User::Roles[:collection_moderator]}}'")
+      .where.not(id: User::MORR_ID)
+      .sort_by { |v| v.nickname.downcase }
   end
 
   def accept

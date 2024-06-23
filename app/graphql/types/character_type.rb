@@ -3,7 +3,7 @@ class Types::CharacterType < Types::BaseObject
   include Types::Concerns::DescriptionFields
 
   def synonyms
-    [object.altname]
+    [object.altname].compact
   end
 
   field :is_anime, Boolean, null: false

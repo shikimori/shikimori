@@ -161,10 +161,12 @@ describe Notifications::BroadcastTopic do
   context 'ignored topic' do
     let(:topic_type) { :news_topic }
     let(:is_broadcast) { false }
+    let(:yaoi) { create :genre_v2, id: GenreV2::YAOI_IDS.sample, entry_type: 'Anime' }
     let(:linked) do
       [
         # create(:anime, is_censored: true), # censored animes now produce notifications too
-        create(:anime, kind: :music)
+        create(:anime, kind: :music),
+        create(:anime, genre_v2_ids: [yaoi.id])
       ].sample
     end
 

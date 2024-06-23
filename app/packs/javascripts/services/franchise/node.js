@@ -18,8 +18,8 @@ export class FranchiseNode {
     this.fixed = false;
 
     if (this.isCurrent) {
-      this.width = (this.width * 1.3).ceil();
-      this.height = (this.height * 1.3).ceil();
+      this.width = Math.ceil(this.width * 1.3);
+      this.height = Math.ceil(this.height * 1.3);
     }
 
     this.initialWidth = this.width;

@@ -23,11 +23,12 @@ private
   def build_relations
     @related.flat_map do |relation, related_datas|
       related_datas.map do |related_data|
+        relation_kind = Types::RelatedAniManga::RelationKind[relation]
         klass.new(
           source_id: @target.id,
           anime_id: (related_data[:id] if related_data[:type] == :anime),
           manga_id: (related_data[:id] if related_data[:type] == :manga),
-          relation: extract_relation(relation)
+          relation_kind:
         )
       end
     end

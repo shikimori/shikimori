@@ -85,20 +85,25 @@
             / - next if field == :poster && @resource.rkn_abused?
 
             = render 'db_entries/edit_field_li',
-              resource: @resource,
-              field: field,
-              class: ('m15' if %i[description_en videos external_links].include? field),
-              formatter: {\
-                image: ->(_value) {},
-                poster: ->(_value) {},
-                description_ru: ->(_value) {},
-                description_en: ->(_value) {},
-                screenshots: ->(value) { "#{value.size} #{i18n_i 'screenshot', value.size}" },
-                videos: ->(value) { "#{value.size} #{i18n_i 'video', value.size}" },
-                coub_tags: ->(value) { "#{value.size} #{i18n_i 'tag', value.size}" },
-                external_links: ->(value) { @resource.available_external_links.map(&:label).join(', ').html_safe }\
-              }[field],
-              is_force_value: field == :poster
+                resource: @resource,
+                field: field,
+                class: ('m15' if %i[description_en videos external_links].include? field),
+                formatter: {\
+                  image: ->(_value) {},
+                  poster: ->(_value) {},
+                  description_ru: ->(_value) {},
+                  description_en: ->(_value) {},
+                  screenshots: ->(value) { "#{value.size} #{i18n_i 'screenshot', value.size}" },
+                  videos: ->(value) { "#{value.size} #{i18n_i 'video', value.size}" },
+                  coub_tags: ->(value) { "#{value.size} #{i18n_i 'tag', value.size}" },
+                  external_links: ->(value) { @resource.available_external_links.map(&:label).join(', ').html_safe }\
+                }[field],
+                is_force_value: field == :poster do
+              - if field == :poster && can?(:read, Poster)
+                - if @resource.object.poster && @resource.apply_poster_moderation?
+                  br
+                  a.poster-moderation href=moderations_posters_url(id: @resource.object.poster.id, state: @resource.object.poster.moderation_state, kind: Moderations::PostersController::Kind[@resource.object.class.base_class.name.downcase])
+                    | Модерация 18+ постера
 
           = render 'db_entries/edit_field_li',
             resource: @resource,

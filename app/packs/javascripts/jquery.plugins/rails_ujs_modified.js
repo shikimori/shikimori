@@ -1,4 +1,9 @@
 import { flash } from 'shiki-utils';
+
+import isArray from 'lodash/isArray';
+import isEmpty from 'lodash/isEmpty';
+import isString from 'lodash/isString';
+
 import inNewTab from '@/utils/in_new_tab';
 
 /* eslint-disable */
@@ -68,7 +73,7 @@ jQuery($ => {
           },
           success(data, status, xhr) {
             $this.data('ajax:locked', false);
-            if (!Object.isString(data) && data && 'notice' in data && data.notice) {
+            if (!isString(data) && data && 'notice' in data && data.notice) {
               flash.notice(data.notice);
             }
             el.trigger('ajax:success', [data, status, xhr]);
@@ -108,8 +113,8 @@ jQuery($ => {
               } else if ('error' in errors) {
                 errors = [errors.error];
               }
-              if (Object.size(errors)) {
-                if (Object.isArray(errors)) {
+              if (!isEmpty(errors)) {
+                if (isArray(errors)) {
                   flash.error(errors.join('<br />'));
                 } else {
                   const text = errors.map((v, k) => {

@@ -22,7 +22,7 @@ describe ShikiMailer do
     let(:message_body) { 'Hi, Vasya!' }
     let(:message) do
       create :message,
-        read: read,
+        read:,
         to: to_user,
         from: from_user,
         body: message_body
@@ -81,7 +81,7 @@ describe ShikiMailer do
     end
 
     let(:email) { 'test@gmail.com' }
-    let(:user) { build :user, nickname: 'Vasya', email: email, locale: user_locale }
+    let(:user) { build :user, nickname: 'Vasya', email:, locale: user_locale }
     let(:user_locale) { :ru }
     let(:token) { 'token' }
 
@@ -93,7 +93,7 @@ describe ShikiMailer do
           <<~TEXT.gsub("\n", "\r\n").strip
             Привет!
 
-            Кто-то активировал процедуру сброса пароля для твоего аккаунта на shikimori.test.
+            Кто-то задействовал процедуру сброса пароля для твоего аккаунта на shikimori.test.
 
             Твой логин - #{user.nickname}.
 
@@ -102,7 +102,7 @@ describe ShikiMailer do
 
             Если тебе пришло несколько писем о восстановлении пароля, то переходить на страницу сброса пароля нужно обязательно по ссылке из самого последнего письма.
 
-            Если ты не запрашивал(а) сброс пароля, то просто проигнорируй это письмо.
+            Если ты не запрашивал(-а) сброс пароля, то просто проигнорируй это письмо.
 
             Твой пароль не будет изменён до тех пор, пока ты не перейдёшь по указанной выше ссылке.
           TEXT

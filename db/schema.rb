@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_28_152414) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_16_095419) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
@@ -894,7 +894,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_28_152414) do
     t.datetime "deleted_at", precision: nil
     t.jsonb "crop_data", default: {}, null: false
     t.string "mal_url"
+    t.string "moderation_state", default: "pending", null: false
+    t.bigint "approver_id"
     t.index ["anime_id"], name: "index_posters_on_anime_id", unique: true, where: "((anime_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
+    t.index ["approver_id"], name: "index_posters_on_approver_id"
     t.index ["character_id"], name: "index_posters_on_character_id", unique: true, where: "((character_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
     t.index ["manga_id"], name: "index_posters_on_manga_id", unique: true, where: "((manga_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
     t.index ["person_id"], name: "index_posters_on_person_id", unique: true, where: "((person_id IS NOT NULL) AND (is_approved = true) AND (deleted_at IS NULL))"
@@ -924,10 +927,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_28_152414) do
   create_table "related_animes", force: :cascade do |t|
     t.bigint "source_id"
     t.bigint "anime_id"
-    t.string "relation", limit: 255
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.integer "manga_id"
+    t.string "relation_kind", null: false
     t.index ["source_id"], name: "index_related_animes_on_source_id"
   end
 
@@ -935,9 +938,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_28_152414) do
     t.bigint "source_id"
     t.bigint "anime_id"
     t.bigint "manga_id"
-    t.string "relation", limit: 255
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.string "relation_kind", null: false
     t.index ["source_id", "manga_id"], name: "index_related_mangas_on_source_id_and_manga_id"
   end
 
@@ -1109,6 +1112,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_28_152414) do
     t.datetime "image_updated_at", precision: nil
     t.integer "width"
     t.integer "height"
+    t.boolean "is_hashed", default: true, null: false
   end
 
   create_table "user_nickname_changes", force: :cascade do |t|
@@ -1144,7 +1148,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_28_152414) do
     t.integer "favorites_in_profile", default: 8, null: false
     t.boolean "achievements_in_profile", default: true, null: false
     t.string "dashboard_type", default: "new", null: false
-    t.boolean "is_shiki_editor", default: false, null: false
+    t.boolean "is_shiki_editor", default: true, null: false
     t.boolean "is_show_age", default: true, null: false
     t.boolean "is_view_censored", default: false, null: false
     t.boolean "is_enlarged_favourites_in_profile", default: false, null: false
@@ -1319,6 +1323,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_28_152414) do
   add_foreign_key "posters", "characters"
   add_foreign_key "posters", "mangas"
   add_foreign_key "posters", "people"
+  add_foreign_key "posters", "users", column: "approver_id"
   add_foreign_key "reviews", "animes"
   add_foreign_key "reviews", "mangas"
   add_foreign_key "reviews", "users"

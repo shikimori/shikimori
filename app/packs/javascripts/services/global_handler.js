@@ -1,3 +1,6 @@
+import capitalize from 'lodash/capitalize';
+import isEmpty from 'lodash/isEmpty';
+
 import { chain, bind } from 'shiki-decorators';
 
 const KEY_CODES = {
@@ -14,7 +17,7 @@ function keyCodeEvent(keyCode) {
 }
 
 export default class GlobalHandler {
-  events = {}
+  events = {};
 
   @chain
   on(key, handler) {
@@ -79,7 +82,7 @@ export default class GlobalHandler {
         $(document).on(event, this._handler(event));
       }
 
-      if (Object.isEmpty(this.events)) {
+      if (isEmpty(this.events)) {
         this._scheduleUnbind();
       }
       this.events[event] = {};
@@ -101,14 +104,14 @@ export default class GlobalHandler {
       this.events[event][keyCode].indexOf(handler),
       1
     );
-    if (Object.isEmpty(this.events[event][keyCode])) {
+    if (isEmpty(this.events[event][keyCode])) {
       delete this.events[event][keyCode];
     }
-    if (Object.isEmpty(this.events[event])) {
+    if (isEmpty(this.events[event])) {
       this._unbindEvent(event);
       delete this.events[event];
     }
-    if (Object.isEmpty(this.events)) {
+    if (isEmpty(this.events)) {
       this._unScheduleUnbind();
     }
   }
@@ -129,7 +132,7 @@ export default class GlobalHandler {
   }
 
   _handler(event) {
-    return this[`_on${event.capitalize()}`];
+    return this[`_on${capitalize(event)}`];
   }
 
   _scheduleUnbind() {

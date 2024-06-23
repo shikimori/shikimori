@@ -5,18 +5,53 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
   antispam(
     per_day: 50,
     disable_if: -> {
-      item_diff['description_ru'].present? || user.staff? || user.trusted_version_changer? ||
+      item_diff['description_ru'].present? ||
+        item_diff['russian'].present? ||
+        user.moderation_versions? ||
+        user.trusted_version_changer? ||
         (item_diff['episodes_aired'].present? && user.trusted_episodes_changer?)
     },
-    scope: -> { where "(item_diff->>'description_ru') is null" },
+    scope: -> {
+      where(
+        <<~SQL.squish
+          (item_diff->>'description_ru') is null and
+            (item_diff->>'russian') is null
+        SQL
+      )
+    },
     user_id_key: :user_id
   )
   antispam(
-    per_day: 3,
+    per_day: 1,
     disable_if: -> {
-      item_diff['description_ru'].blank? || user.staff? || user.trusted_version_changer?
+      item_diff['description_ru'].blank? ||
+        user.moderation_versions? ||
+        user.trusted_version_changer?
     },
-    scope: -> { where "(item_diff->>'description_ru') is not null" },
+    scope: -> {
+      where(
+        <<~SQL.squish
+          (item_diff->>'description_ru') is not null
+        SQL
+      )
+    },
+    user_id_key: :user_id
+  )
+
+  antispam(
+    per_day: 25,
+    disable_if: -> {
+      item_diff['russian'].blank? ||
+        user.moderation_versions? ||
+        user.trusted_version_changer?
+    },
+    scope: -> {
+      where(
+        <<~SQL.squish
+          (item_diff->>'russian') is not null
+        SQL
+      )
+    },
     user_id_key: :user_id
   )
 

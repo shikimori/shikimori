@@ -1,3 +1,6 @@
+import merge from 'lodash/merge';
+import I18n from '@/utils/i18n';
+
 pageLoad('statistics_index', async () => {
   $('#image_placeholder').hide();
 
@@ -10,16 +13,15 @@ pageLoad('statistics_index', async () => {
   const stats = $('header.head').data('statistics');
 
   renderCharts(stats, Highcharts);
-  handleEvents(stats,Highcharts);
+  handleEvents(stats, Highcharts);
 
   $('.by_rating .control').first().trigger('click');
   $('.by_genre .control').first().trigger('click');
 });
 
-
 function renderCharts({ total, byKind, byStudio }, Highcharts) {
   const { colors } = Highcharts.getOptions();
-  Object.merge(total.series[0], {
+  merge(total.series[0], {
     dataLabels: {
       formatter() {
         if (this.y > 5) { return this.point.name; } else { return null; }
@@ -31,7 +33,7 @@ function renderCharts({ total, byKind, byStudio }, Highcharts) {
     size: '70%'
   });
 
-  Object.merge(total.series[1], {
+  merge(total.series[1], {
     dataLabels: {
       formatter() {
         if (this.y > 20) {
@@ -42,8 +44,7 @@ function renderCharts({ total, byKind, byStudio }, Highcharts) {
       }
     },
     innerSize: '70%'
-  }
-  );
+  });
 
   total.series[0].data.forEach((v, k) => v.color = colors[k]);
 
@@ -60,13 +61,13 @@ function renderCharts({ total, byKind, byStudio }, Highcharts) {
     total,
     'normal',
     I18n.t('frontend.statistics.number'),
-    (function() {
+    function() {
       if (this.key.match(/^\d/)) {
         return I18n.t('frontend.statistics.anime_with_score', { count: this.y, score: this.key });
       } else {
         return I18n.t('frontend.statistics.anime_of_type', { count: this.y, type: this.key });
       }
-    }), {
+    }, {
       xAxis: null,
       plotOptions: {
         pie: {
@@ -84,7 +85,7 @@ function renderCharts({ total, byKind, byStudio }, Highcharts) {
     byKind,
     'normal',
     I18n.t('frontend.statistics.number'),
-    (function() {
+    function() {
       return I18n.t(
         'frontend.statistics.anime_in_year', {
           count: this.y,
@@ -92,7 +93,7 @@ function renderCharts({ total, byKind, byStudio }, Highcharts) {
           year: this.x
         }
       );
-    }),
+    },
     {}
   );
 
@@ -103,7 +104,7 @@ function renderCharts({ total, byKind, byStudio }, Highcharts) {
     byStudio,
     'normal',
     I18n.t('frontend.statistics.number'),
-    (function() {
+    function() {
       return I18n.t(
         'frontend.statistics.anime_with_rating_in_year', {
           count: this.y,
@@ -111,7 +112,7 @@ function renderCharts({ total, byKind, byStudio }, Highcharts) {
           year: this.x
         }
       );
-    }),
+    },
     {
       xAxis: {
         categories: byStudio.categories,
@@ -143,7 +144,7 @@ function handleEvents({ byGenre, byRating }, Highcharts) {
       byGenre[$this.data('kind')],
       'percent',
       I18n.t('frontend.statistics.share'),
-      (function() {
+      function() {
         return I18n.t(
           'frontend.statistics.genres_share', {
             percent: Highcharts.numberFormat(this.percentage, 2, '.'),
@@ -151,7 +152,7 @@ function handleEvents({ byGenre, byRating }, Highcharts) {
             year: this.x
           }
         );
-      }), {
+      }, {
         yAxis: {
           max: 100
         }
@@ -174,7 +175,7 @@ function handleEvents({ byGenre, byRating }, Highcharts) {
       byRating[$this.data('kind')],
       'percent',
       I18n.t('frontend.statistics.share'),
-      (function() {
+      function() {
         return I18n.t(
           'frontend.statistics.ratings_share', {
             percent: Highcharts.numberFormat(this.percentage, 2),
@@ -182,7 +183,7 @@ function handleEvents({ byGenre, byRating }, Highcharts) {
             year: this.x
           }
         );
-      }), {
+      }, {
         yAxis: {
           max: 100
         }
@@ -259,11 +260,11 @@ function chart(Highcharts, type, id, data, stacking, yTitle, tooltipFormatter, o
       borderWidth: 0
     },
 
-    //floating: true,
-    //align: 'left',
-    //verticalAlign: 'top',
-    //x: 20,
-    //y: 0
+    // floating: true,
+    // align: 'left',
+    // verticalAlign: 'top',
+    // x: 20,
+    // y: 0
     series: data.series
   };
 

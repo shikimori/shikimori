@@ -8,7 +8,7 @@ const EXTENDED_TEMPLATE = 'user_rates/extended';
 const SCORE_TEMPLATE = 'user_rates/score';
 
 export default class UserRateExtended extends UserRateButton {
-  formHtml = null
+  formHtml = null;
 
   initialize() {
     this.entry = this.$root.data('entry');

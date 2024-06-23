@@ -1,4 +1,4 @@
-class Queries::MangasQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassLength
+class Queries::MangasQuery < Queries::BaseQuery
   type [Types::MangaType], null: false
   extras [:lookahead]
 
@@ -20,8 +20,8 @@ class Queries::MangasQuery < Queries::BaseQuery # rubocop:disable Metrics/ClassL
     }
   }]
 
-  argument :page, Integer, required: false, default_value: 1
-  argument :limit, Integer,
+  argument :page, Types::Scalars::PositiveInt, required: false, default_value: 1
+  argument :limit, Types::Scalars::PositiveInt,
     required: false,
     default_value: 2,
     description: "Maximum #{LIMIT}"

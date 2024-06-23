@@ -17,5 +17,6 @@ class Abilities::VersionTextsModerator < Abilities::VersionFieldsModeratorBase
     super
 
     can %i[manage_not_trusted_texts_changer_role], User
+    can_sync
   end
 end

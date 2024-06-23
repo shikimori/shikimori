@@ -66,7 +66,7 @@ private
   end
 
   def assign_image image_url
-    DbImport::MalImage.call entry:, image_url:
+    # DbImport::MalImage.call entry:, image_url:
   end
 
   def data_to_assign

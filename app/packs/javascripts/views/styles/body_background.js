@@ -1,3 +1,4 @@
+import delay from 'delay';
 import { bind } from 'shiki-decorators';
 import View from '@/views/application/view';
 
@@ -14,7 +15,8 @@ export class BodyBackground extends View {
     [this.right] = this.$('#body_background_right');
     [this.bottom] = this.$('#body_background_bottom');
 
-    this.$('input').on('paste keyup change', this._syncState);
+    this.$('input').on('keyup change', this._syncState);
+    this.$('input').on('paste', () => delay().then(this._syncState));
     this.$('.prepared-backgrounds li').on('click', this._preparedBackground);
   }
 

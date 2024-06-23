@@ -45,15 +45,15 @@
       )
         option(
           v-for='kindOption in kindOptionsLinks'
-          :value='kindOption.last()'
-        ) {{ kindOption.first() }}
+          :value='last(kindOption)'
+        ) {{ first(kindOption) }}
       optgroup(
         :label='I18n.t("frontend.external_links.groups.watch_online")'
       )
         option(
           v-for='kindOption in kindOptionsWatchOnline'
-          :value='kindOption.last()'
-        ) {{ kindOption.first() }}
+          :value='last(kindOption)'
+        ) {{ first(kindOption) }}
   .b-input
     input(
       ref='inputRef'
@@ -85,6 +85,10 @@
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 
+import first from 'lodash/first';
+import isEmpty from 'lodash/isEmpty';
+import last from 'lodash/last';
+
 const props = defineProps({
   link: { type: Object, required: true },
   kindOptions: { type: Array, required: true },
@@ -115,7 +119,7 @@ const kindOptionsWatchOnline = computed(() => (
 ));
 
 function fieldName(name) {
-  if (!Object.isEmpty(props.link.url)) {
+  if (!isEmpty(props.link.url)) {
     return `${props.resourceType.toLowerCase()}[external_links][][${name}]`;
   }
   return '';
@@ -140,7 +144,7 @@ function removeSelf(isFocus) {
 }
 
 function removeIfEmpty(link) {
-  if (Object.isEmpty(link.url) && collection.value.length > 1) {
+  if (isEmpty(link.url) && collection.value.length > 1) {
     removeSelf(true);
   }
 }

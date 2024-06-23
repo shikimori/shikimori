@@ -7,42 +7,69 @@ class NameValidator < ActiveModel::EachValidator
     shikimori.me
   ]
   PREDEFINED_PATHS = %i[
+    .well-known
     about
     achievements
     anime-industry
     animes
     api
+    assets
     bb_codes
+    camo
     characters
+    comments
     contests
     country
+    csrf_token
     dashboards
     development
+    facebook
     faye
+    faye-server
+    faye-server-v1
+    faye-server-v2
+    faye-server-v3
+    faye-server-v4
+    faye-server-v5
     feedback
     for_right_holders
     forum
+    hentai
+    how_to_edit_achievements
+    http_headers
     ignores
     imageboards
     info
     mangas
     messages
     moderations
+    my_target_ad
+    nginx_stub_status
     oauth
     oauth2
+    oauth_request
     ongoings
+    packs
+    page404
+    page503
     podcast
     polls
     privacy
     proxies
     proxy
+    raise_exception
     ranobe
     redirect
     sitemap
     styles
+    system
     tableau
     terms
     tests
+    timeout_120s
+    topics
+    twitter
+    uploads
     user_agent
     users
     what_is_my_ip

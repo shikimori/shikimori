@@ -3,7 +3,6 @@ import Topic from './topic';
 import checkHeight from '@/utils/check_height';
 import { imagePromiseFinally } from '@/utils/load_image';
 
-
 export default class Critique extends Topic {
   @bind
   async _checkHeight() {

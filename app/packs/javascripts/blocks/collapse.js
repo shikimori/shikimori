@@ -1,4 +1,4 @@
-import cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
 $(document).on('click', '.collapse', ({ currentTarget }, custom) => {
   const $node = $(currentTarget);
@@ -41,7 +41,7 @@ $(document).on('click', '.collapse', ({ currentTarget }, custom) => {
   }
 
   // корректный текст для кнопки действия
-  $node.children('.action').html(function () {
+  $node.children('.action').html(function() {
     const $action = $(this);
 
     if ($action.hasClass('half-hidden')) {
@@ -71,12 +71,12 @@ $(document).on('click', '.collapse', ({ currentTarget }, custom) => {
     const id = $node.attr('id');
     if (id && (id !== '') && (id.indexOf('-') !== -1)) {
       const name = id.split('-').slice(1).join('-') + ';';
-      const collapses = cookies.get('collapses') || '';
+      const collapses = Cookies.get('collapses') || '';
 
       if (isHide && (collapses.indexOf(name) === -1)) {
-        cookies.set('collapses', collapses + name, { expires: 730, path: '/' });
+        Cookies.set('collapses', collapses + name, { expires: 730, path: '/' });
       } else if (!isHide && (collapses.indexOf(name) !== -1)) {
-        cookies.set('collapses', collapses.replace(name, ''), { expires: 730, path: '/' });
+        Cookies.set('collapses', collapses.replace(name, ''), { expires: 730, path: '/' });
       }
     }
   }

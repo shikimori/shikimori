@@ -1,4 +1,7 @@
 /* eslint-disable vue/one-component-per-file */
+import isString from 'lodash/isString';
+import I18n from '@/utils/i18n';
+
 let gallery;
 
 pageUnload('.db_entries-edit_field', () => {
@@ -68,7 +71,7 @@ pageLoad('.db_entries-edit_field', () => {
     $('#anime_imageboard_tag, #manga_imageboard_tag, #character_imageboard_tag')
       .completable()
       .on('autocomplete:success autocomplete:text', function(e, result) {
-        this.value = Object.isString(result) ? result : result.value;
+        this.value = isString(result) ? result : result.value;
         $gallery.data({ imageboard_tag: this.value });
         $gallery.html(galleryHtml);
 
@@ -279,6 +282,7 @@ async function initEditPosterApp() {
   const $cropData = $form.find('input[id$=_poster_crop_data]');
   const $posterDataUri = $form.find('input[id$=_poster_data_uri]');
   const $posterId = $form.find('input[id$=_poster_id]');
+  console.log($app.data('is-two_lines_hint'));
 
   const app = createApp(PosterField, {
     src: $app.data('src'),
@@ -286,7 +290,8 @@ async function initEditPosterApp() {
     cropData: JSON.parse($cropData.val()),
     posterId: parseInt($posterId.val()),
     previewWidth: $app.data('preview-width'),
-    previewHeight: $app.data('preview-height')
+    previewHeight: $app.data('preview-height'),
+    isTwoLinesHint: $app.data('is-two_lines_hint')
   });
   app.config.globalProperties.I18n = I18n;
   const posterFieldApp = app.mount('#vue_app');

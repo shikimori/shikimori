@@ -35,8 +35,10 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
     )
   SQL
 
+  MIN_SCORE = DashboardView::MIN_SCORE
+
   def ongoings
-    all_ongoings.shuffle.take(ONGOINGS_TAKE).sort_by(&:ranked)
+    all_ongoings.shuffle.take(ONGOINGS_TAKE).map(&:decorate).sort_by(&:ranked)
   end
 
   def first_column_topic_views
@@ -124,7 +126,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   def cache_keys
     {
       # admin: [admin_area?, CACHE_VERSION],
-      ongoings: [:ongoings, cache_variant, CACHE_VERSION],
+      ongoings: [:ongoings, new_ongoings.cache_key, cache_variant, CACHE_VERSION],
       collections: [collections_scope.cache_key, CACHE_VERSION],
       articles: [articles_scope.cache_key, CACHE_VERSION],
       critiques: [critiques_scope.cache_key, CACHE_VERSION],
@@ -137,7 +139,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def cache_variant
-    rand(4).to_i
+    rand(4).to_i * 4
   end
 
   def new_news_url
@@ -163,8 +165,7 @@ private
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
       .where("(#{CURRENT_SEASON_SQL.call}) OR (#{PRIOR_SEASON_SQL.call})")
-      .where('score > 7.3')
-      .decorate
+      .where("score > #{MIN_SCORE}")
   end
 
   def old_ongoings
@@ -172,8 +173,7 @@ private
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
       .where.not("(#{CURRENT_SEASON_SQL.call}) OR (#{PRIOR_SEASON_SQL.call})")
-      .where('score > 7.3')
-      .decorate
+      .where("score > #{MIN_SCORE}")
   end
 
   def critiques_views

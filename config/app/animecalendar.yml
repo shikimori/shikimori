@@ -14,6 +14,11 @@
   "Shingeki no Kyojin 3": 49
   "FAIRY TAIL Final Series": 277
   "Boku no Hero Academia (2022)": 113
+  "Urusei Yatsura (2024)": 23
+  "Shinigami Bocchan to Kuro Maid (2024)": 24
+  "Mushoku Tensei II: Isekai Ittara Honki Dasu (2024)": 12
+  "Maou Gakuin no Futekigousha: Shijou Saikyou no Maou no Shiso, Tensei Shite Shison-tachi no Gakkou e Kayou II (2024)": 12
+  "Tensei Shitara Slime Datta Ken (2024)": 48
 
 :matches:
   # summer 2015
@@ -52,6 +57,17 @@
   "Pocket Monsters: Mezase Pokemon Master": 53874
   "Boku no Hero Academia (2022)": 49918
   "Meitantei Conan": 235
+  # spring 2024
+  "Shinigami Bocchan to Kuro Maid (2024)": 56738
+  "Mushoku Tensei II: Isekai Ittara Honki Dasu (2024)": 55888
+  "Tsuki ga Michibiku Isekai Douchuu Dai Ni Maku": 49889
+  "Kaii to Otome to Kamigakushi": 54199
+  "Urusei Yatsura (2024)": 54829
+  "Maou Gakuin no Futekigousha: Shijou Saikyou no Maou no Shiso, Tensei Shite Shison-tachi no Gakkou e Kayou II (2024)": 48418
+  "Tensei Shitara Slime Datta Ken (2024)": 53580
+  "Mahouka Koukou no Rettousei (2024)": 50713
+  "The Idolmaster Shiny Colors": 54758
+  "Shinkansen Henkei Robo Shinkalion: Change the World": 57798
 
 :ignores:
   - "PriPara"
@@ -59,3 +75,6 @@
   - "Sora no Method"
   - "Hora, Mimi ga Mieteru yo"
   - 'Kidō Senshi Gundam: The Origin Zenya - Akai Suisei'
+  - "Asa Da yo! Kai Shain"
+  - "Oyako Club"
+  - "Shibuya♡Hachi"

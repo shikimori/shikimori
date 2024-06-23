@@ -139,7 +139,7 @@ Rails.application.routes.draw do
   end
   get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen
 
-  resources :spnsrs, only: %i[show]
+  # resources :spnsrs, only: %i[show]
 
   namespace :moderations do
     resources :users, only: %i[index] do
@@ -243,6 +243,19 @@ Rails.application.routes.draw do
     end
     resources :publishers, only: %i[index edit update] do
       get '(/page/:page)' => :index, as: '', on: :collection
+    end
+    resources :posters, only: %i[index] do
+      get ':kind/(state/:state)(/page/:page)' => :index,
+        as: '',
+        on: :collection,
+        kind: /#{Moderations::PostersController::Kind.values.join('|')}/,
+        state: /#{Types::Moderatable::State.values.join('|')}/
+      member do
+        post :accept
+        post :reject
+        post :censore
+        post :cancel
+      end
     end
   end
 
@@ -535,6 +548,7 @@ Rails.application.routes.draw do
 
   get 'topics/chosen/:ids' => 'topics#chosen', as: :topics_chosen
   get 'topics/:id/tooltip(/:test)' => 'topics#tooltip', as: :topic_tooltip
+  get 'topics/:id/moderation' => 'topics#moderation', as: :topic_moderation
 
   resources :cosplay_galleries, only: [] do
     get :publishing, on: :collection
@@ -1045,7 +1059,8 @@ Rails.application.routes.draw do
       # get :stats
       get 'edit/:section' => :edit,
         as: :edit,
-        section: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
+        section: /account|profile|password|styles|list|notifications|misc/
+        # section: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
 
       get 'critiques(/page/:page)' => :critiques, as: :critiques
       get 'reviews(/page/:page)' => :reviews, as: :reviews
@@ -1054,6 +1069,8 @@ Rails.application.routes.draw do
       get 'topics(/page/:page)' => :topics, as: :topics
       get 'comments(/page/:page)' => :comments, as: :comments
       get 'versions(/page/:page)' => :versions, as: :versions
+      get 'ignored_topics(/page/:page)' => :ignored_topics, as: :ignored_topics
+      get 'ignored_users(/page/:page)' => :ignored_users, as: :ignored_users
     end
 
     get 'manga' => redirect { |_params, request|

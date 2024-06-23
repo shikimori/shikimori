@@ -33,6 +33,7 @@
       data-src=resource.poster&.image&.url
       data-preview-width=(resource.anime? || resource.kinda_manga? ? Uploaders::PosterUploader::PREVIEW_WIDTH : Uploaders::PosterUploader::MAIN_WIDTH)
       data-preview-height=(resource.anime? || resource.kinda_manga? ? Uploaders::PosterUploader::PREVIEW_ANIME_HEIGHT : Uploaders::PosterUploader::MAIN_HEIGHT)
+      data-is-two_lines_hint=(!resource.anime? && !resource.kinda_manga?).to_json
     ]
       .block_m.b-nothing_here = t 'loading'
 

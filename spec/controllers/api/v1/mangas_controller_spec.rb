@@ -4,7 +4,7 @@ describe Api::V1::MangasController, :show_in_doc do
 
     let(:genre) { create :genre }
     let(:publisher) { create :publisher }
-    let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
+    let!(:user_rate) { create :user_rate, target: manga, user:, status: 1 }
     let(:manga) do
       create :manga,
         name: 'Test',
@@ -70,8 +70,8 @@ describe Api::V1::MangasController, :show_in_doc do
     let(:manga) { create :manga }
     let(:character) { create :character }
     let(:person) { create :person }
-    let!(:role_1) { create :person_role, manga: manga, character: character, roles: %w[Main] }
-    let!(:role_2) { create :person_role, manga: manga, person: person, roles: %w[Director] }
+    let!(:role_1) { create :person_role, manga:, character:, roles: %w[Main] }
+    let!(:role_2) { create :person_role, manga:, person:, roles: %w[Director] }
 
     subject! { get :roles, params: { id: manga.id }, format: :json }
 
@@ -84,7 +84,12 @@ describe Api::V1::MangasController, :show_in_doc do
 
   describe '#related' do
     let(:manga) { create :manga }
-    let!(:similar) { create :related_manga, source: manga, manga: create(:manga), relation: 'Adaptation' }
+    let!(:similar) do
+      create :related_manga,
+        source: manga,
+        manga: create(:manga),
+        relation_kind: Types::RelatedAniManga::RelationKind[:adaptation]
+    end
 
     subject! { get :related, params: { id: manga.id }, format: :json }
 
@@ -100,7 +105,12 @@ describe Api::V1::MangasController, :show_in_doc do
     after(:all) { Animes::BannedRelations.instance.clear_cache! }
 
     let(:manga) { create :manga }
-    let!(:similar) { create :related_manga, source: manga, manga: create(:manga), relation: 'Adaptation' }
+    let!(:similar) do
+      create :related_manga,
+        source: manga,
+        manga: create(:manga),
+        relation_kind: Types::RelatedAniManga::RelationKind[:adaptation]
+    end
     subject! { get :franchise, params: { id: manga.id }, format: :json }
 
     it do

@@ -1,4 +1,5 @@
 import TinyUri from 'tiny-uri';
+import I18n from './i18n';
 
 const TOOLTIP_TEMPLATE = `<div> \
   <div class='tooltip-inner'> \

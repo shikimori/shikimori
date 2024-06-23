@@ -45,21 +45,21 @@ export default class CodeHighlight extends View {
 
     this.worker = this.buildWorker(function() {
       importScripts(
-        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'
+        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'
         // requested them to add json-fn https://github.com/cdnjs/packages/issues/1380
         // 'https://cdnjs.cloudflare.com/ajax/libs/json-fn/1.1.1/jsonfn.js'
       );
 
       // https://raw.githubusercontent.com/vkiryukhin/jsonfn/master/jsonfn.js
       const parseJSONfn = function(str, date2obj) {
-        var iso8061 = date2obj ?
+        const iso8061 = date2obj ?
           /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)Z$/ :
           false;
 
         return JSON.parse(str, function(key, value) {
-          var prefix;
+          let prefix;
 
-          if (typeof value != 'string') {
+          if (typeof value !== 'string') {
             return value;
           }
           if (value.length < 8) {
@@ -86,13 +86,22 @@ export default class CodeHighlight extends View {
       };
 
       this.onmessage = function(event) {
-        if (!self.hljs.listLanguages().includes('shiki')) {
+        if (!self.hljs.getLanguage('shiki')) {
           self.hljs.registerLanguage('shiki', parseJSONfn(event.data.shikiMarkdownJSONfn));
         }
+        if (!self.hljs.getLanguage('js')) {
+          self.hljs.registerAliases('js', { languageName: 'javascript' });
+        }
+        if (!self.hljs.getLanguage('sass')) {
+          self.hljs.registerAliases('sass', { languageName: 'scss' });
+        }
 
-        const result = self // eslint-disable-line no-restricted-globals
+        const hljsLanguage = self.hljs.getLanguage(event.data.language);
+        if (!hljsLanguage) { return; }
+
+        const result = self
           .hljs
-          .highlight(event.data.language, event.data.code, true);
+          .highlight(hljsLanguage.name, event.data.code, true);
 
         postMessage({
           html: result.value,

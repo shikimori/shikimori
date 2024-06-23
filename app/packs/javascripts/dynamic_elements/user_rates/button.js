@@ -5,6 +5,7 @@ import { bind } from 'shiki-decorators';
 import UserRatesTracker from '@/services/user_rates/tracker';
 import View from '@/views/application/view';
 import JST from '@/utils/jst';
+import I18n from '@/utils/i18n';
 
 import * as AuthorizedAction from '../authorized_action';
 
@@ -20,7 +21,6 @@ export default class UserRateButton extends View {
     // delegated handlers because @_render can be called multiple times
     this.on('click', '.trigger-arrow', this._toggleList);
     this.on('click', '.edit-trigger', this._toggleList);
-
 
     this.on('click', '.add-trigger', this._submitStatus);
 
@@ -68,7 +68,10 @@ export default class UserRateButton extends View {
   @bind
   _ajaxBefore() {
     if (!window.SHIKI_USER.isSignedIn) {
-      flash.info(I18n.t(`${AuthorizedAction.I18N_KEY}.register_to_complete_action`));
+      flash.info(
+        I18n.t(`${AuthorizedAction.I18N_KEY}.register_to_complete_action`),
+        { escapeMarkup: false }
+      );
       return false;
     }
 
@@ -99,7 +102,7 @@ export default class UserRateButton extends View {
   }
 
   _renderParams() {
-    const submit_url = this.isPersisted ?
+    const submitUrl = this.isPersisted ?
       `/api/v2/user_rates/${this.model.id}` :
       '/api/v2/user_rates';
 
@@ -107,7 +110,7 @@ export default class UserRateButton extends View {
       model: this.model,
       user_id: window.SHIKI_USER.id,
       statuses: I18n.t(`${I18N_KEY}.${this.model.target_type.toLowerCase()}`),
-      form_url: submit_url,
+      form_url: submitUrl,
       form_method: this.isPersisted ? 'PATCH' : 'POST',
       destroy_url: (this.isPersisted ? `/api/v2/user_rates/${this.model.id}` : undefined),
       extended_html: this._extendedHtml()

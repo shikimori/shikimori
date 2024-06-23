@@ -18,6 +18,7 @@ RSpec.configure do |config|
     config.run_all_when_everything_filtered = true
   end
   config.filter_run_excluding :ci_only unless ENV['CI_SERVER']
+  config.filter_run_excluding :ci_skip if ENV['CI_SERVER']
 
   config.backtrace_exclusion_patterns << /gems/
   config.order = ENV['CI_SERVER'] ? :defined : :rand

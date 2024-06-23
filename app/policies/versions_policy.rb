@@ -1,10 +1,12 @@
 class VersionsPolicy
+  RESTRICTED_EMPTY_CHANGE_NOT_ALLOWED = %w[genres_v2]
+
   def self.version_allowed? user, version
-    new(user, version: version).call
+    new(user, version:).call
   end
 
   def self.change_allowed? user, db_entry, field
-    new(user, db_entry: db_entry, field: field).call
+    new(user, db_entry:, field:).call
   end
 
   def initialize user, version: nil, db_entry: nil, field: nil
@@ -99,7 +101,9 @@ private
 
     # allow changes from nil
     changing_restricted_fields.all? do |field|
-      if @version
+      if field.in? RESTRICTED_EMPTY_CHANGE_NOT_ALLOWED
+        false
+      elsif @version
         @version.item_diff.dig(field, 0).nil?
       else
         @db_entry.send(field).nil? || @db_entry.send(field).blank? # blank check for image fields

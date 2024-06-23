@@ -20,7 +20,7 @@ $.fn.extend({
         .on('mousemove', e => {
           const offset = $(e.target).offset().left;
           const scoreRaw = ((e.clientX - offset) * 10.0) / $stars.width();
-          scoreNew = scoreRaw > 0.5 ? [Math.floor(scoreRaw) + 1, 10].min() : 0;
+          scoreNew = scoreRaw > 0.5 ? Math.min(Math.floor(scoreRaw) + 1, 10) : 0;
 
           $scoreNotice
             .html(notices[scoreNew] || '&nbsp;');

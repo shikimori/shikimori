@@ -64,7 +64,7 @@
   - if @resource.license_name_ru != @resource.russian
     = info_line Anime.human_attribute_name(:license_name_ru) do
       - if @resource.license_name_ru.present?
-        span itemprop="alternativeHeadline" == @resource.license_name_ru
+        span itemprop="alternativeHeadline" = @resource.license_name_ru
 
   - if entry.respond_to? :digital_released_on
     - if entry.digital_released_on.present?

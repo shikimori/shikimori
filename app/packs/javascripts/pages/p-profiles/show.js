@@ -1,7 +1,13 @@
+import { isMobile } from 'shiki-utils';
+
+import capitalize from 'lodash/capitalize';
+import last from 'lodash/last';
+import round from 'lodash/round';
+
 import axios from '@/utils/axios';
 import dayjs from '@/utils/dayjs';
-
-import { isMobile } from 'shiki-utils';
+import I18n from '@/utils/i18n';
+import p from '@/utils/p';
 
 pageLoad('profiles_show', () => {
   $('.friend-action').on('ajax:success', () => (
@@ -92,7 +98,7 @@ pageLoad('profiles_show', () => {
         if (index < options.index_label) { return ''; }
 
         const { from, to } = entry.dates;
-        const date = entry !== stats.last() ? from : to;
+        const date = entry !== last(stats) ? from : to;
 
         if (index === 0) {
           options.index_label = 3;
@@ -101,7 +107,7 @@ pageLoad('profiles_show', () => {
           label = date.getFullYear();
           options.index_label = index + 3;
         } else if (options.prior.dates.from.getMonth() !== date.getMonth()) {
-          label = dayjs(date).format('MMM').capitalize();
+          label = capitalize(dayjs(date).format('MMM'));
           options.index_label = index + 3;
         } else if (options.range <= 120) { // and entry.value > 0
           label = date.getDate();
@@ -123,5 +129,5 @@ pageLoad('profiles_show', () => {
 
 function dateDiff(dateEarlier, dateLater) {
   const oneDay = 1000 * 60 * 60 * 24;
-  return Math.round(((dateLater.getTime() - dateEarlier.getTime()) / oneDay) * 10) / 10;
+  return round(((dateLater.getTime() - dateEarlier.getTime()) / oneDay), 1);
 }

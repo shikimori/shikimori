@@ -13,6 +13,7 @@ class VideoExtractor::BaseExtractor
     'User-Agent' => USER_AGENT,
     ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
     allow_redirections: :all,
+    open_timeout: 3,
     read_timeout: 7
   }
 
@@ -117,6 +118,9 @@ private
   end
 
   def open_uri_options
-    self.class::OPEN_URI_OPTIONS
+    {
+      **self.class::OPEN_URI_OPTIONS,
+      **Proxy.prepaid_proxy_open_uri
+    }
   end
 end

@@ -1,4 +1,4 @@
-- relation_mode = entry.respond_to?(:relation)
+- relation_mode = entry.respond_to?(:relation_kind_text)
 
 .b-db_entry-variant-list_item[
   data-id=entry.id
@@ -57,7 +57,7 @@
 
           - if relation_mode
             .b-anime_status_tag.other
-              = t "relation.#{entry.relation}"
+              = entry.relation_kind_text
           - elsif entry.status
             .b-anime_status_tag[
               class=entry.status.downcase.gsub(' ', '_')

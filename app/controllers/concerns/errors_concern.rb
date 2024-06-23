@@ -1,4 +1,4 @@
-module ErrorsConcern
+module ErrorsConcern # rubocop:disable Metrics/ModuleLength
   extend ActiveSupport::Concern
 
   NOT_FOUND_ERRORS = [
@@ -9,6 +9,10 @@ module ErrorsConcern
   ]
 
   included do
+    if defined? Bugsnag
+      before_bugsnag_notify :add_info_to_bugsnag
+    end
+
     if Rails.env.test?
       rescue_from StatusCodeError, with: :runtime_error
     else
@@ -16,7 +20,7 @@ module ErrorsConcern
     end
   end
 
-  def runtime_error error # rubocop:disable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
+  def runtime_error error # rubocop:disable rubocop:disable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
     if defined? Airbrake
       Airbrake.notify error,
         url: request.url,
@@ -121,7 +125,7 @@ private
         code: 503,
         exception: error.class.name,
         message: error.message,
-        backtrace: error.backtrace.first.sub(Rails.root.to_s, '')
+        # backtrace: error.backtrace.first.sub(Rails.root.to_s, '')
       },
       status: :service_unavailable
     )
@@ -162,5 +166,11 @@ private
     #   .send("#{Rails.env}_errors")
     #   .error("#{error.message}\n#{error.backtrace.join("\n")}")
     Rails.logger.error("#{error.message}\n#{error.backtrace.join("\n")}")
+  end
+
+  def add_info_to_bugsnag event
+    event.add_metadata(:request, {
+      clientIp: ExtractIpFromRequest.call(request)
+    })
   end
 end

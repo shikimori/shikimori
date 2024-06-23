@@ -5,6 +5,7 @@ import { flash, isMobile } from 'shiki-utils';
 import { getSelectionText, getSelectionHtml } from '@/utils/get_selection';
 import axios from '@/utils/axios';
 import { animatedCollapse } from '@/utils/animated';
+import I18n from '@/utils/i18n';
 
 import BanForm from '@/views/application/ban_form';
 import ShikiView from '@/views/application/shiki_view';
@@ -102,7 +103,7 @@ export default class ShikiEditable extends ShikiView {
     if (isMobile()) {
       const markers = $(ITEM_QUOTE_SELECTOR, this.$inner).parent().find('aside.markers').children();
       markers.each((_, node) => {
-        if ($(node).css('display') == 'block') {
+        if ($(node).css('display') === 'block') {
           $(node).hide();
           $(node).addClass('temporarily-hidden-markers');
         }

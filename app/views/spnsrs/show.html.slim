@@ -1,6 +1,7 @@
 html
   body style='margin: 0; padding: 0; overflow: hidden;'
     = render 'fuckadblock'
+    // xss here because of direct insertion of params into JS
     javascript:
       function no_ad_loaded() {
         window.parent.postMessage({

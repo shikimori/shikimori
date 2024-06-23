@@ -41,13 +41,12 @@
             title=critique_topic.title
           ]
             .image-name
-              img[
-                src=cdn_image_url(critique.target, :x48)
-                srcset="#{cdn_image_url critique.target, :x96} 2x"
-                alt=localized_name(critique.target)
-              ]
+              = render 'db_entries/poster',
+                db_entry: critique.target,
+                poster: critique.target.poster,
+                derivative: :preview
               span.title
-                == critique.target.name
+                = critique.target.name
             span.misc
               = t '.user_critique', author: critique.user.nickname
             time.misc.date[
@@ -79,7 +78,7 @@
                   = club_topic.club.name
               - if club_topic.comments.first
                 span.misc title=truncate(club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' ')
-                  == truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
+                  = truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
               - elsif club_topic.is_a? Topics::ClubUserTopic
                 span.misc = t '.new_club_topic'
               - elsif club_topic.is_a? Topics::EntryTopics::ClubPageTopic

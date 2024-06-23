@@ -56,6 +56,13 @@ class Profiles::View < ViewObjectBase
     Rails.cache.fetch(cache_key) { BbCodes::Text.call text }
   end
 
+  def friends_query
+    @friends_query ||= QueryObjectBase
+      .new(@user.friends)
+      .order(last_online_at: :desc)
+      .paginate(page, ProfilesController::FRIENDS_LIMIT)
+  end
+
   def common_info
     info = []
 

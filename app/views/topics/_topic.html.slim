@@ -44,7 +44,10 @@ article.to-process[
     = render 'topics/inner', topic_view: topic_view
 
   - if topic_view.show_moderation?
-    = render 'topics/moderation', moderatable: topic_view.topic
+    .resources-loader.to-process.b-ajax[
+      data-dynamic='postloaded'
+      data-postloaded-url=topic_moderation_url(topic_view.topic)
+    ]
 
   - if topic_view.show_comments?
     = render 'topics/comments',

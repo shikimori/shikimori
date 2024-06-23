@@ -1,3 +1,5 @@
+import isEmpty from 'lodash/isEmpty';
+
 import DynamicParser from '@/dynamic_elements/_parser';
 
 $(document).on('turbolinks:before-cache', () => {
@@ -19,7 +21,7 @@ $(document).on('turbolinks:before-cache', () => {
     .addClass(DynamicParser.PENDING_CLASS);
 
   const jsExportKeys = $(document.body).data('js_export_supervisor_keys');
-  if (!Object.isEmpty(jsExportKeys)) {
+  if (!isEmpty(jsExportKeys)) {
     dumpJsExports(jsExportKeys);
   }
 
@@ -46,7 +48,7 @@ function dumpJsExports(keys) {
   const jsExports = {};
 
   keys.forEach(plural => {
-    const singular = plural.singularize();
+    const singular = simpleSingularize(plural);
 
     $(`[data-track_${singular}]`).each((_index, node) => {
       const $node = $(node);
@@ -77,4 +79,20 @@ function dumpJsExports(keys) {
   });
 
   $('script#js_export').html(`window.JS_EXPORTS = ${JSON.stringify(jsExports)};`);
+}
+
+function simpleSingularize(word) {
+  if (word.endsWith('ies')) {
+    return word.slice(0, -3) + 'y';
+  } else if (word.endsWith('tes')) {
+    // Handles cases like "rates" -> "rate"
+    return word.slice(0, -1);
+  } else if (word.endsWith('es')) {
+    // Handles cases like "boxes" -> "box"
+    return word.slice(0, -2);
+  } else if (word.endsWith('s')) {
+    // Removes the ending 's' for simple plural forms like "cars" -> "car"
+    return word.slice(0, -1);
+  }
+  return word; // Return the original word if no rules apply
 }

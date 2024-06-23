@@ -35,12 +35,13 @@ module DomainsConcern
   end
 
   def force_301_redirect_for_guests
-    # return if Rails.env.test?
-    # return if user_signed_in?
-    #
-    # redirect_to request.url.sub(request.host, ShikimoriDomain::PROPER_HOST),
-    #   status: :moved_permanently,
-    #   allow_other_host: true
+    return if Rails.env.test?
+    return if user_signed_in?
+    return if request.path == '/'
+
+    redirect_to request.url.sub(request.host, ShikimoriDomain::PROPER_HOST),
+      status: :moved_permanently,
+      allow_other_host: true
   end
 
   def force_seo_redirect

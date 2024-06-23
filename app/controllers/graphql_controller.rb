@@ -9,7 +9,7 @@ class GraphqlController < ShikimoriController
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
 
-  def execute
+  def execute # rubocop:disable Metrics/MethodLength
     variables = prepare_variables(params[:variables])
     query = params[:query] || ''
     operation_name = params[:operationName]
@@ -31,9 +31,11 @@ class GraphqlController < ShikimoriController
 
     render json: result
   rescue StandardError => e
-    raise e unless Rails.env.development?
-
-    handle_error_in_development e
+    if Rails.env.development?
+      handle_error_in_development e
+    else
+      handle_error_in_production e
+    end
   end
 
   private
@@ -66,6 +68,18 @@ class GraphqlController < ShikimoriController
     render json: {
       errors: [{ message: error.message, backtrace: error.backtrace }],
       data: {}
+    }, status: :internal_server_error
+  end
+
+  def handle_error_in_production error
+    notify_erorr error
+
+    render json: {
+      errors: [{
+        exception: error.class.name,
+        message: error.message
+        # backtrace: error.backtrace.first.sub(Rails.root.to_s, '')
+      }]
     }, status: :internal_server_error
   end
 end

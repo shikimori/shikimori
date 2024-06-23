@@ -280,13 +280,19 @@ private
       @text.slice(@index, sequence.size) == sequence
   end
 
-  def push_blockquote_open meta_attrs, meta_text
+  def push_blockquote_open meta_attrs, meta_text # rubocop:disable Metrics/MethodLength
     if meta_attrs
       quoteable = BbCodes::Quotes::QuoteableToBbcode.instance.call(meta_attrs)
+      # can't allow bbcodes here since this content is placed inside of html tag
+      # and thus it cannot be procssed as bbcod
+      safe_meta_text = ERB::Util.h(meta_text)
+        .gsub('[', '&#91;')
+        .gsub(']', '&#93')
+        .gsub(':', '&#58;')
 
       @state.push(
-        format(BLOCKQUOTE_OPEN_TAG, attrs: " data-attrs='#{meta_text}'") +
-          format(BLOCKQUOTE_QUOTEABLE_TAG, quoteable: quoteable) +
+        format(BLOCKQUOTE_OPEN_TAG, attrs: " data-attrs='#{safe_meta_text}'") +
+          format(BLOCKQUOTE_QUOTEABLE_TAG, quoteable:) +
           BLOCKQUOTE_OPEN_CONTENT
       )
     else

@@ -1,6 +1,8 @@
 describe Recommendations::Normalizations::None do
   let(:formula) { Recommendations::Normalizations::None.new }
-  let(:ratings) {{ 4 => 4, 6 => 6, 8 => 8 }}
+  let(:ratings) do
+    { 4 => 4, 6 => 6, 8 => 8 }
+  end
 
   describe '#normalize' do
     subject { formula.normalize ratings, nil }

@@ -1,6 +1,4 @@
-/* eslint-disable no-nested-ternary */
-
-window.p = (number, ...args) => {
+export default (number, ...args) => {
   const n = parseInt(number, 10);
   let plural = ((n % 10) === 1) && ((n % 100) !== 11) ?
     0 :

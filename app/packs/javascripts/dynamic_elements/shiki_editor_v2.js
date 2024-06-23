@@ -8,9 +8,10 @@ import View from '@/views/application/view';
 
 import csrf from '@/utils/csrf';
 import axios from '@/utils/axios';
+import I18n from '@/utils/i18n';
 
-const VUE_PENDING_CLASS = 'vue-node'
-const VUE_INITIALIZED_CLASS = 'vue-node-initialized'
+const VUE_PENDING_CLASS = 'vue-node';
+const VUE_INITIALIZED_CLASS = 'vue-node-initialized';
 
 export default class ShikiEditorV2 extends View {
   async initialize() {
@@ -35,7 +36,7 @@ export default class ShikiEditorV2 extends View {
 
   @memoize
   get isSessionStorageAvailable() {
-    return typeof(sessionStorage) !== 'undefined';
+    return typeof (sessionStorage) !== 'undefined';
   }
 
   @memoize
@@ -63,7 +64,7 @@ export default class ShikiEditorV2 extends View {
   async _buildEditor() {
     this.vueNode = this.node.querySelector(`.${VUE_PENDING_CLASS}`);
     this.input = this.node.querySelector('input');
-    this.appPlaceholder = this.node.querySelector('.app-placeholder')
+    this.appPlaceholder = this.node.querySelector('.app-placeholder');
 
     if (!this.vueNode) {
       this._rebuildNodes();

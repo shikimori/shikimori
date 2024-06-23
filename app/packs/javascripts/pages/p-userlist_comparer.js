@@ -12,14 +12,13 @@ function processContent() {
   $('tr.unprocessed')
     .removeClass('unprocessed')
     .find('a.tooltipped')
-    .tooltip(
-      Object.add(COMMON_TOOLTIP_OPTIONS, {
-        offset: [
-          -95,
-          10
-        ],
-        position: 'bottom right',
-        opacity: 1
-      })
-    );
+    .tooltip({
+      ...COMMON_TOOLTIP_OPTIONS,
+      offset: [
+        -95,
+        10
+      ],
+      position: 'bottom right',
+      opacity: 1
+    });
 }

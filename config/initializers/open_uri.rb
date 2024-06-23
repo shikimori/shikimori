@@ -4,7 +4,7 @@ module OpenURI::OpenImage
       Addressable::URI.encode(url),
       (options[:proxy] ?
         options :
-        { **Proxy.prepaid_proxy }.merge(options)
+        { **Proxy.prepaid_proxy_open_uri }.merge(options)
       )
     )
     def io.original_filename

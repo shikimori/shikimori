@@ -1,4 +1,4 @@
-import Turbolinks from 'turbolinks'; // eslint-disable-line import/newline-after-import
+import Turbolinks from 'turbolinks';
 Turbolinks.start();
 
 import delay from 'delay';
@@ -8,11 +8,17 @@ requireVendor.keys().forEach(requireVendor);
 
 import { throttle, debounce } from 'throttle-debounce';
 
-import pageLoad from '@/utils/page_load'; // eslint-disable-line import/newline-after-import
+import pageLoad from '@/utils/page_load';
 window.pageLoad = pageLoad;
 
-import pageUnload from '@/utils/page_unload'; // eslint-disable-line import/newline-after-import
+import pageUnload from '@/utils/page_unload';
 window.pageUnload = pageUnload;
+
+import i18n from '@/utils/i18n';
+window.I18n = i18n;
+
+import p from '@/utils/p';
+window.p = p;
 
 const requireJqueryPlugins = require.context('@/jquery.plugins', true);
 requireJqueryPlugins.keys().forEach(requireJqueryPlugins);
@@ -31,10 +37,7 @@ import AchievementsNotifier from '@/services/achievements_notifier';
 
 import bindings from '@/utils/bindings';
 
-import '@/utils/p';
-import '@/i18n/translations';
-
-import dayjs from '@/utils/dayjs'; // eslint-disable-line import/newline-after-import
+import dayjs from '@/utils/dayjs';
 window.dayjs = dayjs;
 
 $(document).one('turbolinks:load', () => {
@@ -49,13 +52,7 @@ $(document).one('turbolinks:load', () => {
   window.CAMO_URL = $body.data('camo_url');
   if (window.SHIKI_USER) { window.FAYE_CHANNEL = $body.data('faye'); }
 
-  // window.atatus = atatus;
-  // if ('atatus' in window) {
-  //   window.atatus.setUser(window.SHIKI_USER.id);
-  // }
-
-  window.I18n = I18n;
-  I18n.locale = window.LOCALE;
+  window.I18n.locale = window.LOCALE;
   dayjs.locale(window.LOCALE);
 
   window.MOMENT_DIFF = dayjs($body.data('server_time')).diff(new Date());
@@ -73,7 +70,7 @@ $(document).one('turbolinks:load', () => {
 
   $.formNavigate({
     size: 250,
-    message: I18n.t('frontend.application.sure_to_leave_page')
+    message: window.I18n.t('frontend.application.sure_to_leave_page')
   });
 
   const match = window.location.hash.match(/^#(comment-\d+)$/);

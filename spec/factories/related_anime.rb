@@ -3,6 +3,6 @@ FactoryBot.define do
     source { nil }
     anime { nil }
     manga { nil }
-    relation { 'Other' }
+    relation_kind { Types::RelatedAniManga::RelationKind[:other] }
   end
 end

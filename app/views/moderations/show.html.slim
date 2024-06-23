@@ -149,6 +149,14 @@ header.head
               - else
                 span = t '.forums'
 
+        - if can? :censore, Poster
+          li
+            a.b-link[
+              href=moderations_posters_url(Moderations::PostersController::Kind[:anime])
+            ]
+              = t 'moderations/posters_controller.page_title'
+              - if moderation_policy.unprocessed_censored_posters_count.positive?
+                span.size = moderation_policy.unprocessed_censored_posters_count
         li
           a.b-link[
             href=moderations_mal_more_infos_url

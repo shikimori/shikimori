@@ -14,4 +14,15 @@ json.content JsExports::Supervisor.instance.sweep(
 json.page @view.page
 json.pages_count @view.pages_count
 
+if @view.next_page_url
+  json.postloader render(
+    partial: 'blocks/postloader',
+    locals: {
+      next_url: @view.next_page_url,
+      prev_url: @view.prev_page_url
+    },
+    formats: :html
+  )
+end
+
 json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)

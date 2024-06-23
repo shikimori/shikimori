@@ -1,0 +1,36 @@
+header.head
+  h1 = og.headline
+  = render 'application/breadcrumbs'
+
+.block
+  .b-options-floated.mobile-tablet
+    - @states.each do |state|
+      - next if state == @state
+      a href=current_url(state: (state unless state == @default_state), id: nil)
+        = Poster.human_attribute_name "moderation_state/#{state}"
+        span = @counts[state]
+  .subheadline
+    = Poster.human_attribute_name "moderation_state/#{@state}"
+    .misc-links
+      - controller.class::Klass.values.each do |klass|
+        - if klass == @klass
+          a.selected href=current_url(id: nil)
+            = klass.model_name.human
+            .count = @counts[@state]
+        - else
+          a href=current_url(kind: controller.class::Kind[klass.name.downcase], id: nil)
+            = klass.model_name.human
+            .count = scope(klass: klass, moderation_state: @state).count
+
+  .posters
+    - if @collection.any?
+      = render partial: 'moderations/posters/poster',
+        collection: @collection
+    - else
+      .b-nothing_here = t 'nothing_found'
+
+    - if @collection.next_page?
+      = render 'blocks/postloader',
+        next_url: current_url(page: @collection.next_page),
+        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?),
+        pages_limit: 10

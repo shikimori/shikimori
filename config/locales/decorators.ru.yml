@@ -52,7 +52,7 @@ ru:
     always_online: всегда на сайте
     always_online_bot: всегда на сайте (бот)
     online: сейчас на сайте
-    offline: онлайн %{time_ago}%{ago}
+    offline: 'в сети: %{time_ago}%{ago}'
     ago: назад
     registration_formats:
       full: '%e %B %Y г.'

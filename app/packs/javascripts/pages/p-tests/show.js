@@ -1,4 +1,5 @@
 // import Wall from '@/views/wall/view';
+// import merge from 'lodash/merge';
 
 pageLoad('tests_show', async () => {
   // new Wall($('.images-test .shiki-wall'));
@@ -9,7 +10,7 @@ pageLoad('tests_show', async () => {
 
 // function initPage(Highcharts) {
 //   const traffic = $('.traffic-test').data('stats');
-// 
+//
 //   $('.traffic-test').highcharts(
 //     chartOptions({
 //       series: [{
@@ -72,9 +73,9 @@ pageLoad('tests_show', async () => {
 //     })
 //   );
 // }
-// 
+//
 // const chartOptions = options =>
-//   Object.merge({
+//   merge({
 //     chart: {
 //       zoomType: 'x',
 //       type: 'areaspline'

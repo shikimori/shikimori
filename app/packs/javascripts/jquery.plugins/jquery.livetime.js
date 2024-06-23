@@ -1,4 +1,5 @@
 import dayjs from '@/utils/dayjs';
+import I18n from '@/utils/i18n';
 
 const I18N_TIME_FORMATS = {
   ru: 'D MMMM YYYY, H:mm:ss',

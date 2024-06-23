@@ -1,7 +1,12 @@
 @import globals
+@import mixins/link
 
 .p-animes-edit,
 .p-mangas-edit,
 .p-ranobe-edit
   .censored
     color: $red
+
+  .poster-moderation
+    +link_underlined($red)
+    margin-left: 0 !important

@@ -95,7 +95,8 @@ class PersonDecorator < DbEntryDecorator
     anime_ids = object.animes.pluck(:id)
     manga_ids = object.mangas.pluck(:id)
 
-    sorted_works = FavouritesQuery.new
+    special = object.id.in?(67023..67034) ? [58584, 'Anime'] : []
+    sorted_works = special + FavouritesQuery.new
       .top_favourite([Anime.name, Manga.name], BEST_ROLES_SIZE)
       .where(FAVOURITES_SQL, anime_ids, manga_ids)
       .map { |v| [v.linked_id, v.linked_type] }

@@ -16,5 +16,6 @@ FactoryBot.define do
     is_show_age { true }
     is_view_censored { false }
     is_enlarged_favourites_in_profile { false }
+    is_shiki_editor { true }
   end
 end

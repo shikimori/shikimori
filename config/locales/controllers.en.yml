@@ -130,11 +130,11 @@ en:
       anime: |
 
 
-
       manga: |
 
 
       ranobe: |
+
 
 
   recommendations_controller:
@@ -308,6 +308,10 @@ en:
   moderations/changelogs_controller:
     <<: *moderations_controller
     page_title: Changelog
+
+  moderations/posters_controller:
+    <<: *moderations_controller
+    page_title: Unchecked censored posters
 
   moderations/mal_more_infos_controller:
     <<: *moderations_controller

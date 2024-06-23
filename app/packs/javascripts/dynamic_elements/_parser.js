@@ -1,3 +1,5 @@
+import camelCase from 'lodash/camelCase';
+
 import Clickloaded from './clickloaded';
 import CodeHighlight from './code_highlight';
 import Comment from './comment';
@@ -40,7 +42,7 @@ export default class DynamicParser {
       node.classList.remove(DynamicParser.PENDING_CLASS);
 
       node.attributes['data-dynamic'].value.split(',').forEach(type => {
-        const processor = type.camelize(false);
+        const processor = camelCase(type);
 
         if (this[processor]) {
           this[processor](node);

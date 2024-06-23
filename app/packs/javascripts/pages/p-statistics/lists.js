@@ -1,3 +1,5 @@
+import sortBy from 'lodash/sortBy';
+
 pageLoad('statistics_lists', async () => {
   const Highcharts = await import(/* webpackChunkName: "hs" */ 'highcharts');
   const { colors } = await import(/* webpackChunkName: "hs" */ '@/vendor/highcharts_colors');
@@ -21,7 +23,8 @@ function renderCharts(Highcharts, { node, stats, label }) {
     chart: { type: 'area' },
     title: { text: label },
     xAxis: {
-      categories: Object.keys(stats[keys[0]]).sortBy(v => parseInt(v.replace(/[^\d].*/, '')))
+      categories: Object.keys(stats[keys[0]])
+        |> sortBy(?, v => parseInt(v.replace(/[^\d].*/, '')))
     },
     yAxis: {
       title: { text: 'Users' }
@@ -38,6 +41,6 @@ function renderCharts(Highcharts, { node, stats, label }) {
     series: Object
       .keys(stats)
       .map(key => ({ name: key, data: Object.values(stats[key]) }))
-      .sortBy(({ data }) => -data[0])
+      |> sortBy(?, ({ data }) => -data[0])
   });
 }

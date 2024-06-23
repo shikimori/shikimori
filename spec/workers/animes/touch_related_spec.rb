@@ -5,10 +5,14 @@ describe Animes::TouchRelated do
 
   let!(:anime) { create :anime }
   let!(:anime_related) { create :anime }
+  let!(:related_anime_1) { create :related_anime, source: anime, anime: anime_related }
+  let!(:related_anime_2) { create :related_anime, source: anime, manga: manga_related }
   let!(:anime_similar) { create :anime }
 
   let!(:manga) { create :manga }
   let!(:manga_related) { create :manga }
+  let!(:related_manga_1) { create :related_manga, source: manga, anime: anime_related }
+  let!(:related_manga_2) { create :related_manga, source: manga, manga: manga_related }
   let!(:manga_similar) { create :manga }
 
   let!(:character) { create :character }
@@ -16,12 +20,7 @@ describe Animes::TouchRelated do
   let(:person) { create :person }
 
   before do
-    anime.related_animes << anime_related
-    anime.related_mangas << manga_related
     anime.similar_animes << anime_similar
-
-    manga.related_animes << anime_related
-    manga.related_mangas << manga_related
     manga.similar_mangas << manga_similar
 
     anime.characters << character

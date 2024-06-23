@@ -4,7 +4,7 @@ class ShikimoriSchema < GraphQL::Schema
   trace_with GraphQL::Tracing::ActiveSupportNotificationsTrace
   use GraphQL::Tracing::AppsignalTracing if defined? Appsignal
 
-  instrument :query, LogQueryInstrumentation
+  # instrument :query, LogQueryInstrumentation
 
   query_analyzer LogQueryDepth
   query_analyzer LogQueryComplexityAnalyzer
@@ -47,4 +47,17 @@ class ShikimoriSchema < GraphQL::Schema
   #   # For example, use Rails' GlobalID library (https://github.com/rails/globalid):
   #   GlobalID.find(global_id)
   # end
+
+  # TODO: get rid of normalization after 2025-01-01
+  class << self
+    def execute(query, *, **)
+      super(normalize_positive_integer_types(query), *, **)
+    end
+
+    def normalize_positive_integer_types query
+      query
+        .gsub('$page: Int', '$page: PositiveInt')
+        .gsub('$limit: Int', '$limit: PositiveInt')
+    end
+  end
 end

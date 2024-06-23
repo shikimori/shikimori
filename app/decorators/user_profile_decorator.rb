@@ -1,8 +1,8 @@
 # TODO: move methods into Profiles::View and other Profiles::*View classes
 class UserProfileDecorator < UserDecorator
   instance_cache :nickname_changes?,
-    :all_compatibility, :friends, :favorites,
-    :main_comments_view, :preview_comments_view, :ignored_topics,
+    :all_compatibility, :favorites,
+    :main_comments_view, :preview_comments_view,
     :random_clubs
 
   # list of users with abusive content in profile
@@ -24,10 +24,6 @@ class UserProfileDecorator < UserDecorator
 
   def nickname_changes?
     Users::NicknameChangesQuery.call(object, h.can?(:manage, Ban)).any?
-  end
-
-  def friends
-    object.friends.order(last_online_at: :desc)
   end
 
   def random_clubs
@@ -74,12 +70,6 @@ class UserProfileDecorator < UserDecorator
   def unconnected_providers
     User.omniauth_providers.reject { |platform| platform.in?(%i[google_apps yandex]) } -
       user_tokens.map { |v| v.provider.to_sym } - %i[facebook twitter]
-  end
-
-  def ignored_topics
-    object.topic_ignores.includes(:topic).map do |topic_ignore|
-      Topics::TopicViewFactory.new(false, false).build topic_ignore.topic
-    end
   end
 
 private

@@ -107,6 +107,8 @@
   // background: rgba(green, 0.5);
   display: flex;
   flex-wrap: wrap;
+  // row-gap: $offset;
+  // column-gap: $gutter;
   margin-bottom: -$offset;
   margin-left: -$gutter;
 

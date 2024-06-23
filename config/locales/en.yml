@@ -31,9 +31,7 @@ en:
       moderation_state/pending: pending approval
       moderation_state/accepted: accepted
       moderation_state/rejected: rejected
-      # events:
-      #   publish: Publish
-      #   unpublish: Unpublish
+      moderation_state/censored: censored
     attributes:
       anime: &anime_attributes
         aired_on: Start date
@@ -294,7 +292,7 @@ en:
         is_censored: Contains adult content (18+)
         is_non_thematic: Non thematic
         is_shadowbanned: Shadowban
-        is_private: Приватный
+        is_private: Private
         logo: Logo
       collection:
         user_id: Author
@@ -383,6 +381,8 @@ en:
         description: Description
         description_ru: Description (rus)
         description_en: Description
+      poster:
+        <<: *moderation_states
 
     errors:
       messages:
@@ -512,7 +512,7 @@ en:
           (for cases with a long name, when the parser alone cannot find the episodes)
         disabled_torrents_sync: disable of searching of new episodes on torrents
         disabled_anime365_sync: disable of searching of new episodes on anime365
-        score_filter_9_8000: &score_filter_9_8000 удаление накрученных оценок. Первое число это оценка, а второе - количество голосов с оценкой, которые нужно удалить. Например, score_filter_9_8000 уменьшит количество девяток на 8000 штук, score_filter_10_20 уменьшит десятки на 20 штук.
+        score_filter_9_8000: &score_filter_9_8000 removing inflated scores. The first number is the score, and the second number is the number of votes with the score to be removed. For example, score_filter_9_8000 will reduce the number of nines by 8000, score_filter_10_20 will reduce tens by 20.
     manga: &manga_enumerize
       status:
         anons: Planned
@@ -540,6 +540,23 @@ en:
         score_filter_9_8000: *score_filter_9_8000
     ranobe:
       <<: *manga_enumerize
+    related_anime:
+      relation_kind: &relation_kind
+        adaptation: Adaptation
+        alternative_setting: Alternative Setting
+        alternative_version: Alternative Version
+        character: Character
+        full_story: Full Story
+        other: Other
+        parent_story: Parent Story
+        prequel: Prequel
+        sequel: Sequel
+        side_story: Side Story
+        spin_off: Spin-off
+        summary: Summary
+    related_manga:
+      relation_kind:
+        <<: *relation_kind
     genre:
       kind:
         anime: Anime
@@ -579,7 +596,7 @@ en:
         remanga: ReManga
         mangadex: MangaDex
         more_tv: more.tv
-        twitter: Twitter
+        twitter: Twitter/X
       source:
         shikimori: Shikimori
         myanimelist: MyAnimeList

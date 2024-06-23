@@ -81,7 +81,7 @@ describe DbImport::Anime do
   end
 
   describe '#assign_genres' do
-    before { AnimeGenresV2Repository.instance.reset }
+    # before { AnimeGenresV2Repository.instance.reset }
     let(:genres) { [{ id: 987_654, name: 'test', kind: 'theme' }] }
 
     context 'new genre' do
@@ -242,7 +242,7 @@ describe DbImport::Anime do
         expect(entry.related.first).to have_attributes(
           anime_id: 16_099,
           manga_id: nil,
-          relation: 'Other'
+          relation_kind: Types::RelatedAniManga::RelationKind[:other].to_s
         )
       end
     end
@@ -260,8 +260,8 @@ describe DbImport::Anime do
       let!(:related_anime) do
         create :related_anime,
           source_id: id,
-          relation: 'Adaptation',
-          manga_id: 21_479
+          manga_id: 21_479,
+          relation_kind: Types::RelatedAniManga::RelationKind[:adaptation]
       end
       let(:related) { {} }
       before { subject }
@@ -389,7 +389,8 @@ describe DbImport::Anime do
     let(:image) { 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/240px-PNG_transparency_demonstration_1.png' }
 
     describe 'import', :vcr do
-      it { expect(entry.image).to be_present }
+      it { expect(entry.image).to_not be_present }
+      # it { expect(entry.image).to be_present }
     end
 
     describe 'method call' do
@@ -398,9 +399,9 @@ describe DbImport::Anime do
         allow(DbImport::MalPoster).to receive :call
       end
       it do
-        expect(DbImport::MalImage)
-          .to have_received(:call)
-          .with entry:, image_url: image
+        expect(DbImport::MalImage).to_not have_received :call
+          # .to have_received(:call)
+          # .with entry:, image_url: image
         expect(DbImport::MalPoster)
           .to have_received(:call)
           .with entry:, image_url: image

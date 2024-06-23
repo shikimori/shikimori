@@ -28,35 +28,12 @@ class String
     .uniq
   end
 
-  # no need in ruby 2.4
-  # def capitalize
-    # Unicode.capitalize self
-  # end
-
-  # нельзя добавлять это. с ним почему-то faye перестаёт работать
-  # def upcase
-    # if encoding.name != 'ASCII-8BIT'
-      # Unicode.upcase self
-    # else
-      # Unicode.upcase self.fix_encoding
-    # end
-  # end
-
-  # no need in ruby 2.4
-  # def downcase
-    # if encoding.name != 'ASCII-8BIT'
-      # Unicode.downcase self
-    # else
-      # Unicode.downcase self.fix_encoding
-    # end
-  # end
-
   def first_upcase
-    Unicode.upcase(slice(0, 1)) + slice(1..-1)
+    slice(0, 1).upcase + slice(1..-1)
   end
 
   def first_downcase
-    Unicode.downcase(slice(0, 1)) + slice(1..-1)
+    slice(0, 1).downcase + slice(1..-1)
   end
 
   def to_underscore

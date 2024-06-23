@@ -57,7 +57,7 @@ class ContestsController < ShikimoriController
     og keywords: i18n_t(:show_keywords, title: @resource.title)
     og description: i18n_t(
       :show_description,
-      title: Unicode.downcase(@resource.title)
+      title: @resource.title.downcase
     )
 
     og page_title: @resource.displayed_round.title if params[:round]

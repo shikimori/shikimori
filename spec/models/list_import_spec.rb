@@ -60,7 +60,7 @@ describe ListImport do
   describe 'instance methods' do
     describe '#name' do
       let(:list_import) { build_stubbed :list_import }
-      it { expect(list_import.name).to eq "Импорт списка ##{list_import.id}" }
+      it { expect(list_import.name).to eq "Импорт списка № #{list_import.id}" }
     end
   end
 

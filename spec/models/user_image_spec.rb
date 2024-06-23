@@ -6,7 +6,6 @@ describe UserImage do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_attachment_presence :image }
   end
 end

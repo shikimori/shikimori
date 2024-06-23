@@ -727,7 +727,7 @@ $.Autocompleter.Select = function(options, input, select, config) {
       var offset = '$anchor' in options && options.$anchor ? options.$anchor.offset() : $(input).offset();
 
       element.css({
-        width: typeof options.width == 'string' || options.width > 0 ? options.width : $(input).width(),
+        width: typeof options.width == 'string' || options.width > 0 ? options.width : $(input).outerWidth(),
         top: offset.top + input.offsetHeight,
         left: offset.left
       }).show();

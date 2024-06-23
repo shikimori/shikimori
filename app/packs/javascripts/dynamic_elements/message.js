@@ -1,4 +1,5 @@
 import Comment from './comment';
+import I18n from '@/utils/i18n';
 
 export default class Message extends Comment {
   get type() { return 'message'; }

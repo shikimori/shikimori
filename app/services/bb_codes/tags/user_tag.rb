@@ -22,9 +22,9 @@ class BbCodes::Tags::UserTag < BbCodes::Tags::CommentTag
 
   def build_attrs id:, type:, user_id:, text: # rubocop:disable UnusedMethodArgument
     {
-      id: id,
-      type: type,
-      text: text
+      id:,
+      type:,
+      text:
     }.compact
   end
 end
