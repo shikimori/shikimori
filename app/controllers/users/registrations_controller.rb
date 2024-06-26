@@ -13,6 +13,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def destroy
+    raise CanCan::AccessDenied
+  end
+
 private
 
   def sign_up_params
