@@ -1,5 +1,5 @@
 # rubocop:disable Layout/LineLength
-ids = [8, 419948, 1028805, 1105696, 1118835, 1172315, 1227283, 1383110, 1421200, 1422272, 1448249, 1469066, 1469728] # rubocop:disable Style/NumericLiterals
+ids = [8, 419948, 1028805, 1105696, 1118835, 1172315, 1227283, 1383110, 1421200, 1422272, 1448249, 1469066, 1469728]; # rubocop:disable Style/NumericLiterals
 
 File.open('/tmp/z.json', 'w') do |f|
   data = User.where(id: ids).each_with_object([]) do |user, memo|
