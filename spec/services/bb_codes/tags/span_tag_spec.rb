@@ -33,6 +33,11 @@ describe BbCodes::Tags::SpanTag do
       let(:text) { '[span data-test data-fofo]test[/span]' }
       it { is_expected.to eq '<span data-test data-fofo data-span>test</span>' }
     end
+
+    context 'cleanup attributes' do
+      let(:text) { '[span data-test data-action=users data-remote=true data-type=html data-method=delete data-fofo]test[/span]' }
+      it { is_expected.to eq '<span data-test data-type=html data-fofo data-span>test</span>' }
+    end
   end
 
   context 'class + data-attribute' do

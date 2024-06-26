@@ -63,6 +63,6 @@ private
   end
 
   def data_html value
-    value.presence || ''
+    BbCodes::CleanupDataAttributes.call(value.presence || '')
   end
 end

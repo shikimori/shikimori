@@ -65,6 +65,11 @@ describe BbCodes::Tags::DivTag do
       let(:text) { '[div data-test data-fofo]test[/div]' }
       it { is_expected.to eq '<div data-test data-fofo data-div>test</div>' }
     end
+
+    context 'cleanup attributes' do
+      let(:text) { '[div data-test data-action=users data-remote=true data-type=html data-method=delete data-fofo]test[/div]' }
+      it { is_expected.to eq '<div data-test data-type=html data-fofo data-div>test</div>' }
+    end
   end
 
   context 'class + data-attribute' do
