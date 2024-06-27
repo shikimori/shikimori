@@ -99,7 +99,7 @@ User.transaction do
       collection_roles: CollectionRole,
       topic_viewings: TopicViewing,
       comment_viewings: CommentViewing,
-      abuse_requests: AbuseRequest,
+      club_roles: ClubRole,
       friend_links: FriendLink
     }.each do |key, klass|
       ap key
@@ -110,6 +110,10 @@ User.transaction do
       end
     end
 
+    data[:abuse_requests].each do |v|
+      abuse_request = AbuseRequest.new v
+      abuse_request.save if abuse_request.topic || abuse_request.comment
+    end
     ActsAsVotable::Vote.import(data[:'acts_as_votable/vote'].map { |v| ActsAsVotable::Vote.new v }, on_duplicate_key_ignore: true)
   end
 

@@ -13,8 +13,8 @@ File.open('/tmp/z.json', 'w') do |f|
       user: user.attributes,
       style: user.style,
       user_preferences: user.preferences,
-      oauth_applications: user.oauth_applications,
-      access_grants: user.access_grants,
+      oauth_applications: user.oauth_applications.map(&:attributes),
+      access_grants: user.access_grants.map(&:attributes),
       abuse_requests: user.abuse_requests,
       user_tokens: user.user_tokens,
       achievements: user.achievements,
@@ -28,6 +28,7 @@ File.open('/tmp/z.json', 'w') do |f|
       favourites: user.favourites,
       messages: user.messages,
       ignores: user.ignores,
+      club_roles: user.club_roles,
       collections: user.collections.map do |collection|
         {
           collection:,
