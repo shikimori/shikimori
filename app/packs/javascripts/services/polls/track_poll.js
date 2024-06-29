@@ -4,10 +4,9 @@ import Poll from '@/views/polls/view';
 export default class TrackPoll {
   constructor(poll, $root) {
     $with(this._selector(poll), $root)
+      .slice(0, 5) // process the same poll only limited amount of times
       .data('model', poll)
-      .toArray()
-      .slice(30) // the same limit is in JsExports::PollsExport
-      .forEach(node => new Poll(node, poll));
+      .each((_, node) => new Poll(node, poll));
   }
 
   _selector(poll) {
