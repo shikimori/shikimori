@@ -6,6 +6,7 @@ class JsExports::PollsExport < JsExports::ExportBase
       .includes(:variants)
       .where(id: tracked_ids)
       .order(:id)
+      .limit(30) # the same limit is in TrackPoll
   end
 
   def serialize poll, user, _ability
