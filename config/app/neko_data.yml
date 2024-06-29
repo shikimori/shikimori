@@ -5022,7 +5022,6 @@
       :generator: &231
         ignore_latest_ids:
         - 34437
-        - 56835
         not_ignored_ids:
         - 34439
         - 34440
@@ -5443,7 +5442,7 @@
       :algo: duration
       :filters: &254
         franchise: mushoku_tensei
-      :threshold: 95.4%
+      :threshold: 95.6%
       :generator:
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -6597,7 +6596,7 @@
         not_anime_ids:
         - 6163
         - 8068
-      :threshold: 95%
+      :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :kuroshitsuji
@@ -6959,7 +6958,7 @@
         - 31448
         - 35631
         - 50097
-      :threshold: 95.4%
+      :threshold: 95.6%
       :generator: &337
         ignore_latest_ids:
         - 48375
@@ -9680,7 +9679,7 @@
         - 52011
         - 57236
         - 58374
-      :threshold: 95.2%
+      :threshold: 95.3%
       :generator: &488
         not_ignored_ids:
         - 14951
@@ -10022,8 +10021,6 @@
       :algo: duration
       :filters: &505
         franchise: junjou_romantica
-        not_anime_ids:
-        - 6553
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -10681,7 +10678,7 @@
         - 31989
         - 35082
         - 37577
-      :threshold: 94.8%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :hibike_euphonium
@@ -11342,7 +11339,7 @@
         - 53603
         - 55283
         - 55404
-      :threshold: 86%
+      :threshold: 86.5%
       :generator: &571
         ignore_latest_ids:
         - 38714
@@ -11673,7 +11670,7 @@
         not_anime_ids:
         - 12665
         - 40369
-      :threshold: 91%
+      :threshold: 91.3%
       :generator: &589
         ignore_latest_ids:
         - 56175
@@ -13772,7 +13769,7 @@
     :topic_id: 247360
     :rule: &702
       :algo: duration
-      :filters: &704
+      :filters: &703
         franchise: tsubasa
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -13790,6 +13787,34 @@
   mandatory_attributes: *6
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :tsubasa
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/tsubasa.jpg"
+    :border_color:
+    :title_ru: Хроника крыльев
+    :text_ru:
+    :title_en: Tsubasa Chronicle
+    :text_en:
+    :topic_id: 247360
+    :rule: &704
+      :algo: duration
+      :filters: *703
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *4
+  neko_id: :tsubasa
+  level: 0
+  image: "/assets/achievements/anime/franchise/tsubasa.jpg"
+  border_color:
+  title_ru: Хроника крыльев
+  text_ru:
+  title_en: Tsubasa Chronicle
+  text_en:
+  topic_id: 247360
+  rule: *704
+  mandatory_attributes: *6
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :cardcaptor_sakura
     :level: 1
     :image: "/assets/achievements/anime/franchise/cardcaptor_sakura.jpg"
@@ -13799,7 +13824,7 @@
     :title_en: Cardcaptor Sakura
     :text_en:
     :topic_id: 247360
-    :rule: &703
+    :rule: &705
       :algo: duration
       :filters: &706
         franchise: cardcaptor_sakura
@@ -13815,34 +13840,6 @@
   title_ru: Сакура — собирательница карт
   text_ru:
   title_en: Cardcaptor Sakura
-  text_en:
-  topic_id: 247360
-  rule: *703
-  mandatory_attributes: *6
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :tsubasa
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/tsubasa.jpg"
-    :border_color:
-    :title_ru: Хроника крыльев
-    :text_ru:
-    :title_en: Tsubasa Chronicle
-    :text_en:
-    :topic_id: 247360
-    :rule: &705
-      :algo: duration
-      :filters: *704
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *4
-  neko_id: :tsubasa
-  level: 0
-  image: "/assets/achievements/anime/franchise/tsubasa.jpg"
-  border_color:
-  title_ru: Хроника крыльев
-  text_ru:
-  title_en: Tsubasa Chronicle
   text_en:
   topic_id: 247360
   rule: *705
@@ -13950,7 +13947,7 @@
     :topic_id: 247360
     :rule: &711
       :algo: duration
-      :filters: &713
+      :filters: &712
         franchise: aa_megami_sama
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -13968,6 +13965,34 @@
   mandatory_attributes: *6
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :aa_megami_sama
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/aa_megami_sama.jpg"
+    :border_color:
+    :title_ru: Моя богиня!
+    :text_ru:
+    :title_en: Aa! Megami-sama!
+    :text_en:
+    :topic_id: 247360
+    :rule: &713
+      :algo: duration
+      :filters: *712
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *4
+  neko_id: :aa_megami_sama
+  level: 0
+  image: "/assets/achievements/anime/franchise/aa_megami_sama.jpg"
+  border_color:
+  title_ru: Моя богиня!
+  text_ru:
+  title_en: Aa! Megami-sama!
+  text_en:
+  topic_id: 247360
+  rule: *713
+  mandatory_attributes: *6
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :genshiken
     :level: 1
     :image: "/assets/achievements/anime/franchise/genshiken.jpg"
@@ -13977,7 +14002,7 @@
     :title_en: Genshiken
     :text_en:
     :topic_id: 247360
-    :rule: &712
+    :rule: &714
       :algo: duration
       :filters: &715
         franchise: genshiken
@@ -13993,34 +14018,6 @@
   title_ru: Гэнсикэн
   text_ru:
   title_en: Genshiken
-  text_en:
-  topic_id: 247360
-  rule: *712
-  mandatory_attributes: *6
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :aa_megami_sama
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/aa_megami_sama.jpg"
-    :border_color:
-    :title_ru: Моя богиня!
-    :text_ru:
-    :title_en: Aa! Megami-sama!
-    :text_en:
-    :topic_id: 247360
-    :rule: &714
-      :algo: duration
-      :filters: *713
-      :threshold: 0.01
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *4
-  neko_id: :aa_megami_sama
-  level: 0
-  image: "/assets/achievements/anime/franchise/aa_megami_sama.jpg"
-  border_color:
-  title_ru: Моя богиня!
-  text_ru:
-  title_en: Aa! Megami-sama!
   text_en:
   topic_id: 247360
   rule: *714
@@ -14453,7 +14450,7 @@
       :generator: &740
         not_ignored_ids:
         - 1481
-      :threshold: 92.3%
+      :threshold: 92.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :urusei_yatsura
@@ -14593,7 +14590,7 @@
         - 51842
         - 55393
         - 55517
-      :threshold: 87.2%
+      :threshold: 87.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :idolmaster
@@ -18118,7 +18115,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 95.7%
+      :threshold: 95.9%
       :generator: &933
         ignore_latest_ids:
         - 52992
@@ -18878,7 +18875,7 @@
         - 38647
         - 38648
         - 40543
-      :threshold: 87%
+      :threshold: 86.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :pripara
@@ -18994,7 +18991,7 @@
         franchise: a_mortal_s_journey
         not_anime_ids:
         - 54444
-      :threshold: 98%
+      :threshold: 96.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :a_mortal_s_journey
