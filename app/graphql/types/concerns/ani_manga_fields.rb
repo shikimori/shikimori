@@ -1,6 +1,9 @@
 module Types::Concerns::AniMangaFields
   extend ActiveSupport::Concern
 
+  CHRONOLOGY_ERROR = 'Chronology can be fetched only for a single entity. ' \
+    'Set `limit: 1` in query arguments.'
+
   included do |_klass|
     field :license_name_ru, String
     field :english, String
@@ -56,6 +59,14 @@ module Types::Concerns::AniMangaFields
           count: entry[1]
         }
       end
+    end
+
+    def chronology
+      context[:chronology_counter] ||= 0
+      context[:chronology_counter] += 1
+      raise ArgumentError, CHRONOLOGY_ERROR if context[:chronology_counter] > 1
+
+      Animes::ChronologyQuery.new(object).fetch.map(&:decorate)
     end
   end
 end

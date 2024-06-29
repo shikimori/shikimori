@@ -17,4 +17,6 @@ class Types::MangaType < Types::BaseObject
       context[:manga_user_rates][object.id] :
       decorated_object.current_rate
   end
+
+  field :chronology, [Types::MangaType], complexity: 50
 end

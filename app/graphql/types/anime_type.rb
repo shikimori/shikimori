@@ -32,4 +32,6 @@ class Types::AnimeType < Types::BaseObject
       context[:anime_user_rates][object.id] :
       decorated_object.current_rate
   end
+
+  field :chronology, [Types::AnimeType], complexity: 50
 end
