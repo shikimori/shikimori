@@ -33,17 +33,7 @@ class Moderations::PostersController < ModerationsController
       .new(scope(klass: @klass, moderation_state: @state))
       .includes(:manga, :approver)
 
-    if params[:id]
-      @collection = @collection.where(id: params[:id])
-
-      if @collection.none?
-        poster = Poster.find_by(id: params[:id])
-        if poster
-          return redirect_to current_url(state: poster.moderation_state,
-            kind: poster.target.class.base_class.name.downcase)
-        end
-      end
-    end
+    poster_by_id if params[:id]
 
     @collection = @collection.paginate(page, PER_PAGE)
   end
@@ -80,6 +70,24 @@ private
       scope
     else
       scope.except(:order).order(updated_at: :desc)
+    end
+  end
+
+  def poster_by_id # rubocop:disable Metrics/AbcSize
+    @collection = params.key?(:redirected) ?
+      QueryObjectBase.new(Poster).where(id: params[:id]) :
+      @collection.where(id: params[:id])
+
+    return if @collection.any?
+
+    poster = Poster.find_by(id: params[:id])
+    if poster
+      redirect_to current_url(
+        page: 1,
+        state: poster.moderation_state,
+        kind: poster.target.class.base_class.name.downcase,
+        redirected: 1
+      )
     end
   end
 end
