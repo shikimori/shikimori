@@ -51,7 +51,7 @@ class Poll < ApplicationRecord
 
   def text_html
     BbCodes::Text.call(
-      Moderations::Banhammer.instance.censor(text)
+      Moderations::Banhammer.instance.censor(text || '')
     )
   end
 end

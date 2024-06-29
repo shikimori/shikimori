@@ -2,8 +2,8 @@ describe Users::PollsController do
   include_context :authenticated, :user
 
   describe '#index' do
-    let!(:poll_1) { create :poll, user: user }
-    let!(:poll_2) { create :poll, user: user }
+    let!(:poll_1) { create :poll, user: }
+    let!(:poll_2) { create :poll, user: }
     let!(:poll_3) { create :poll, user: user_2 }
 
     subject! { get :index, params: { profile_id: user.to_param } }
@@ -15,7 +15,7 @@ describe Users::PollsController do
   end
 
   describe '#show' do
-    let(:poll) { create :poll, state, user: user }
+    let(:poll) { create :poll, state, user: }
     subject! { get :show, params: { profile_id: user.to_param, id: poll.id } }
 
     context 'pending' do
@@ -80,15 +80,15 @@ describe Users::PollsController do
   end
 
   describe '#edit' do
-    let(:poll) { create :poll, :pending, user: user }
+    let(:poll) { create :poll, :pending, user: }
     subject! { get :edit, params: { profile_id: user.to_param, id: poll.id } }
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
-    let(:poll) { create :poll, poll_state, user: user, name: 'qqq', text: 'cc' }
-    let!(:poll_variant) { create :poll_variant, poll: poll, label: 'zzz' }
+    let(:poll) { create :poll, poll_state, user:, name: 'qqq', text: 'cc' }
+    let!(:poll_variant) { create :poll_variant, poll:, label: 'zzz' }
 
     subject! do
       post :update,
@@ -152,7 +152,7 @@ describe Users::PollsController do
   end
 
   describe '#start' do
-    let(:poll) { create :poll, :pending, :with_variants, user: user }
+    let(:poll) { create :poll, :pending, :with_variants, user: }
     subject! { post :start, params: { profile_id: user.to_param, id: poll.id } }
 
     it do
@@ -162,7 +162,7 @@ describe Users::PollsController do
   end
 
   describe '#stop' do
-    let(:poll) { create :poll, :started, user: user }
+    let(:poll) { create :poll, :started, user: }
 
     subject! { post :stop, params: { profile_id: user.to_param, id: poll.id } }
 
@@ -173,7 +173,7 @@ describe Users::PollsController do
   end
 
   describe '#destroy' do
-    let(:poll) { create :poll, user: user }
+    let(:poll) { create :poll, user: }
 
     subject! do
       delete :destroy,
