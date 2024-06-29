@@ -75,6 +75,8 @@ private
   def rkn_banned_error _error
     if error_json_response?
       render plain: 'rkn_banned', status: :unavailable_for_legal_reasons
+    elsif request.xhr?
+      render partial: 'application/rkn_banned', layout: false, formats: :html
     else
       render 'pages/rkn_banned', layout: false, formats: :html
     end
