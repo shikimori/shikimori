@@ -14,7 +14,8 @@ class Moderations::PostersController < ModerationsController
   helper_method :scope
 
   def index # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    og noindex: true, nofollow: true
+    authorize! :censore, Poster
+
     og page_title: i18n_t('page_title')
 
     @default_state = Types::Moderatable::State[:pending].to_s

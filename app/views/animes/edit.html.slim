@@ -99,11 +99,10 @@
                   external_links: ->(value) { @resource.available_external_links.map(&:label).join(', ').html_safe }\
                 }[field],
                 is_force_value: field == :poster do
-              - if field == :poster && can?(:read, Poster)
-                - if @resource.object.poster && @resource.apply_poster_moderation?
-                  br
-                  a.poster-moderation href=moderations_posters_url(id: @resource.object.poster.id, state: @resource.object.poster.moderation_state, kind: Moderations::PostersController::Kind[@resource.object.class.base_class.name.downcase])
-                    | Модерация 18+ постера
+              - if field == :poster && can?(:censore, Poster) && @resource.object.poster
+                br
+                a.poster-moderation href=moderations_posters_url(id: @resource.object.poster.id, state: @resource.object.poster.moderation_state, kind: Moderations::PostersController::Kind[@resource.object.class.base_class.name.downcase])
+                  | Модерация 18+ постера
 
           = render 'db_entries/edit_field_li',
             resource: @resource,
