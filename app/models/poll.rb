@@ -42,7 +42,7 @@ class Poll < ApplicationRecord
   def name
     return super if super.present? || new_record?
 
-    i18n_t 'name', id: id
+    i18n_t 'name', id:
   end
 
   def bb_code
@@ -50,6 +50,8 @@ class Poll < ApplicationRecord
   end
 
   def text_html
-    BbCodes::Text.call text
+    BbCodes::Text.call(
+      Moderations::Banhammer.instance.censor(text)
+    )
   end
 end

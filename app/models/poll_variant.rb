@@ -7,7 +7,7 @@ class PollVariant < ApplicationRecord
 
   def label_html
     BbCodes::Text
-      .call(label)
+      .call(Moderations::Banhammer.instance.censor(label))
       .gsub(
         /<a class="b-link" href="(.*?)"( rel=".*?")?>/,
         '<a class="b-link" href="\\1" target="_blank"\\2>'
