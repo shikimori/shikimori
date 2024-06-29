@@ -6,8 +6,6 @@ class BbCodes::CleanupCssClass
     b-admin_panel
     b-appear_marker
     b-broadcast_marker
-    b-collection_item
-    b-comment
     b-comments
     b-comments-notifier
     b-fancy_loader
