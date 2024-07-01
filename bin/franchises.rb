@@ -270,7 +270,6 @@ begin
     .sort_by.with_index do |rule, index|
       franchise = rule['filters']['franchise']
       popularity[franchise] ||= Rails.cache.fetch [:franchise, :popularity, franchise] do
-        next unless franchise == 'a_mortal_s_journey'
         puts "calculating for #{franchise} #{index}/#{data.size - 1}"
         neko_rule = Neko::Rule.new(
           Neko::Rule::NO_RULE.attributes.merge(
