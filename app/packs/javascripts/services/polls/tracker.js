@@ -9,7 +9,6 @@ export default class PollsTracker {
     }
 
     jsExports.polls
-      .slice(0, 30) // the same limit is in JsExports::PollsExport
       .forEach(poll => new TrackPoll(poll, $root));
     jsExports.polls = null;
   }
