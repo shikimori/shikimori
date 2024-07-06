@@ -16,10 +16,10 @@ GIT
 
 GIT
   remote: https://github.com/morr/cancancan.git
-  revision: 209c6f6854dcc48a65c83caefdf4524bf77eaf98
+  revision: e28bbb785884da5167b42f0873f3faff27786bba
   branch: master
   specs:
-    cancancan (3.4.0)
+    cancancan (3.5.0)
 
 GIT
   remote: https://github.com/morr/chewy.git
