@@ -5,7 +5,6 @@ class MessagesController < ProfilesController
       show
       tooltip
       feed
-      preview
       chosen
       unsubscribe
     ]
