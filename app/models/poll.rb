@@ -39,6 +39,13 @@ class Poll < ApplicationRecord
 
   accepts_nested_attributes_for :variants
 
+  MAX_VARIANTS = 40
+
+  def variants_attributes= attributes
+    attributes = attributes.slice(0, MAX_VARIANTS) if attributes.size > MAX_VARIANTS
+    super
+  end
+
   def name
     return super if super.present? || new_record?
 
