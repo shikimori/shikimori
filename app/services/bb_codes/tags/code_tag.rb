@@ -16,6 +16,9 @@ class BbCodes::Tags::CodeTag
 
   CODE_PLACEHOLDER_1 = '!!-CODE-1-!!'
   CODE_PLACEHOLDER_2 = '!!-CODE-2-!!'
+  CODE_PLACEHOLDER_2_WRAPPED_IN_URL_CLEANUP_REGEXP = %r{
+    \[url\]#{CODE_PLACEHOLDER_2}\[/url\]
+  }mx
 
   CODE_INLINE_OPEN_TAG = "<code class='b-code_inline'>"
   CODE_INLINE_CLOSE_TAG = '</code>'
@@ -90,13 +93,15 @@ private
   end
 
   def proprocess_inline_markdown text
-    text.gsub INLINE_MARKDOWN_REGEXP do |match|
-      store(
-        text: $LAST_MATCH_INFO[:code],
-        original: match
-      )
-      CODE_PLACEHOLDER_2
-    end
+    text
+      .gsub INLINE_MARKDOWN_REGEXP do |match|
+        store(
+          text: $LAST_MATCH_INFO[:code],
+          original: match
+        )
+        CODE_PLACEHOLDER_2
+      end
+      .gsub(CODE_PLACEHOLDER_2_WRAPPED_IN_URL_CLEANUP_REGEXP, CODE_PLACEHOLDER_2)
   end
 
   def postprocess_inline_markdown text

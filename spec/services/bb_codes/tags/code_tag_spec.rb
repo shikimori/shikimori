@@ -151,6 +151,11 @@ describe BbCodes::Tags::CodeTag do
           it { is_expected.to eq "#{placeholder_2}`" }
         end
       end
+
+      context 'wrapped in url tag' do
+        let(:text) { '[url]`zxcz`[/url]' }
+        it { is_expected.to eq placeholder_2 }
+      end
     end
   end
 
