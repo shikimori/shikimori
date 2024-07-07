@@ -1,4 +1,4 @@
-class BbCodes::Tags::CodeTag # rubocop:disable ClassLength
+class BbCodes::Tags::CodeTag
   BBCODE_REGEXP = %r{
     \[ code (?:=(?<language>[\w+#-]+))? \]
       (?<before> \ + | \ +[\r\n]+ | [\r\n]* )
@@ -57,9 +57,9 @@ private
           before: $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:before],
           after: $LAST_MATCH_INFO[:code_block] ? 'z' : $LAST_MATCH_INFO[:after],
           suffix: $LAST_MATCH_INFO[:suffix] == "\n" ? '<br>' : '',
-          markdown_opening: markdown_opening,
-          markdown_nesting: markdown_nesting,
-          markdown_ending: markdown_ending
+          markdown_opening:,
+          markdown_nesting:,
+          markdown_ending:
         )
 
         markdown_opening ?
@@ -109,7 +109,7 @@ private
   end
 
   def code_highlight text, language
-    "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' "\
+    "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' " \
       "data-language='#{language}'><code>#{text}</code></pre>"
   end
 
@@ -133,14 +133,14 @@ private
     markdown_ending: nil
   )
     @cache.push OpenStruct.new(
-      text: text.gsub(/\\`/, '`'),
-      original: original,
-      language: language,
+      text: text.gsub('\\`', '`'),
+      original:,
+      language:,
       content_around: (!before.empty? if before) || (!after.empty? if after),
-      suffix: suffix,
-      markdown_opening: markdown_opening,
-      markdown_nesting: markdown_nesting,
-      markdown_ending: markdown_ending
+      suffix:,
+      markdown_opening:,
+      markdown_nesting:,
+      markdown_ending:
     )
   end
 

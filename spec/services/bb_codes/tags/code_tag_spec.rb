@@ -188,11 +188,11 @@ describe BbCodes::Tags::CodeTag do
 
             it do
               is_expected.to eq(
-                "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' "\
+                "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' " \
                   "data-language=''><code>" +
                     content +
-                  '</code>'\
-                '</pre>'
+                  '</code>' \
+                    '</pre>'
               )
             end
           end
@@ -203,11 +203,11 @@ describe BbCodes::Tags::CodeTag do
 
             it do
               is_expected.to eq(
-                "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' "\
+                "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' " \
                   "data-language=''><code>" +
                     content +
-                  '</code>'\
-                '</pre>'
+                  '</code>' \
+                    '</pre>'
               )
             end
           end
@@ -220,11 +220,11 @@ describe BbCodes::Tags::CodeTag do
 
         it do
           is_expected.to eq(
-            "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' "\
+            "<pre class='b-code-v2 to-process' data-dynamic='code_highlight' " \
               "data-language='ruby'><code>" +
                 content +
-              '</code>'\
-            '</pre>'
+              '</code>' \
+                '</pre>'
           )
         end
       end
