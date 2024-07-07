@@ -4,7 +4,7 @@ class BbCodes::Tags::AnimeTag
 
   dsl_attribute :klass, Anime
 
-  FALLBACK = /(?:\ fallback=(?<fallback>.*?))?/
+  FALLBACK = /(?:\ fallback=(?<fallback>[^\n\]\[]+?))?/
   NAME = /(?:\ [^\n\]\[]+)?/
 
   def regexp
@@ -70,7 +70,7 @@ private
 
   def localization_span model
     if model.russian.present?
-      "<span class='name-en'>#{ERB::Util.h model.name}</span>"\
+      "<span class='name-en'>#{ERB::Util.h model.name}</span>" \
         "<span class='name-ru'>#{ERB::Util.h model.russian}</span>"
     else
       ERB::Util.h model.name

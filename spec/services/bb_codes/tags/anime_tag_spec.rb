@@ -1,6 +1,6 @@
 describe BbCodes::Tags::AnimeTag do
   subject { described_class.instance.format text }
-  let(:model) { create :anime, id: 9_876_543, name: 'test', russian: russian }
+  let(:model) { create :anime, id: 9_876_543, name: 'test', russian: }
   let(:attrs) do
     {
       id: model.id,
@@ -55,6 +55,11 @@ describe BbCodes::Tags::AnimeTag do
         let(:text) { "[anime=#{model.id} fallback=zxc asdasdasd fg]" }
         it { is_expected.to eq html }
       end
+
+      context 'multiple tags' do
+        let(:text) { "[anime=#{model.id} fallback=zxc] [anime=#{model.id}]#{name_html}[/anime]" }
+        it { is_expected.to eq "#{html} #{html}" }
+      end
     end
 
     context 'name' do
@@ -63,7 +68,7 @@ describe BbCodes::Tags::AnimeTag do
     end
 
     context 'multiple bb codes' do
-      let(:model_2) { create :anime, id: 98_765_432, name: 'zxcvbn', russian: russian }
+      let(:model_2) { create :anime, id: 98_765_432, name: 'zxcvbn', russian: }
       let(:text) { "[anime=#{model.id}][anime=#{model_2.id}]" }
       it do
         is_expected.to include html
@@ -74,7 +79,7 @@ describe BbCodes::Tags::AnimeTag do
 
     context 'with russian name' do
       let(:name_html) do
-        "<span class='name-en'>#{model.name}</span>"\
+        "<span class='name-en'>#{model.name}</span>" \
           "<span class='name-ru'>#{model.russian}</span>"
       end
       let(:russian) { 'test' }
