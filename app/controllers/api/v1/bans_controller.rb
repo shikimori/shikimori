@@ -3,7 +3,7 @@ class Api::V1::BansController < Api::V1Controller
   api :GET, '/bans', 'List bans'
   def index
     page = [params[:page].to_i, 1].max
-    limit = [[params[:limit].to_i, 1].max, 30].min
+    limit = params[:limit].to_i.clamp(1, 30)
 
     @collection = BansQuery.new.fetch page, limit
 

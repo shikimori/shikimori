@@ -40,7 +40,7 @@ class ClubsController < ShikimoriController
 
   def index
     og noindex: true
-    @limit = [[params[:limit].to_i, 24].max, 48].min
+    @limit = params[:limit].to_i.clamp(24, 48)
 
     is_skip_restrictions = can?(:manage_restrictions, Club) &&
       RESTRICTED_FILTERS.any? { |field| params[field].blank? }

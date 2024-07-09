@@ -11,7 +11,7 @@ class CollectionsController < ShikimoriController
   CREATE_PARAMS = %i[user_id kind] + UPDATE_PARAMS
 
   def index # rubocop:disable AbcSize
-    @limit = [[params[:limit].to_i, 4].max, 8].min
+    @limit = params[:limit].to_i.clamp(4, 8)
 
     @collection = Collections::Query.fetch(censored_forbidden?)
       .search(params[:search])

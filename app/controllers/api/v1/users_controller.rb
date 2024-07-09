@@ -26,7 +26,7 @@ class Api::V1::UsersController < Api::V1Controller # rubocop:disable Metrics/Cla
     required: false,
     allow_blank: true
   def index
-    @limit = [[params[:limit].to_i, 1].max, USERS_LIMIT].min
+    @limit = params[:limit].to_i.clamp(1, USERS_LIMIT)
 
     @collection = Users::Query.fetch
       .search(params[:search])
@@ -69,7 +69,7 @@ class Api::V1::UsersController < Api::V1Controller # rubocop:disable Metrics/Cla
     required: false,
     desc: "#{FRIENDS_LIMIT} maximum"
   def friends
-    @limit = [[params[:limit].to_i, 1].max, FRIENDS_LIMIT].min
+    @limit = params[:limit].to_i.clamp(1, FRIENDS_LIMIT)
 
     @collection = QueryObjectBase
       .new(user.friends)
@@ -95,7 +95,7 @@ class Api::V1::UsersController < Api::V1Controller # rubocop:disable Metrics/Cla
     required: false,
     desc: 'Set to `true` to discard hentai, yaoi and yuri'
   def anime_rates # rubocop:disable AbcSize
-    @limit = [[params[:limit].to_i, 1].max, USER_RATES_LIMIT].min
+    @limit = params[:limit].to_i.clamp(1, USER_RATES_LIMIT)
 
     @rates = Rails.cache.fetch [user, :anime_rates, params[:status], params[:censored]] do
       rates = user.anime_rates.includes(:anime, :user)
@@ -121,7 +121,7 @@ class Api::V1::UsersController < Api::V1Controller # rubocop:disable Metrics/Cla
     required: false,
     desc: 'Set to `true` to discard hentai, yaoi and yuri'
   def manga_rates # rubocop:disable AbcSize
-    @limit = [[params[:limit].to_i, 1].max, USER_RATES_LIMIT].min
+    @limit = params[:limit].to_i.clamp(1, USER_RATES_LIMIT)
 
     @rates = Rails.cache.fetch [user, :manga_rates, params[:status], params[:censored]] do
       rates = user.manga_rates.includes(:manga, :user)
@@ -160,7 +160,7 @@ class Api::V1::UsersController < Api::V1Controller # rubocop:disable Metrics/Cla
   param :limit, :number, required: false, desc: "#{MESSAGES_LIMIT} maximum"
   param :type, %w[inbox private sent news notifications], required: true
   def messages
-    @limit = [[params[:limit].to_i, 1].max, MESSAGES_LIMIT].min
+    @limit = params[:limit].to_i.clamp(1, MESSAGES_LIMIT)
 
     messages = ::Messages::Query
       .fetch(current_user, params[:type].try(:to_sym) || '')
@@ -187,7 +187,7 @@ class Api::V1::UsersController < Api::V1Controller # rubocop:disable Metrics/Cla
   param :target_id, :number, required: false
   param :target_type, %w[Anime Manga], required: false
   def history
-    @limit = [[params[:limit].to_i, 1].max, HISTORY_LIMIT].min
+    @limit = params[:limit].to_i.clamp(1, HISTORY_LIMIT)
 
     @collection = user
       .all_history

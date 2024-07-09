@@ -41,7 +41,7 @@ class Api::V1::TopicsController < Api::V1Controller
     Topics::NewsTopics::ContestStatusTopic
   ], required: false
   def index # rubocop:disable all
-    @limit = [[params[:limit].to_i, 1].max, LIMIT].min
+    @limit = params[:limit].to_i.clamp(1, LIMIT)
 
     query = Topics::Query.fetch censored_forbidden?
 
@@ -74,7 +74,7 @@ class Api::V1::TopicsController < Api::V1Controller
   param :page, :pagination, required: false
   param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   def updates
-    @limit = [[params[:limit].to_i, 1].max, LIMIT].min
+    @limit = params[:limit].to_i.clamp(1, LIMIT)
 
     respond_with map_updates(updates_scope)
   end
@@ -82,7 +82,7 @@ class Api::V1::TopicsController < Api::V1Controller
   api :GET, '/topics/hot', 'Hot topics'
   param :limit, :number, required: false, desc: '10 maximum'
   def hot
-    @limit = [[params[:limit].to_i, 1].max, 10].min
+    @limit = params[:limit].to_i.clamp(1, 10)
 
     @collection = Topics::HotTopicsQuery
       .call(limit: @limit)

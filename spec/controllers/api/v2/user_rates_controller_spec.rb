@@ -8,13 +8,6 @@ describe Api::V2::UserRatesController, :show_in_doc do
     allow(UserRates::Log).to receive :call
   end
 
-  describe '#show' do
-    let(:user_rate) { create :user_rate, user: }
-    before { get :show, params: { id: user_rate.id }, format: :json }
-
-    it { expect(response).to have_http_status :success }
-  end
-
   describe '#index' do
     let!(:user_rate_1) { create :user_rate, :completed, user: }
     let!(:user_rate_2) { create :user_rate, :planned, user: }
@@ -32,6 +25,13 @@ describe Api::V2::UserRatesController, :show_in_doc do
       expect(json).to have(2).items
       expect(response).to have_http_status :success
     end
+  end
+
+  describe '#show' do
+    let(:user_rate) { create :user_rate, user: }
+    before { get :show, params: { id: user_rate.id }, format: :json }
+
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do

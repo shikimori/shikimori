@@ -195,7 +195,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     allow_blank: true,
     desc: 'Search phrase to filter animes by `name`'
   def index
-    limit = [[params[:limit].to_i, 1].max, LIMIT].min
+    limit = params[:limit].to_i.clamp(1, LIMIT)
 
     @collection = Rails.cache.fetch cache_key, expires_in: 2.days do
       AnimesCollection::PageQuery.call(
@@ -277,7 +277,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
   param :kind, Types::Topic::NewsTopic::Action.values.map(&:to_s), required: false
   param :episode, :number, required: false
   def topics # rubocop:disable AbcSize
-    @limit = [[params[:limit].to_i, 1].max, Api::V1::TopicsController::LIMIT].min
+    @limit = params[:limit].to_i.clamp(1, Api::V1::TopicsController::LIMIT)
 
     scope = Topics::Query.new(@resource.all_topics)
 

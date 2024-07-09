@@ -23,7 +23,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   param :desc, %w[1 0], required: false
   def index # rubocop:disable AbcSize
-    @limit = [[params[:limit].to_i, 1].max, LIMIT].min
+    @limit = params[:limit].to_i.clamp(1, LIMIT)
     @desc = params[:desc].nil? || params[:desc] == '1'
 
     commentable_type = params[:commentable_type]

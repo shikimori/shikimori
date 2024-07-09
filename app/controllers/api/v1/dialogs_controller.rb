@@ -11,7 +11,7 @@ class Api::V1::DialogsController < Api::V1Controller
   api :GET, '/dialogs', 'List dialogs'
   description 'Requires `messages` oauth scope'
   def index
-    @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE * 2].min
+    @limit = params[:limit].to_i.clamp(MESSAGES_PER_PAGE, MESSAGES_PER_PAGE * 2)
 
     @collection = DialogsQuery.new(current_user).fetch(@page, @limit)
 
@@ -21,7 +21,7 @@ class Api::V1::DialogsController < Api::V1Controller
   api :GET, '/dialogs/:id', 'Show a dialog'
   description 'Requires `messages` oauth scope'
   def show
-    @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE * 2].min
+    @limit = params[:limit].to_i.clamp(MESSAGES_PER_PAGE, MESSAGES_PER_PAGE * 2)
 
     @collection = DialogQuery
       .new(current_user, @target_user)

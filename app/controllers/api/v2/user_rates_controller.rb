@@ -9,12 +9,6 @@ class Api::V2::UserRatesController < Api::V2Controller
     doorkeeper_authorize! :user_rates if doorkeeper_token.present?
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
-  api :GET, '/v2/user_rates/:id', 'Show an user rate'
-  def show
-    respond_with @resource
-  end
-
   api :GET, '/v2/user_rates', 'List user rates'
   param :user_id, :number,
     required: false,
@@ -45,8 +39,8 @@ class Api::V2::UserRatesController < Api::V2Controller
   param :limit, :number,
     required: false,
     desc: "#{MAX_LIMIT} maximum. This field is ignored when user_id is set"
-  def index
-    limit = [[params[:limit].to_i, 1].max, MAX_LIMIT].min
+  def index # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+    limit = params[:limit].to_i.clamp(1, MAX_LIMIT)
     page = [params[:page].to_i, 1].max
 
     if params[:target_id].present? && params[:target_type].blank?
@@ -68,6 +62,12 @@ class Api::V2::UserRatesController < Api::V2Controller
 
     @collection = Rails.cache.fetch([scope, :v2]) { scope.to_a }
     respond_with @collection
+  end
+
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
+  api :GET, '/v2/user_rates/:id', 'Show an user rate'
+  def show
+    respond_with @resource
   end
 
   api :POST, '/v2/user_rates', 'Create an user rate'

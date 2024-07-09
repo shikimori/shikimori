@@ -22,7 +22,7 @@ class Api::V1::ClubsController < Api::V1Controller
     allow_blank: true
   def index
     page = [params[:page].to_i, 1].max
-    limit = [[params[:limit].to_i, 1].max, LIMIT].min
+    limit = params[:limit].to_i.clamp(1, LIMIT)
 
     @collection = Clubs::Query.fetch(current_user, false)
       .search(params[:search])
@@ -125,7 +125,7 @@ class Api::V1::ClubsController < Api::V1Controller
   def members
     params[:limit] ||= 100
     page = [params[:page].to_i, 1].max
-    limit = [[params[:limit].to_i, 1].max, 100].min
+    limit = params[:limit].to_i.clamp(1, 100)
 
     scope = QueryObjectBase
       .new(
@@ -143,7 +143,7 @@ class Api::V1::ClubsController < Api::V1Controller
   def images
     params[:limit] ||= 100
     page = [params[:page].to_i, 1].max
-    limit = [[params[:limit].to_i, 1].max, 100].min
+    limit = params[:limit].to_i.clamp(1, 100)
 
     scope = QueryObjectBase
       .new(

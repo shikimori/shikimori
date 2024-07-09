@@ -110,7 +110,7 @@ class Api::V1::RanobeController < Api::V1::MangasController
     allow_blank: true,
     desc: 'Search phrase to filter ranobe by `name`'
   def index
-    limit = [[params[:limit].to_i, 1].max, LIMIT].min
+    limit = params[:limit].to_i.clamp(1, LIMIT)
 
     @collection = Rails.cache.fetch cache_key, expires_in: 2.days do
       AnimesCollection::PageQuery.call(
@@ -170,7 +170,7 @@ class Api::V1::RanobeController < Api::V1::MangasController
   param :page, :pagination, required: false
   param :limit, :number, required: false, desc: "#{Api::V1::TopicsController::LIMIT} maximum"
   def topics
-    @limit = [[params[:limit].to_i, 1].max, Api::V1::TopicsController::LIMIT].min
+    @limit = params[:limit].to_i.clamp(1, Api::V1::TopicsController::LIMIT)
 
     @collection = Topics::Query.new(@resource.all_topics)
       .includes(:forum, :user)
