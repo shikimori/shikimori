@@ -148,7 +148,7 @@
     - else
       = text_area_tag field_name, text,
         class: 'comment_body editor-area',
-        placeholder: (browser.ie? ? '' : t('.text')),
+        placeholder: t('.text'),
         tabindex: 0,
         'data-upload_url' => api_user_images_url(linked_type: nil),
         'data-item_type' => item_type,
