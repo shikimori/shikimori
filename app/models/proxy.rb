@@ -106,11 +106,17 @@ class Proxy < ApplicationRecord
 
         begin
           proxy ||= @@proxies.pop(true) # кидает "ThreadError: queue empty" при пустой очереди
-          log "#{url}#{options[:data] ? ' ' + options[:data].map { |k, v| "#{k}=#{v}" }.join('&') : ''} via #{proxy}", options
+          log(
+            "#{url}#{options[:data] ? ' ' +
+              options[:data]
+                .map { |k, v| "#{k}=#{v}" }
+                .join('&') : ''} via #{proxy}",
+            options
+          )
 
           # timeout does not with shell exec
           # Timeout.timeout(options[:timeout]) do
-            content = get_via_proxy url, proxy, options[:timeout]
+          content = get_via_proxy url, proxy, options[:timeout]
           # end
           # raise "#{proxy} banned" if content.nil?
 
@@ -119,10 +125,11 @@ class Proxy < ApplicationRecord
 
           if options[:return_file]
             tmpfile = Tempfile.new 'jpg'
-            File.open(tmpfile.path, 'wb') { |f| f.write content }
+            File.binwrite(tmpfile.path, content)
             tmpfile.instance_variable_set :@original_filename, url.split('/').last
-            def tmpfile.original_filename
-              @original_filename
+
+            class << tmpfile
+              attr_reader :original_filename
             end
 
             if options[:validate_jpg] && !ImageChecker.valid?(tmpfile.path)
@@ -142,7 +149,11 @@ class Proxy < ApplicationRecord
               end
 
             stripped_content = content.gsub(/[ \n\r]+/, '').downcase rescue ArgumentError
-            unless requires.all? { |v| stripped_content&.include?(v.gsub(/[ \n\r]+/, '')&.downcase) }
+            unless requires.all? do |v|
+              stripped_content&.include?(v.gsub(/[ \n\r]+/, '')&.downcase)
+            rescue TypeError # rubocop:disable Metrics/BlockNesting
+              false
+            end
               raise "#{proxy} banned or broken"
             end
           end
@@ -163,8 +174,8 @@ class Proxy < ApplicationRecord
         rescue StandardError => e
           raise if defined?(VCR) && e.is_a?(VCR::Errors::UnhandledHTTPRequestError)
 
-          if /404 Not Found/.match? e.message
-            @@proxies.push(proxy) unless options[:proxy]
+          if /404 Not Found/i.match? e.message
+            @@proxies.push(proxy) unless options[:proxy] # rubocop:disable Metrics/BlockNesting
             raise
           end
 
@@ -238,7 +249,7 @@ class Proxy < ApplicationRecord
     end
 
     def log message, options
-      print "[Proxy]: #{message}\n" if options[:log] || @@show_log
+      print "[Proxy]: #{message}\n" if options[:log] || @@show_log # rubocop:disable Rails/Output
     end
 
     def off!
