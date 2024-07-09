@@ -5,7 +5,9 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include User::NotificationsConcern
   include StylesConcern
 
-  MAX_NICKNAME_LENGTH = 20
+  # 20 + 2 to be sure that Users::PopulateOmniauth work correctly with empty nicknames
+  # user = User.new; Users::PopulateOmniauth.call user, OpenStruct.new(info: OpenStruct.new); user.save
+  MAX_NICKNAME_LENGTH = 22
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
   DAY_LIFE_INTERVAL = 1.day
   WEEK_LIFE_INTERVAL = 1.week

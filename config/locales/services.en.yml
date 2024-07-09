@@ -41,8 +41,6 @@ en:
       We recommend that you change your email in profile settings,
       or else you won't be able to restore your account
       if you forget you password.
-  omniauth_service:
-    new_user: New user
   bb_codes/tags/replies_tag:
     reply: 'Reply: '
     replies: 'Replies: '
@@ -119,6 +117,9 @@ en:
     ban_text: >-
       You are banned for spam.
       Send a word to %{email} in case if you are innocent.
+
+  users/populate_omniauth:
+    new_user: New user
 
   users/check_hacked:
     lock_text: >-

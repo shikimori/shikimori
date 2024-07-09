@@ -41,8 +41,6 @@ ru:
       иначе при утрате пароля ты не сможешь восстановить пароль от аккаунта.
 
 
-  omniauth_service:
-    new_user: Новый пользователь
   bb_codes/tags/replies_tag:
     reply: 'Ответ: '
     replies: 'Ответы: '
@@ -119,6 +117,9 @@ ru:
     ban_text: >-
       Ты @{f:забанена|m:забанен} за спам.
       Напиши на %{email}, если ты @{f:невиновна|m:невиновен}.
+
+  users/populate_omniauth:
+    new_user: Пользователь
 
   users/check_hacked:
     lock_text: >-
