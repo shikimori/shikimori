@@ -139,7 +139,7 @@
         as: :text,
         input_html: {\
           class: "editor-area",
-          placeholder: (browser.ie? ? '' : t('.comment')),
+          placeholder: t('.comment'),
           tabindex: 0,
           'data-upload_url' => api_user_images_url(linked_type: item_type.classify),
           'data-item_type' => item_type,

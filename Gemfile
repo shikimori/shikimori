@@ -94,7 +94,6 @@ gem 'nokogiri'
 # gem 'sanitize'
 
 # gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
-gem 'browser' # для детекта internet explorer в рендере shiki_editor
 
 gem 'htmlentities' # для конвертации &#29190; -> 爆 у ворлдарта, мала и прочих
 # gem 'exception_notification', github: 'smartinez87/exception_notification'
