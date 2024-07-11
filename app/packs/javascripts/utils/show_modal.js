@@ -68,7 +68,8 @@ export default function showModal({
   }
 
   $modal
-    .on('modal:show', () => {
+    .on('modal:show', e => {
+      e.stopImmediatePropagation();
       if (!checkHidden()) { return; }
 
       if (show) {
@@ -85,7 +86,8 @@ export default function showModal({
         $(document).one('turbolinks:before-cache', unbindHandlers);
       });
     })
-    .on('modal:hide', () => {
+    .on('modal:hide', e => {
+      e.stopImmediatePropagation();
       if (checkHidden()) { return; }
 
       if (hide) {
