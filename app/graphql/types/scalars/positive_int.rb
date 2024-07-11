@@ -3,7 +3,9 @@ class Types::Scalars::PositiveInt < GraphQL::Types::Int
 
   def self.coerce_input(input_value, ctx)
     int_value = super
-    raise GraphQL::CoercionError, "#{input_value} is not a positive integer" if int_value < 1
+    if !int_value || int_value < 1
+      raise GraphQL::CoercionError, "#{input_value} is not a positive integer"
+    end
 
     int_value
   end
