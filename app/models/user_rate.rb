@@ -56,7 +56,7 @@ class UserRate < ApplicationRecord
 
   after_destroy :log_deleted, unless: :skip_logging?
 
-  validates :target, :user, :status, presence: true
+  validates :status, presence: true
   validates :user_id, uniqueness: { scope: %i[target_id target_type] }
   validates :text, length: { maximum: MAXIMUM_TEXT_SIZE }
 
@@ -64,7 +64,7 @@ class UserRate < ApplicationRecord
     if !value || value.size <= MAXIMUM_TEXT_SIZE
       super
     else
-      super value[0..MAXIMUM_TEXT_SIZE - 1]
+      super(value[0..MAXIMUM_TEXT_SIZE - 1])
     end
   end
 
@@ -97,7 +97,7 @@ class UserRate < ApplicationRecord
         status
       end
 
-    I18n.t 'activerecord.attributes.user_rate.statuses.'\
+    I18n.t 'activerecord.attributes.user_rate.statuses.' \
       "#{target_type.downcase}.#{status_name}"
   end
 
@@ -137,12 +137,12 @@ private
 
   # логика обновления полей при выставлении статусов
   def anime_status_changed
-    if completed?
-      self.episodes = target.episodes unless target.episodes.zero?
+    if completed? && !target.episodes.zero?
+      self.episodes = target.episodes
     end
 
-    if rewatching?
-      self.episodes = 0 if !changes['episodes'] || changes['episodes'].first.blank?
+    if rewatching? && (!changes['episodes'] || changes['episodes'].first.blank?)
+      self.episodes = 0
     end
   end
 
@@ -191,14 +191,14 @@ private
 
     if persisted? && changes[counter]
       # перевели с нуля на какую-то цифру - помечаем, что начали смотреть
-      if self[counter].positive? && (changes[counter].first || 0).zero?
-        self.status = :watching if changes['status'].nil? && !rewatching? && !completed? && !dropped?
+      if self[counter].positive? && (changes[counter].first || 0).zero? && (changes['status'].nil? && !rewatching? && !completed? && !dropped?)
+        self.status = :watching
       end
 
       # перевели с какой-то цифры в ноль - помечаем, что перенесли в запланированное
       if self[counter].zero? && changes[counter] &&
-          !(changes[counter].first || 0).zero?
-        self.status = :planned if changes['status'].nil? && !rewatching?
+          !(changes[counter].first || 0).zero? && (changes['status'].nil? && !rewatching?)
+        self.status = :planned
       end
     end
   end

@@ -1,4 +1,4 @@
-class BbCodes::Tags::CommentTag # rubocop:disable ClassLength
+class BbCodes::Tags::CommentTag
   include Singleton
   extend DslAttribute
 
@@ -37,14 +37,14 @@ class BbCodes::Tags::CommentTag # rubocop:disable ClassLength
 
       if entry
         bbcode_to_html(
-          entry: entry,
+          entry:,
           type: $LAST_MATCH_INFO[:type],
           text: $LAST_MATCH_INFO[:text],
           is_quoted: $LAST_MATCH_INFO[:quote].present?
         )
       else
         not_found_to_html(
-          entry_id: entry_id,
+          entry_id:,
           type: $LAST_MATCH_INFO[:type],
           text: $LAST_MATCH_INFO[:text],
           user_id: $LAST_MATCH_INFO[:user_id],
@@ -69,12 +69,12 @@ private
 
     attrs = build_attrs(
       id: entry.id,
-      type: type,
+      type:,
       user_id: user&.id,
       text: user&.nickname
     )
 
-    "<a href='#{url}' class='#{css_classes}'#{tooltip_html} "\
+    "<a href='#{url}' class='#{css_classes}'#{tooltip_html} " \
       "data-attrs='#{ERB::Util.h attrs.to_json}'" \
       ">#{mention_html}#{quoted_safe_html}</a>"
   end
@@ -104,12 +104,12 @@ private
 
     attrs = build_attrs(
       id: entry_id,
-      type: type,
+      type:,
       user_id: user&.id,
       text: user&.nickname
     )
 
-    "<#{open_tag} class='#{css_classes}' data-attrs='#{ERB::Util.h attrs.to_json}'"\
+    "<#{open_tag} class='#{css_classes}' data-attrs='#{ERB::Util.h attrs.to_json}'" \
       "><s>@</s>#{quoted_safe_html}" \
       "<del>[#{name}=#{entry_id}]</del></#{close_tag}>"
   end
@@ -148,7 +148,7 @@ private
   end
 
   def quoteed_author_html user, quoted_name
-    return "<span>#{quoted_name}</span>" unless user&.avatar&.present?
+    return "<span>#{quoted_name}</span>" if user&.avatar.blank?
 
     <<-HTML.squish
       <img
@@ -182,10 +182,10 @@ private
 
   def build_attrs id:, type:, user_id:, text:
     {
-      id: id,
-      type: type,
+      id:,
+      type:,
       userId: user_id,
-      text: text
+      text:
     }.compact
   end
 end
