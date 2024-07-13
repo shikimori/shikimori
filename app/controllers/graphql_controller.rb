@@ -38,7 +38,7 @@ class GraphqlController < ShikimoriController
     end
   end
 
-  private
+private
 
   # Handle variables in form data, JSON body, or a blank value
   def prepare_variables variables_param # rubocop:disable Metrics/MethodLength
@@ -81,5 +81,9 @@ class GraphqlController < ShikimoriController
         # backtrace: error.backtrace.first.sub(Rails.root.to_s, '')
       }]
     }, status: :internal_server_error
+  end
+
+  # do not touch it on api access
+  def touch_last_online
   end
 end
