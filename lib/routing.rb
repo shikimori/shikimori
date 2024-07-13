@@ -30,13 +30,14 @@ module Routing # rubocop:disable Metrics/ModuleLength
 
   included do
     def shiki_domain
-      if Rails.env.test?
-        'test.host'
-      elsif (Draper::ViewContext.current.request.try(:host) || 'test.host') == 'test.host'
-        Shikimori::DOMAIN
-      else
-        Url.new(Draper::ViewContext.current.request.host).cut_subdomain.to_s
-      end
+      Shikimori::DOMAIN
+      # if Rails.env.test?
+      #   'test.host'
+      # elsif (Draper::ViewContext.current.request.try(:host) || 'test.host') == 'test.host'
+      #   Shikimori::DOMAIN
+      # else
+      #   Url.new(Draper::ViewContext.current.request.host).cut_subdomain.to_s
+      # end
     end
 
     def shiki_one_domain
