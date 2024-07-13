@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_16_095419) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_13_145317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
@@ -30,6 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_095419) do
     t.bigint "topic_id"
     t.index ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((comment_id IS NOT NULL) AND ((state)::text = 'pending'::text))"
     t.index ["comment_id"], name: "index_abuse_requests_on_comment_id"
+    t.index ["kind"], name: "index_abuse_requests_on_kind"
     t.index ["topic_id", "kind", "value"], name: "index_abuse_requests_on_topic_id_and_kind_and_value", unique: true, where: "((topic_id IS NOT NULL) AND ((state)::text = 'pending'::text))"
     t.index ["topic_id"], name: "index_abuse_requests_on_topic_id"
   end
@@ -177,6 +178,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_095419) do
     t.date "released_on_computed"
     t.integer "genre_v2_ids", default: [], null: false, array: true
     t.string "more_info"
+    t.index ["aired_on_computed"], name: "index_animes_on_aired_on_computed"
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["rating"], name: "index_animes_on_rating"
@@ -276,6 +278,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_095419) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["club_id", "linked_id", "linked_type"], name: "index_club_links_on_club_id_and_linked_id_and_linked_type", unique: true
+    t.index ["linked_id", "linked_type", "club_id"], name: "index_club_links_on_linked_id_and_linked_type_and_club_id"
   end
 
   create_table "club_pages", force: :cascade do |t|
@@ -713,6 +716,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_095419) do
     t.date "released_on_computed"
     t.integer "genre_v2_ids", default: [], null: false, array: true
     t.string "more_info"
+    t.index ["aired_on_computed"], name: "index_mangas_on_aired_on_computed"
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"
@@ -1122,6 +1126,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_095419) do
     t.datetime "updated_at", precision: nil
     t.boolean "is_deleted", default: false, null: false
     t.index ["user_id", "value"], name: "index_user_nickname_changes_on_user_id_and_value", unique: true
+    t.index ["value"], name: "index_user_nickname_changes_on_value"
   end
 
   create_table "user_preferences", force: :cascade do |t|
