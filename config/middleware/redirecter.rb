@@ -1,6 +1,5 @@
 class Redirecter
   VALID_HOSTS = ShikimoriDomain::HOSTS
-  BANNED_HOSTS = ShikimoriDomain::BANNED_HOSTS
 
   def initialize app
     @app = app
@@ -11,8 +10,7 @@ class Redirecter
 
     return @app.call(env) unless request.get?
 
-    if !VALID_HOSTS.include?(request.host) ||
-        (request.path.starts_with?('/api/') && BANNED_HOSTS.include?(request.host))
+    if !VALID_HOSTS.include? request.host
       [301, { 'Location' => fixed_url(request).sub(request.host, Shikimori::DOMAIN) }, []]
 
     elsif request.host.starts_with? 'www.'
