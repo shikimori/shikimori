@@ -238,12 +238,14 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
         users.id not in (select distinct(user_id) from user_rates)
     )
   SQL
+  EXCLUDED_FROM_STATISTICS_SQL = <<~SQL.squish
+    roles && '{#{Types::User::ROLES_EXCLUDED_FROM_STATISTICS.join ','}}'
+  SQL
 
   scope :suspicious, -> { where(SUSPISIOUS_USERS_SQL).or(cheat_bot) } # very slow
   scope :cheat_bot, -> { where "roles && '{#{Types::User::Roles[:cheat_bot]}}'" }
-  scope :excluded_from_statistics, -> {
-    where "roles && '{#{Types::User::ROLES_EXCLUDED_FROM_STATISTICS.join ','}}'"
-  }
+
+  scope :excluded_from_statistics, -> { where EXCLUDED_FROM_STATISTICS_SQL }
 
   accepts_nested_attributes_for :preferences
 

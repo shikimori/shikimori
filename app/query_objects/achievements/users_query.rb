@@ -1,6 +1,6 @@
 class Achievements::UsersQuery < QueryObjectBase
   def self.fetch user
-    scope = User.where.not(id: User.excluded_from_statistics)
+    scope = User.where.not(User::EXCLUDED_FROM_STATISTICS_SQL)
 
     if user&.excluded_from_statistics?
       scope = scope.or(User.where(id: user.id))
