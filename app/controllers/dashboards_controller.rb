@@ -12,8 +12,7 @@ class DashboardsController < ShikimoriController
       type: 'website',
       page_title: i18n_t('page_title'),
       description: i18n_t('description'),
-      image: "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}" \
-        '/favicons/opera-icon-228x228.png'
+      image: "#{Shikimori::HOST}/favicons/opera-icon-228x228.png"
     )
 
     if @view.is_a? DashboardViewV2

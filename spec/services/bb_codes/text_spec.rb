@@ -144,10 +144,10 @@ describe BbCodes::Text do
 
     describe 'db_entry_url_tag -> db_entry_tag' do
       let!(:anime) { create :anime, id: 9_876_543, name: 'z' }
-      let(:text) { 'http://shikimori.local/animes/9876543-test' }
+      let(:text) { "#{Shikimori::HOST}/animes/9876543-test" }
       it do
         is_expected.to include(
-          "<a href=\"#{anime.decorate.url}\" title=\"#{anime.name}\" " \
+          "<a href=\"#{Shikimori::HOST}/animes/#{anime.to_param}\" title=\"#{anime.name}\" " \
             'class="bubbled b-link"'
         )
       end
@@ -364,7 +364,7 @@ describe BbCodes::Text do
       context 'comment quote' do
         let(:text) { "[quote=#{attrs}]test[/quote]" }
         let(:attrs) { "c#{comment.id};#{user.id};zz" }
-        let(:comment) { create :comment, user: user }
+        let(:comment) { create :comment, user: }
 
         it do
           is_expected.to_not include '[quote='
@@ -467,7 +467,7 @@ describe BbCodes::Text do
       end
 
       context 'has object' do
-        let(:options) { { object: object } }
+        let(:options) { { object: } }
 
         context 'new object' do
           let(:object) { build :comment }
@@ -503,7 +503,7 @@ describe BbCodes::Text do
 
         context 'existing object' do
           include_context :timecop, '2021-08-02 15:44:03 +0300'
-          let(:object) { build_stubbed :comment, created_at: created_at }
+          let(:object) { build_stubbed :comment, created_at: }
 
           context 'before event time' do
             let(:created_at) { Time.zone.parse '2021-08-01 15:44:03 +0300' }
@@ -545,7 +545,7 @@ describe BbCodes::Text do
       end
 
       context 'has object' do
-        let(:options) { { object: object } }
+        let(:options) { { object: } }
 
         context 'comment/db_entry' do
           let(:object) { [comment, build_stubbed(:anime)].sample }

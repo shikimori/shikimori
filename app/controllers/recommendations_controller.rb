@@ -15,7 +15,7 @@ class RecommendationsController < AnimesCollectionController
     }
   }
   TOPIC_URL =
-    "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/s/104346-spisok-otbornyh-i-vkusnyh-animeh"
+    "#{Shikimori::HOST}/s/104346-spisok-otbornyh-i-vkusnyh-animeh"
 
   def index
     @threshold = params[:threshold].to_i

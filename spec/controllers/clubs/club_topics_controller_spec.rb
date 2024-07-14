@@ -2,7 +2,7 @@ describe Clubs::ClubTopicsController do
   include_context :authenticated, :user, :week_registered
 
   let(:club) { create :club, owner: user }
-  let!(:club_role) { create :club_role, club: club, user: user }
+  let!(:club_role) { create :club_role, club:, user: }
   let(:topic) { create :club_user_topic, linked: club }
 
   let(:topic_params) do
@@ -19,7 +19,7 @@ describe Clubs::ClubTopicsController do
   let(:topic_title) { 'title' }
 
   describe '#index' do
-    before { get :index, params: { club_id: club_id } }
+    before { get :index, params: { club_id: } }
 
     context 'valid path' do
       let(:club_id) { club.to_param }

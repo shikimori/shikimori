@@ -10,7 +10,7 @@ class ShikimoriController < ApplicationController
     redirect_to exception.url, status: :moved_permanently
   end
 
-  def fetch_resource # rubocop:disable AbcSize
+  def fetch_resource
     @resource ||= resource_klass.find(
       CopyrightedIds
         .instance

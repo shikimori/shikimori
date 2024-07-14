@@ -33,21 +33,20 @@ class ShikiMailer < ActionMailer::Base
     body = i18n_t(
       'private_message_email.body',
       nickname: message.to.nickname,
-      site_link: Shikimori::DOMAIN,
+      domain: Shikimori::DOMAIN,
       from_nickname: message.from.nickname,
-      private_message_link: profile_dialogs_url(message.to, protocol: :https),
+      private_message_link: profile_dialogs_url(message.to),
       unsubscribe_link: unsubscribe_messages_url(
         name: message.to.to_param,
-        key: unsubscribe_link_key(message),
-        protocol: :https
+        key: unsubscribe_link_key(message)
       ),
       locale: message.to.locale
     )
 
-    mail to: message.to.email, subject: subject, body: body
+    mail to: message.to.email, subject:, body:
   end
 
-  def reset_password_instructions user, token, options
+  def reset_password_instructions user, token, _options
     return if generated? user.email
 
     subject = i18n_t(
@@ -56,29 +55,26 @@ class ShikiMailer < ActionMailer::Base
     )
     body = i18n_t(
       'reset_password_instructions.body',
-      site_link: Shikimori::DOMAIN,
+      domain: Shikimori::DOMAIN,
       nickname: user.nickname,
-      reset_password_link: edit_user_password_url(
-        reset_password_token: token,
-        protocol: :https
-      ),
+      reset_password_link: edit_user_password_url(reset_password_token: token),
       locale: user.locale.to_sym
     )
 
     mail(
       to: user.email,
-      subject: subject,
+      subject:,
       tag: 'password-reset',
-      body: body
+      body:
     )
   end
 
   def custom_message email:, subject:, body:
     mail(
       to: email,
-      subject: subject,
+      subject:,
       tag: 'custom',
-      body: body
+      body:
     )
   end
 

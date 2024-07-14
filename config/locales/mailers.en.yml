@@ -3,7 +3,7 @@ en:
     private_message_email:
       subject: Private message
       body: |-
-        %{nickname}, you have 1 new message on %{site_link} from %{from_nickname}.
+        %{nickname}, you have 1 new message on %{domain} from %{from_nickname}.
         Read the message: %{private_message_link}
 
         To unsubscribe from notification emails click here:
@@ -14,7 +14,7 @@ en:
       body: |-
         Hi!
 
-        We have received a request to reset your account password on %{site_link}.
+        We have received a request to reset your account password on %{domain}.
 
         Your account login is %{nickname}.
 

@@ -27,7 +27,7 @@ class Clubs::ClubTopicsController < ClubsController
 
   def create
     @resource = Topic::Create.call(
-      faye: faye,
+      faye:,
       params: create_params
     )
 
