@@ -37,7 +37,7 @@ class ExternalLink < ApplicationRecord
 
   def url= value
     if value.present? && value != NO_URL
-      super cleanup_url(value)
+      super(cleanup_url(value))
     else
       super
     end

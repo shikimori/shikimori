@@ -51,7 +51,7 @@
         :label='I18n.t("frontend.external_links.groups.watch_online")'
       )
         option(
-          v-for='kindOption in kindOptionsWatchOnline'
+          v-for='kindOption in kindOptionsWatchOnline(link.kind)'
           :value='last(kindOption)'
         ) {{ first(kindOption) }}
   .b-input
@@ -95,7 +95,8 @@ const props = defineProps({
   resourceType: { type: String, required: true },
   entryType: { type: String, required: true },
   entryId: { type: Number, required: true },
-  watchOnlineKinds: { type: Array, required: true }
+  watchOnlineKinds: { type: Array, required: true },
+  notAvailableInRussiaKinds: { type: Array, required: true }
 });
 
 const store = useStore();
@@ -114,9 +115,12 @@ const isWatchOnlineKind = computed(() => (
 const kindOptionsLinks = computed(() => (
   props.kindOptions.filter(v => !props.watchOnlineKinds.includes(v[1]))
 ));
-const kindOptionsWatchOnline = computed(() => (
-  props.kindOptions.filter(v => props.watchOnlineKinds.includes(v[1]))
-));
+function kindOptionsWatchOnline(linkKind) {
+  return props.kindOptions.filter(([_, kind]) => (
+    props.watchOnlineKinds.includes(kind) &&
+      (!props.notAvailableInRussiaKinds.includes(kind) || linkKind === kind)
+  ));
+};
 
 function fieldName(name) {
   if (!isEmpty(props.link.url)) {

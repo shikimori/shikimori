@@ -23,6 +23,7 @@
         :entry-type='entryType'
         :entry-id='entryId'
         :watch-online-kinds='watchOnlineKinds'
+        :not-available-in-russia-kinds='notAvailableInRussiaKinds'
         @link:create='createLink()'
         @link:remove='removeLink'
       )
@@ -48,7 +49,8 @@ const props = defineProps({
   resourceType: { type: String, required: true },
   entryType: { type: String, required: true },
   entryId: { type: Number, required: true },
-  watchOnlineKinds: { type: Array, required: true }
+  watchOnlineKinds: { type: Array, required: true },
+  notAvailableInRussiaKinds: { type: Array, required: true }
 });
 
 const store = useStore();
