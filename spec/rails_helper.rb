@@ -90,15 +90,21 @@ RSpec.configure do |config|
   end
 
   config.before :each, type: :feature do
-    Capybara.default_host = "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}"
-    Capybara.app_host = "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}"
+    Capybara.default_host = Shikimori::HOST
+    Capybara.app_host = Shikimori::HOST
   end
 
   config.before :each, type: :request do
     host! Shikimori::DOMAIN
   end
 
+  config.before :each, type: :controller do
+    @request.host = Shikimori::DOMAIN
+  end
+
  config.before :each do
+    Rails.application.routes.default_url_options[:host] = Shikimori::DOMAIN
+
     if respond_to?(:controller) && controller
       allow(controller)
         .to receive(:default_url_options)

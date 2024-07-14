@@ -42,8 +42,14 @@ class ApplicationController < ActionController::Base
     raise I18n::NoTranslation, "#{locale} #{key}"
   }
 
+  DEFAULT_URL_OPTIONS = {
+    protocol: Shikimori::PROTOCOL,
+    port: nil,
+    **(Rails.env.test? ? { host: Shikimori::HOST } : {})
+  }
+
   def self.default_url_options
-    { protocol: Shikimori::PROTOCOL, port: nil }
+    DEFAULT_URL_OPTIONS
   end
 
   def default_url_options options = {}
