@@ -35,10 +35,10 @@ describe ShikiMailer do
         expect(mail.body.raw_source).to eq(
           <<~TEXT.gsub("\n", "\r\n").strip
             #{to_user.nickname}, у тебя 1 новое сообщение на shikimori.test от пользователя #{from_user.nickname}.
-            Прочитать можно тут: #{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/#{to_user.nickname}/dialogs
+            Прочитать можно тут: #{Shikimori::HOST}/#{to_user.nickname}/dialogs
 
             Отписаться от уведомлений можно по ссылке:
-            #{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/messages/#{to_user.nickname}/#{unsubscribe_link_key}/Private/unsubscribe
+            #{Shikimori::HOST}/messages/#{to_user.nickname}/#{unsubscribe_link_key}/Private/unsubscribe
           TEXT
         )
       end
@@ -51,10 +51,10 @@ describe ShikiMailer do
         expect(mail.body.raw_source).to eq(
           <<~TEXT.gsub("\n", "\r\n").strip
             #{to_user.nickname}, you have 1 new message on shikimori.test from #{from_user.nickname}.
-            Read the message: #{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/#{to_user.nickname}/dialogs
+            Read the message: #{Shikimori::HOST}/#{to_user.nickname}/dialogs
 
             To unsubscribe from notification emails click here:
-            #{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/messages/#{to_user.nickname}/#{unsubscribe_link_key}/Private/unsubscribe
+            #{Shikimori::HOST}/messages/#{to_user.nickname}/#{unsubscribe_link_key}/Private/unsubscribe
           TEXT
         )
       end
@@ -97,7 +97,7 @@ describe ShikiMailer do
 
             Твой логин - #{user.nickname}.
 
-            Изменить пароль можно, перейдя по ссылке: #{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/users/password/edit?reset_password_token=#{token}
+            Изменить пароль можно, перейдя по ссылке: #{Shikimori::HOST}/users/password/edit?reset_password_token=#{token}
 
 
             Если тебе пришло несколько писем о восстановлении пароля, то переходить на страницу сброса пароля нужно обязательно по ссылке из самого последнего письма.
@@ -122,7 +122,7 @@ describe ShikiMailer do
 
             Your account login is #{user.nickname}.
 
-            To reset you password click this link: #{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/users/password/edit?reset_password_token=#{token}
+            To reset you password click this link: #{Shikimori::HOST}/users/password/edit?reset_password_token=#{token}
 
 
             If you didn't make a request to reset your password just ignore this message.

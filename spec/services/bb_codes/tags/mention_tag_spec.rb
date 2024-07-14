@@ -14,7 +14,7 @@ describe BbCodes::Tags::MentionTag do
   it do
     is_expected.to eq(
       <<~HTML.squish
-        <a href='#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/#{xss}' class='b-mention'
+        <a href='#{Shikimori::HOST}/#{xss}' class='b-mention'
           data-attrs='#{ERB::Util.h data_attrs.to_json}'><s>@</s><span>#{ERB::Util.h xss}</span></a>
       HTML
     )

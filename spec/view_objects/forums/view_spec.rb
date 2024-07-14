@@ -77,9 +77,9 @@ describe Forums::View do
       end
 
       it do
-        expect(view.page_url 5).to eq "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/Anime-#{anime.id}/p-5"
-        expect(view.next_page_url).to eq "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/Anime-#{anime.id}/p-2"
-        expect(view.current_page_url).to eq "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/Anime-#{anime.id}"
+        expect(view.page_url 5).to eq "#{Shikimori::HOST}/forum/Anime-#{anime.id}/p-5"
+        expect(view.next_page_url).to eq "#{Shikimori::HOST}/forum/Anime-#{anime.id}/p-2"
+        expect(view.current_page_url).to eq "#{Shikimori::HOST}/forum/Anime-#{anime.id}"
         expect(view.prev_page_url).to be_nil
       end
     end
@@ -88,8 +88,8 @@ describe Forums::View do
       let(:view_context_params) { { page: 2 } }
       it do
         expect(view.next_page_url).to be_nil
-        expect(view.current_page_url).to eq "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/p-2"
-        expect(view.prev_page_url).to eq "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum"
+        expect(view.current_page_url).to eq "#{Shikimori::HOST}/forum/p-2"
+        expect(view.prev_page_url).to eq "#{Shikimori::HOST}/forum"
       end
     end
   end

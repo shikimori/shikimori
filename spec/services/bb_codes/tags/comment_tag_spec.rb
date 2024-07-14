@@ -107,7 +107,7 @@ describe BbCodes::Tags::CommentTag do
         <<~HTML.squish
           <a href='#{url}' class='b-mention bubbled'
             data-attrs='#{ERB::Util.h attrs.to_json}'><s>@</s><span>#{ERB::Util.h user.nickname}</span></a>, test
-          <a href='#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/comments/#{comment_2.id}' class='b-mention bubbled'
+          <a href='#{Shikimori::HOST}/comments/#{comment_2.id}' class='b-mention bubbled'
             data-attrs='#{ERB::Util.h({ id: comment_2.id, type: :comment, userId: comment_2.user_id, text: user_2.nickname }.to_json)}'><s>@</s><span>qwe</span></a>
         HTML
       )

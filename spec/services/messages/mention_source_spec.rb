@@ -24,9 +24,9 @@ describe Messages::MentionSource do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          в топике <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/offtopic/1-xx"
+          в топике <a href="#{Shikimori::HOST}/forum/offtopic/1-xx"
             class="bubbled b-link"
-            data-href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/offtopic/1-xx/tooltip">xx&amp;</a>.
+            data-href="#{Shikimori::HOST}/forum/offtopic/1-xx/tooltip">xx&amp;</a>.
         HTML
       )
     end
@@ -36,9 +36,9 @@ describe Messages::MentionSource do
       it do
         is_expected.to eq(
           <<~HTML.squish
-            <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/offtopic/1-xx"
+            <a href="#{Shikimori::HOST}/forum/offtopic/1-xx"
               class="bubbled b-link"
-              data-href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/offtopic/1-xx/tooltip">xx&amp;</a>
+              data-href="#{Shikimori::HOST}/forum/offtopic/1-xx/tooltip">xx&amp;</a>
           HTML
         )
       end
@@ -49,7 +49,7 @@ describe Messages::MentionSource do
     let(:linked) { build_stubbed :user, id: 1, nickname: 'zz' }
     it do
       is_expected.to eq(
-        "в профиле пользователя <a href=\"#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/zz\">zz</a>."
+        "в профиле пользователя <a href=\"#{Shikimori::HOST}/zz\">zz</a>."
       )
     end
 
@@ -57,7 +57,7 @@ describe Messages::MentionSource do
       let(:is_simple) { true }
       it do
         is_expected.to eq(
-          "<a href=\"#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/zz\">zz</a>"
+          "<a href=\"#{Shikimori::HOST}/zz\">zz</a>"
         )
       end
     end
@@ -67,7 +67,7 @@ describe Messages::MentionSource do
     let(:linked) { build_stubbed :review, id: 1, anime: }
     let(:anime) { build_stubbed :anime, id: 1, name: 'anime_1' }
     let(:review_url) do
-      "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/animes/1-anime-1/reviews/1"
+      "#{Shikimori::HOST}/animes/1-anime-1/reviews/1"
     end
 
     it do

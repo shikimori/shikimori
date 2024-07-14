@@ -24,6 +24,15 @@ module Shikimori
   }
   DOMAIN = DOMAINS[Rails.env.to_sym]
 
+  PROTOCOLS = {
+    production: 'https',
+    development: 'http',
+    test: 'http'
+  }
+  PROTOCOL = ENV['IS_LOCAL_RUN'] ? 'http' : PROTOCOLS[Rails.env.to_sym]
+
+  HOST = "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}"
+
   NAME_RU = 'Шикимори'
   NAME_EN = 'Shikimori'
 
@@ -39,12 +48,6 @@ module Shikimori
   VK_CLUB_URL = 'https://vk.com/shikimori'
   DISCORD_CHANNEL_URL = 'https://discord.gg/gYQNpUKPdH'
 
-  PROTOCOLS = {
-    production: 'https',
-    development: 'http',
-    test: 'http'
-  }
-  PROTOCOL = ENV['IS_LOCAL_RUN'] ? 'http' : PROTOCOLS[Rails.env.to_sym]
 
   IGNORED_EXCEPTIONS = %w[
     AbstractController::ActionNotFound

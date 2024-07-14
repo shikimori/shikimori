@@ -21,7 +21,7 @@ describe BbCodes::Tags::UserTag do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          <a href='#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/#{user.nickname}' class='b-mention'
+          <a href='#{Shikimori::HOST}/#{user.nickname}' class='b-mention'
             data-attrs='#{ERB::Util.h attrs.to_json}'><s>@</s><span>#{ERB::Util.h xss}</span></a>, test
         HTML
       )
