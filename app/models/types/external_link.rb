@@ -15,7 +15,6 @@ module Types
 
     WATCH_ONLINE_KINDS = %i[
       crunchyroll
-      wakanim
       amazon
       hidive
       hulu
@@ -24,7 +23,6 @@ module Types
       wink
       netflix
       okko
-      more_tv
       youtube
     ]
     MANGA_READ_ONLINE_KINDS = %i[
@@ -60,7 +58,13 @@ module Types
     }
 
     INVISIBLE_KINDS = %i[myanimelist smotret_anime mangachan]
-    NOT_AVAILABLE_IN_RUSSIA_KINDS = %i[wakanim crunchyroll]
+    NOT_AVAILABLE_IN_RUSSIA_KINDS = %i[
+      crunchyroll
+      amazon
+      hidive
+      hulu
+      netflix
+    ]
 
     Kind = Types::Strict::Symbol
       .constructor(&:to_sym)

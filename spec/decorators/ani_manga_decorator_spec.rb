@@ -4,10 +4,10 @@ describe AniMangaDecorator do
   describe '#release_date_text & #release_date_tooltip' do
     let(:anime) do
       build :anime,
-        status: status,
-        aired_on: aired_on,
-        released_on: released_on,
-        season: season
+        status:,
+        aired_on:,
+        released_on:,
+        season:
     end
 
     let(:aired_on) { nil }
@@ -138,7 +138,7 @@ describe AniMangaDecorator do
   describe '#available_external_links, #menu_external_links' do
     let(:anime) do
       build_stubbed :anime,
-        mal_id: mal_id,
+        mal_id:,
         all_external_links: [
           external_link_1,
           external_link_2,
@@ -166,7 +166,7 @@ describe AniMangaDecorator do
         url: 'https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%AE%E9%9F%B3%E3%81%A8%E3%81%BE%E3%82%8C!c'
     end
     let!(:external_link_5) { build_stubbed :external_link, :official_site }
-    let!(:external_link_6) { build_stubbed :external_link, :wakanim }
+    let!(:external_link_6) { build_stubbed :external_link, :crunchyroll }
 
     context 'without mal_id' do
       let(:mal_id) { nil }
