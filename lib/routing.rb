@@ -29,6 +29,7 @@ module Routing # rubocop:disable Metrics/ModuleLength
   # FORCE_CAMO_DOMAIN = /imgur.com/i
 
   included do
+    # the same in image_url_generator.rb
     def shiki_domain
       Shikimori::DOMAIN
       # if Rails.env.test?

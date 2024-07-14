@@ -44,15 +44,17 @@ class ImageUrlGenerator
 
 private
 
+  # the same in routing.rb
   def shiki_domain
-    if Rails.env.test?
-      'test.host'
-    elsif Rails.env.development? || ENV['USER'] == 'morr' ||
-        (Draper::ViewContext.current.request.try(:host) || 'test.host') == 'test.host'
-      Shikimori::DOMAINS[:production]
-    else
-      Url.new(Draper::ViewContext.current.request.host).cut_subdomain.to_s
-    end
+    Shikimori::DOMAIN
+    # if Rails.env.test?
+    #   'test.host'
+    # elsif Rails.env.development? || ENV['USER'] == 'morr' ||
+    #     (Draper::ViewContext.current.request.try(:host) || 'test.host') == 'test.host'
+    #   Shikimori::DOMAINS[:production]
+    # else
+    #   Url.new(Draper::ViewContext.current.request.host).cut_subdomain.to_s
+    # end
   end
 
   def production_url image_url_path, image_index
