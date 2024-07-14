@@ -1,8 +1,8 @@
 describe Messages::MentionSource do
   subject do
     described_class.call linked,
-      comment_id: comment_id,
-      is_simple: is_simple
+      comment_id:,
+      is_simple:
   end
   let(:comment_id) { nil }
   let(:is_simple) { nil }
@@ -20,13 +20,13 @@ describe Messages::MentionSource do
 
   context 'Topic' do
     let(:user) { build_stubbed :user, :user }
-    let(:linked) { build_stubbed :topic, id: 1, title: 'xx&', user: user }
+    let(:linked) { build_stubbed :topic, id: 1, title: 'xx&', user: }
     it do
       is_expected.to eq(
         <<~HTML.squish
-          в топике <a href=\"#{Shikimori::PROTOCOL}://test.host/forum/offtopic/1-xx\"
-            class=\"bubbled b-link\"
-            data-href=\"#{Shikimori::PROTOCOL}://test.host/forum/offtopic/1-xx/tooltip\">xx&amp;</a>.
+          в топике <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/offtopic/1-xx"
+            class="bubbled b-link"
+            data-href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/offtopic/1-xx/tooltip">xx&amp;</a>.
         HTML
       )
     end
@@ -36,9 +36,9 @@ describe Messages::MentionSource do
       it do
         is_expected.to eq(
           <<~HTML.squish
-            <a href=\"#{Shikimori::PROTOCOL}://test.host/forum/offtopic/1-xx\"
-              class=\"bubbled b-link\"
-              data-href=\"#{Shikimori::PROTOCOL}://test.host/forum/offtopic/1-xx/tooltip\">xx&amp;</a>
+            <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/offtopic/1-xx"
+              class="bubbled b-link"
+              data-href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/offtopic/1-xx/tooltip">xx&amp;</a>
           HTML
         )
       end
@@ -49,7 +49,7 @@ describe Messages::MentionSource do
     let(:linked) { build_stubbed :user, id: 1, nickname: 'zz' }
     it do
       is_expected.to eq(
-        "в профиле пользователя <a href=\"#{Shikimori::PROTOCOL}://test.host/zz\">zz</a>."
+        "в профиле пользователя <a href=\"#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/zz\">zz</a>."
       )
     end
 
@@ -57,24 +57,24 @@ describe Messages::MentionSource do
       let(:is_simple) { true }
       it do
         is_expected.to eq(
-          "<a href=\"#{Shikimori::PROTOCOL}://test.host/zz\">zz</a>"
+          "<a href=\"#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/zz\">zz</a>"
         )
       end
     end
   end
 
   context 'Review' do
-    let(:linked) { build_stubbed :review, id: 1, anime: anime }
+    let(:linked) { build_stubbed :review, id: 1, anime: }
     let(:anime) { build_stubbed :anime, id: 1, name: 'anime_1' }
     let(:review_url) do
-      "#{Shikimori::PROTOCOL}://test.host/animes/1-anime-1/reviews/1"
+      "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/animes/1-anime-1/reviews/1"
     end
 
     it do
       is_expected.to eq(
         <<~HTML.squish
-          в отзыве к <a href=\"#{review_url}\" class=\"bubbled b-link\"
-            data-href=\"#{review_url}/tooltip\">anime_1</a>.
+          в отзыве к <a href="#{review_url}" class="bubbled b-link"
+            data-href="#{review_url}/tooltip">anime_1</a>.
         HTML
       )
     end
@@ -84,8 +84,8 @@ describe Messages::MentionSource do
       it do
         is_expected.to eq(
           <<~HTML.squish
-            <a href=\"#{review_url}\" class=\"bubbled b-link\"
-              data-href=\"#{review_url}/tooltip\">anime_1</a>
+            <a href="#{review_url}" class="bubbled b-link"
+              data-href="#{review_url}/tooltip">anime_1</a>
           HTML
         )
       end

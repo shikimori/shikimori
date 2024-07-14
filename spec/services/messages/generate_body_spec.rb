@@ -8,12 +8,12 @@ describe Messages::GenerateBody do
   let(:read) { false }
   let(:message) do
     build :message,
-      kind: kind,
+      kind:,
       from: user_from,
       to: user_to,
-      linked: linked,
-      body: body,
-      read: read
+      linked:,
+      body:,
+      read:
   end
 
   context 'private' do
@@ -83,7 +83,7 @@ describe Messages::GenerateBody do
         <<~HTML.squish
           Написал что-то в твоём
           <a class='b-link'
-          href='#{Shikimori::PROTOCOL}://test.host/to'>профиле</a>.
+          href='#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/to'>профиле</a>.
         HTML
       )
     end
@@ -117,7 +117,7 @@ describe Messages::GenerateBody do
       is_expected.to eq(
         <<~HTML.squish
           Написал <a class="b-link"
-          href="#{Shikimori::PROTOCOL}://test.host/comments/1-test">что-то</a>
+          href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/comments/1-test">что-то</a>
           тебе в топике
           <a href="#{UrlGenerator.instance.topic_url linked}"
           class="bubbled b-link"
@@ -189,7 +189,7 @@ describe Messages::GenerateBody do
     end
 
     context 'comment' do
-      let(:linked) { build_stubbed :ban, comment: comment }
+      let(:linked) { build_stubbed :ban, comment: }
       let(:comment) { build_stubbed :comment }
       let(:offtopic_topic) { seed :offtopic_topic }
       it do
@@ -212,16 +212,16 @@ describe Messages::GenerateBody do
     #     is_expected.to eq(
     #       <<~HTML.squish
     #         Тебе вынесено предупреждение за отзыв
-    #         <a href=\"http://test.host/mangas/1-manga-1/reviews/1\"
+    #         <a href=\"#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/mangas/1-manga-1/reviews/1\"
     #         class=\"bubbled b-link\"
-    #         data-href=\"http://test.host/reviews/1/tooltip\">manga_1</a>.
+    #         data-href=\"#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/reviews/1/tooltip\">manga_1</a>.
     #       HTML
     #     )
     #   end
     # end
 
     context 'topic' do
-      let(:linked) { build_stubbed :ban, comment: nil, topic: topic }
+      let(:linked) { build_stubbed :ban, comment: nil, topic: }
 
       context 'common topic' do
         let(:topic) { build_stubbed :topic, id: 1, title: 'topic_1' }
@@ -229,9 +229,9 @@ describe Messages::GenerateBody do
           is_expected.to eq(
             <<~HTML.squish
               Тебе вынесено предупреждение за топик
-              <a href="http://test.host/forum/offtopic/1-topic-1"
+              <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/offtopic/1-topic-1"
               class="bubbled b-link"
-              data-href="http://test.host/forum/offtopic/1-topic-1/tooltip">topic_1</a>.
+              data-href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/offtopic/1-topic-1/tooltip">topic_1</a>.
             HTML
           )
         end
@@ -239,10 +239,10 @@ describe Messages::GenerateBody do
 
       context 'review topic' do
         let(:topic) { build_stubbed :review_topic, linked: review }
-        let(:review) { build_stubbed :review, id: 1, manga: manga }
+        let(:review) { build_stubbed :review, id: 1, manga: }
         let(:manga) { build_stubbed :manga, id: 1, name: 'manga_1' }
         let(:review_url) do
-          "#{Shikimori::PROTOCOL}://test.host/mangas/1-manga-1/reviews/1"
+          "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/mangas/1-manga-1/reviews/1"
         end
         it do
           is_expected.to eq(
@@ -283,7 +283,7 @@ describe Messages::GenerateBody do
     end
 
     context 'comment' do
-      let(:linked) { build_stubbed :ban, comment: comment }
+      let(:linked) { build_stubbed :ban, comment: }
       let(:comment) { build_stubbed :comment, id: 1 }
       let(:offtopic_topic) { seed :offtopic_topic }
       it do
@@ -306,24 +306,24 @@ describe Messages::GenerateBody do
     #     is_expected.to eq(
     #       <<~HTML.squish
     #         Ты забанен на 3 часа за отзыв
-    #         <a href=\"http://test.host/mangas/1-manga-1/reviews/1\"
+    #         <a href=\"#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/mangas/1-manga-1/reviews/1\"
     #         class=\"bubbled b-link\"
-    #         data-href=\"http://test.host/reviews/1/tooltip\">manga_1</a>.
+    #         data-href=\"#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/reviews/1/tooltip\">manga_1</a>.
     #       HTML
     #     )
     #   end
     # end
 
     context 'topic' do
-      let(:linked) { build_stubbed :ban, comment: nil, topic: topic }
+      let(:linked) { build_stubbed :ban, comment: nil, topic: }
       let(:topic) { build_stubbed :topic, id: 1, title: 'topic_1' }
       it do
         is_expected.to eq(
           <<~HTML.squish
             Ты забанен на 3 часа за топик
-            <a href="http://test.host/forum/offtopic/1-topic-1"
+            <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/offtopic/1-topic-1"
             class="bubbled b-link"
-            data-href="http://test.host/forum/offtopic/1-topic-1/tooltip">topic_1</a>.
+            data-href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/forum/offtopic/1-topic-1/tooltip">topic_1</a>.
           HTML
         )
       end
@@ -331,7 +331,7 @@ describe Messages::GenerateBody do
   end
 
   context 'club_request' do
-    let(:linked) { build_stubbed :club_invite, club: club }
+    let(:linked) { build_stubbed :club_invite, club: }
     let(:kind) { MessageType::CLUB_REQUEST }
     let(:club) { create :club, id: 1, name: 'test' }
     it do
@@ -355,12 +355,12 @@ describe Messages::GenerateBody do
     it do
       is_expected.to eq(
         <<~HTML.squish
-          Твоя <a href="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1"
+          Твоя <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/moderations/versions/1"
           title="правка" class="bubbled b-link"
-          data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1/tooltip">правка</a>
-          для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
+          data-tooltip_url="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/moderations/versions/1/tooltip">правка</a>
+          для <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/animes/1-test"
           title="test" class="bubbled b-link"
-          data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip"
+          data-tooltip_url="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/animes/1-test/tooltip"
           data-attrs="#{data_attrs}">test</a> принята.
         HTML
       )
@@ -379,12 +379,12 @@ describe Messages::GenerateBody do
       it do
         is_expected.to eq(
           <<~HTML.squish
-            Твоя <a href="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1"
+            Твоя <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/moderations/versions/1"
             title="правка" class="bubbled b-link"
-            data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1/tooltip">правка</a>
-            для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
+            data-tooltip_url="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/moderations/versions/1/tooltip">правка</a>
+            для <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/animes/1-test"
             title="test" class="bubbled b-link"
-            data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip"
+            data-tooltip_url="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/animes/1-test/tooltip"
             data-attrs="#{data_attrs}">test</a>
             отклонена по причине:
             <div class="b-quote" data-attrs="from"><div class="quoteable">from</div><div
@@ -398,12 +398,12 @@ describe Messages::GenerateBody do
       it do
         is_expected.to eq(
           <<~HTML.squish
-            Твоя <a href="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1"
+            Твоя <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/moderations/versions/1"
             title="правка" class="bubbled b-link"
-            data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1/tooltip">правка</a>
-            для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
+            data-tooltip_url="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/moderations/versions/1/tooltip">правка</a>
+            для <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/animes/1-test"
             title="test" class="bubbled b-link"
-            data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip"
+            data-tooltip_url="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/animes/1-test/tooltip"
             data-attrs="#{data_attrs}">test</a>
             отклонена.
           HTML
@@ -419,7 +419,7 @@ describe Messages::GenerateBody do
       is_expected.to eq(
         <<~HTML.squish
           <span class="translated-after" data-text-ru="Турнир" data-text-en="Contest"></span>
-          <a href="#{Shikimori::PROTOCOL}://test.host/contests/1-foo"
+          <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/contests/1-foo"
           class="b-link translated-after" data-text-ru="foo" data-text-en="bar"></a>
           <span class="translated-after" data-text-ru="начат" data-text-en="started"></span>.
         HTML
@@ -434,7 +434,7 @@ describe Messages::GenerateBody do
       is_expected.to eq(
         <<~HTML.squish
           <span class="translated-after" data-text-ru="Турнир" data-text-en="Contest"></span>
-          <a href="#{Shikimori::PROTOCOL}://test.host/contests/1-foo"
+          <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/contests/1-foo"
           class="b-link translated-after" data-text-ru="foo" data-text-en="bar"></a>
           <span class="translated-after" data-text-ru="завершён" data-text-en="finished"></span>.
         HTML

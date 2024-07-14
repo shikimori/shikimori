@@ -166,7 +166,7 @@ describe BbCodes::Text do
       it do
         is_expected.to eq(
           <<~HTML.squish
-            <a href="http://test.host/test" class="b-mention"
+            <a href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/test" class="b-mention"
               data-attrs="#{ERB::Util.h data_attrs.to_json}"><s>@</s><span>test</span></a>
           HTML
         )

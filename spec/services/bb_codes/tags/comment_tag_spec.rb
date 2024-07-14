@@ -14,7 +14,7 @@ describe BbCodes::Tags::CommentTag do
 
   context 'selfclosed' do
     let(:text) { "[comment=#{comment.id}], test" }
-    let(:comment) { create :comment, user: user }
+    let(:comment) { create :comment, user: }
 
     it do
       is_expected.to eq(
@@ -40,7 +40,7 @@ describe BbCodes::Tags::CommentTag do
 
     context 'with user_id' do
       let(:text) { "[comment=#{comment.id};#{user.id}], test" }
-      let(:comment) { create :comment, user: user }
+      let(:comment) { create :comment, user: }
 
       it do
         is_expected.to eq(
@@ -95,7 +95,7 @@ describe BbCodes::Tags::CommentTag do
   end
 
   context 'double match' do
-    let(:comment) { create :comment, user: user }
+    let(:comment) { create :comment, user: }
     let(:comment_2) { create :comment, user: user_2 }
     let(:text) do
       "[comment=#{comment.id}], test [comment=#{comment_2.id}]qwe[/comment]"
@@ -107,7 +107,7 @@ describe BbCodes::Tags::CommentTag do
         <<~HTML.squish
           <a href='#{url}' class='b-mention bubbled'
             data-attrs='#{ERB::Util.h attrs.to_json}'><s>@</s><span>#{ERB::Util.h user.nickname}</span></a>, test
-          <a href='http://test.host/comments/#{comment_2.id}' class='b-mention bubbled'
+          <a href='#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/comments/#{comment_2.id}' class='b-mention bubbled'
             data-attrs='#{ERB::Util.h({ id: comment_2.id, type: :comment, userId: comment_2.user_id, text: user_2.nickname }.to_json)}'><s>@</s><span>qwe</span></a>
         HTML
       )
@@ -116,7 +116,7 @@ describe BbCodes::Tags::CommentTag do
 
   context 'without author' do
     let(:text) { "[comment=#{comment.id}][/comment], test" }
-    let(:comment) { create :comment, user: user }
+    let(:comment) { create :comment, user: }
 
     it do
       is_expected.to eq(
@@ -143,7 +143,7 @@ describe BbCodes::Tags::CommentTag do
 
   context 'quote' do
     let(:text) { "[comment=#{comment.id} #{quote_part}]#{user.nickname}[/comment], test" }
-    let(:comment) { create :comment, user: user }
+    let(:comment) { create :comment, user: }
     let(:quote_part) { 'quote' }
 
     context 'with avatar' do
