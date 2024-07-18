@@ -136,9 +136,8 @@ script[
 
   - if Rails.env.production?
     - if new_host?
-      - if I18n.russian?
-        = render partial: 'application/counters/shikimori_me'
-    - elsif old_host?
       = render partial: 'application/counters/shikimori_one'
+    - elsif old_host?
+      = render partial: 'application/counters/shikimori_me'
     / - elsif ru_host?
     /   = render partial: 'application/counters/shikimori_org'
