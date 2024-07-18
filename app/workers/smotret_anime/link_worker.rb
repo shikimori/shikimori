@@ -6,7 +6,7 @@ class SmotretAnime::LinkWorker
     'https://smotret-anime.online/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
   API_HENTAI365_URL =
     'https://hentai365.ru/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
-  ANIME365_URL = 'https://smotret-anime.online/catalog/%<smotret_anime_id>i'
+  ANIME365_URL = 'https://smotret-anime.com/catalog/%<smotret_anime_id>i'
 
   GIVE_UP_INTERVAL = 2.months
   BROKEN_URLS = %w[
@@ -85,7 +85,7 @@ private
     end
     .reject { |link| link[:kind] == Types::ExternalLink::Kind[:myanimelist] }
     .reject { |link| link[:url].match?(/\bakira/i) || link[:url].in?(BROKEN_URLS) }
-    # for some reason it returns "akira" links for some animes: https://smotret-anime.online/api/series/?myAnimeListId=41372&fields=id,title,links
+    # for some reason it returns "akira" links for some animes: https://smotret-anime.com/api/series/?myAnimeListId=41372&fields=id,title,links
   end
 
   def create_link anime, attributes
