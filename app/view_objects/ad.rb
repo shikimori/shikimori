@@ -240,9 +240,9 @@ private
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/wide_1@2x.webp app/assets/images/globals/events/2022-06-18/wide_1.webp
     # url: 'https://u.to/knWEIA',
     images: [{
-      src: '/assets/globals/events/2024-03-25/wide_1.png',
-      src_2x: '/assets/globals/events/2024-03-25/wide_1@2x.png',
-      url: 'https://u.to/bniEIA?erid=2VtzqvBPU3e' # 'https://www.домовой.ru/film/5235275/?erid=2VtzqvBPU3e'
+      src: '/assets/globals/events/2024-07-19/wide_1.jpg',
+      src_2x: '/assets/globals/events/2024-07-19/wide_1@2x.jpg',
+      url: 'https://u.to/TTPKIA' # https://play.google.com/store/apps/details?id=com.aesar.krios
     }],
     # end,
     # html: (
@@ -447,7 +447,7 @@ private
       # Types::Ad::Type[:mt_footer_300x250]
     ],
     Types::Ad::Meta[:special_x1170] => [
-      # Types::Ad::Type[:special_x1170] # домовой - remove 2024-04-07 23:59
+      Types::Ad::Type[:special_x1170] # loklok
       # # Types::Ad::Type[:yd_1170x200]
     ]
   }
