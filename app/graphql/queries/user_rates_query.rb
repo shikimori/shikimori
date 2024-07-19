@@ -12,14 +12,14 @@ class Queries::UserRatesQuery < Queries::BaseQuery
   argument :user_id, ID,
     required: false,
     description: 'ID of current user is used by default'
-  argument :target_type, Types::Enums::UserRate::TargetTypeEnum, required: true
+  argument :target_type, Types::Enums::UserRate::TargetTypeEnum, required: false
   argument :status, Types::Enums::UserRate::StatusEnum, required: false
   argument :order, Types::Inputs::UserRate::OrderInputType, required: false
 
   def resolve( # rubocop:disable Metrics/ParameterLists
     page:,
     limit:,
-    target_type:,
+    target_type: nil,
     user_id: current_user&.id,
     status: nil,
     order: nil
@@ -29,10 +29,11 @@ class Queries::UserRatesQuery < Queries::BaseQuery
     scope = QueryObjectBase.new(UserRate)
       .lazy_preload(*PRELOADS)
       .where(user_id:)
-      .where(target_type:)
       .order(order ? { order.field.to_sym => order.order.to_sym } : :id)
 
+    scope = scope.where(target_type:) if target_type.present?
     scope = scope.where(status:) if status.present?
+
     scope
       .paginate(page, limit.to_i.clamp(1, LIMIT))
   end

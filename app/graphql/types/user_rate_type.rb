@@ -11,6 +11,6 @@ class Types::UserRateType < Types::BaseObject
   field :created_at, GraphQL::Types::ISO8601DateTime, null: false
   field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
-  field :anime, Types::AnimeType, complexity: 100
-  field :manga, Types::MangaType, complexity: 100
+  field :anime, Types::AnimeType, complexity: 70
+  field :manga, Types::MangaType, complexity: 70
 end
