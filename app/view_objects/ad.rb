@@ -242,7 +242,7 @@ private
     images: [{
       src: '/assets/globals/events/2024-07-19/wide_1.jpg',
       src_2x: '/assets/globals/events/2024-07-19/wide_1@2x.jpg',
-      url: 'https://u.to/TTPKIA' # https://play.google.com/store/apps/details?id=com.aesar.krios
+      url: 'https://u.to/innKIA' # https://www.loklok.com
     }],
     # end,
     # html: (
