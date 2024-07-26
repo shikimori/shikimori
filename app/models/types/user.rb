@@ -83,5 +83,9 @@ module Types
     NotificationSettings = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(*NOTIFICATION_SETTINGS)
+
+    Sexes = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(:male, :female)
   end
 end

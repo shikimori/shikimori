@@ -1,4 +1,4 @@
-class Messages::GenerateBody < ServiceObjectBase # rubocop:disable ClassLength
+class Messages::GenerateBody < ServiceObjectBase
   include Translation
 
   pattr_initialize :message
@@ -56,7 +56,7 @@ private
     profile_url = UrlGenerator.instance.profile_url @message.to
     i18n_t '.profile_comment',
       gender: gender_from,
-      profile_url: profile_url
+      profile_url:
   end
 
   def friend_request
@@ -70,12 +70,12 @@ private
   def quoted_by_user
     i18n_t 'quoted_by_user',
       gender: gender_from,
-      linked_name: linked_name,
+      linked_name:,
       comment_url: UrlGenerator.instance.comment_url(linked)
   end
 
   def subscription_commented
-    i18n_t 'subscription_commented', linked_name: linked_name
+    i18n_t 'subscription_commented', linked_name:
   end
 
   def warned

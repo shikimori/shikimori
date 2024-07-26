@@ -192,6 +192,10 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
     in: Types::Locale.values,
     default: Types::Locale[:ru]
 
+  enumerize :sex,
+    in: Types::User::Sexes.values,
+    predicates: true
+
   has_attached_file :avatar,
     styles: {
       # original: ['300x300>', :png],
@@ -289,11 +293,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def male?
-    !female?
-  end
-
-  def female?
-    sex.present? && sex == 'female'
+    super || !female?
   end
 
   # updates user's last online date

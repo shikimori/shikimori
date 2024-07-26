@@ -452,6 +452,9 @@ ru:
         friend_nickname_change: Уведомления о смене ников друзей
         contest_event: Уведомления о турнирах
         mention_event: Уведомления об упоминаниях на форуме
+      sex:
+        male: муж.
+        female: жен.
     user_preferences:
       body_width:
         x1200: 1200 пикселей

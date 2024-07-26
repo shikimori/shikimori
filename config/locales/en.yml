@@ -452,6 +452,9 @@ en:
         friend_nickname_change: "Notifications about friends' nickname change"
         contest_event: Contests notifications
         mention_event: Forum mentions notifications
+      sex:
+        male: male
+        female: female
     user_preferences:
       body_width:
         x1200: 1200 pixels

@@ -25,7 +25,7 @@
         / = f.input :name
         / = f.input :location
         = f.input :website
-        = f.input :sex, as: :select, collection: [:male, :female]
+        = f.input :sex, include_blank: true
         = f.input :birth_on,
           include_blank: true,
           end_year: Time.zone.today.year - 90,
