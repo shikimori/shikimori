@@ -19,6 +19,8 @@ module Routing # rubocop:disable Metrics/ModuleLength
       ([\w-]+\.)?imageshack.us |
       animesher.com |
       raw.githubusercontent.com |
+      fonts.gstatic.com |
+      ([\w-]+\.)?bootstrapcdn.com |
       \d+\.media.tumblr.com |
       media.tenor.com
     )
@@ -174,9 +176,9 @@ private
     #   return image_url
     # end
 
-    if image_url.match?(/\.(?:eot|svg|ttf|woff|woff2|css)(?:$|\?)/)
-      return image_url
-    end
+    # if image_url.match?(/\.(?:eot|svg|ttf|woff|woff2|css)(?:$|\?)/)
+    #   return image_url
+    # end
 
     url = Url.new(image_url)
     domain = url.domain.to_s
