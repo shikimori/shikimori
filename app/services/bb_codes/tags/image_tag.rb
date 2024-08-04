@@ -1,4 +1,4 @@
-class BbCodes::Tags::ImageTag # rubocop:disable ClassLength
+class BbCodes::Tags::ImageTag
   include Singleton
 
   DELETED_MARKER = 'deleted'
@@ -31,14 +31,14 @@ class BbCodes::Tags::ImageTag # rubocop:disable ClassLength
 
       elsif (user_image = UserImage.find_by(id: $LAST_MATCH_INFO[:id]))
         attrs = build_attrs(
-          user_image: user_image,
+          user_image:,
           width: $LAST_MATCH_INFO[:width].to_i,
           height: $LAST_MATCH_INFO[:height].to_i,
           is_no_zoom: $LAST_MATCH_INFO[:no_zoom].present?,
           css_class: $LAST_MATCH_INFO[:css_class]
         )
 
-        html_for user_image: user_image, attrs: attrs, text_hash: text_hash
+        html_for user_image:, attrs:, text_hash:
       else
 
         not_found_to_html matched
@@ -53,16 +53,16 @@ private
 
     if attrs[:isNoZoom]
       small_image_html(
-        user_image: user_image,
-        attrs: attrs,
-        marker_html: marker_html
+        user_image:,
+        attrs:,
+        marker_html:
       )
     else
       large_image_html(
-        user_image: user_image,
-        attrs: attrs,
-        marker_html: marker_html,
-        text_hash: text_hash
+        user_image:,
+        attrs:,
+        marker_html:,
+        text_hash:
       )
     end
   end

@@ -10,7 +10,7 @@ class Changelog::LogUpdate
       user_id: @actor.id,
       action: :update,
       id: @model.id,
-      changes: changes
+      changes:
     )
   end
 
