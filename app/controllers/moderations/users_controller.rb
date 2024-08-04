@@ -24,7 +24,7 @@ class Moderations::UsersController < ModerationsController
         user_id: current_user.id,
         action: :mass_ban,
         ids: users_scope.pluck(:id),
-        url: current_url
+        url: current_url(mass_ban: nil)
       )
       User
         .where(id: users_scope.reject(&:staff?).pluck(:id))

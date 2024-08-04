@@ -1,7 +1,7 @@
 .b-log_entry.mobile-multiline.to-process[
   data-dynamic='log_entry'
 ]
-  - if changelog[:url] || changelog[:model_id]
+  - if changelog[:model_id]
     span
       span.id-label #
       - if changelog[:url]
@@ -15,6 +15,11 @@
         = changelog[:model_id]
 
   - if changelog[:details][:action] == 'mass_ban'
+    - if changelog[:url]
+      span
+        span.id-label
+          a.b-link href=changelog[:url] #
+
     span.state.inline
       span
         ' #{changelog[:details][:ids].size}

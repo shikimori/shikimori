@@ -110,7 +110,14 @@ class Moderations::ChangelogsController < ModerationsController
     @collection.each do |changelog|
       changelog[:user] = @users[changelog[:user_id]]
       changelog[:model] = @models[changelog[:model_id]] if @models
-      changelog[:url] = model_url changelog[:model] if changelog[:model]
+
+      changelog[:url] =
+        if changelog[:model]
+          model_url changelog[:model]
+        elsif !changelog[:model] && changelog[:details][:url]
+          changelog[:details][:url]
+        end
+
       if changelog[:model] && changelog[:url]
         changelog[:tooltip_url] =
           tooltip_url changelog[:model]
