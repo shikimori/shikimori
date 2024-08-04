@@ -139,7 +139,8 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def cache_variant
-    rand(4).to_i * 4
+    # rand(4).to_i * 4
+    rand(3).to_i
   end
 
   def new_news_url

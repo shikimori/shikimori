@@ -215,17 +215,18 @@ private
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.webp app/assets/images/globals/events/2022-06-18/menu_1.webp
-    # images: (1..1).map do |i|
-    #   {
-    #     src: "/assets/globals/events/2023-02-10/menu_#{i}.jpg",
-    #     src_2x: "/assets/globals/events/2023-02-10/menu_#{i}@2x.jpg"
-    #   }
-    # end,
-    images: [{
-      src: '/assets/globals/events/2024-04-22/menu_1.jpg',
-      src_2x: '/assets/globals/events/2024-04-22/menu_1@2x.jpg',
-      url: 'https://clck.ru/39yt6e'
-    }],
+    url: 'https://animestyle-shop.ru/?utm_source=shikimori&utm_medium=banner_small&erid=2Vtzqxdgbh6',
+    images: (1..2).map do |i|
+      {
+        src: "/assets/globals/events/2024-08-05/menu_#{i}.jpg",
+        src_2x: "/assets/globals/events/2024-08-05/menu_#{i}@2x.jpg"
+      }
+    end,
+    # images: [{
+    #   src: '/assets/globals/events/2024-04-22/menu_1.jpg',
+    #   src_2x: '/assets/globals/events/2024-04-22/menu_1@2x.jpg',
+    #   url: 'https://clck.ru/39yt6e'
+    # }],
     rules: {
       cookie: 'i1_20240325',
       shows_per_week: 480 # 380 # 420 # 540
@@ -238,12 +239,18 @@ private
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/wide_1@2x.webp app/assets/images/globals/events/2022-06-18/wide_1.webp
-    # url: 'https://u.to/knWEIA',
-    images: [{
-      src: '/assets/globals/events/2024-07-19/wide_1.jpg',
-      src_2x: '/assets/globals/events/2024-07-19/wide_1@2x.jpg',
-      url: 'https://u.to/TTPKIA' # https://play.google.com/store/apps/details?id=com.aesar.krios
-    }],
+    url: 'https://animestyle-shop.ru/?utm_source=shikimori&utm_medium=banner_main&erid=2VtzqvBPU3e',
+    images: (1..3).map do |i|
+      {
+        src: "/assets/globals/events/2024-08-05/wide_#{i}.jpg",
+        src_2x: "/assets/globals/events/2024-08-05/wide_#{i}@2x.jpg"
+      }
+    end,
+    # images: [{
+    #   src: '/assets/globals/events/2024-07-19/wide_1.jpg',
+    #   src_2x: '/assets/globals/events/2024-07-19/wide_1@2x.jpg',
+    #   url: 'https://u.to/TTPKIA' # https://play.google.com/store/apps/details?id=com.aesar.krios
+    # }],
     # end,
     # html: (
     #   <<~HTML
@@ -421,13 +428,13 @@ private
     #   # Types::Ad::Type[:advrtr_240x400]
     # ],
     Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300], # читай город - remove 2024-05-05 23:59
+      Types::Ad::Type[:special_x300], # фигурки
       # # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x400]
       # # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300], # читай город - remove 2024-05-05 23:59
+      Types::Ad::Type[:special_x300], # фигурки
       # # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600]
       # # Types::Ad::Type[:advrtr_240x400],
@@ -447,7 +454,7 @@ private
       # Types::Ad::Type[:mt_footer_300x250]
     ],
     Types::Ad::Meta[:special_x1170] => [
-      Types::Ad::Type[:special_x1170] # loklok
+      Types::Ad::Type[:special_x1170] # фигурки
       # # Types::Ad::Type[:yd_1170x200]
     ]
   }
