@@ -218,7 +218,7 @@ private
     url: 'https://animestyle-shop.ru/?utm_source=shikimori&utm_medium=banner_small&erid=2Vtzqxdgbh6',
     images: (1..2).map do |i|
       {
-        src: "/assets/globals/events/2024-08-05/menu_#{i}.jpg",
+        src: "/assets/globals/events/2024-08-05/menu_#{i}.png",
         src_2x: "/assets/globals/events/2024-08-05/menu_#{i}@2x.jpg"
       }
     end,
@@ -242,7 +242,7 @@ private
     url: 'https://animestyle-shop.ru/?utm_source=shikimori&utm_medium=banner_main&erid=2VtzqvBPU3e',
     images: (1..3).map do |i|
       {
-        src: "/assets/globals/events/2024-08-05/wide_#{i}.jpg",
+        src: "/assets/globals/events/2024-08-05/wide_#{i}.png",
         src_2x: "/assets/globals/events/2024-08-05/wide_#{i}@2x.jpg"
       }
     end,
