@@ -1,31 +1,81 @@
 ru:
   activerecord:
     models:
-      anime: Аниме
-      article: Статья
-      character: Персонаж
-      club: Клуб
-      club_page: Страница клуба
-      collection: Коллекция
-      comment: Комментарий
-      message: Сообщение
-      contest: Турнир
-      forum: Раздел
-      genre: Жанр
-      genre_v2: Жанр вер. 2
-      studio: Студия
-      publisher: Издатель
-      manga: Манга
-      person: Человек
-      poll: Опрос
-      ranobe: Ранобэ
-      critique: Рецензия
-      review: Отзыв
-      topic: Топик
-      topics/news_topic: Новостной топик
-      user: Пользователь
-      video: Видео
-      poster: Постер
+      anime:
+        one: Аниме
+        other: Аниме
+      article:
+        one: Статья
+        other: Статьи
+      character:
+        one: Персонаж
+        other: Персонажи
+      club:
+        one: Клуб
+        other: Клубы
+      club_page:
+        one: Страница клуба
+        other: Страницы клубов
+      collection:
+        one: Коллекция
+        other: Коллекции
+      comment:
+        one: Комментарий
+        other: Комментарии
+      message:
+        one: Сообщение
+        other: Сообщения
+      contest:
+        one: Турнир
+        other: Турниры
+      forum:
+        one: Раздел
+        other: Разделы
+      genre:
+        one: Жанр
+        other: Жанры
+      genre_v2:
+        one: Жанр вер. 2
+        other: Жанры вер. 2
+      studio:
+        one: Студия
+        other: Студии
+      publisher:
+        one: Издатель
+        other: Издатели
+      manga:
+        one: Манга
+        other: Манга
+      person:
+        one: Человек
+        other: Люди
+      poll:
+        one: Опрос
+        other: Опросы
+      ranobe:
+        one: Ранобэ
+        other: Ранобэ
+      critique:
+        one: Рецензия
+        other: Рецензии
+      review:
+        one: Отзыв
+        other: Отзывы
+      topic:
+        one: Топик
+        other: Топики
+      topics/news_topic:
+        one: Новостной топик
+        other: Новостные топики
+      user:
+        one: Пользователь
+        other: Пользователи
+      video:
+        one: Видео
+        other: Видео
+      poster:
+        one: Постер
+        other: Постеры
 
     moderatable: &moderation_states
       moderation_state/pending: ожидает модерации

@@ -2,30 +2,80 @@ en:
   activerecord:
     models:
       anime: Anime
+
+
       article: Article
+
+
       character: Character
+
+
       club: Club
+
+
       club_page: Club page
+
+
       collection: Collection
+
+
       comment: Comment
+
+
       message: Message
+
+
       contest: Contest
+
+
       forum: Forum
+
+
       genre: Genre
+
+
       genre_v2: Genre v2
+
+
       studio: Producer
+
+
       publisher: Publisher
+
+
       manga: Manga
+
+
       person: Person
+
+
       poll: Poll
+
+
       ranobe: Light Novel
+
+
       critique: Critique
+
+
       review: Review
+
+
       topic: Topic
+
+
       topics/news_topic: News Topic
+
+
       user: User
+
+
       video: Video
+
+
       poster: Poster
+
+
 
     moderatable: &moderation_states
       moderation_state/pending: pending approval
