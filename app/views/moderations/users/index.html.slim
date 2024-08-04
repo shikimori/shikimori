@@ -4,7 +4,7 @@ header.head
 
 - if can? :manage, Ban
   .cc-2_3
-    .c-column
+    .c-column.block_m
       form.b-form.block method='get' params=current_url
         .cc-3
           - %i[id email created_on current_sign_in_ip last_sign_in_ip].each do |field|
