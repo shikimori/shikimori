@@ -14,10 +14,16 @@
       - else
         = changelog[:model_id]
 
-  span.state.inline[
-    class=(:taken if changelog[:details][:action] == 'update')
-    class=(:deleted if changelog[:details][:action] == 'destroy')
-  ] = changelog[:details][:action]
+  - if changelog[:details][:action] == 'mass_ban'
+    span.state.inline
+      span
+        ' #{changelog[:details][:ids].size}
+        = i18n_i :user, changelog[:details][:ids].size
+  - else
+    span.state.inline[
+      class=(:taken if changelog[:details][:action] == 'update')
+      class=(:deleted if changelog[:details][:action] == 'destroy')
+    ] = changelog[:details][:action]
 
   span.date
     = l changelog[:date], format: :full
