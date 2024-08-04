@@ -22,11 +22,11 @@ class Moderations::ChangelogsController < ModerationsController
       .split("\n")
       .filter_map do |v|
         id = v.gsub(/changelog_|\.log/, '')
-        next if id == 'messages' && !can?(:manage, Message)
+        _, _, name = item_type_name id rescue ActiveRecord::RecordNotFound
 
         {
           id:,
-          name: id.classify.constantize.model_name.human
+          name:
         }
       rescue NameError
       end
@@ -35,15 +35,7 @@ class Moderations::ChangelogsController < ModerationsController
   end
 
   def show # rubocop:disable all
-    @item_type = params[:id].classify
-    begin
-      @item_klass = @item_type.constantize
-    rescue NameError
-      raise ActiveRecord::RecordNotFound
-    end
-    raise ActiveRecord::RecordNotFound if @item_klass == Message && !can?(:manage, Message)
-
-    @item_type_name = @item_klass.model_name.human
+    @item_klass, @item_type, @item_type_name = item_type_name params[:id]
 
     og page_title: @item_type_name
 
@@ -72,7 +64,7 @@ class Moderations::ChangelogsController < ModerationsController
         changes = split[1]
           .gsub(/ ?:([a-z_]+)=>/, '"\1":')
           .gsub(/"([a-z_]+)"=>/, '"\1":')
-          .gsub(/"action"::(update|destroy)/, '"action":"\1"')
+          .gsub(/"action"::(\w+)/, '"action":"\1"')
           .gsub(/(\w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2}\.\d{9} \w{3} \+\d{2}:\d{2})/, '"\1"')
           .gsub('[nil, ', '[null, ')
           .gsub(', nil]', ', null]')
@@ -104,18 +96,20 @@ class Moderations::ChangelogsController < ModerationsController
       end
 
     @users = User.where(id: @collection.pluck(:user_id)).index_by(&:id)
-    @models = @item_klass
-      .includes(
-        INCLUDES.key?(@item_klass) ?
-          INCLUDES[@item_klass] :
-          DEFAULT_INCLUDES
-      )
-      .where(id: @collection.pluck(:model_id))
-      .index_by(&:id)
+    unless @item_klass.is_a? Symbol
+      @models = @item_klass
+        .includes(
+          INCLUDES.key?(@item_klass) ?
+            INCLUDES[@item_klass] :
+            DEFAULT_INCLUDES
+        )
+        .where(id: @collection.pluck(:model_id))
+        .index_by(&:id)
+    end
 
     @collection.each do |changelog|
       changelog[:user] = @users[changelog[:user_id]]
-      changelog[:model] = @models[changelog[:model_id]]
+      changelog[:model] = @models[changelog[:model_id]] if @models
       changelog[:url] = model_url changelog[:model] if changelog[:model]
       if changelog[:model] && changelog[:url]
         changelog[:tooltip_url] =
@@ -154,5 +148,25 @@ private
       else topic_tooltip_url model.topic
     end
   rescue NoMethodError, ActionController::UrlGenerationError # fix for broken urls in some comes
+  end
+
+  def item_type_name id # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    is_mass_bans = id == 'mass_bans'
+    item_klass = is_mass_bans ?
+      id.to_sym :
+      id.classify.constantize
+
+    raise ActiveRecord::RecordNotFound if item_klass == Message && !can?(:manage, Message)
+    raise ActiveRecord::RecordNotFound if item_klass == :mass_ban && !can?(:mass_ban, User)
+
+    [
+      item_klass,
+      (id.classify unless is_mass_bans),
+      is_mass_bans ?
+        'Массовые баны' :
+        item_klass.model_name.human(count: '')
+    ]
+  rescue NameError
+    raise ActiveRecord::RecordNotFound
   end
 end

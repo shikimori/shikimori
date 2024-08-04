@@ -23,7 +23,8 @@ class Moderations::UsersController < ModerationsController
       changelog_logger.info(
         user_id: current_user.id,
         action: :mass_ban,
-        ids: users_scope.pluck(:id)
+        ids: users_scope.pluck(:id),
+        url: current_url
       )
       User
         .where(id: users_scope.reject(&:staff?).pluck(:id))
