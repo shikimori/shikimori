@@ -43,7 +43,7 @@ class Users::Query < QueryObjectBase
     chain @scope.where(last_sign_in_ip: ip)
   end
 
-  def created_on date, condition # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def created_on date, condition # rubocop:disable Metrics/AbcSize
     return self if date.blank?
 
     scope = @scope
@@ -53,15 +53,13 @@ class Users::Query < QueryObjectBase
     chain(
       case ConditionType[condition]
         when ConditionType[:eq]
-          scope.where 'created_at >= ? and created_at <= ?',
-            Time.zone.parse(date).beginning_of_day,
-            Time.zone.parse(date).end_of_day
+          scope.where created_at: Time.zone.parse(date).all_day
 
         when ConditionType[:gte]
-          scope.where 'created_at >= ?', Time.zone.parse(date).beginning_of_day
+          scope.where created_at: Time.zone.parse(date).beginning_of_day..
 
         when ConditionType[:lte]
-          scope.where 'created_at <= ?', Time.zone.parse(date).end_of_day
+          scope.where created_at: ..Time.zone.parse(date).end_of_day
       end
     )
   end
