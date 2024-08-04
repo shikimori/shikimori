@@ -14,13 +14,15 @@ import { animatedCollapse } from '@/utils/animated';
 function datePicker() {
   if (!$('.date-filter').exists()) { return; }
 
-  new DatePicker('.date-filter')
-    .on('date:picked', function() {
-      const newUrl = new TinyUri(window.location.href)
-        .query.set('created_on', this.value || null)
-        .toString();
-      Turbolinks.visit(newUrl);
-    });
+  $('.created_on_1, .created_on_2').each((_, node) => {
+    new DatePicker(node)
+      .on('date:picked', function() {
+        const newUrl = new TinyUri(window.location.href)
+          .query.set(node.getAttribute('name'), node.value || null)
+          .toString();
+        Turbolinks.visit(newUrl);
+      });
+  });
 }
 
 pageLoad('moderations_show', () => {

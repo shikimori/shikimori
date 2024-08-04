@@ -6,31 +6,35 @@ header.head
   .cc-2_3
     .c-column.block_m
       form.b-form.block method='get' params=current_url
-        .cc-3
-          - %i[id email created_on current_sign_in_ip last_sign_in_ip].each do |field|
+        .cc-2
+          - %i[id email created_on_1 created_on_2 current_sign_in_ip last_sign_in_ip].each do |field|
+            - is_created_on = field.in?(%i[created_on_1 created_on_2])
             .c-column.block_m
               .subheadline
-                = field
+                = field.to_s.gsub(/created_on_\d/, 'created_on')
                 - if params[field].present?
                   .misc-links
                     a.b-js-link[
-                      href=current_url(field => nil, **(field == :created_on ? { created_on_condition: nil }: {}))
+                      href=current_url(field => nil, **(is_created_on ? { created_on_condition: nil }: {}))
                     ] clear
+
               .b-input.d-flex
-                - if field == :created_on
-                  select.mr-4 name='created_on_condition'
-                    option value='eq' selected=(params[:created_on_condition] == 'eq' || params[:created_on_condition].blank?)
+                - if is_created_on
+                  - field_condition = :"#{field}_condition"
+                  select.mr-4 name=field_condition
+                    option value='eq' selected=(params[field_condition] == 'eq')
                       | =
-                    option value='gte' selected=(params[:created_on_condition] == 'gte')
+                    option value='gte' selected=(params[field_condition] == 'gte' || (params[field_condition].blank? && field == :created_on_1))
                       | >=
-                    option value='lte' selected=(params[:created_on_condition] == 'lte')
+                    option value='lte' selected=(params[field_condition] == 'lte' || (params[field_condition].blank? && field == :created_on_2))
                       | <=
 
                 input[
-                  class=('date-filter' if %i[created_on].include?(field))
+                  class=('date-filter' if is_created_on)
+                  class=field
                   type="text"
                   name=field
-                  placeholder=(%i[created_on].include?(field) ? t('date_field') : field)
+                  placeholder=(is_created_on ? t('date_field') : field)
                   value=params[field]
                 ]
 

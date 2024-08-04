@@ -36,12 +36,16 @@ class Moderations::UsersController < ModerationsController
 
 private
 
-  def users_scope # rubocop:disable Metrics/AbcSize
+  def users_scope # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     scope = Users::Query.fetch
       .search(params[:phrase])
       .created_on(
-        params[:created_on],
-        params[:created_on_condition].presence || Users::Query::ConditionType[:eq]
+        params[:created_on_1],
+        params[:created_on_1_condition].presence || Users::Query::ConditionType[:eq]
+      )
+      .created_on(
+        params[:created_on_2],
+        params[:created_on_2_condition].presence || Users::Query::ConditionType[:eq]
       )
       .email(params[:email])
 
