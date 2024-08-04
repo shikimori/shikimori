@@ -20,8 +20,10 @@ class Moderations::UsersController < ModerationsController
         return redirect_to current_url(mass_ban: nil), alert: MASS_BAN_ERROR_ALERT
       end
 
-      NamedLogger.mass_ban.info(
-        "User=#{current_user.id} IDS=#{users_scope.pluck(:id).join(',')}"
+      changelog_logger.info(
+        user_id: current_user.id,
+        action: :mass_ban,
+        ids: users_scope.pluck(:id)
       )
       User
         .where(id: users_scope.reject(&:staff?).pluck(:id))
@@ -69,5 +71,9 @@ private
       .map { |ip, users| [ip, users.size, users] }
       .reverse.select { |(_ip, size, _users)| size > MASS_REGISTRATION_THRESHOLD }
       .map(&:first)
+  end
+
+  def changelog_logger
+    @logger ||= NamedLogger.changelog_mass_bans
   end
 end
