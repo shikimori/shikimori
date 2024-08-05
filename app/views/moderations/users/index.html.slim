@@ -50,7 +50,7 @@ header.head
         ul.b-list.block
           - @mass_ips.each do |ip|
             li
-              a href=moderations_users_url(current_sign_in_ip: ip, created_on: controller.class::MASS_REGISTRATION_INTERVAL.ago.to_date, created_on_condition: Users::Query::ConditionType[:gte]) = ip 
+              a href=moderations_users_url(current_sign_in_ip: ip, created_on_1: controller.class::MASS_REGISTRATION_INTERVAL.ago.to_date, created_on_1_condition: Users::Query::ConditionType[:gte]) = ip 
       - else
         p: b Нет регистраций
 
