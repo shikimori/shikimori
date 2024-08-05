@@ -240,7 +240,7 @@ private
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/wide_1@2x.webp app/assets/images/globals/events/2022-06-18/wide_1.webp
     url: 'https://animestyle-shop.ru/?utm_source=shikimori&utm_medium=banner_main&erid=2VtzqvBPU3e',
-    images: (1..3).map do |i|
+    images: (4..4).map do |i|
       {
         src: "/assets/globals/events/2024-08-05/wide_#{i}.png",
         src_2x: "/assets/globals/events/2024-08-05/wide_#{i}@2x.jpg"
