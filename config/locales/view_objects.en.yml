@@ -219,6 +219,15 @@ en:
         [*]10. Moderator is always right. All moderator's decisions are final
         and are not to be discussed.
         [/list]
+
+
+
+
+
+
+    description_of_genres:
+      title: Genre descriptions
+      description: For those who want to help the website
     contests_proposals:
       title: Voting for contests topics
       description: For those participating in contests
@@ -236,6 +245,11 @@ en:
       body: >-
         Describe the problem here if something doesn't work at all or
         doesn't work as expected.
+
+
+
+
+
   sticky_club_view:
     faq:
       # name: FAQ

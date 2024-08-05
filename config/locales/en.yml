@@ -1,81 +1,81 @@
 en:
   activerecord:
     models:
-      anime: Anime
-
-
-      article: Article
-
-
-      character: Character
-
-
-      club: Club
-
-
-      club_page: Club page
-
-
-      collection: Collection
-
-
-      comment: Comment
-
-
-      message: Message
-
-
-      contest: Contest
-
-
-      forum: Forum
-
-
-      genre: Genre
-
-
-      genre_v2: Genre v2
-
-
-      studio: Producer
-
-
-      publisher: Publisher
-
-
-      manga: Manga
-
-
-      person: Person
-
-
-      poll: Poll
-
-
-      ranobe: Light Novel
-
-
-      critique: Critique
-
-
-      review: Review
-
-
-      topic: Topic
-
-
-      topics/news_topic: News Topic
-
-
-      user: User
-
-
-      video: Video
-
-
-      poster: Poster
-
-
+      anime:
+        one: Anime
+        other: Animes
+      article:
+        one: Article
+        other: Articles
+      character:
+        one: Character
+        other: Characters
+      club:
+        one: Club
+        other: Clubs
+      club_page:
+        one: Club page
+        other: Club pages
+      collection:
+        one: Collection
+        other: Collections
+      comment:
+        one: Comment
+        other: Comments
+      message:
+        one: Message
+        other: Messages
+      contest:
+        one: Contest
+        other: Contests
+      forum:
+        one: Forum
+        other: Forums
+      genre:
+        one: Genre
+        other: Genres
+      genre_v2:
+        one: Genre v2
+        other: Genres v2
+      studio:
+        one: Producer
+        other: Producers
+      publisher:
+        one: Publisher
+        other: Publishers
+      manga:
+        one: Manga
+        other: Mangas
+      person:
+        one: Person
+        other: People
+      poll:
+        one: Poll
+        other: Polls
+      ranobe:
+        one: Light Novel
+        other: Light Novels
+      critique:
+        one: Critique
+        other: Critiques
+      review:
+        one: Review
+        other: Reviews
+      topic:
+        one: Topic
+        other: Topics
+      topics/news_topic:
+        one: News Topic
+        other: News Topics
+      user:
+        one: User
+        other: Users
+      video:
+        one: Video
+        other: Videos
+      poster:
+        one: Poster
+        other: Posters
 
     moderatable: &moderation_states
       moderation_state/pending: pending approval
