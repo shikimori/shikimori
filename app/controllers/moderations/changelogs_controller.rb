@@ -22,15 +22,14 @@ class Moderations::ChangelogsController < ModerationsController
       .split("\n")
       .filter_map do |v|
         id = v.gsub(/changelog_|\.log/, '')
-        _, _, name = item_type_name id rescue ActiveRecord::RecordNotFound
+        _, _, name = item_type_name id
 
         {
           id:,
           name:
         }
-      rescue NameError
+      rescue ActiveRecord::RecordNotFound
       end
-      .compact
       .sort_by { |changelog| changelog[:name] }
   end
 
