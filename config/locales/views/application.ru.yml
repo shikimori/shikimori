@@ -12,9 +12,9 @@ ru:
         profile: Аккаунт
         site: Сайт
       items:
-        anime: :activerecord.models.anime
-        manga: :activerecord.models.manga
-        ranobe: :activerecord.models.ranobe
+        anime: :activerecord.models.anime.one
+        manga: :activerecord.models.manga.one
+        ranobe: :activerecord.models.ranobe.one
         clubs: Клубы
         collections: Коллекции
         critiques: Рецензии

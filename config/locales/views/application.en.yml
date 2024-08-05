@@ -12,9 +12,9 @@ en:
         profile: Account
         site: Site
       items:
-        anime: :activerecord.models.anime
-        manga: :activerecord.models.manga
-        ranobe: :activerecord.models.ranobe
+        anime: :activerecord.models.anime.one
+        manga: :activerecord.models.manga.one
+        ranobe: :activerecord.models.ranobe.one
         clubs: Clubs
         collections: Collections
         critiques: Critiques

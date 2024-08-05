@@ -197,9 +197,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
 private
 
   def all_items
-    @all_items ||= SHIKIMORI_ITEMS
-      .map { |item| build item }
-      .compact
+    @all_items ||= SHIKIMORI_ITEMS.filter_map { |item| build item }
   end
 
   def sorted_items
@@ -220,7 +218,7 @@ private
       placement: item[:placement],
       group: item[:group],
       title: item_title(item[:name], item[:title]),
-      url: url,
+      url:,
       comparable_url: fix_url(url),
       data: item
     )
