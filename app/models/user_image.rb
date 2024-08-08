@@ -8,6 +8,7 @@ class UserImage < ApplicationRecord
       preview: ['700x700>', :jpg],
       thumbnail: ['235x235>', :jpg]
     },
+    convert_options: { all: '-strip' },
     url: '/system/:folder_name/:style/:user_id_hash/:id_hash.:extension',
     path: ':rails_root/public/system/:folder_name/:style/:user_id_hash/:id_hash.:extension'
 
