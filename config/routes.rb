@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   # do not remove atomic grouping
-  # w/o it shikimori has huge performance issue with suck nicknames "…...........☭............."
+  # w/o it shikimori has huge performance issue with such nicknames "…...........☭............."
   user_id = %r{(?> [^/.] (?! \.rss$) | [^/] (?= \.) | \.(?! rss$) )+}x
 
   use_doorkeeper do

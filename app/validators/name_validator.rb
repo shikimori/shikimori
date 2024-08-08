@@ -24,6 +24,7 @@ class NameValidator < ActiveModel::EachValidator
     dashboards
     development
     facebook
+    favicons
     faye
     faye-server
     faye-server-v1
@@ -39,7 +40,9 @@ class NameValidator < ActiveModel::EachValidator
     http_headers
     ignores
     imageboards
+    images
     info
+    javascripts
     mangas
     messages
     moderations
