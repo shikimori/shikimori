@@ -689,7 +689,7 @@ GEM
     retryable (3.0.5)
     reverse_markdown (2.1.1)
       nokogiri
-    rexml (3.2.9)
+    rexml (3.3.3)
       strscan
     rouge (3.30.0)
     rspec (3.13.0)
@@ -994,7 +994,7 @@ DEPENDENCIES
   redis-mutex
   responders
   retryable
-  rexml (~> 3.2)
+  rexml (~> 3.3)
   rspec
   rspec-collection_matchers
   rspec-core

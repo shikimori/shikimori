@@ -246,4 +246,4 @@ gem 'clockwork', require: false
 gem 'faye'
 gem 'thin'
 
-gem 'rexml', '~> 3.2' # added to fix ruby 3 on production
+gem 'rexml', '~> 3.3' # added to fix ruby 3 on production
