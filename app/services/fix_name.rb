@@ -7,7 +7,7 @@ class FixName < ServiceObjectBase
   SPACES = /(?:[[:space:]]|[\u2060-\u2069\u2000-\u200f\u202a-\u202f\u034f ឵⠀ᅠ­]|\p{C})+/
   ALL_EXTENSIONS = %w[
     css js json xml jpg jpeg png gif webp css js ttf eot otf svg woff php woff2 bmp html
-    rar zip gz tar rss slim jbuilder txt
+    rar zip gz tar rss slim jbuilder txt os
   ]
   EXTENSIONS = /
     \.(#{ALL_EXTENSIONS.join('|')})$
