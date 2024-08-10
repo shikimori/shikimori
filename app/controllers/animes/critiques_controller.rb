@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Animes::CritiquesController < AnimesController # rubocop:disable ClassLength
+class Animes::CritiquesController < AnimesController
   load_and_authorize_resource
 
   before_action :actualize_resource
@@ -136,7 +136,7 @@ private
   def add_breadcrumbs
     breadcrumb(
       i18n_i('Critique', :other),
-      send("#{resource_klass.name.downcase}_critiques_url", @resource)
+      send(:"#{resource_klass.name.downcase}_critiques_url", @resource)
     )
 
     if @critique&.persisted? && params[:action] != 'show'
@@ -146,7 +146,7 @@ private
       )
       @back_url = @critique.url
     else
-      @back_url = send("#{resource_klass.name.downcase}_critiques_url", @resource)
+      @back_url = send(:"#{resource_klass.name.downcase}_critiques_url", @resource)
     end
   end
 
