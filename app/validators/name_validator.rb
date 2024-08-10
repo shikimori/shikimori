@@ -8,21 +8,36 @@ class NameValidator < ActiveModel::EachValidator
   ]
   PREDEFINED_PATHS = %i[
     .well-known
+    a
     about
     achievements
+    admin_log_in
     anime-industry
+    anime-news
     animes
+    apanel
     api
+    articles
     assets
+    autocomplete
     bb_codes
+    c
     camo
     characters
+    club_invites
+    clubs
+    collections
     comments
+    comparer
     contests
+    cosplay
+    cosplay_galleries
+    coubs
     country
     csrf_token
     dashboards
     development
+    f
     facebook
     favicons
     faye
@@ -35,6 +50,8 @@ class NameValidator < ActiveModel::EachValidator
     feedback
     for_right_holders
     forum
+    g
+    games
     hentai
     how_to_edit_achievements
     http_headers
@@ -43,15 +60,24 @@ class NameValidator < ActiveModel::EachValidator
     images
     info
     javascripts
+    kakie-anime-postmotret
+    kakie-ranobe-pochitat
+    kakuyu-mangu-pochitat
+    log_in
+    m
     mangas
     messages
     moderations
     my_target_ad
+    news
+    news_feed
     nginx_stub_status
+    o
     oauth
-    oauth2
     oauth_request
+    oauth2
     ongoings
+    p
     packs
     page404
     page503
@@ -60,10 +86,15 @@ class NameValidator < ActiveModel::EachValidator
     privacy
     proxies
     proxy
+    r
     raise_exception
     ranobe
     redirect
+    reviews
+    s
+    site-news
     sitemap
+    studios
     styles
     system
     tableau
@@ -71,10 +102,15 @@ class NameValidator < ActiveModel::EachValidator
     tests
     timeout_120s
     topics
+    translations
     twitter
     uploads
     user_agent
+    user_rates
     users
+    v
+    vn
+    votes
     what_is_my_ip
   ]
   FORBIDDEN_NAMES = /
