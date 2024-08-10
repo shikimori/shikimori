@@ -1,4 +1,4 @@
-class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLengthanimecolview
+class AnimesCollection::View < ViewObjectBase
   vattr_initialize :klass, :user
 
   instance_cache :collection, :results

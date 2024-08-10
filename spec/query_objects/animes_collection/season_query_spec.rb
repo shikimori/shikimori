@@ -1,8 +1,8 @@
 describe AnimesCollection::SeasonQuery do
   let(:query) do
     AnimesCollection::SeasonQuery.new(
-      klass: klass,
-      filters: filters,
+      klass:,
+      filters:,
       user: nil,
       limit: 20
     )
@@ -18,7 +18,12 @@ describe AnimesCollection::SeasonQuery do
     let!(:anime_4) { create :anime, :ona, ranked: 3, aired_on: Date.parse('10-10-2016') }
     let!(:manga) { create :manga }
 
-    let(:filters) { { season: 'fall_2016' } }
+    let(:filters) do
+      {
+        season: 'fall_2016',
+        order: AnimesCollection::View::DEFAULT_ORDER
+      }
+    end
 
     it do
       is_expected.to have_attributes(

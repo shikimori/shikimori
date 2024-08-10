@@ -5,7 +5,7 @@ describe Animes::SortField do
   let(:view_context) do
     double(
       russian_names?: russian_names,
-      params: { order: order }
+      params: { order: }
     )
   end
   let(:russian_names) { true }
