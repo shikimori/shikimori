@@ -135,12 +135,12 @@ class Neko::Rule # rubocop:disable Metrics/ClassLength
 
     if filters['genre_ids']
       grenre_ids = filters['genre_ids'].map(&:to_i).join(',')
-      scope.where! "genre_ids && '{#{grenre_ids}}' and kind != 'special' and kind != 'tv_special'"
+      scope.where! "genre_ids && '{#{grenre_ids}}'"
     end
 
     if filters['genre_v2_ids']
       grenre_ids = filters['genre_v2_ids'].map(&:to_i).join(',')
-      scope.where! "genre_v2_ids && '{#{grenre_ids}}' and kind != 'Special' and kind != 'tv_special'"
+      scope.where! "genre_v2_ids && '{#{grenre_ids}}'"
     end
 
     if filters['episodes_gte']
