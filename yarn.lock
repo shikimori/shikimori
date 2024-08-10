@@ -4376,9 +4376,9 @@ magic-string@^0.30.10, magic-string@^0.30.8:
     "@jridgewell/sourcemap-codec" "^1.4.15"
 
 magnific-popup@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/magnific-popup/-/magnific-popup-1.1.0.tgz#3e7362c5bd18f6785fe99e59d013e20af33d3049"
-  integrity sha512-ghSa/1TKsOUL6ZlHfcfFCoB9Wms2nqaDdBEPh6QX9jFYQyMkUu7ciU1mrxedWWq4NM2m1C/llhHKLt6GKRYOzg==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/magnific-popup/-/magnific-popup-1.2.0.tgz#333fcb56c0cd2ab3935340acca4ac9d8c6412e0d"
+  integrity sha512-vkRTVPhQwUgmndX1086k4kMorkzf1XIjBhyL4eIiV8SAjUJQuAdgQEFtMEwbHRFhHOfXe+vcEkRKYLjRAFzMwg==
 
 make-plural@*:
   version "7.3.0"
