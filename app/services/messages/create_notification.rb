@@ -1,4 +1,4 @@
-class Messages::CreateNotification # rubocop:disable ClassLength
+class Messages::CreateNotification
   include Translation
 
   pattr_initialize :target
@@ -15,16 +15,16 @@ class Messages::CreateNotification # rubocop:disable ClassLength
       from_id: User::MESSANGER_ID,
       to: @target,
       kind: MessageType::NOTIFICATION,
-      body: body
+      body:
     )
   end
 
-  def moderatable_banned reason # rubocop:disable MethodLength, AbcSize
+  def moderatable_banned reason # rubocop:disable MethodLength
     body = i18n_t(
       'moderatable_banned.without_reason',
       topic_id: @target.topic.id,
       entry_name: I18n.t(
-        "activerecord.models.#{@target.class.name.downcase}"
+        "activerecord.models.#{@target.class.name.downcase}.one"
       ).downcase
     )
 
@@ -33,7 +33,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
         ' ' + i18n_t(
           'moderatable_banned.reason',
           approver_nickname: @target.approver.nickname,
-          reason: reason
+          reason:
         )
       else
         '.'
@@ -44,7 +44,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
       to_id: @target.user_id,
       kind: MessageType::NOTIFICATION,
       linked: @target,
-      body: body
+      body:
     )
   end
 
@@ -62,7 +62,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
       from_id: BotsService.get_poster.id,
       to_id: friend.id,
       kind: MessageType::NICKNAME_CHANGED,
-      body: body
+      body:
     )
   end
 
@@ -98,7 +98,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
     Topics::Generate::News::ContestStatusTopic.call(
       model: @target,
       user: @target.user,
-      action: Types::Topic::ContestStatusTopic::Action[:finished],
+      action: Types::Topic::ContestStatusTopic::Action[:finished]
     )
   end
 
@@ -113,7 +113,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
       from_id: BotsService.get_poster.id,
       to_id: @target.id,
       kind: MessageType::NOTIFICATION,
-      body: body
+      body:
     )
   end
 
@@ -121,10 +121,10 @@ private
 
   def create_comment user, topic, body
     create_params = {
-      user: user,
+      user:,
       commentable_id: topic.id,
       commentable_type: 'Topic',
-      body: body
+      body:
     }
 
     Comment.wo_antispam do
@@ -142,11 +142,11 @@ private
   def create_messages user_ids, kind:, from:, linked:, body:
     messages = user_ids.map do |user_id|
       Message.new(
-        from: from,
+        from:,
         to_id: user_id,
-        body: body,
-        kind: kind,
-        linked: linked
+        body:,
+        kind:,
+        linked:
       )
     end
 

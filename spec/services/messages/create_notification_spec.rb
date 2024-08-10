@@ -13,7 +13,7 @@ describe Messages::CreateNotification do
   end
 
   describe '#moderatable_banned' do
-    let(:target) { create :critique, :with_topics, user: author, approver: approver }
+    let(:target) { create :critique, :with_topics, user: author, approver: }
     let(:author) { seed :user }
     let(:approver) { create :user }
 
@@ -61,7 +61,7 @@ describe Messages::CreateNotification do
 
   describe '#nickname_changed' do
     let(:target) { seed :user }
-    let(:friend) { create :user, notification_settings: notification_settings }
+    let(:friend) { create :user, notification_settings: }
     let(:old_nickname) { 'old_nick' }
     let(:new_nickname) { 'new_nick' }
 
@@ -109,7 +109,7 @@ describe Messages::CreateNotification do
   end
 
   describe '#round_finished' do
-    let(:target) { create :contest_round, contest: contest }
+    let(:target) { create :contest_round, contest: }
     let(:contest) { create :contest, :with_topics }
 
     subject! { service.round_finished }
@@ -146,7 +146,7 @@ describe Messages::CreateNotification do
 
     it do
       expect(target.topic.comments).to have(1).item
-      
+
       target.news_topics.each do |topic|
         expect(topic).to have_attributes(
           linked: target,
