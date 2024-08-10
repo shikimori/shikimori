@@ -25,6 +25,11 @@ $max_width: 167px
         .content
           +column(2, 0.65)
 
+  +lte_ipad
+    .cover .image-decor > .text.is-focused
+      display: block
+      max-height: none
+
   +gte_laptop
     &:hover .cover .image-decor > .text
       display: block
