@@ -81,7 +81,7 @@ private
           label: neko.title(@user),
           level: (neko.level unless neko.franchise? || neko.author?),
           image: neko.image,
-          event: event
+          event:
         }
       end
       # .reject do |achivement_data| # temporarily until it is finished

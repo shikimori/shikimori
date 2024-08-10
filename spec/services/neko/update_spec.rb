@@ -12,8 +12,8 @@ describe Neko::Update do
 
   subject! do
     Neko::Update.call user,
-      user_rate_id: user_rate_id,
-      action: action
+      user_rate_id:,
+      action:
   end
 
   context 'delete' do
@@ -26,7 +26,7 @@ describe Neko::Update do
         .with(
           id: user_rate_id,
           user_id: user.id,
-          action: action
+          action:
         )
       expect(Neko::Apply)
         .to have_received(:call)
@@ -51,7 +51,7 @@ describe Neko::Update do
             status: user_rate.status,
             episodes: user_rate.episodes,
             user_id: user.id,
-            action: action
+            action:
           )
         expect(Neko::Apply)
           .to have_received(:call)
@@ -86,7 +86,7 @@ describe Neko::Update do
         .to have_received(:call)
         .with(
           user_id: user.id,
-          action: action
+          action:
         )
       expect(Neko::Apply)
         .to have_received(:call)

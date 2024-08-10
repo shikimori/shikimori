@@ -11,7 +11,7 @@ class Neko::Update
 private
 
   def neko_params user, user_rate_id, action
-    params = { user_id: user.id, action: action }
+    params = { user_id: user.id, action: }
 
     if user_rate_id
       params[:id] = user_rate_id

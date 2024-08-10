@@ -11,7 +11,7 @@ describe Achievements::Track do
     expect(Neko::Update)
       .to have_received(:call)
       .with user,
-        user_rate_id: user_rate_id,
+        user_rate_id:,
         action: Types::Neko::Action[action]
   end
 end

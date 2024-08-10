@@ -21,7 +21,7 @@ private
 
   def neko_update user, user_rate_id, action
     Neko::Update.call user,
-      user_rate_id: user_rate_id,
+      user_rate_id:,
       action: Types::Neko::Action[action]
   end
 end
