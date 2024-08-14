@@ -215,11 +215,11 @@ private
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.webp app/assets/images/globals/events/2022-06-18/menu_1.webp
-    url: 'https://animestyle-shop.ru/?utm_source=shikimori&utm_medium=banner_small&erid=2Vtzqxdgbh6',
-    images: (1..2).map do |i|
+    url: 'https://red.lesta.ru/z4essyf1/?&pub_id=adisom_august24_banners_shikimori&erid=2VtzqxJT7Q8',
+    images: (1..1).map do |i|
       {
-        src: "/assets/globals/events/2024-08-05/menu_#{i}.png",
-        src_2x: "/assets/globals/events/2024-08-05/menu_#{i}@2x.jpg"
+        src: "/assets/globals/events/2024-08-14/menu_#{i}.png",
+        src_2x: "/assets/globals/events/2024-08-14/menu_#{i}@2x.png"
       }
     end,
     # images: [{
@@ -239,11 +239,11 @@ private
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/wide_1@2x.webp app/assets/images/globals/events/2022-06-18/wide_1.webp
-    url: 'https://animestyle-shop.ru/?utm_source=shikimori&utm_medium=banner_main&erid=2VtzqvBPU3e',
-    images: (4..4).map do |i|
+    url: 'https://red.lesta.ru/z4essyf1/?&pub_id=adisom_august24_banners_shikimori&erid=2VtzqxJT7Q8',
+    images: (1..1).map do |i|
       {
-        src: "/assets/globals/events/2024-08-05/wide_#{i}.png",
-        src_2x: "/assets/globals/events/2024-08-05/wide_#{i}@2x.jpg"
+        src: "/assets/globals/events/2024-08-14/wide_#{i}.png",
+        src_2x: "/assets/globals/events/2024-08-14/wide_#{i}@2x.png"
       }
     end,
     # images: [{
@@ -280,11 +280,11 @@ private
   }
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
-    # url: 'https://startgame.rsv.ru/auth?utm_source=site&utm_medium=app&utm_campaign=rk75&utm_content=shikimori&utm_term=test',
+    url: 'https://red.lesta.ru/z4essyf1/?&pub_id=adisom_august24_banners_shikimori&erid=2VtzqxJT7Q8',
     images: [{
-      src: '/assets/globals/events/2024-03-25/wide_2.png',
+      src: '/assets/globals/events/2024-08-14/inner_1.png'
       # src_2x: '/assets/globals/events/2024-03-25/wide_2@2x.png',
-      url: 'https://u.to/vXiEIA?erid=2VtzqxJT7Q8' # 'https://www.домовой.ru/film/5235275/?erid=2VtzqxJT7Q8'
+      # url: 'https://u.to/vXiEIA?erid=2VtzqxJT7Q8' # 'https://www.домовой.ru/film/5235275/?erid=2VtzqxJT7Q8'
     }],
     # images: [{
     #   src: '/assets/globals/events/2023-10-20/wide_1.png',
@@ -428,13 +428,13 @@ private
     #   # Types::Ad::Type[:advrtr_240x400]
     # ],
     Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300], # фигурки
+      Types::Ad::Type[:special_x300], # фигурки
       # # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x400]
       # # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300], # фигурки
+      Types::Ad::Type[:special_x300], # фигурки
       # # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600]
       # # Types::Ad::Type[:advrtr_240x400],
@@ -445,7 +445,7 @@ private
       # # Types::Ad::Type[:advrtr_x728]
     ],
     Types::Ad::Meta[:horizontal_x90] => [
-      # Types::Ad::Type[:special_x894],
+      Types::Ad::Type[:special_x894],
       # # Types::Ad::Type[:mt_728x90],
       # # Types::Ad::Type[:advrtr_x728]
       Types::Ad::Type[:yd_970x90]
