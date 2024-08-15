@@ -16,6 +16,7 @@ class BbCodes::CleanupCssClass
     b-postloader
     b-to-top
     ban
+    bubbled
     CodeMirror
     CodeMirror-activeline-background
     CodeMirror-cursor
