@@ -19,18 +19,16 @@ Apipie.configure do |config|
   pagination_placeholder = '%%PAGINATION_PLACEHOLDER%%'
 
   app_info = <<~MARKDOWN
-    ## GraphQL API docs and playground avaialble at [/api/doc/graphql](/api/doc/graphql).
-    GraphQL API contains new anime and manga posters as well as other new fields which are not present in v1/v2 apis. The GraphQL API is experimental and may change slightly in the future.
-
     ## Welcome to Shikimori API #{version_placeholder}
     This API has three versions:
-      [**graphql** (experimental)](/api/doc/graphql) and
-      [**v2**](/api/doc/2.0.html) and
-      [**v1**](/api/doc/1.0.html).
-      `v2` consists of newly updated methods.
-      Prefer using `v2` over `v1` when it is possible.
+      [**graphql**](/api/doc/graphql),
+      outdated [**v2**](/api/doc/2.0.html) and
+      outdated [**v1**](/api/doc/1.0.html).
+      Prefer using `graphql` over `v2`/`v1` when it is possible.
 
-    **Never parse the main site**. Use `v2` and `v1` API instead.
+    **Please do not parse the main site**. Fetch all necessary data via API.
+
+    **NOTE:** New anime/manga/character/person posters available only in `graphql` API.
 
     API works with `HTTPS` protocol only.
     <br><br>
