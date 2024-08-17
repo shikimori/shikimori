@@ -22301,7 +22301,7 @@
       :algo: count
       :threshold: 70
       :filters: &1140
-        genre_ids:
+        genre_v2_ids:
         - 4
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
   default_values: *4
@@ -22419,7 +22419,7 @@
       :algo: count
       :threshold: 25
       :filters: &1145
-        genre_ids:
+        genre_v2_ids:
         - 5
         - 40
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
@@ -22695,7 +22695,7 @@
       :algo: count
       :threshold: 40
       :filters: &1155
-        genre_ids:
+        genre_v2_ids:
         - 8
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
   default_values: *4
@@ -22809,7 +22809,7 @@
       :algo: count
       :threshold: 50
       :filters: &1160
-        genre_ids:
+        genre_v2_ids:
         - 10
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
   default_values: *4
@@ -24984,7 +24984,7 @@
       :algo: count
       :threshold: 25
       :filters: &1173
-        genre_ids:
+        genre_v2_ids:
         - 13
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
   default_values: *4
@@ -25104,7 +25104,7 @@
       :algo: count
       :threshold: 25
       :filters: &1178
-        genre_ids:
+        genre_v2_ids:
         - 14
         - 41
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/horror_thriller.yml
@@ -25156,7 +25156,7 @@
     :level: 3
     :image: "/assets/achievements/anime/horror_thriller_3.png"
     :border_color: "#d7adb1"
-    :title_ru: Все чудовища — это люди
+    :title_ru: Страшнее человека зверя нет
     :text_ru: Только люди могут смотреть на убийство себе подобных ради развлечения.
     :title_en: All monsters are humans
     :text_en: Only human beings can watch the killing of their own kind for the sake
@@ -25172,7 +25172,7 @@
   level: 3
   image: "/assets/achievements/anime/horror_thriller_3.png"
   border_color: "#d7adb1"
-  title_ru: Все чудовища — это люди
+  title_ru: Страшнее человека зверя нет
   text_ru: Только люди могут смотреть на убийство себе подобных ради развлечения.
   title_en: All monsters are humans
   text_en: Only human beings can watch the killing of their own kind for the sake
@@ -25223,7 +25223,7 @@
       :algo: count
       :threshold: 15
       :filters: &1183
-        genre_ids:
+        genre_v2_ids:
         - 43
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
   default_values: *4
@@ -25341,7 +25341,7 @@
       :algo: count
       :threshold: 40
       :filters:
-        genre_ids:
+        genre_v2_ids:
         - 15
         or:
           anime_ids:
@@ -26651,7 +26651,7 @@
       :algo: count
       :threshold: 35
       :filters: &1201
-        genre_ids:
+        genre_v2_ids:
         - 18
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
   default_values: *4
@@ -26773,7 +26773,7 @@
       :algo: count
       :threshold: 25
       :filters: &1206
-        genre_ids:
+        genre_v2_ids:
         - 38
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
   default_values: *4
@@ -28185,7 +28185,7 @@
       :algo: count
       :threshold: 40
       :filters: &1236
-        genre_ids:
+        genre_v2_ids:
         - 24
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
   default_values: *4
@@ -28423,7 +28423,7 @@
       :algo: count
       :threshold: 40
       :filters: &1246
-        genre_ids:
+        genre_v2_ids:
         - 36
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
   default_values: *4
@@ -28976,7 +28976,7 @@
       :algo: count
       :threshold: 25
       :filters: &1252
-        genre_ids:
+        genre_v2_ids:
         - 29
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
   default_values: *4
@@ -29098,7 +29098,7 @@
       :algo: count
       :threshold: 25
       :filters: &1257
-        genre_ids:
+        genre_v2_ids:
         - 30
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
   default_values: *4
@@ -29843,7 +29843,7 @@
       :algo: count
       :threshold: 60
       :filters: &1263
-        genre_ids:
+        genre_v2_ids:
         - 37
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/supernatural.yml
   default_values: *4
