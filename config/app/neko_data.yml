@@ -25106,7 +25106,7 @@
       :filters: &1178
         genre_v2_ids:
         - 14
-        - 41
+        - 117
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/horror_thriller.yml
   default_values: *4
   neko_id: :horror_thriller
