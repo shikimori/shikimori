@@ -81,8 +81,9 @@ RSpec.configure do |config|
   # to use login_as(user) / logout(:user)
   config.include Warden::Test::Helpers, type: :feature
 
-  # Automatically tag specs in the `spec/view_objects` directory with `type: :decorator`
-  config.define_derived_metadata(file_path: %r{\bspec/view_objects\b}) do |metadata|
+  # Automatically tag specs in the `spec/view_objects` and in the `spec/services` directory with `type: :decorator`,
+  # so Draper is properly initialized there
+  config.define_derived_metadata(file_path: %r{\bspec/(?:view_objects|services)\b}) do |metadata|
     metadata[:type] = :decorator
   end
 
