@@ -65,6 +65,8 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.render_views
 
+  config.filter_run_excluding :not_for_ci if ENV['CI']
+
   #config.infer_base_class_for_anonymous_controllers = false
 
   # config.include self, type: :serializer, file_path: %r(spec/validators)

@@ -1,4 +1,4 @@
-describe ImageUrlGenerator do
+describe ImageUrlGenerator, :not_for_ci do
   let(:service) { described_class.instance }
 
   let(:timestamp) { '1425232393' }
