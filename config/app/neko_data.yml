@@ -5573,8 +5573,8 @@
         - 51309
         - 54050
         - 55720
-        - 58592
         - 57434
+        - 58592
       :threshold: 95%
       :generator: &262
         ignore_latest_ids:
@@ -10135,8 +10135,8 @@
         - 58248
         - 58288
         - 58507
-        - 58912
         - 58835
+        - 58912
       :threshold: 94.2%
       :generator: &509
         ignore_latest_ids:
@@ -14725,7 +14725,7 @@
         not_anime_ids:
         - 36444
         - 40124
-      :threshold: 100%
+      :threshold: 94.8%
       :generator: &754
         ignore_latest_ids:
         - 36419
