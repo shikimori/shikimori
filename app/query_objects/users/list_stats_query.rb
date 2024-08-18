@@ -1,4 +1,4 @@
-class Users::ListStatsQuery # rubocop:disable ClassLength
+class Users::ListStatsQuery
   prepend ActiveCacher.instance
 
   method_object :user
@@ -10,8 +10,8 @@ class Users::ListStatsQuery # rubocop:disable ClassLength
 
   def call
     Users::ListStats.new(
-      Users::ListStats.attributes.each_with_object({}) do |field, memo|
-        memo[field] = public_send field
+      Users::ListStats.attributes.index_with do |field|
+        public_send field
       end
     )
   end
