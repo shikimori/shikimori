@@ -5,7 +5,6 @@ class MessagesController < ProfilesController
       show
       tooltip
       feed
-      preview
       chosen
       unsubscribe
     ]
@@ -20,10 +19,7 @@ class MessagesController < ProfilesController
   def index
     og page_title: localized_page_title
 
-    @limit = [
-      [params[:limit].to_i, MESSAGES_PER_PAGE].max,
-      MESSAGES_PER_PAGE * 2
-    ].min
+    @limit = params[:limit].to_i.clamp(MESSAGES_PER_PAGE, MESSAGES_PER_PAGE * 2)
 
     @collection = Messages::Query
       .fetch(@resource, @messages_type)
@@ -78,7 +74,7 @@ class MessagesController < ProfilesController
   end
 
   # rss лента уведомлений
-  def feed
+  def feed # rubocop:disable all
     @user = User.find_by! nickname: User.param_to(params[:name])
     raise CanCan::AccessDenied if self.class.rss_key(@user) != params[:key]
 

@@ -6,6 +6,23 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+module SecretsDeprecationWarningSilencer
+  def secrets
+    @secrets ||= begin
+      secrets = ActiveSupport::OrderedOptions.new
+      files = config.paths["config/secrets"].existent
+      files = files.reject { |path| path.end_with?(".enc") } unless config.read_encrypted_secrets
+      secrets.merge! Rails::Secrets.parse(files, env: Rails.env)
+
+      # Fallback to config.secret_key_base if secrets.secret_key_base isn't set
+      secrets.secret_key_base ||= config.secret_key_base
+
+      secrets
+    end
+  end
+end
+Rails::Application.send :prepend, SecretsDeprecationWarningSilencer
+
 require_relative '../lib/shikimori_domain'
 require_relative '../lib/string'
 require_relative '../lib/responders/json_responder'
@@ -92,8 +109,9 @@ module Shikimori
     end
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
-    config.active_support.cache_format_version = 7.0
+    config.load_defaults 7.1
+    config.active_support.cache_format_version = 7.1
+    config.active_record.marshalling_format_version = 6.1
 
     # This option is not backwards compatible with earlier Rails versions.
     # It's best enabled when your entire app is migrated and stable on 6.0.
@@ -110,7 +128,9 @@ module Shikimori
     # config.autoload_paths += Dir["#{config.root}/app/**/"]
     # config.paths.add 'lib', eager_load: true
 
-    config.autoload_paths << "#{config.root}/app/*"
+    config.autoload_lib(ignore: %w(assets tasks))
+
+    # config.autoload_paths << "#{config.root}/app/*"
     config.autoload_paths << "#{Rails.root}/lib"
     config.eager_load_paths << "#{Rails.root}/lib"
 

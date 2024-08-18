@@ -5,7 +5,7 @@ class BaseDecorator < Draper::Decorator
 
   def self.inherited target
     target.send :prepend, ActiveCacher.instance
-    super target
+    super
   end
 
   def page
