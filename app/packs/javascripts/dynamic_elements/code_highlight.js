@@ -1,4 +1,3 @@
-/* global importScripts */
 import View from '@/views/application/view';
 import shikiMarkdown from 'shiki-editor/src/utils/lowlight/shiki_markdown';
 import JSONfn from 'json-fn';
@@ -37,78 +36,12 @@ export default class CodeHighlight extends View {
     });
   }
 
-  // hljs usage example https://highlightjs.org/usage/
   static hljsInitialize() {
     if (this.hljsInitialized) { return; }
     this.hljsInitialized = true;
     this.lastId = 0;
 
-    this.worker = this.buildWorker(function() {
-      importScripts(
-        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'
-        // requested them to add json-fn https://github.com/cdnjs/packages/issues/1380
-        // 'https://cdnjs.cloudflare.com/ajax/libs/json-fn/1.1.1/jsonfn.js'
-      );
-
-      // https://raw.githubusercontent.com/vkiryukhin/jsonfn/master/jsonfn.js
-      const parseJSONfn = function(str, date2obj) {
-        const iso8061 = date2obj ?
-          /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)Z$/ :
-          false;
-
-        return JSON.parse(str, function(key, value) {
-          let prefix;
-
-          if (typeof value !== 'string') {
-            return value;
-          }
-          if (value.length < 8) {
-            return value;
-          }
-
-          prefix = value.substring(0, 8);
-
-          if (iso8061 && value.match(iso8061)) {
-            return new Date(value);
-          }
-          if (prefix === 'function') {
-            return eval('(' + value + ')');
-          }
-          if (prefix === '_PxEgEr_') {
-            return eval(value.slice(8));
-          }
-          if (prefix === '_NuFrRa_') {
-            return eval(value.slice(8));
-          }
-
-          return value;
-        });
-      };
-
-      this.onmessage = function(event) {
-        if (!self.hljs.getLanguage('shiki')) {
-          self.hljs.registerLanguage('shiki', parseJSONfn(event.data.shikiMarkdownJSONfn));
-        }
-        if (!self.hljs.getLanguage('js')) {
-          self.hljs.registerAliases('js', { languageName: 'javascript' });
-        }
-        if (!self.hljs.getLanguage('sass')) {
-          self.hljs.registerAliases('sass', { languageName: 'scss' });
-        }
-
-        const hljsLanguage = self.hljs.getLanguage(event.data.language);
-        if (!hljsLanguage) { return; }
-
-        const result = self
-          .hljs
-          .highlight(hljsLanguage.name, event.data.code, true);
-
-        postMessage({
-          html: result.value,
-          node_id: event.data.node_id
-        });
-      };
-    });
+    this.worker = new Worker('/code_highlight_worker.js');
 
     this.worker.onmessage = event => {
       const node = document.getElementById(event.data.node_id);
@@ -116,14 +49,5 @@ export default class CodeHighlight extends View {
         node.innerHTML = event.data.html;
       }
     };
-  }
-
-  static buildWorker(func) {
-    let code = func.toString();
-    code = code.substring(code.indexOf('{') + 1, code.lastIndexOf('}'));
-
-    const blob = new Blob([code], { type: 'application/javascript' });
-
-    return new Worker(URL.createObjectURL(blob));
   }
 }
