@@ -28,9 +28,4 @@ class BaseDecorator < Draper::Decorator
       "#{object.class.name}Serializer".constantize
     end
   end
-
-  # attempt to fix "instance of MessageDecorator needs to have method `marshal_load'" issue
-  def marshal_load(*, **)
-    object.marshal_load(*, **)
-  end
 end

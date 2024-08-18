@@ -111,6 +111,7 @@ module Shikimori
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
     config.active_support.cache_format_version = 7.1
+    config.active_record.marshalling_format_version = 6.1
 
     # This option is not backwards compatible with earlier Rails versions.
     # It's best enabled when your entire app is migrated and stable on 6.0.
