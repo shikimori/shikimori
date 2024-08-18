@@ -5,7 +5,7 @@ describe ContestRound do
   end
 
   describe 'aasm' do
-    subject { build :contest_round, state, matches: matches }
+    subject { build :contest_round, state, matches: }
     let(:matches) { [] }
     let(:contest_match_created) { build :contest_match, :created }
     let(:contest_match_finished) { build :contest_match, :finished }
@@ -74,9 +74,9 @@ describe ContestRound do
   describe 'instance methods' do
     describe '#next_round, #prior_round, #first?, #last?' do
       let!(:contest) { create :contest }
-      let!(:round_1) { create :contest_round, contest: contest }
-      let!(:round_2) { create :contest_round, contest: contest }
-      let!(:round_3) { create :contest_round, contest: contest }
+      let!(:round_1) { create :contest_round, contest: }
+      let!(:round_2) { create :contest_round, contest: }
+      let!(:round_3) { create :contest_round, contest: }
 
       it do
         expect(round_1.next_round).to eq round_2
