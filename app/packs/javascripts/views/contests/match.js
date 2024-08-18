@@ -52,7 +52,7 @@ export default class ContestMatch extends View {
   }
 
   get isFreezed() {
-    return this.model.state === 'freezed';
+    return this.model.state === 'frozen';
   }
 
   // handlers

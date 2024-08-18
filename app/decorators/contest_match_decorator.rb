@@ -36,8 +36,8 @@ class ContestMatchDecorator < BaseDecorator
       :created
     elsif started?
       :started
-    elsif freezed?
-      :freezed
+    elsif frozen?
+      :frozen
     elsif winner_id == member_id
       :winner
     else

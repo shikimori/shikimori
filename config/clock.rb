@@ -22,10 +22,10 @@ module Clockwork
     NamedLogger.clockwork.info 'half-hourly.import finished'
   end
 
-  every 15.minutes, 'kill-freezed-postgres-queries' do
+  every 15.minutes, 'kill-frozen-postgres-queries' do
     KillFreezedPostgresQueries.perform_async
 
-    NamedLogger.clockwork.info 'kill-freezed-postgres-queries finished'
+    NamedLogger.clockwork.info 'kill-frozen-postgres-queries finished'
   end
 
   every 1.hour, 'hourly', at: '**:45' do

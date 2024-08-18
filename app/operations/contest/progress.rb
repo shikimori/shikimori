@@ -2,7 +2,7 @@ class Contest::Progress
   method_object :contest
 
   def call
-    matches_freezed = freeze_matches
+    matches_frozen = freeze_matches
     matches_started = start_matches
     matches_finished = finish_matches
 
@@ -11,7 +11,7 @@ class Contest::Progress
         round_to_finish = ContestRound::Finish.call current_round
       end
 
-      if matches_started.any? || matches_freezed.any? || matches_finished.any? ||
+      if matches_started.any? || matches_frozen.any? || matches_finished.any? ||
           round_to_finish
         @contest.touch
       end

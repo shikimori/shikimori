@@ -32,7 +32,7 @@ describe ContestMatch do
         end
       end
 
-      it { is_expected.to_not allow_transition_to :freezed }
+      it { is_expected.to_not allow_transition_to :frozen }
       it { is_expected.to_not allow_transition_to :finished }
     end
 
@@ -42,24 +42,24 @@ describe ContestMatch do
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }
 
-      describe 'transition to freezed' do
+      describe 'transition to frozen' do
         context 'finished_on < Time.zone.today' do
           let(:finished_on) { Time.zone.yesterday }
-          it { is_expected.to allow_transition_to :freezed }
-          it { is_expected.to transition_from(state).to(:freezed).on_event(:freeze) }
+          it { is_expected.to allow_transition_to :frozen }
+          it { is_expected.to transition_from(state).to(:frozen).on_event(:freeze) }
           it { is_expected.to_not allow_transition_to :finished }
         end
 
         context 'finished_on >= Time.zone.today' do
           let(:finished_on) { Time.zone.today }
-          it { is_expected.to_not allow_transition_to :freezed }
+          it { is_expected.to_not allow_transition_to :frozen }
           it { is_expected.to_not allow_transition_to :finished }
         end
       end
     end
 
-    context 'freezed' do
-      let(:state) { Types::ContestMatch::State[:freezed] }
+    context 'frozen' do
+      let(:state) { Types::ContestMatch::State[:frozen] }
 
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }
@@ -73,7 +73,7 @@ describe ContestMatch do
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }
       it { is_expected.to_not allow_transition_to :started }
-      it { is_expected.to_not allow_transition_to :freezed }
+      it { is_expected.to_not allow_transition_to :frozen }
     end
   end
 

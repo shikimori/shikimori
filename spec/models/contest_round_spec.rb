@@ -11,7 +11,7 @@ describe ContestRound do
     let(:contest_match_may_freeze) do
       build :contest_match, :started, finished_on: Time.zone.yesterday
     end
-    let(:contest_match_freezed) { build :contest_match, :freezed }
+    let(:contest_match_frozen) { build :contest_match, :frozen }
     let(:contest_match_finished) { build :contest_match, :finished }
     let(:contest_match_may_not_freeze) do
       build :contest_match, :started, finished_on: Time.zone.today
@@ -48,7 +48,7 @@ describe ContestRound do
           let(:matches) do
             [
               contest_match_may_freeze,
-              contest_match_freezed,
+              contest_match_frozen,
               contest_match_finished
             ]
           end
