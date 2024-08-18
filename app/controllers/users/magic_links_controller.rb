@@ -3,6 +3,8 @@
 class Users::MagicLinksController < ShikimoriController
   def show
     unless user_signed_in?
+      raise ActiveRecord::RecordNotFound if params[:token]
+
       user = User.find Users::LoginToken.decode(params[:token])['data']['user_id']
       sign_in user
     end

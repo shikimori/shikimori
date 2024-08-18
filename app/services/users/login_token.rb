@@ -11,7 +11,7 @@ class Users::LoginToken
     crypt = ActiveSupport::MessageEncryptor.new(key, serializer: JSON)
     encrypted_data = crypt.encrypt_and_sign({
       data: {
-        user_id: resource.id,
+        user_id: resource.id
       },
       created_at: now.to_f
     })
