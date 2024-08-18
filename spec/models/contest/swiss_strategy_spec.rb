@@ -60,8 +60,12 @@ describe Contest::SwissStrategy do
 
     it 'sets correct dates for matches' do
       expect(contest.rounds[0].matches[0].started_on).to eq contest.started_on
-      expect(contest.rounds[1].matches[0].started_on).to eq contest.rounds[0].matches[0].finished_on + contest.matches_interval.days
-      expect(contest.rounds[2].matches[0].started_on).to eq contest.rounds[1].matches[0].finished_on + contest.matches_interval.days
+      expect(contest.rounds[1].matches[0].started_on).to eq(
+        contest.rounds[0].matches[0].finished_on + contest.matches_interval.days
+      )
+      expect(contest.rounds[2].matches[0].started_on).to eq(
+        contest.rounds[1].matches[0].finished_on + contest.matches_interval.days
+      )
     end
   end
 

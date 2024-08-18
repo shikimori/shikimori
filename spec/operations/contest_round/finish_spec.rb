@@ -4,7 +4,7 @@ describe ContestRound::Finish do
   let(:operation) { ContestRound::Finish.new round }
 
   let(:contest) { create :contest, :with_topics, :with_5_members, state: 'started' }
-  let(:round) { create :contest_round, contest: contest }
+  let(:round) { create :contest_round, contest: }
   let(:next_round) { nil }
 
   before do
@@ -50,7 +50,7 @@ describe ContestRound::Finish do
   end
 
   context 'not last round' do
-    let(:next_round) { create :contest_round, contest: contest }
+    let(:next_round) { create :contest_round, contest: }
 
     it do
       expect(notification_service).to have_received :round_finished

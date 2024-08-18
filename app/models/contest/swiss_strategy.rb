@@ -60,9 +60,9 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
     end
 
     match.update!(
-      left_id: left_id,
+      left_id:,
       left_type: @contest.member_klass.name,
-      right_id: right_id,
+      right_id:,
       right_type: @contest.member_klass.name
     )
   end

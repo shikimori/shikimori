@@ -2,8 +2,6 @@ class ContestRound::Start
   method_object :contest_round
 
   def call
-    Rails.logger.info "ContestRound::Start #{@contest_round.id}"
-
     ContestRound.transaction do
       @contest_round.start!
 
@@ -23,6 +21,6 @@ private
   end
 
   def reset_strategy
-    @contest_round.contest.instance_variable_set('@strategy', nil)
+    @contest_round.contest.instance_variable_set(:@strategy, nil)
   end
 end

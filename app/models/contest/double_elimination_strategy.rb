@@ -33,7 +33,7 @@ class Contest::DoubleEliminationStrategy
   end
 
   def create_round number, additional
-    @contest.rounds.create number: number, additional: additional
+    @contest.rounds.create number:, additional:
   end
 
   def fill_round_with_matches round
@@ -48,7 +48,7 @@ class Contest::DoubleEliminationStrategy
     elsif round.last?
       create_matches(
         round,
-        2.times.map { ContestMatch::UNDEFINED },
+        Array.new(2) { ContestMatch::UNDEFINED },
         group: ContestRound::F,
         date: round.prior_round.matches.last.finished_on +
           @contest.matches_interval.days
@@ -58,13 +58,15 @@ class Contest::DoubleEliminationStrategy
       losers_count = [
         (round.number > 2 ?
           round.prior_round.matches.count :
-          (round.prior_round.matches.map { |v| v.right_type ? 2 : 1 }.sum / 2.0).floor
+          (round.prior_round.matches.sum { |v| v.right_type ? 2 : 1 } / 2.0).floor # rubocop:disable Style/NestedTernaryOperator
         ),
         1
       ].max
 
       winners_round =
-        if round.prior_round.matches.any? { |v| v.group == ContestRound::W || v.group == ContestRound::S }
+        if round.prior_round.matches.any? do |v|
+             v.group == ContestRound::W || v.group == ContestRound::S
+           end
           round.prior_round
         else
           round.prior_round.prior_round
@@ -74,14 +76,13 @@ class Contest::DoubleEliminationStrategy
         winners_round
           .matches
           .select { |v| v.group == ContestRound::W || v.group == ContestRound::S }
-          .map { |v| v.right_type ? 2 : 1 }
-          .sum / 2.0
+          .sum { |v| v.right_type ? 2 : 1 } / 2.0
       ).ceil
 
       if round.additional
         create_matches(
           round,
-          losers_count.times.map { ContestMatch::UNDEFINED },
+          Array.new(losers_count) { ContestMatch::UNDEFINED },
           group: ContestRound::L,
           date: round.prior_round.matches.last.finished_on +
             @contest.matches_interval.days
@@ -89,7 +90,7 @@ class Contest::DoubleEliminationStrategy
       else
         create_matches(
           round,
-          winners_count.times.map { ContestMatch::UNDEFINED },
+          Array.new(winners_count) { ContestMatch::UNDEFINED },
           group: ContestRound::W,
           date: round.prior_round.matches.last.finished_on +
             @contest.matches_interval.days
@@ -98,7 +99,7 @@ class Contest::DoubleEliminationStrategy
         if with_additional_rounds?
           create_matches(
             round,
-            losers_count.times.map { ContestMatch::UNDEFINED },
+            Array.new(losers_count) { ContestMatch::UNDEFINED },
             group: ContestRound::L
           )
         end
@@ -140,11 +141,11 @@ class Contest::DoubleEliminationStrategy
 
       index += 1
       pred_last = (entrires.size / 2.0).ceil - 2
-      if index >= @contest.matches_per_round &&
+      next unless index >= @contest.matches_per_round &&
           (pair_index != pred_last || @contest.matches_per_round < 3)
-        date += @contest.matches_interval.days
-        index = 0
-      end
+
+      date += @contest.matches_interval.days
+      index = 0
     end
   end
 
@@ -170,16 +171,14 @@ class Contest::DoubleEliminationStrategy
     target_vote =
       if match.round.number > 1 && !match.round.additional
         target_round.matches
+      elsif match.round.next_round.last?
+        target_round.matches.select { |v| v.group == ContestRound::F }
+      elsif match.group == ContestRound::W || match.group == ContestRound::S
+        target_round.matches.select { |v| v.group == ContestRound::W }
       else
-        if match.round.next_round.last?
-          target_round.matches.select { |v| v.group == ContestRound::F }
-        elsif match.group == ContestRound::W || match.group == ContestRound::S
-          target_round.matches.select { |v| v.group == ContestRound::W }
-        else
-          target_round.matches.select { |v| v.group == ContestRound::L }
-        end
+        target_round.matches.select { |v| v.group == ContestRound::L }
       end
-      .select { |v| v.left_id.nil? || v.right_id.nil? }.first
+      .find { |v| v.left_id.nil? || v.right_id.nil? }
 
     if target_vote.left_id.nil?
       target_vote.left = match.winner
@@ -214,8 +213,8 @@ class Contest::DoubleEliminationStrategy
       end
 
     else
-      target_vote = matches.select { |v| v.left_id.nil? }.first
-      target_vote ||= matches.select { |v| v.right_id.nil? }.first
+      target_vote = matches.find { |v| v.left_id.nil? }
+      target_vote ||= matches.find { |v| v.right_id.nil? }
 
       if target_vote.left_id.nil?
         target_vote.left = match.loser
