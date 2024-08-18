@@ -52,9 +52,9 @@ class ContestRound < ApplicationRecord
 
     i18n_t(
       'title',
-      number: number,
+      number:,
       additional: ('a' if additional),
-      locale: locale
+      locale:
     )
   end
 
