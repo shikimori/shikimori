@@ -32,9 +32,7 @@ class ContestRound < ApplicationRecord
       transitions(
         form: Types::ContestRound::State[:started],
         to: Types::ContestRound::State[:finished],
-        if: -> {
-          matches.any? && matches.all? { |v| v.finished? || v.may_finish? }
-        }
+        if: -> { matches.any? && matches.all?(&:finished?) }
       )
     end
   end

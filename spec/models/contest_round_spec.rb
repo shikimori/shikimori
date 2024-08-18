@@ -9,9 +9,9 @@ describe ContestRound do
     let(:matches) { [] }
     let(:contest_match_created) { build :contest_match, :created }
     let(:contest_match_finished) { build :contest_match, :finished }
-    let(:contest_match_may_finish) do
-      build :contest_match, :started, finished_on: Time.zone.yesterday
-    end
+    # let(:contest_match_may_finish) do
+    #   build :contest_match, :started, finished_on: Time.zone.yesterday
+    # end
     let(:contest_match_may_not_finish) do
       build :contest_match, :started, finished_on: Time.zone.today
     end
@@ -44,7 +44,8 @@ describe ContestRound do
 
       describe 'transition to finished' do
         context 'all matches may be finished' do
-          let(:matches) { [contest_match_finished, contest_match_may_finish] }
+          # let(:matches) { [contest_match_finished, contest_match_may_finish] }
+          let(:matches) { [contest_match_finished] }
           it { is_expected.to allow_transition_to :finished }
           it { is_expected.to transition_from(state).to(:finished).on_event(:finish) }
         end
