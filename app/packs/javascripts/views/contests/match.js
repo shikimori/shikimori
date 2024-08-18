@@ -51,8 +51,8 @@ export default class ContestMatch extends View {
     return this.model.state === 'started';
   }
 
-  get isFinished() {
-    return this.model.state === 'finished';
+  get isFreezed() {
+    return this.model.state === 'freezed';
   }
 
   // handlers
