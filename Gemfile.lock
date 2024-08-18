@@ -400,6 +400,7 @@ GEM
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.5.1)
     ffi (1.17.0)
+    fiber-storage (1.0.0)
     formatador (1.1.0)
     fuubar (2.5.1)
       rspec-core (~> 3.0)
@@ -417,10 +418,11 @@ GEM
       request_store (>= 1.0)
     google-protobuf (4.26.0)
       rake (>= 13)
-    graphiql-rails (1.10.0)
+    graphiql-rails (1.10.1)
       railties
-    graphql (2.3.4)
+    graphql (2.3.14)
       base64
+      fiber-storage
     graphql-rails_logger (1.2.4)
       actionpack (> 5.0)
       activesupport (> 5.0)
