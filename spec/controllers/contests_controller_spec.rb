@@ -76,13 +76,13 @@ describe ContestsController do
     end
   end
 
-  describe '#new' do
-    subject! { get :new }
+  describe '#edit' do
+    subject! { get :edit, params: { id: contest.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#edit' do
-    subject! { get :edit, params: { id: contest.to_param } }
+  describe '#new' do
+    subject! { get :new }
     it { expect(response).to have_http_status :success }
   end
 
