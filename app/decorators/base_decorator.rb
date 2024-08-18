@@ -5,7 +5,7 @@ class BaseDecorator < Draper::Decorator
 
   def self.inherited target
     target.send :prepend, ActiveCacher.instance
-    super target
+    super
   end
 
   def page
@@ -27,5 +27,10 @@ class BaseDecorator < Draper::Decorator
     else
       "#{object.class.name}Serializer".constantize
     end
+  end
+
+  # attempt to fix "instance of MessageDecorator needs to have method `marshal_load'" issue
+  def marshal_load(*, **)
+    object.marshal_load(*, **)
   end
 end
