@@ -263,7 +263,7 @@ GEM
     cgi (0.3.6)
     childprocess (5.0.0)
     climate_control (1.2.0)
-    clockwork (2.0.4)
+    clockwork (3.0.2)
       activesupport
       tzinfo
     coderay (1.1.3)
