@@ -269,8 +269,6 @@ private
       https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt
       https://free-proxy-list.net/
       https://rootjazz.com/proxies/proxies.txt
-      http://www.megaproxylist.net/
-      http://sslproxies24.blogspot.com/feeds/posts/default
       http://my-proxy.com/free-proxy-list-10.html
       http://my-proxy.com/free-proxy-list-2.html
       http://my-proxy.com/free-proxy-list-3.html
@@ -281,31 +279,10 @@ private
       http://my-proxy.com/free-proxy-list-8.html
       http://my-proxy.com/free-proxy-list-9.html
       http://my-proxy.com/free-proxy-list.html
-      http://atomintersoft.com/anonymous_proxy_list
-      http://atomintersoft.com/high_anonymity_elite_proxy_list
-      http://atomintersoft.com/index.php?q=proxy_list_domain&domain=com
-      http://atomintersoft.com/products/alive-proxy/proxy-list
-      http://atomintersoft.com/products/alive-proxy/proxy-list/3128
-      http://atomintersoft.com/products/alive-proxy/proxy-list/high-anonymity
-      http://atomintersoft.com/products/alive-proxy/socks5-list
-      http://atomintersoft.com/proxy_list_domain
-      http://atomintersoft.com/proxy_list_domain_com
-      http://atomintersoft.com/proxy_list_domain_edu
-      http://atomintersoft.com/proxy_list_domain_net
-      http://atomintersoft.com/proxy_list_domain_org
-      http://atomintersoft.com/proxy_list_port
-      http://atomintersoft.com/proxy_list_port_3128
-      http://atomintersoft.com/proxy_list_port_80
-      http://atomintersoft.com/proxy_list_port_8000
-      http://atomintersoft.com/proxy_list_port_81
-      http://atomintersoft.com/transparent_proxy_list
-      https://proxylistdaily4you.blogspot.com/p/l1l2l3-proxy-server-list-1167.html
       https://www.newproxys.com/free-proxy-lists/
-      http://proxyserverlist-24.blogspot.com/feeds/posts/default
-      http://alexa.lr2b.com/proxylist.txt
       https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite&simplified=true&limit=300
       http://multiproxy.org/txt_all/proxy.txt
-      http://www.cybersyndrome.net/pla6.html
+      https://www.cybersyndrome.net/pla6.html
       https://cyber-gateway.net/get-proxy/free-proxy/24-free-http-proxy
       https://spys.me/proxy.txt
     ],
