@@ -78,12 +78,16 @@ private
   end
 
   def parse url, protocol
-    # задержка, чтобы не нас не банили
-    sleep 1
-    content = OpenURI
-      .open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
-      .read
+    sleep 1 # задержка, чтобы не банили
+
+    content =
+      if url.in? SELENIUM_URLS
+        Network::FirefoxGet.call url
+      else
+        OpenURI.open_uri(url, Proxy.prepaid_proxy_open_uri).read
+      end
       .gsub(%r{<br ?/?>}, "\n")
+
     content = Nokogiri::HTML(content).text if content.starts_with?('<!')
 
     proxies = parse_text content, protocol
@@ -321,4 +325,8 @@ private
     https://cyber-gateway.net/get-proxy/free-proxy/57-free-proxy-google
     https://spys.me/socks.txt
   ] + URL_SOURCES[:socks4]
+
+  SELENIUM_URLS = %w[
+    https://www.cybersyndrome.net/pla6.html
+  ]
 end
