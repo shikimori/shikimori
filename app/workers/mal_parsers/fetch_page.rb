@@ -11,8 +11,8 @@ class MalParsers::FetchPage
   def perform type, sorting, page, max_pages
     entries = MalParser::Catalog::Page.call(
       type: TYPES[type],
-      page: page,
-      sorting: sorting
+      page:,
+      sorting:
     )
 
     entries.each { |entry| schedule_entry entry }
@@ -46,7 +46,7 @@ private
   def refresh type, entries
     DbImport::Refresh.call(
       type.classify.constantize,
-      entries.map { |entry| entry[:id] },
+      entries.pluck(:id),
       REFRESH_INTERVAL
     )
   end
