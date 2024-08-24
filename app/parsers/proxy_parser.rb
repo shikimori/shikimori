@@ -267,6 +267,7 @@ private
   URL_SOURCES = {
     http: %w[
       https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt
+      https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/http/data.txt
       https://free-proxy-list.net/
       https://rootjazz.com/proxies/proxies.txt
       http://my-proxy.com/free-proxy-list-10.html
@@ -285,16 +286,20 @@ private
       https://www.cybersyndrome.net/pla6.html
       https://cyber-gateway.net/get-proxy/free-proxy/24-free-http-proxy
       https://spys.me/proxy.txt
+      https://proxycompass.com/wp-admin/admin-ajax.php?action=proxylister_download&nonce=2b0ed349bc&format=txt&filter={%22protocols%22:%22HTTP,HTTPS%22,%22anonymity%22:%22Anonymous,Elite%22,%22latency%22:0,%22page_size%22:20,%22page%22:1}
     ],
     https: %w[
     ],
     socks4: %w[
       https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks4.txt
+      https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/socks4/data.txt
       https://www.my-proxy.com/free-socks-4-proxy.html
+      https://proxycompass.com/wp-admin/admin-ajax.php?action=proxylister_download&nonce=2b0ed349bc&format=txt&filter={%22anonymity%22:%22Anonymous,Elite%22,%22latency%22:0,%22page_size%22:20,%22page%22:1}
     ]
   }
   URL_SOURCES[:socks5] = %w[
     https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt
+    https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/socks5/data.txt
     https://www.my-proxy.com/free-socks-5-proxy.html
     https://list.proxylistplus.com/Socks-List-1
     https://list.proxylistplus.com/Socks-List-2
