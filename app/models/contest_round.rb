@@ -33,7 +33,10 @@ class ContestRound < ApplicationRecord
         form: Types::ContestRound::State[:started],
         to: Types::ContestRound::State[:finished],
         if: -> {
-          matches.any? && matches.all? { |v| v.finished? || v.may_finish? }
+          matches.any? && matches.all? do |match|
+            match.frozen? || match.may_freeze? ||
+              match.finished? || match.may_finish?
+          end
         }
       )
     end
@@ -52,9 +55,9 @@ class ContestRound < ApplicationRecord
 
     i18n_t(
       'title',
-      number: number,
+      number:,
       additional: ('a' if additional),
-      locale: locale
+      locale:
     )
   end
 

@@ -5,14 +5,15 @@ describe ContestRound do
   end
 
   describe 'aasm' do
-    subject { build :contest_round, state, matches: matches }
+    subject { build :contest_round, state, matches: }
     let(:matches) { [] }
     let(:contest_match_created) { build :contest_match, :created }
-    let(:contest_match_finished) { build :contest_match, :finished }
-    let(:contest_match_may_finish) do
+    let(:contest_match_may_freeze) do
       build :contest_match, :started, finished_on: Time.zone.yesterday
     end
-    let(:contest_match_may_not_finish) do
+    let(:contest_match_frozen) { build :contest_match, :frozen }
+    let(:contest_match_finished) { build :contest_match, :finished }
+    let(:contest_match_may_not_freeze) do
       build :contest_match, :started, finished_on: Time.zone.today
     end
 
@@ -44,7 +45,13 @@ describe ContestRound do
 
       describe 'transition to finished' do
         context 'all matches may be finished' do
-          let(:matches) { [contest_match_finished, contest_match_may_finish] }
+          let(:matches) do
+            [
+              contest_match_may_freeze,
+              contest_match_frozen,
+              contest_match_finished
+            ]
+          end
           it { is_expected.to allow_transition_to :finished }
           it { is_expected.to transition_from(state).to(:finished).on_event(:finish) }
         end
@@ -53,7 +60,7 @@ describe ContestRound do
           let(:matches) do
             [
               contest_match_finished,
-              [contest_match_created, contest_match_may_not_finish].sample
+              [contest_match_created, contest_match_may_not_freeze].sample
             ]
           end
           let(:finished_on) { Time.zone.today }
@@ -74,9 +81,9 @@ describe ContestRound do
   describe 'instance methods' do
     describe '#next_round, #prior_round, #first?, #last?' do
       let!(:contest) { create :contest }
-      let!(:round_1) { create :contest_round, contest: contest }
-      let!(:round_2) { create :contest_round, contest: contest }
-      let!(:round_3) { create :contest_round, contest: contest }
+      let!(:round_1) { create :contest_round, contest: }
+      let!(:round_2) { create :contest_round, contest: }
+      let!(:round_3) { create :contest_round, contest: }
 
       it do
         expect(round_1.next_round).to eq round_2

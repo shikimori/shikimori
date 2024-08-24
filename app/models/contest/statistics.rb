@@ -87,7 +87,7 @@ class Contest::Statistics
       .flat_map { |v| [v.left, v.right] }
       .compact
       .uniq
-      .each_with_object({}) { |v, memo| memo[v.id] = v }
+      .index_by(&:id)
   end
 
   def prior_rounds round

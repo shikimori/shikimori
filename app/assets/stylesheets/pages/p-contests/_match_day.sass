@@ -58,7 +58,7 @@ $line-height: 1.8
       &.loser a, &.created a
         +link_color(#112233)
 
-    .voted, .winner, .loser, .created, .started, .finished
+    .voted, .winner, .loser, .created, .started, .frozen, .finished
       &:before
         +font_shikimori
         display: inline-block
@@ -74,6 +74,10 @@ $line-height: 1.8
     .started:before
       color: #123
       content: '☐'
+
+    .frozen:before
+      color: #123
+      content: '\e827'
 
     &.voted-left .started:first-child:before,
     &.voted-right .started:last-child:before

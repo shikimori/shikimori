@@ -2,8 +2,6 @@ class ContestRound::Finish
   method_object :contest_round
 
   def call
-    Rails.logger.info "ContestRound::Finish #{@contest_round.id}"
-
     finish_matches
 
     ContestRound.transaction do
@@ -24,12 +22,16 @@ private
 
   def finish_matches
     @contest_round.matches
-      .select(&:started?)
+      .select(&:may_freeze?)
+      .each(&:freeze!)
+
+    @contest_round.matches
+      .select(&:frozen?)
       .each { |match| ContestMatch::Finish.call match }
   end
 
   def reset_strategy
-    @contest_round.contest.instance_variable_set('@strategy', nil)
+    @contest_round.contest.instance_variable_set(:@strategy, nil)
   end
 
   def start_next_round

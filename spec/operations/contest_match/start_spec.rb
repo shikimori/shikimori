@@ -4,15 +4,14 @@ describe ContestMatch::Start do
   let(:operation) { ContestMatch::Start.new contest_match }
 
   let(:contest_match) do
-    create :contest_match,
-      :created,
+    create :contest_match, :created,
       round: contest_round,
       started_on: Time.zone.yesterday,
       finished_on: Time.zone.yesterday,
-      left_id: left_id,
-      left_type: left_type,
-      right_id: right_id,
-      right_type: right_type
+      left_id:,
+      left_type:,
+      right_id:,
+      right_type:
   end
 
   let(:left_id) { anime_1.id }
@@ -23,11 +22,9 @@ describe ContestMatch::Start do
   let(:anime_1) { create :anime }
   let(:anime_2) { create :anime }
 
-  let(:contest_round) do
-    create :contest_round, number: number, contest: contest
-  end
+  let(:contest_round) { create :contest_round, number:, contest: }
   let(:number) { 1 }
-  let(:contest) { create :contest, :started, user_vote_key: user_vote_key }
+  let(:contest) { create :contest, :started, user_vote_key: }
   let(:user_vote_key) { :can_vote_1 }
 
   let!(:users) { nil }
@@ -53,8 +50,8 @@ describe ContestMatch::Start do
     it do
       expect(contest_match).to be_started
       expect(contest_match).to have_attributes(
-        left_type: left_type,
-        left_id: left_id,
+        left_type:,
+        left_id:,
         right_type: nil,
         right_id: nil
       )

@@ -4,16 +4,15 @@ describe ContestMatch::Finish do
   subject(:call) { ContestMatch::Finish.call contest_match }
 
   let(:contest_match) do
-    create :contest_match,
-      :started,
+    create :contest_match, :frozen,
       started_on: Time.zone.yesterday,
       finished_on: Time.zone.yesterday,
-      left_id: left_id,
-      left_type: left_type,
-      right_id: right_id,
-      right_type: right_type,
-      cached_votes_up: cached_votes_up,
-      cached_votes_down: cached_votes_down
+      left_id:,
+      left_type:,
+      right_id:,
+      right_type:,
+      cached_votes_up:,
+      cached_votes_down:
   end
 
   let(:left_id) { anime_1.id }

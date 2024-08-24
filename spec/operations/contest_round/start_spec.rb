@@ -4,7 +4,7 @@ describe ContestRound::Start do
   let(:operation) { ContestRound::Start.new contest_round }
 
   let(:contest) { create :contest, :with_topics, :with_5_members, state: 'started' }
-  let(:contest_round) { create :contest_round, contest: contest }
+  let(:contest_round) { create :contest_round, contest: }
 
   before do
     contest.strategy.fill_round_with_matches contest_round

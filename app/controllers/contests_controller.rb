@@ -47,7 +47,7 @@ class ContestsController < ShikimoriController
     @collection = Contests::Query.fetch.paginate(@page, LIMIT)
   end
 
-  def show
+  def show # rubocop:disable Metrics/AbcSize
     return redirect_to edit_contest_url(@resource) if @resource.created?
     if params[:round] && !@resource.displayed_round
       return redirect_to contest_url(@resource)
@@ -76,10 +76,6 @@ class ContestsController < ShikimoriController
     @blank_layout = true
   end
 
-  def edit
-    og page_title: i18n_t(:edit_contest)
-  end
-
   def new
     og page_title: i18n_t(:new_contest)
 
@@ -90,6 +86,10 @@ class ContestsController < ShikimoriController
     @resource.match_duration ||= 2
     @resource.matches_interval ||= 1
     @resource.suggestions_per_user ||= 5
+  end
+
+  def edit
+    og page_title: i18n_t(:edit_contest)
   end
 
   def create

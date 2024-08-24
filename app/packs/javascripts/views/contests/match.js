@@ -38,7 +38,9 @@ export default class ContestMatch extends View {
         () =>
           this.$('.match-member').removeClass('hovered unhovered')
       );
+    }
 
+    if (this.isStarted || this.isFreezed) {
       this._setVote(this.vote.vote);
     }
 
@@ -47,6 +49,10 @@ export default class ContestMatch extends View {
 
   get isStarted() {
     return this.model.state === 'started';
+  }
+
+  get isFreezed() {
+    return this.model.state === 'frozen';
   }
 
   // handlers

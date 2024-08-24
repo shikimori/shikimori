@@ -8,16 +8,14 @@ class ContestDecorator < DbEntryDecorator
     if h.params[:round]
       number = h.params[:round].to_i
       additional = !!(h.params[:round] =~ /a$/)
-      object.rounds.find_by number: number, additional: additional
+      object.rounds.find_by number:, additional:
     else
       object.current_round
     end
   end
 
   # предыдущий раунд
-  def prior_round
-    displayed_round.prior_round
-  end
+  delegate :prior_round, to: :displayed_round
 
   # соседние с текущим раунды
   def nearby_rounds
@@ -133,7 +131,9 @@ class ContestDecorator < DbEntryDecorator
 
   # урл для автозаполнения suggestion'а
   def suggestion_url
-    object.anime? ? h.autocomplete_animes_url(search: '') : h.autocomplete_characters_url(search: '')
+    object.anime? ?
+      h.autocomplete_animes_url(search: '') :
+      h.autocomplete_characters_url(search: '')
   end
 
   # текущий топ участников
@@ -154,8 +154,8 @@ class ContestDecorator < DbEntryDecorator
       diff = prior_index == -1 || !prior_index ? 0 : prior_index - index
 
       OpenStruct.new(
-        member: member,
-        progress: diff.zero? ? nil : (diff.positive? ? "+#{diff}" : diff.to_s),
+        member:,
+        progress: diff.zero? ? nil : (diff.positive? ? "+#{diff}" : diff.to_s), # rubocop:disable Style/NestedTernaryOperator
         status: diff.positive? ? :positive : :negative,
         position: index + 1
       )
@@ -172,7 +172,7 @@ class ContestDecorator < DbEntryDecorator
   end
 
   def js_export
-    matches = displayed_round&.matches&.select(&:started?)
+    matches = displayed_round&.matches&.select { |v| v.started? || v.frozen? }
     return [] unless h.user_signed_in? &&
       displayed_round&.started? && matches.present?
 

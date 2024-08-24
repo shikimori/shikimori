@@ -46,15 +46,13 @@ describe Contest::PlayOffStrategy do
 
     context 'I -> II' do
       before do
-        1.times do |i|
-          contest.rounds[i].matches.each do |contest_match|
-            contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
-          end
+        contest.rounds[0].matches.each do |contest_match|
+          contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
         end
-        1.times { ContestRound::Finish.call contest.current_round }
+        ContestRound::Finish.call contest.current_round
       end
 
-      it 'winners&losers' do
+      it 'winners&losers', :focus do
         expect(contest.current_round.matches[0].left).to eq w1
         expect(contest.current_round.matches[0].right).to eq w2
 

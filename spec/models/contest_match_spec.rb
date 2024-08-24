@@ -8,8 +8,8 @@ describe ContestMatch do
   describe 'aasm' do
     subject do
       build :contest_match, state,
-        started_on: started_on,
-        finished_on: finished_on
+        started_on:,
+        finished_on:
     end
     let(:started_on) { nil }
     let(:finished_on) { nil }
@@ -32,6 +32,7 @@ describe ContestMatch do
         end
       end
 
+      it { is_expected.to_not allow_transition_to :frozen }
       it { is_expected.to_not allow_transition_to :finished }
     end
 
@@ -41,18 +42,29 @@ describe ContestMatch do
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }
 
-      describe 'transition to finished' do
+      describe 'transition to frozen' do
         context 'finished_on < Time.zone.today' do
           let(:finished_on) { Time.zone.yesterday }
-          it { is_expected.to allow_transition_to :finished }
-          it { is_expected.to transition_from(state).to(:finished).on_event(:finish) }
+          it { is_expected.to allow_transition_to :frozen }
+          it { is_expected.to transition_from(state).to(:frozen).on_event(:freeze) }
+          it { is_expected.to_not allow_transition_to :finished }
         end
 
         context 'finished_on >= Time.zone.today' do
           let(:finished_on) { Time.zone.today }
+          it { is_expected.to_not allow_transition_to :frozen }
           it { is_expected.to_not allow_transition_to :finished }
         end
       end
+    end
+
+    context 'frozen' do
+      let(:state) { Types::ContestMatch::State[:frozen] }
+
+      it { is_expected.to have_state state }
+      it { is_expected.to_not allow_transition_to :created }
+      it { is_expected.to_not allow_transition_to :started }
+      it { is_expected.to allow_transition_to :finished }
     end
 
     context 'finished' do
@@ -61,6 +73,7 @@ describe ContestMatch do
       it { is_expected.to have_state state }
       it { is_expected.to_not allow_transition_to :created }
       it { is_expected.to_not allow_transition_to :started }
+      it { is_expected.to_not allow_transition_to :frozen }
     end
   end
 
@@ -117,9 +130,9 @@ describe ContestMatch do
       context 'finished' do
         subject do
           build :contest_match, :finished,
-            left_id: left_id,
-            right_id: right_id,
-            winner_id: winner_id
+            left_id:,
+            right_id:,
+            winner_id:
         end
         let(:left_id) { 1 }
         let(:right_id) { 1 }

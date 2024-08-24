@@ -2,23 +2,29 @@ class Contest::Progress
   method_object :contest
 
   def call
-    Rails.logger.info "Contest::Progress #{@contest.id}"
-
-    matches_to_start = start_matches
-    matches_to_finish = finish_matches
+    matches_frozen = freeze_matches
+    matches_started = start_matches
+    matches_finished = finish_matches
 
     Contest.transaction do
       if current_round.may_finish?
         round_to_finish = ContestRound::Finish.call current_round
       end
 
-      if matches_to_start.any? || matches_to_finish.any? || round_to_finish
+      if matches_started.any? || matches_frozen.any? || matches_finished.any? ||
+          round_to_finish
         @contest.touch
       end
     end
   end
 
 private
+
+  def freeze_matches
+    matches
+      .select(&:may_freeze?)
+      .each(&:freeze!)
+  end
 
   def start_matches
     matches

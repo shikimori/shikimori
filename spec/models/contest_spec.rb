@@ -39,7 +39,7 @@ describe Contest do
   end
 
   describe 'aasm' do
-    subject { build :contest, state, rounds: rounds }
+    subject { build :contest, state, rounds: }
 
     let(:rounds) { [] }
     let(:contest_round_created) { build :contest_round, :created }
@@ -221,7 +221,7 @@ describe Contest do
     end
 
     describe '#strategy' do
-      subject { create :contest, strategy_type: strategy_type }
+      subject { create :contest, strategy_type: }
 
       context 'double_elimination' do
         let(:strategy_type) { :double_elimination }
@@ -235,7 +235,7 @@ describe Contest do
     end
 
     describe '#member_klass' do
-      let(:contest) { create :contest, member_type: member_type }
+      let(:contest) { create :contest, member_type: }
       subject { contest.member_klass }
 
       context Anime do

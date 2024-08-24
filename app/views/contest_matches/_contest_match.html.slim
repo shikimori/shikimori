@@ -60,6 +60,8 @@
 
             - elsif contest_match.finished?
               p.hint = t '.voting_finished'
+            - elsif contest_match.frozen?
+              p.hint == t '.voting_frozen'
             - else
               p.hint = t '.voting_has_not_begun_yet'
 
