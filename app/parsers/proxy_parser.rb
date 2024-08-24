@@ -10,7 +10,7 @@ class ProxyParser
 
   CACHE_VERSION = :v10
 
-  CUSTOM_SOURCES = %i[proxylist_geonode_com] # hidemyname
+  CUSTOM_SOURCES = %i[proxyshare_com] # proxylist_geonode_com hidemyname
 
   def import(
     is_db_sources: IS_DB_SOURCES,
@@ -241,8 +241,27 @@ private
     end
   end
 
-  def proxylist_geonode_com
-    url = 'https://proxylist.geonode.com/api/proxy-list?limit=5000&page=1&sort_by=lastChecked&sort_type=desc&protocols=http%2Chttps%2Csocks4%2Csocks5'
+  # it is the same as proxyshare_com
+  # def proxylist_geonode_com
+  #   url = 'https://proxylist.geonode.com/api/proxy-list?limit=500&page=1&sort_by=lastChecked&sort_type=desc&protocols=http%2Chttps%2Csocks4%2Csocks5'
+  #   data =
+  #     Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
+  #       OpenURI.open_uri(url, Proxy.prepaid_proxy_open_uri).read
+  #     rescue *Network::FaradayGet::NET_ERRORS
+  #       '{"data":[]}'
+  #     end
+  #  
+  #   JSON.parse(data, symbolize_names: true)[:data].map do |entry|
+  #     build_proxy(
+  #       ip: entry[:ip],
+  #       port: entry[:port],
+  #       protocol: entry[:protocols][0]
+  #     )
+  #   end
+  # end
+
+  def proxyshare_com page = 1
+    url = "https://proxylist.geonode.com/api/proxy-list?limit=500&page=#{page}&sort_by=lastChecked&sort_type=desc&protocols=http%2Chttps%2Csocks4%2Csocks5"
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
         OpenURI.open_uri(url, Proxy.prepaid_proxy_open_uri).read
@@ -250,12 +269,22 @@ private
         '{"data":[]}'
       end
 
-    JSON.parse(data, symbolize_names: true)[:data].map do |entry|
+    data = JSON.parse(data, symbolize_names: true)
+
+    proxies = data[:data].map do |entry|
       build_proxy(
         ip: entry[:ip],
         port: entry[:port],
         protocol: entry[:protocols][0]
       )
+    end
+
+    sleep 1
+
+    if data[:page] * data[:limit] < data[:total]
+      proxies + proxyshare_com(page + 1)
+    else
+      proxies
     end
   end
 
@@ -287,6 +316,7 @@ private
       https://cyber-gateway.net/get-proxy/free-proxy/24-free-http-proxy
       https://spys.me/proxy.txt
       https://proxycompass.com/wp-admin/admin-ajax.php?action=proxylister_download&nonce=2b0ed349bc&format=txt&filter={%22protocols%22:%22HTTP,HTTPS%22,%22anonymity%22:%22Anonymous,Elite%22,%22latency%22:0,%22page_size%22:20,%22page%22:1}
+      https://www.proxyshare.com/detection/proxyList?limit=500&page=1&sort_by=lastChecked&sort_type=desc
     ],
     https: %w[
     ],
