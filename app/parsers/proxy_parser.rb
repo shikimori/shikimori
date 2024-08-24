@@ -10,7 +10,7 @@ class ProxyParser
 
   CACHE_VERSION = :v10
 
-  CUSTOM_SOURCES = %i[proxyshare_com] # proxylist_geonode_com hidemyname
+  CUSTOM_SOURCES = %i[hidemyname proxyshare_com] # proxylist_geonode_com
 
   def import(
     is_db_sources: IS_DB_SOURCES,
@@ -212,8 +212,8 @@ private
   end
 
   def hidemyname
-    # purchased at 23-04-2023
-    url = 'https://hidemy.name/api/proxylist.php?out=js&lang=en&utf&code=431317483913153'
+    # purchased at 24-08-2024
+    url = 'https://hidemy.name/api/proxylist.php?out=js&lang=en&utf&code=777276949863880'
 
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
