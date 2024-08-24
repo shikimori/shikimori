@@ -317,6 +317,7 @@ private
       https://spys.me/proxy.txt
       https://proxycompass.com/wp-admin/admin-ajax.php?action=proxylister_download&nonce=2b0ed349bc&format=txt&filter={%22protocols%22:%22HTTP,HTTPS%22,%22anonymity%22:%22Anonymous,Elite%22,%22latency%22:0,%22page_size%22:20,%22page%22:1}
       https://www.proxyshare.com/detection/proxyList?limit=500&page=1&sort_by=lastChecked&sort_type=desc
+      https://openproxy.space/list/http
     ],
     https: %w[
     ],
@@ -325,6 +326,7 @@ private
       https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/socks4/data.txt
       https://www.my-proxy.com/free-socks-4-proxy.html
       https://proxycompass.com/wp-admin/admin-ajax.php?action=proxylister_download&nonce=2b0ed349bc&format=txt&filter={%22anonymity%22:%22Anonymous,Elite%22,%22latency%22:0,%22page_size%22:20,%22page%22:1}
+      https://openproxy.space/list/socks4
     ]
   }
   URL_SOURCES[:socks5] = %w[
