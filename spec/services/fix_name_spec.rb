@@ -15,7 +15,7 @@ describe FixName do
     end
 
     context 'special spaces' do
-      let(:name) { 't⠀t' }
+      let(:name) { ['t⠀t', 't t'].sample }
       it { is_expected.to eq 't t' }
     end
 

@@ -4,7 +4,7 @@ class FixName < ServiceObjectBase
   BAD_SYMBOLS = %r{[%&#/\\?+><\]\[:,@"'`]+} # \p{C} - http://ruby-doc.org/core-2.5.0/Regexp.html
   # https://unicode-table.com/en/034F/
   # .ord.to_s(16) to get unicode code
-  SPACES = /(?:[[:space:]]|[\u2060-\u2069\u2000-\u200f\u202a-\u202f\u034f ឵⠀ᅠ­]|\p{C})+/
+  SPACES = /(?:[[:space:]]|[\u2060-\u2069\u2000-\u200f\u202a-\u202f\u034f ឵⠀ᅠ­ ]|\p{C})+/
   ALL_EXTENSIONS = %w[
     css js json xml jpg jpeg png gif webp css js ttf eot otf svg woff php woff2 bmp html
     rar zip gz tar rss slim jbuilder txt os
