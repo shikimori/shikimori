@@ -445,7 +445,7 @@ private
       # # Types::Ad::Type[:advrtr_x728]
     ],
     Types::Ad::Meta[:horizontal_x90] => [
-      Types::Ad::Type[:special_x894],
+      # Types::Ad::Type[:special_x894],
       # # Types::Ad::Type[:mt_728x90],
       # # Types::Ad::Type[:advrtr_x728]
       Types::Ad::Type[:yd_970x90]
