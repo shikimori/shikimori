@@ -292,7 +292,7 @@ begin
     end
 
   if data.any? && data.size >= raw_data.size
-    File.write(franchise_yml, data.to_yaml)
+    # File.write(franchise_yml, data.to_yaml)
     puts data.map { |v| v['filters']['franchise'] }.uniq.join(' ')
   else
     raise 'invalid data'
