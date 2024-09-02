@@ -7130,8 +7130,9 @@
         - 58015
         - 58307
         - 58663
+        - 59029
         - 59596
-      :threshold: 96.2%
+      :threshold: 96.3%
       :generator: &344
         ignore_latest_ids:
         - 38234
@@ -13493,9 +13494,8 @@
         - 37818
         - 38001
         - 38087
-        - 48409
         - 51266
-      :threshold: 93%
+      :threshold: 94.9%
       :generator: &688
         ignore_latest_ids:
         - 38201
@@ -18455,8 +18455,6 @@
       :algo: duration
       :filters: &951
         franchise: bai_yao_pu
-        not_anime_ids:
-        - 32622
       :threshold: 99.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -20467,9 +20465,8 @@
       :filters: &1058
         franchise: xia_lan
         not_anime_ids:
-        - 34129
         - 44606
-      :threshold: 90%
+      :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :xia_lan
