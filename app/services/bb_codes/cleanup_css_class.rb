@@ -15,6 +15,7 @@ class BbCodes::CleanupCssClass
     b-new_marker
     b-postloader
     b-to-top
+    b-video
     ban
     bubbled
     CodeMirror
