@@ -44,7 +44,7 @@ private
       end
 
       puts "rename franchise: `#{entry.franchise}` -> `#{franchise}`" if Rails.env.development?
-      entry.update franchise: franchise
+      entry.update franchise:
     end
   end
 
@@ -61,7 +61,7 @@ private
 
   def no_animes_left_in_franchise? entries, franchise
     Anime
-      .where(franchise: franchise)
+      .where(franchise:)
       .where.not(id: entries.map(&:id))
       .none?
   end
