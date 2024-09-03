@@ -28,7 +28,7 @@ shared_examples :db_entry_controller do |entry_name|
 
   describe '#edit_field' do
     let(:make_request) do
-      get :edit_field, params: { id: entry.to_param, field: field }
+      get :edit_field, params: { id: entry.to_param, field: }
     end
 
     context 'guest' do
@@ -82,7 +82,7 @@ shared_examples :db_entry_controller do |entry_name|
           expect(resource).to_not have_attributes changes
           expect(versions.by_field(:russian)).to have(1).item
           expect(versions.by_field(:russian).first).to be_pending
-          expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
+          expect(response).to redirect_to send(:"edit_#{entry_name}_url", entry)
         end
       end
 
@@ -101,7 +101,7 @@ shared_examples :db_entry_controller do |entry_name|
         expect(resource).to have_attributes changes
         expect(versions.by_field(:russian)).to have(1).item
         expect(versions.by_field(:russian).first).to be_auto_accepted
-        expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
+        expect(response).to redirect_to send(:"edit_#{entry_name}_url", entry)
       end
     end
   end
@@ -129,7 +129,7 @@ shared_examples :db_entry_controller do |entry_name|
         expect(MalParsers::FetchEntry)
           .to have_received(:perform_async)
           .with entry.mal_id, entry.class.base_class.name.downcase
-        expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
+        expect(response).to redirect_to send(:"edit_#{entry_name}_url", entry)
       end
     end
   end
@@ -162,7 +162,7 @@ shared_examples :db_entry_controller do |entry_name|
             entry_2.id,
             user.id
           )
-        expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
+        expect(response).to redirect_to send(:"edit_#{entry_name}_url", entry)
       end
     end
   end
@@ -193,7 +193,7 @@ shared_examples :db_entry_controller do |entry_name|
             entry.id,
             user.id
           )
-        expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
+        expect(response).to redirect_to send(:"edit_#{entry_name}_url", entry)
       end
     end
   end

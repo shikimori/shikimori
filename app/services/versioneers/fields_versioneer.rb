@@ -28,9 +28,9 @@ private
   def create_version params, user, reason
     version_klass(params)
       .create(
-        item: item,
-        user: user,
-        reason: reason,
+        item:,
+        user:,
+        reason:,
         state: 'pending'
       ) do |version|
         version.item_diff = changes params, version

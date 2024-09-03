@@ -15,7 +15,7 @@ describe Versions::DescriptionVersion do
 
   describe '#reevaluate_state' do
     let(:version) do
-      create :description_version, state: state, item_diff: item_diff
+      create :description_version, state:, item_diff:
     end
     before { version.reevaluate_state }
 

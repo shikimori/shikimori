@@ -1,4 +1,4 @@
-class Moderations::VersionsController < ModerationsController # rubocop:disable ClassLength
+class Moderations::VersionsController < ModerationsController
   load_and_authorize_resource except: %i[index autocomplete_user autocomplete_moderator]
   before_action :set_view, only: %i[index autocomplete_user autocomplete_moderator]
 

@@ -15,7 +15,7 @@ class MeasureChanges
   def text_change
     if new_text?
       100
-    elsif old.size.zero?
+    elsif old.empty?
       0
     else
       insertions.size * 100.0 / old.size
@@ -53,6 +53,6 @@ private
 
   def insertions
     @insertions ||=
-      HTMLDiff.diff(old, new).scan(/<ins.*?>(.*?)<\/ins>/).flatten.join(' ')
+      HTMLDiff.diff(old, new).scan(%r{<ins.*?>(.*?)</ins>}).flatten.join(' ')
   end
 end
