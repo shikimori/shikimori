@@ -475,6 +475,15 @@ describe Version do
     describe '#deleteable?' do
       it { expect(version).to be_deleteable }
     end
+
+    describe '#truncate_value' do
+      let(:version) { build :version, item: anime }
+
+      it { expect(version.truncate_value 'image_file_name', 'a' * 256).to eq 'a' * 255 }
+      it { expect(version.truncate_value 'name', 'a' * 2000).to eq 'a' * 2000 }
+      it { expect(version.truncate_value 'name', "\na\r\nb c ").to eq "a\nb c" }
+      it { expect(version.truncate_value 'rating', 8).to eq 8 }
+    end
   end
 
   describe 'permissions' do

@@ -1,5 +1,5 @@
 describe Versioneers::FieldsVersioneer do
-  let(:service) { described_class.new anime, associated: associated }
+  let(:service) { described_class.new anime, associated: }
 
   let(:anime) { create :anime, name: 'test', episodes: 3, episodes_aired: 5 }
   let(:associated) { [nil, author].sample }
@@ -123,7 +123,7 @@ describe Versioneers::FieldsVersioneer do
         expect(version.class).to eq Version
         expect(version).to have_attributes(
           user: author,
-          reason: reason,
+          reason:,
           item_diff: result_diff,
           item: anime,
           moderator: author
@@ -143,7 +143,7 @@ describe Versioneers::FieldsVersioneer do
         expect(version.class).to eq Version
         expect(version).to have_attributes(
           user: author,
-          reason: reason,
+          reason:,
           item_diff: result_diff,
           item: anime,
           moderator: nil

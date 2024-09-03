@@ -206,6 +206,18 @@ class Version < ApplicationRecord # rubocop:disable ClassLength
     true
   end
 
+  def truncate_value field, value
+    return value unless value.is_a? String
+
+    fixed_value = value.gsub("\r\n", "\n").strip
+
+    if item.class.columns_hash[field]&.limit
+      fixed_value[0..item.class.columns_hash[field].limit - 1]
+    else
+      fixed_value
+    end
+  end
+
 private
 
   def apply_version
@@ -263,14 +275,6 @@ private
         model.class::DESYNCABLE.include?(field) &&
         model.desynced.include?(field)
       model.desynced -= [field]
-    end
-  end
-
-  def truncate_value field, value
-    if item.class.columns_hash[field]&.limit && value.is_a?(String)
-      value[0..item.class.columns_hash[field].limit - 1]
-    else
-      value
     end
   end
 end
