@@ -34,7 +34,7 @@ class ContestRound < ApplicationRecord
         to: Types::ContestRound::State[:finished],
         if: -> {
           matches.any? && matches.all? do |match|
-            match.frozen? || match.may_freeze? ||
+            match.freezed? || match.may_freeze? ||
               match.finished? || match.may_finish?
           end
         }

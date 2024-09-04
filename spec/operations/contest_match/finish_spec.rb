@@ -4,7 +4,7 @@ describe ContestMatch::Finish do
   subject(:call) { ContestMatch::Finish.call contest_match }
 
   let(:contest_match) do
-    create :contest_match, :frozen,
+    create :contest_match, :freezed,
       started_on: Time.zone.yesterday,
       finished_on: Time.zone.yesterday,
       left_id:,

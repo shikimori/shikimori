@@ -26,7 +26,7 @@ private
       .each(&:freeze!)
 
     @contest_round.matches
-      .select(&:frozen?)
+      .select(&:freezed?)
       .each { |match| ContestMatch::Finish.call match }
   end
 

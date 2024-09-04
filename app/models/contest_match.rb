@@ -22,7 +22,7 @@ class ContestMatch < ApplicationRecord
   aasm column: 'state', create_scopes: false do
     state Types::ContestMatch::State[:created], initial: true
     state Types::ContestMatch::State[:started]
-    state Types::ContestMatch::State[:frozen]
+    state Types::ContestMatch::State[:freezed]
     state Types::ContestMatch::State[:finished]
 
     event :start do
@@ -35,13 +35,13 @@ class ContestMatch < ApplicationRecord
     event :freeze do
       transitions(
         from: Types::ContestMatch::State[:started],
-        to: Types::ContestMatch::State[:frozen],
+        to: Types::ContestMatch::State[:freezed],
         if: -> { finished_on && finished_on < Time.zone.today }
       )
     end
     event :finish do
       transitions(
-        from: Types::ContestMatch::State[:frozen],
+        from: Types::ContestMatch::State[:freezed],
         to: Types::ContestMatch::State[:finished]
       )
     end

@@ -172,7 +172,7 @@ class ContestDecorator < DbEntryDecorator
   end
 
   def js_export
-    matches = displayed_round&.matches&.select { |v| v.started? || v.frozen? }
+    matches = displayed_round&.matches&.select { |v| v.started? || v.freezed? }
     return [] unless h.user_signed_in? &&
       displayed_round&.started? && matches.present?
 
