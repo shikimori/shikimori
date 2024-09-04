@@ -22,8 +22,8 @@ private
 
   def freeze_matches
     matches
-      .select(&:may_freeze?)
-      .each(&:freeze!)
+      .select(&:may_to_freezed?)
+      .each(&:to_freezed!)
   end
 
   def start_matches

@@ -22,8 +22,8 @@ private
 
   def finish_matches
     @contest_round.matches
-      .select(&:may_freeze?)
-      .each(&:freeze!)
+      .select(&:may_to_freezed?)
+      .each(&:to_freezed!)
 
     @contest_round.matches
       .select(&:freezed?)

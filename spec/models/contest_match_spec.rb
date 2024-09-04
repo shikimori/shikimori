@@ -46,7 +46,7 @@ describe ContestMatch do
         context 'finished_on < Time.zone.today' do
           let(:finished_on) { Time.zone.yesterday }
           it { is_expected.to allow_transition_to :freezed }
-          it { is_expected.to transition_from(state).to(:freezed).on_event(:freeze) }
+          it { is_expected.to transition_from(state).to(:freezed).on_event(:to_freezed) }
           it { is_expected.to_not allow_transition_to :finished }
         end
 

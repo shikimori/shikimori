@@ -32,7 +32,8 @@ class ContestMatch < ApplicationRecord
         if: -> { started_on && started_on <= Time.zone.today }
       )
     end
-    event :freeze do
+    # NOTE: do not use `frozen` and `freeze` since such names override Kernel methods
+    event :to_freezed do
       transitions(
         from: Types::ContestMatch::State[:started],
         to: Types::ContestMatch::State[:freezed],
