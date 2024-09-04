@@ -2,7 +2,7 @@ describe Api::V1::UserImagesController do
   describe '#create' do
     let(:image) do
       Rack::Test::UploadedFile.new(
-        "#{Rails.root}/spec/files/anime.jpg",
+        Rails.root.join('spec/files/anime.jpg'),
         'image/jpeg'
       )
     end
@@ -20,7 +20,7 @@ describe Api::V1::UserImagesController do
           post :create, params: {
             model: club.class.name,
             id: club.id,
-            image: image
+            image:
           }
         end
 

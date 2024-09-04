@@ -1,14 +1,14 @@
 describe Api::V1::ReviewsController do
   include_context :authenticated
   let(:user) { create :user, :day_registered, nickname: 'zxc' } # do not remove. for apipie specs there is additional Timecop.freeze
-  let(:review) { create :review, user: user, anime: anime }
+  let(:review) { create :review, user:, anime: }
   let(:anime) { create :anime }
 
   describe '#create' do
     let(:params) do
       {
         anime_id: anime.id,
-        body: body,
+        body:,
         opinion: 'positive'
       }
     end
@@ -52,7 +52,7 @@ describe Api::V1::ReviewsController do
   end
 
   describe '#update' do
-    let(:params) { { body: body } }
+    let(:params) { { body: } }
 
     subject! do
       patch :update,
@@ -69,7 +69,7 @@ describe Api::V1::ReviewsController do
 
       context 'frontend' do
         let(:is_frontend) { true }
-        let(:review) { create :review, :with_topics, user: user, anime: anime }
+        let(:review) { create :review, :with_topics, user:, anime: }
         it_behaves_like :successful_resource_change, :frontend
       end
 
@@ -109,7 +109,7 @@ describe Api::V1::ReviewsController do
     end
 
     context 'forbidden' do
-      let(:review) { create :review, user: user_admin, anime: anime }
+      let(:review) { create :review, user: user_admin, anime: }
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end

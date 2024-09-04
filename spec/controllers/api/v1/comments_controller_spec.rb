@@ -2,8 +2,8 @@ describe Api::V1::CommentsController do
   include_context :authenticated
   let(:user) { create :user, :day_registered, nickname: 'zxc' } # do not remove. for apipie specs there is additional Timecop.freeze
 
-  let(:topic) { create :topic, user: user }
-  let(:comment) { create :comment, commentable: topic, user: user }
+  let(:topic) { create :topic, user: }
+  let(:comment) { create :comment, commentable: topic, user: }
 
   describe '#index', :show_in_doc do
     before { sign_out user }
@@ -43,9 +43,9 @@ describe Api::V1::CommentsController do
   describe '#create' do
     let(:params) do
       {
-        commentable_id: commentable_id,
-        commentable_type: commentable_type,
-        body: body,
+        commentable_id:,
+        commentable_type:,
+        body:,
         is_offtopic: true
       }
     end
@@ -117,7 +117,7 @@ describe Api::V1::CommentsController do
   end
 
   describe '#update' do
-    let(:params) { { body: body } }
+    let(:params) { { body: } }
 
     subject! do
       patch :update,

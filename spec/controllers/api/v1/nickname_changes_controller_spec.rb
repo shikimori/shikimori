@@ -3,7 +3,7 @@ describe Api::V1::NicknameChangesController do
 
   describe '#cleanup' do
     before { user.nickname = 'test 78yutghjbk' }
-    let!(:nickname_change) { create :user_nickname_change, user: user }
+    let!(:nickname_change) { create :user_nickname_change, user: }
     before { delete :cleanup }
 
     it do

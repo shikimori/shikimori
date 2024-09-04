@@ -1,7 +1,7 @@
 describe Api::V1::BansController, :show_in_doc do
   describe '#index' do
-    let!(:ban_1) { create :ban, user: user, moderator: user, comment: create(:comment, user: user) }
-    let!(:ban_2) { create :ban, user: user, moderator: user }
+    let!(:ban_1) { create :ban, user:, moderator: user, comment: create(:comment, user:) }
+    let!(:ban_2) { create :ban, user:, moderator: user }
 
     before { get :index, params: { page: 1, limit: 1 }, format: :json }
 

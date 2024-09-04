@@ -28,7 +28,7 @@ describe Api::V1::AppearController do
           expect(Viewing::BulkCreate)
             .to have_received(:call)
             .with(
-              user: user,
+              user:,
               viewed_klass: Comment,
               viewed_ids: [comment.id]
             )
@@ -51,14 +51,14 @@ describe Api::V1::AppearController do
           expect(Viewing::BulkCreate)
             .to have_received(:call)
             .with(
-              user: user,
+              user:,
               viewed_klass: Comment,
               viewed_ids: [comment.id, comment_2.id]
             )
           expect(Viewing::BulkCreate)
             .to have_received(:call)
             .with(
-              user: user,
+              user:,
               viewed_klass: Topic,
               viewed_ids: [topic.id]
             )
@@ -74,7 +74,7 @@ describe Api::V1::AppearController do
           expect(Viewing::BulkCreate)
           .to have_received(:call)
           .with(
-            user: user,
+            user:,
             viewed_klass: Comment,
             viewed_ids: [comment.id]
           )
@@ -90,7 +90,7 @@ describe Api::V1::AppearController do
           expect(Viewing::BulkCreate)
             .to have_received(:call)
             .with(
-              user: user,
+              user:,
               viewed_klass: Comment,
               viewed_ids: [999_999]
             )

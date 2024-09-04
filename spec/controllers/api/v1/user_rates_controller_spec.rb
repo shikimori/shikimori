@@ -8,7 +8,7 @@ describe Api::V1::UserRatesController do
     include_context :authenticated, :user
 
     describe '#show', :show_in_doc do
-      let(:user_rate) { create :user_rate, user: user }
+      let(:user_rate) { create :user_rate, user: }
       subject! { get :show, params: { id: user_rate.id }, format: :json }
 
       it { expect(response).to have_http_status :success }
@@ -64,7 +64,7 @@ describe Api::V1::UserRatesController do
       end
 
       context 'present user_rate' do
-        let!(:user_rate) { create :user_rate, user: user, target: target }
+        let!(:user_rate) { create :user_rate, user:, target: }
         subject! { make_request }
 
         it do
@@ -81,7 +81,7 @@ describe Api::V1::UserRatesController do
     end
 
     describe '#update', :show_in_doc do
-      let(:user_rate) { create :user_rate, user: user }
+      let(:user_rate) { create :user_rate, user: }
       let(:update_params) do
         {
           score: 10,
@@ -123,7 +123,7 @@ describe Api::V1::UserRatesController do
     end
 
     describe '#increment', :show_in_doc do
-      let(:user_rate) { create :user_rate, user: user, episodes: 1 }
+      let(:user_rate) { create :user_rate, user:, episodes: 1 }
       subject! { post :increment, params: { id: user_rate.id }, format: :json }
 
       it do
@@ -147,7 +147,7 @@ describe Api::V1::UserRatesController do
     end
 
     describe '#destroy', :show_in_doc do
-      let(:user_rate) { create :user_rate, %i[planned completed].sample, user: user }
+      let(:user_rate) { create :user_rate, %i[planned completed].sample, user: }
       subject! { delete :destroy, params: { id: user_rate.id }, format: :json }
 
       it do
@@ -171,8 +171,8 @@ describe Api::V1::UserRatesController do
     end
 
     describe '#cleanup' do
-      let!(:user_rate) { create :user_rate, user: user, target: entry }
-      let!(:user_history) { create :user_history, user: user, (entry.anime? ? :anime : :manga) => entry }
+      let!(:user_rate) { create :user_rate, user:, target: entry }
+      let!(:user_history) { create :user_history, user:, (entry.anime? ? :anime : :manga) => entry }
 
       context 'anime', :show_in_doc do
         let(:entry) { create :anime }
@@ -208,7 +208,7 @@ describe Api::V1::UserRatesController do
     end
 
     describe '#reset' do
-      let!(:user_rate) { create :user_rate, user: user, target: entry, score: 1 }
+      let!(:user_rate) { create :user_rate, user:, target: entry, score: 1 }
 
       context 'anime', :show_in_doc do
         let(:entry) { create :anime }
@@ -245,7 +245,7 @@ describe Api::V1::UserRatesController do
       subject { Ability.new user }
 
       context 'own_data' do
-        let(:user_rate) { build :user_rate, user: user }
+        let(:user_rate) { build :user_rate, user: }
 
         it { is_expected.to be_able_to :manage, user_rate }
         it { is_expected.to be_able_to :clenaup, user_rate }
@@ -260,7 +260,7 @@ describe Api::V1::UserRatesController do
 
       context 'guest' do
         subject { Ability.new nil }
-        let(:user_rate) { build :user_rate, user: user }
+        let(:user_rate) { build :user_rate, user: }
 
         it { is_expected.to_not be_able_to :manage, user_rate }
         it { is_expected.to_not be_able_to :clenaup, user_rate }

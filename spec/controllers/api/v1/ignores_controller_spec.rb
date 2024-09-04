@@ -24,7 +24,7 @@ describe Api::V1::IgnoresController do
       end
 
       context 'already ignored' do
-        let!(:ignore) { create :ignore, user: user, target: user_2 }
+        let!(:ignore) { create :ignore, user:, target: user_2 }
         before { make_request }
 
         it do
@@ -59,4 +59,3 @@ describe Api::V1::IgnoresController do
     end
   end
 end
-

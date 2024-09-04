@@ -1,7 +1,7 @@
 # describe Api::V1::AchievementsController, :show_in_doc do
 describe Api::V1::AchievementsController do
   describe '#index' do
-    let!(:achievement_1) { create :achievement, user: user }
+    let!(:achievement_1) { create :achievement, user: }
     let!(:achievement_2) { create :achievement, user: create(:user) }
     before { get :index, params: { user_id: user.id }, format: :json }
 

@@ -11,7 +11,7 @@ describe Api::V1::TopicIgnoresController, :show_in_doc do
       it do
         expect(resource).to be_persisted
         expect(resource).to_not be_changed
-        expect(resource).to have_attributes user: user, topic: offtopic_topic
+        expect(resource).to have_attributes user:, topic: offtopic_topic
         expect(response).to have_http_status :success
         expect(json).to eq(
           id: resource.id,

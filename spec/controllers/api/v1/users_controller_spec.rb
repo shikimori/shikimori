@@ -9,7 +9,7 @@ describe Api::V1::UsersController, :show_in_doc do
     let(:phrase) { 'Te' }
     before do
       allow(Elasticsearch::Query::User).to receive(:call).with(
-        phrase: phrase,
+        phrase:,
         limit: Collections::Query::SEARCH_LIMIT
       ).and_return(
         user_1.id => 1.23,
@@ -103,7 +103,7 @@ describe Api::V1::UsersController, :show_in_doc do
   describe '#anime_rates' do
     let(:user) { create :user }
     let(:anime) { create :anime }
-    let!(:user_rate) { create :user_rate, target: anime, user: user, status: 'completed' }
+    let!(:user_rate) { create :user_rate, target: anime, user:, status: 'completed' }
 
     subject! do
       get :anime_rates,
@@ -124,7 +124,7 @@ describe Api::V1::UsersController, :show_in_doc do
 
   describe '#manga_rates' do
     let(:manga) { create :manga }
-    let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
+    let!(:user_rate) { create :user_rate, target: manga, user:, status: 1 }
     subject! do
       get :manga_rates,
         params: {
@@ -222,8 +222,8 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#history' do
-    let!(:entry_1) { create :user_history, user: user, action: 'mal_anime_import', value: '522' }
-    let!(:entry_2) { create :user_history, anime: create(:anime), user: user, action: 'status' }
+    let!(:entry_1) { create :user_history, user:, action: 'mal_anime_import', value: '522' }
+    let!(:entry_2) { create :user_history, anime: create(:anime), user:, action: 'status' }
 
     subject! do
       get :history,
@@ -242,9 +242,9 @@ describe Api::V1::UsersController, :show_in_doc do
   describe '#bans' do
     let!(:ban) do
       create :ban,
-        user: user,
+        user:,
         moderator: user,
-        comment: create(:comment, user: user)
+        comment: create(:comment, user:)
     end
     subject! { get :bans, params: { id: user.id }, format: :json }
 

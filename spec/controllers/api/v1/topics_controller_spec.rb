@@ -82,8 +82,8 @@ describe Api::V1::TopicsController do
     let(:params) do
       {
         user_id: user.id,
-        forum_id: forum_id,
-        title: title,
+        forum_id:,
+        title:,
         body: 'text',
         type: Topic.name,
         linked_id: anime.id,
@@ -113,7 +113,7 @@ describe Api::V1::TopicsController do
   describe '#update' do
     include_context :authenticated, :user, :week_registered
     subject! { patch :update, params: { id: topic.id, topic: params }, format: :json }
-    let(:topic) { create :topic, user: user }
+    let(:topic) { create :topic, user: }
 
     context 'success', :show_in_doc do
       let(:params) { { body: 'blablalbla' } }
@@ -132,7 +132,7 @@ describe Api::V1::TopicsController do
 
     context 'success', :show_in_doc do
       subject! { make_request }
-      let(:topic) { create :topic, user: user }
+      let(:topic) { create :topic, user: }
 
       it do
         expect(response).to have_http_status :success

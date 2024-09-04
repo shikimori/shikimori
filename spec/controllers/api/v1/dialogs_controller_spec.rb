@@ -2,7 +2,14 @@ describe Api::V1::DialogsController, :show_in_doc do
   describe '#index' do
     include_context :authenticated, :user
     let!(:message) { create :message, from: user, to: create(:user) }
-    before { get :index, params: { page: 1, limit: Api::V1::DialogsController::MESSAGES_PER_PAGE }, format: :json }
+    subject! do
+      get :index,
+        params: {
+          page: 1,
+          limit: Api::V1::DialogsController::MESSAGES_PER_PAGE
+        },
+        format: :json
+    end
 
     it { expect(response).to have_http_status :success }
   end
@@ -13,7 +20,15 @@ describe Api::V1::DialogsController, :show_in_doc do
     let!(:message_1) { create :message, from: user, to: target_user }
     let!(:message_2) { create :message, from: target_user, to: user }
 
-    before { get :show, params: { id: target_user.to_param, page: 1, limit: Api::V1::DialogsController::MESSAGES_PER_PAGE }, format: :json }
+    subject! do
+      get :show,
+        params: {
+          id: target_user.to_param,
+          page: 1,
+          limit: Api::V1::DialogsController::MESSAGES_PER_PAGE
+        },
+        format: :json
+    end
 
     it { expect(response).to have_http_status :success }
   end
@@ -22,7 +37,7 @@ describe Api::V1::DialogsController, :show_in_doc do
     include_context :authenticated, :user
 
     let(:target_user) { create :user }
-    let!(:message) {}
+    let!(:message) { nil }
 
     before { delete :destroy, params: { id: target_user.to_param } }
 

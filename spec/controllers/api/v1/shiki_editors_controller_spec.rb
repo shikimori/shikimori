@@ -6,7 +6,7 @@ describe Api::V1::ShikiEditorsController do
       stub_const "#{described_class.name}::IDS_LIMIT_PER_REQUEST", ids_limit_per_request
     end
 
-    subject! { get :show, params: params }
+    subject! { get :show, params: }
 
     let(:ids_limit_per_request) { 100 }
     let(:params) do
@@ -30,10 +30,10 @@ describe Api::V1::ShikiEditorsController do
     let(:character) { create :character }
     let(:person) { create :person }
     let(:user_image) { create :user_image }
-    let(:comment) { create :comment, user: user }
+    let(:comment) { create :comment, user: }
     let(:message) { create :message, from: user }
     let(:topic) { create :topic }
-    let(:review) { create :review, anime: anime }
+    let(:review) { create :review, anime: }
 
     it do
       expect(response).to have_http_status :success
@@ -211,7 +211,7 @@ describe Api::V1::ShikiEditorsController do
   end
 
   describe '#preview' do
-    subject! { post :preview, params: { text: text } }
+    subject! { post :preview, params: { text: } }
     let(:text) { '[b]test[/b]' }
     it do
       expect(response).to have_http_status :success

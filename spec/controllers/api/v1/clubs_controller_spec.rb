@@ -70,7 +70,7 @@ describe Api::V1::ClubsController, :show_in_doc do
       club.animes << create(:anime)
       club.mangas << create(:manga)
       club.characters << create(:character)
-      club.images << create(:club_image, user: build_stubbed(:user), club: club)
+      club.images << create(:club_image, user: build_stubbed(:user), club:)
     end
     let(:make_request) { get :show, params: { id: club.id }, format: :json }
 
@@ -164,7 +164,7 @@ describe Api::V1::ClubsController, :show_in_doc do
   end
 
   describe '#images' do
-    before { club.images << create(:club_image, user: build_stubbed(:user), club: club) }
+    before { club.images << create(:club_image, user: build_stubbed(:user), club:) }
     before { get :images, params: { id: club.id }, format: :json }
 
     it { expect(response).to have_http_status :success }
@@ -182,7 +182,7 @@ describe Api::V1::ClubsController, :show_in_doc do
 
   describe '#leave' do
     include_context :authenticated, :user
-    let!(:club_role) { create :club_role, club: club, user: user }
+    let!(:club_role) { create :club_role, club:, user: }
     before { post :leave, params: { id: club.id }, format: :json }
 
     it do

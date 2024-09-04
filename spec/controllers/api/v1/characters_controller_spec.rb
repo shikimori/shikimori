@@ -2,8 +2,8 @@ describe Api::V1::CharactersController, :show_in_doc do
   describe '#show' do
     let(:character) { create :character, :with_topics }
 
-    let!(:person_role_1) { create :person_role, character: character, anime: anime }
-    let!(:person_role_2) { create :person_role, character: character, person: person }
+    let!(:person_role_1) { create :person_role, character:, anime: }
+    let!(:person_role_2) { create :person_role, character:, person: }
 
     let(:anime) { create :anime }
     let(:person) { create :person }

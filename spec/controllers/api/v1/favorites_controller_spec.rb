@@ -10,7 +10,7 @@ describe Api::V1::FavoritesController do
         params: {
           linked_type: entry.class.name,
           linked_id: entry.id,
-          kind: kind
+          kind:
         }
     end
     let(:klass) { Person }
@@ -33,8 +33,8 @@ describe Api::V1::FavoritesController do
       create :favourite,
         linked_id: entry.id,
         linked_type: entry.class.name,
-        user: user,
-        kind: kind
+        user:,
+        kind:
     end
     let(:klass) { Person }
 
@@ -55,7 +55,7 @@ describe Api::V1::FavoritesController do
       post :reorder,
         params: {
           id: favourite_2.id,
-          new_index: new_index
+          new_index:
         }
     end
 
@@ -79,7 +79,7 @@ describe Api::V1::FavoritesController do
             params: {
               linked_type: entry.class.name,
               linked_id: entry.id,
-              kind: kind
+              kind:
             }
         end
 
@@ -106,8 +106,8 @@ describe Api::V1::FavoritesController do
           create :favourite,
             linked_id: entry.id,
             linked_type: entry.class.name,
-            user: user,
-            kind: kind
+            user:,
+            kind:
         end
         let(:make_request) do
           delete :destroy,
