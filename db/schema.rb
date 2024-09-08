@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_08_070711) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_08_095013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
@@ -1099,10 +1099,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_08_070711) do
     t.string "prior_value", limit: 255
     t.bigint "anime_id"
     t.bigint "manga_id"
-    t.index ["updated_at"], name: "index_user_histories_on_updated_at"
     t.index ["user_id", "action"], name: "user_histories_UserDataFetcherBase_latest_import_index", where: "((action)::text = ANY (ARRAY[('mal_anime_import'::character varying)::text, ('ap_anime_import'::character varying)::text, ('anime_history_clear'::character varying)::text, ('mal_manga_import'::character varying)::text, ('ap_manga_import'::character varying)::text, ('manga_history_clear'::character varying)::text]))"
     t.index ["user_id", "updated_at", "id"], name: "index_user_histories_on_user_id_updated_at_id", order: { updated_at: :desc, id: :desc }
-    t.index ["user_id"], name: "index_user_histories_on_user_id"
   end
 
   create_table "user_images", force: :cascade do |t|
