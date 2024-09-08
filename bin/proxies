@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+
+# Exit the script on any error
+set -e
+
+echo ">>>shiki: exporting proxies"
+ssh devops@shiki '\
+  source /home/devops/.zshrc &&\
+    cd /home/apps/shikimori/production/current &&\
+    RAILS_ENV=production bundle exec rails runner "\
+      File.open(\"/tmp/proxies_shiki.json\", \"w\") do |f|\
+        f.write Proxy.all.to_json;\
+      end\
+    "\
+'
+
+echo ">>>localhost: downloading proxies"
+scp shiki:/tmp/proxies_shiki.json /tmp/proxies_shiki.json
+echo ">>>localhost: importing proxies"
+rails runner "\
+  ActiveRecord::Base.connection.reset_pk_sequence! :proxies;\
+
+  Proxy.transaction do\
+    Proxy.delete_all;\
+    JSON.parse(open(\"/tmp/proxies_shiki.json\").read, symbolize_names: true).each do |v|\
+      Proxy.create! v\
+    end\
+  end;\
+  puts \">>>localhost: #{Proxy.count} proxies imported\";\
+"
+
+echo ">>>localhost: parsing proxies"
+rails runner "\
+  ProxyWorker.new.perform;\
+  File.open('/tmp/proxies_localhost.json', 'w') do |f|\
+    f.write Proxy.all.to_json;\
+  end\
+"
+
+echo ">>>localhost: uploading proxies"
+scp /tmp/proxies_localhost.json shiki:/tmp/
+ssh devops@shiki '\
+  source /home/devops/.zshrc &&\
+    cd /home/apps/shikimori/production/current &&\
+    RAILS_ENV=production bundle exec rails runner "\
+      Proxy.transaction do\
+        Proxy.delete_all;\
+        JSON.parse(open(\"/tmp/proxies_localhost.json\").read, symbolize_names: true).each do |v|\
+          Proxy.create! v\
+        end\
+      end;\
+      puts \">>>shiki: #{Proxy.count} proxies imported\";\
+    "\
+'
+echo ">>>localhost: restarting sidekiq"
+cap production sidekiq:restart
