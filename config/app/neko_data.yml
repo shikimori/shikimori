@@ -8258,6 +8258,7 @@
         - 56544
         - 57670
         - 58091
+        - 59688
       :threshold: 90%
       :generator: &407
         ignore_latest_ids:
@@ -9749,7 +9750,7 @@
         - 57236
         - 58374
         - 59190
-      :threshold: 95%
+      :threshold: 92.5%
       :generator: &491
         not_ignored_ids:
         - 11033
@@ -11298,6 +11299,7 @@
         - 50084
         - 50473
         - 51431
+        - 51432
         - 51569
         - 52390
         - 52520
@@ -11305,7 +11307,9 @@
         - 53603
         - 55283
         - 55404
-      :threshold: 87%
+        - 59572
+        - 59718
+      :threshold: 86.5%
       :generator: &569
         ignore_latest_ids:
         - 38714
@@ -17342,7 +17346,7 @@
       :algo: duration
       :filters: &893
         franchise: city_hunter
-      :threshold: 90%
+      :threshold: 90.8%
       :generator: &894
         ignore_latest_ids:
         - 37516
