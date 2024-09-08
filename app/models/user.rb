@@ -277,13 +277,6 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
       .order(updated_at: :desc, id: :desc)
   end
 
-  # TODO: remove
-  def anime_history
-    @anime_history ||= history
-      .where(target_type: [Anime.name, Manga.name])
-      .includes(:anime, :manga)
-  end
-
   def to_param nickname = self.nickname(true)
     nickname.tr(' ', '+')
   end
