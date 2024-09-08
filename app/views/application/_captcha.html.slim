@@ -5,12 +5,20 @@
     .placeholder-text Загружается проверялка...
   script src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback'
   javascript:
+    var attempts = 0;
+
     function renderTurnstile() {
+      if (attempts > 2) { return; }
+      attempts += 1;
+
       turnstile.render('.b-cf-turnstile', {
         sitekey: '#{Rails.application.secrets.turnstile[:site_key]}',
         language: 'ru',
         'error-callback': renderTurnstile
       });
+
+      // remove other failed captcha blocks
+      $('.b-cf-turnstile > div:not(:first-child):not(:last-child)').remove();
     }
     function onloadTurnstileCallback() {
       document.querySelector('.b-cf-turnstile').classList.remove('is-loading');
