@@ -23,7 +23,8 @@ class UserHistory < ApplicationRecord
     last_entry = UserHistory
       .where(user_id: user.is_a?(Integer) ? user : user.id)
       .where.not((item.anime? ? :anime_id : :manga_id) => nil)
-      .order(id: :desc)
+      # adding `updated_at: :desc` so the query goes by `index_user_histories_on_user_id_updated_at_id` index
+      .order(updated_at: :desc, id: :desc)
       .first
 
     unless last_entry&.target_type == item.class.base_class.name &&
