@@ -27,7 +27,7 @@ describe ProfilesController do
 
     context 'with clubs' do
       let(:club) { create :club, :with_topics }
-      let!(:club_role) { create :club_role, user: user, club: club }
+      let!(:club_role) { create :club_role, user:, club: }
       subject! { get :clubs, params: { id: user.to_param } }
 
       it { expect(response).to have_http_status :success }
@@ -41,46 +41,46 @@ describe ProfilesController do
     end
 
     context 'with favorites' do
-      let!(:favourite) { create :favourite, user: user, linked: create(:anime) }
+      let!(:favourite) { create :favourite, user:, linked: create(:anime) }
       subject! { get :favorites, params: { id: user.to_param } }
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#critiques' do
-    let!(:critique) { create :critique, :with_topics, user: user }
+    let!(:critique) { create :critique, :with_topics, user: }
     subject! { get :critiques, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#reviews' do
-    let!(:review) { create :review, :with_topics, user: user, anime: anime }
+    let!(:review) { create :review, :with_topics, user:, anime: }
     let(:anime) { create :anime }
     subject! { get :reviews, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#collections' do
-    let!(:collection) { create :collection, :with_topics, user: user }
+    let!(:collection) { create :collection, :with_topics, user: }
     subject! { get :collections, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#feed' do
     include_context :authenticated
-    let!(:comment) { create :comment, user: user, commentable: user }
+    let!(:comment) { create :comment, user:, commentable: user }
     subject! { get :feed, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#topics' do
-    let!(:topic) { create :topic, user: user }
+    let!(:topic) { create :topic, user: }
     subject! { get :topics, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#comments' do
-    let!(:comment) { create :comment, user: user, commentable: user }
+    let!(:comment) { create :comment, user:, commentable: user }
     subject! { get :comments, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
@@ -89,7 +89,7 @@ describe ProfilesController do
     let(:anime) { create :anime }
     let!(:version) do
       create :version,
-        user: user,
+        user:,
         item: anime,
         item_diff: { name: ['test', 'test2'] },
         state: :accepted
@@ -108,7 +108,7 @@ describe ProfilesController do
   end
 
   describe '#edit' do
-    let(:make_request) { get :edit, params: { id: user.to_param, section: section } }
+    let(:make_request) { get :edit, params: { id: user.to_param, section: } }
 
     context 'when valid access' do
       before { sign_in user }

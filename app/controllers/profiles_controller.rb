@@ -283,7 +283,7 @@ private
 
   def fetch_resource
     nickname = User.param_to(params[:profile_id] || params[:id])
-    user = User.find_by nickname: nickname
+    user = User.find_by(nickname:)
 
     unless user
       nickname_change = UserNicknameChange.where(value: nickname).order(:id).first

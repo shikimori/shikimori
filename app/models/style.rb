@@ -25,7 +25,7 @@ class Style < ApplicationRecord
   def css= value
     self.compiled_css = nil
     self.imports = nil
-    super value
+    super
   end
 
   def compile!
