@@ -88,7 +88,7 @@ class Uploaders::PosterUploader < Shrine
   def generate_location io, record: nil, **context # rubocop:disable PerceivedComplexity, CyclomaticComplexity, MethodLength
     pretty_location io,
       **context,
-      record: record,
+      record:,
       identifier: (
         if record.anime_id
           'animes'
