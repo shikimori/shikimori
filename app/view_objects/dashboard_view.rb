@@ -68,8 +68,8 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def cache_variant
-    rand(4).to_i
-    # rand(3).to_i
+    # rand(4).to_i
+    rand(2).to_i
   end
 
   def db_others klass
@@ -146,7 +146,7 @@ class DashboardView < ViewObjectBase # rubocop:disable ClassLength
       .first
 
     {
-      ongoings: [:ongoings, rand(10), CACHE_VERSION],
+      ongoings: [:ongoings, rand(10), cache_variant, CACHE_VERSION],
       critiques: [Critique.order(id: :desc).first, CACHE_VERSION],
       critiques_index: rand(REVIEWS_FETCH), # to randomize critiques output
       news: [:news, news_key, CACHE_VERSION],

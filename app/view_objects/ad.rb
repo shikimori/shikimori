@@ -215,18 +215,22 @@ private
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.webp app/assets/images/globals/events/2022-06-18/menu_1.webp
-    url: 'https://funpay.com/lots/1000/?utm_source=anime_site&utm_medium=referral&utm_campaign=genshin_impact&utm_content=shikimori&utm_term=genesis_crystals&erid=2VtzqxJT7Q8',
-    images: (1..1).map do |i|
-      {
-        src: "/assets/globals/events/2024-09-06/menu_#{i}.png",
-        src_2x: "/assets/globals/events/2024-09-06/menu_#{i}@2x.jpg"
-      }
-    end,
-    # images: [{
-    #   src: '/assets/globals/events/2024-04-22/menu_1.jpg',
-    #   src_2x: '/assets/globals/events/2024-04-22/menu_1@2x.jpg',
-    #   url: 'https://clck.ru/39yt6e'
-    # }],
+    # url: 'https://funpay.com/lots/1000/?utm_source=anime_site&utm_medium=referral&utm_campaign=genshin_impact&utm_content=shikimori&utm_term=genesis_crystals&erid=2VtzqxJT7Q8',
+    # images: (1..1).map do |i|
+    #   {
+    #     src: "/assets/globals/events/2024-09-06/menu_#{i}.png",
+    #     src_2x: "/assets/globals/events/2024-09-06/menu_#{i}@2x.jpg"
+    #   }
+    # end,
+    images: [{
+      src: '/assets/globals/events/2024-09-06/menu_1.png',
+      src_2x: '/assets/globals/events/2024-09-06/menu_1@2x.jpg',
+      url: 'https://funpay.com/lots/1000/?utm_source=anime_site&utm_medium=referral&utm_campaign=genshin_impact&utm_content=shikimori&utm_term=genesis_crystals&erid=2VtzqxJT7Q8'
+    }, {
+      src: '/assets/globals/events/2024-09-06/menu_1.png',
+      src_2x: '/assets/globals/events/2024-09-06/menu_1@2x.jpg',
+      url: 'https://funpay.com/lots/2407/?utm_source=anime_site&utm_medium=referral&utm_campaign=zzz&utm_content=shikimori&utm_term=top_up&erid=2VtzqxJT7Q8'
+    }],
     rules: {
       cookie: 'i1_20240325',
       shows_per_week: 480 # 380 # 420 # 540
@@ -239,18 +243,22 @@ private
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/wide_1@2x.webp app/assets/images/globals/events/2022-06-18/wide_1.webp
-    url: 'https://funpay.com/lots/2407/?utm_source=anime_site&utm_medium=referral&utm_campaign=honkai_star_rail&utm_content=shikimori&utm_term=top_up&erid=2VtzqxJT7Q8',
-    images: (1..1).map do |i|
-      {
-        src: "/assets/globals/events/2024-09-06/wide_#{i}.png",
-        src_2x: "/assets/globals/events/2024-09-06/wide_#{i}@2x.jpg"
-      }
-    end,
-    # images: [{
-    #   src: '/assets/globals/events/2024-07-19/wide_1.jpg',
-    #   src_2x: '/assets/globals/events/2024-07-19/wide_1@2x.jpg',
-    #   url: 'https://u.to/TTPKIA' # https://play.google.com/store/apps/details?id=com.aesar.krios
-    # }],
+    # url: 'https://funpay.com/lots/2407/?utm_source=anime_site&utm_medium=referral&utm_campaign=honkai_star_rail&utm_content=shikimori&utm_term=top_up&erid=2Vtzqxdgbh6',
+    # images: (1..1).map do |i|
+    #   {
+    #     src: "/assets/globals/events/2024-09-06/wide_#{i}.png",
+    #     src_2x: "/assets/globals/events/2024-09-06/wide_#{i}@2x.jpg"
+    #   }
+    # end,
+    images: [{
+      src: '/assets/globals/events/2024-09-06/wide_1.png',
+      src_2x: '/assets/globals/events/2024-09-06/wide_1@2x.jpg',
+      url: 'https://funpay.com/lots/1000/?utm_source=anime_site&utm_medium=referral&utm_campaign=genshin_impact&utm_content=shikimori&utm_term=genesis_crystals&erid=2Vtzqxdgbh6'
+    }, {
+      src: '/assets/globals/events/2024-09-06/wide_1.png',
+      src_2x: '/assets/globals/events/2024-09-06/wide_1@2x.jpg',
+      url: 'https://funpay.com/lots/2407/?utm_source=anime_site&utm_medium=referral&utm_campaign=zzz&utm_content=shikimori&utm_term=top_up&erid=2Vtzqxdgbh6'
+    }],
     # end,
     # html: (
     #   <<~HTML
