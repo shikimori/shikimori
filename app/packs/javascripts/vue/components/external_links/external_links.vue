@@ -61,7 +61,7 @@ const dragOptions = {
   handle: '.drag-handle'
 };
 
-const isEmpty = computed(() => store.getters.isEmpty);
+const isEmpty = computed(() => store.getters.isCollectionEmpty);
 const collection = computed({
   get() {
     return store.state.collection;
