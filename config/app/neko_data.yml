@@ -6210,6 +6210,7 @@
         - 51068
         - 54209
         - 56609
+        - 59825
       :threshold: 95%
       :generator: &296
         not_ignored_ids:
@@ -7103,6 +7104,7 @@
         - 38419
         - 40181
         - 40970
+        - 50385
         - 50696
         - 51162
         - 51163
@@ -7125,12 +7127,15 @@
         - 55647
         - 55871
         - 56015
+        - 57413
         - 57556
         - 58015
         - 58307
         - 58663
         - 59029
         - 59596
+        - 59801
+        - 59822
       :threshold: 96.3%
       :generator: &344
         ignore_latest_ids:
@@ -9493,6 +9498,7 @@
         - 12725
         - 47410
         - 50846
+        - 59019
         - 59208
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -9747,10 +9753,8 @@
         - 42753
         - 52010
         - 52011
-        - 57236
-        - 58374
         - 59190
-      :threshold: 92.5%
+      :threshold: 92.6%
       :generator: &491
         not_ignored_ids:
         - 11033
@@ -9782,6 +9786,8 @@
         - 58623
         - 9907
         - 9930
+        - 58374
+        - 57236
         ignore_latest_ids:
         - 55748
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -13234,6 +13240,7 @@
         not_anime_ids:
         - 27613
         - 36083
+        - 58816
       :threshold: 100%
       :generator: &674
         not_ignored_ids:
@@ -13499,6 +13506,7 @@
         - 38001
         - 38087
         - 51266
+        - 59790
       :threshold: 94.9%
       :generator: &688
         ignore_latest_ids:
@@ -17476,7 +17484,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.7%
+      :threshold: 92%
       :generator: &901
         ignore_latest_ids:
         - 38850
@@ -19993,6 +20001,7 @@
         - 39101
         - 39102
         - 39162
+        - 59807
       :threshold: 99.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -22763,6 +22772,42 @@
           - 1472
           - 53012
           - 16592
+          - 1901
+          - 16247
+          - 5088
+          - 244
+          - 6172
+          - 23317
+          - 37023
+          - 12139
+          - 2690
+          - 10481
+          - 1145
+          - 1981
+          - 1571
+          - 2246
+          - 4896
+          - 28497
+          - 39198
+          - 38959
+          - 47537
+          - 567
+          - 2043
+          - 28673
+          - 39972
+          - 3435
+          - 2781
+          - 48301
+          - 15211
+          - 31221
+          - 30895
+          - 50586
+          - 3743
+          - 29275
+          - 19705
+          - 33693
+          - 2237
+          - 35404
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/detektiv.yml
   default_values: *4
   neko_id: :detektiv
@@ -26721,6 +26766,23 @@
         - 51716
         - 52985
         - 59176
+        - 56358
+        - 56892
+        - 59105
+        - 58866
+        - 58535
+        - 58462
+        - 54996
+        - 53723
+        - 56916
+        - 55659
+        - 55660
+        - 56677
+        - 56129
+        - 56132
+        - 56674
+        - 57960
+        - 58173
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *4
   neko_id: :mahou_shoujo
