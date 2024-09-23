@@ -83,7 +83,12 @@ export default function showModal({
         $(document.body).on('focus', '*', tryCloseModal);
         $(document.body).on('keydown', closeModalOnEsc);
 
-        $(document).one('turbolinks:before-cache', unbindHandlers);
+        $(document).one('turbolinks:before-cache', () => {
+          if (!checkHidden()) {
+            $modal.trigger('modal:hide');
+          }
+          unbindHandlers();
+        });
       });
     })
     .on('modal:hide', e => {
