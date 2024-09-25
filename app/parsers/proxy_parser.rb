@@ -212,8 +212,8 @@ private
   end
 
   def hidemyname
-    # purchased at 24-08-2024
-    url = 'https://hidemy.name/api/proxylist.php?out=js&lang=en&utf&code=777276949863880'
+    # purchased at 25-09-2024 until 25-09-2025
+    url = 'https://hidemy.name/api/proxylist.php?out=js&lang=en&utf&code=138782283104956'
 
     data =
       Rails.cache.fetch([url, :proxies, CACHE_VERSION], expires_in: 6.hours) do
