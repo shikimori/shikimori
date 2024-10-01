@@ -137,10 +137,18 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def poster_image_url is_2x
     # last condition is for user topics about anime
-    if linked_in_poster?
-      ImageUrlGenerator.instance.cdn_image_url linked_for_poster, is_2x ? :x96 : :x48
-    else
+    if !linked_in_poster?
       user.avatar_url is_2x ? 80 : 48
+    elsif linked_for_poster.respond_to?(:poster)
+      ImageUrlGenerator.instance.cdn_poster_url(
+        poster: linked_for_poster.poster,
+        derivative: is_2x ? :mini_2x : :mini
+      )
+    else
+      ImageUrlGenerator.instance.cdn_image_url(
+        linked_for_poster,
+        is_2x ? :x96 : :x48
+      )
     end
   end
 
