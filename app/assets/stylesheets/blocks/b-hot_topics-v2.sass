@@ -1,9 +1,8 @@
 @import globals
-@import mixins/float_column
 @import mixins/ellipsis2
+@import mixins/responsive
 
 .b-hot_topics-v2
-  +clear_left
   align-items: center
   background-color: #eef1f2
   border-bottom: 1px solid #d0d8db
@@ -29,22 +28,22 @@
   .subject,
   .b-link
     font-size: 12px
-    // white-space: nowrap
 
   .b-link
     align-items: center
     display: inline-flex
-    padding: 0 5px
+    gap: 5px
     overflow: hidden
+    padding: 0 5px
 
     @media screen and (max-width: 375px)
-      flex-basis: calc(50% - 40px);
+      flex-basis: calc(50% - 40px)
 
     @media screen and (min-width: 376px) and (max-width: 450px)
-      flex-basis: calc(33.3% - 26px);
+      flex-basis: calc(33.3% - 26px)
 
     @media screen and (min-width: 451px) and (max-width: $iphone_max)
-      flex-basis: calc(25% - 20px);
+      flex-basis: calc(25% - 20px)
 
     +gte_ipad
       max-width: 150px
@@ -59,11 +58,11 @@
       color: $purple
 
     .poster
+      background-position: center
+      background-repeat: no-repeat
       background-size: 100%
       flex-shrink: 0
-      height: 16px
-      margin-right: 5px
-      margin-top: -2px
+      height: 18px
       width: 16px
 
   &.red-alert
