@@ -36,18 +36,18 @@ class ImageUrlGenerator
       poster.image(derivative).url :
       poster.image.url
 
-    # if Rails.env.test? ||
-    #     (!Rails.env.production? && File.exist?(poster.image.storage.path(poster.image.id)))
-    #   local_url image_path
-    # else
-    #   production_url image_path, image_index
-    # end
-
-    if Rails.env.development? && !File.exist?(poster.image.storage.path(poster.image.id))
-      production_url image_path, image_index
-    else
+    if Rails.env.test? ||
+        (!Rails.env.production? && File.exist?(poster.image.storage.path(poster.image.id)))
       local_url image_path
+    else
+      production_url image_path, image_index
     end
+
+    # if Rails.env.development? && !File.exist?(poster.image.storage.path(poster.image.id))
+    #   production_url image_path, image_index
+    # else
+    #   local_url image_path
+    # end
   end
 
 private
