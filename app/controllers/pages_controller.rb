@@ -252,14 +252,11 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
     render json: {
       'request.remote_ip': request.remote_ip,
+      'request.ssl?': request.ssl?,
       "request.env['HTTP_X_FORWARDED_FOR']": request.env['HTTP_X_FORWARDED_FOR'],
       "request.env['HTTP_X_REAL_IP']": request.env['HTTP_X_REAL_IP'],
       "request.env['REMOTE_ADDR']": request.env['REMOTE_ADDR'],
       "request.env['HTTP_CF_RAY']": request.env['HTTP_CF_RAY'],
-      "request.env['HTTP_CF_IPCOUNTRY']": request.env['HTTP_CF_IPCOUNTRY'],
-      "request.env['HTTP_CF_VISITOR']": request.env['HTTP_CF_VISITOR'],
-      "request.env['HTTP_CF_REQUEST_ID']": request.env['HTTP_CF_REQUEST_ID'],
-      "request.env['HTTP_CF_CACHE_STATUS']": request.env['HTTP_CF_CACHE_STATUS'],
       'request.env.keys': request.env.keys
     }
   end
