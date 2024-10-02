@@ -13,12 +13,14 @@ class ImageUrlGenerator
     image_method = IMAGE_METHODS
       .find { |klass, _method| entry.is_a? klass }
       &.second || :image
-    only_path = ONLY_PATH.include?(entry.class) ? ONLY_PATH[entry.class] : true
+    is_only_path = ONLY_PATH.include?(entry.class) ?
+      ONLY_PATH[entry.class] :
+      true
 
     image_index = entry.id % Shikimori::STATIC_SUBDOMAINS.size
 
     image_file_path = entry.send(image_method).path image_size
-    image_url_path = entry.send(image_method).url image_size, only_path
+    image_url_path = entry.send(image_method).url image_size, is_only_path
 
     if Rails.env.test? ||
         (!Rails.env.production? && image_file_path && File.exist?(image_file_path))
@@ -34,11 +36,17 @@ class ImageUrlGenerator
       poster.image(derivative).url :
       poster.image.url
 
-    if Rails.env.test? ||
-        (!Rails.env.production? && File.exist?(poster.image.storage.path(poster.image.id)))
-      local_url image_path
-    else
+    # if Rails.env.test? ||
+    #     (!Rails.env.production? && File.exist?(poster.image.storage.path(poster.image.id)))
+    #   local_url image_path
+    # else
+    #   production_url image_path, image_index
+    # end
+
+    if Rails.env.development? && !File.exist?(poster.image.storage.path(poster.image.id))
       production_url image_path, image_index
+    else
+      local_url image_path
     end
   end
 
