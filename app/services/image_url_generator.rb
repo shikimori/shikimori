@@ -28,13 +28,13 @@ class ImageUrlGenerator
     end
   end
 
-  def cdn_poster_url poster:, derivative:, is_path: false # rubocop:disable Metrics/AbcSize
+  def cdn_poster_url poster:, derivative: # rubocop:disable Metrics/AbcSize
     image_index = poster.id % Shikimori::STATIC_SUBDOMAINS.size
     image_path = derivative && poster.image_data['derivatives'] ?
       poster.image(derivative).url :
       poster.image.url
 
-    if is_path || Rails.env.test? ||
+    if Rails.env.test? ||
         (!Rails.env.production? && File.exist?(poster.image.storage.path(poster.image.id)))
       local_url image_path
     else
