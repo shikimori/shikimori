@@ -262,7 +262,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
       "request.env['HTTP_CF_RAY']": request.env['HTTP_CF_RAY'],
       "request.env['SERVER_PROTOCOL']": request.env['SERVER_PROTOCOL'],
       "request.env['HTTP_X_FORWARDED_PROTO']": request.env['HTTP_X_FORWARDED_PROTO'],
-      'request.env.keys': request.env.keys
+      'request.env.keys': request.env.keys.select { |key| key.starts_with? 'HTTP_' }
     }
   end
 
