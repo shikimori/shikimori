@@ -31,7 +31,7 @@ class ImageUrlGenerator
   end
 
   def cdn_poster_url poster:, derivative: # rubocop:disable Metrics/AbcSize
-    image_index = poster.id % Shikimori::STATIC_SUBDOMAINS.size
+    image_index = poster.id % Shikimori::STATIC_CLOUDFLARE_SUBDOMAINS.size
     image_path = derivative && poster.image_data['derivatives'] ?
       poster.image(derivative).url :
       poster.image.url
@@ -40,7 +40,7 @@ class ImageUrlGenerator
         (!Rails.env.production? && File.exist?(poster.image.storage.path(poster.image.id)))
       local_url image_path
     else
-      production_url image_path, image_index
+      production_url image_path, image_index, is_cloudflare_subdomains: true
     end
 
     # if Rails.env.development? && !File.exist?(poster.image.storage.path(poster.image.id))
@@ -73,12 +73,16 @@ private
     # end
   end
 
-  def production_url image_url_path, image_index
+  def production_url image_url_path, image_index, is_cloudflare_subdomains: false
     # "#{Shikimori::PROTOCOLS[:production]}://" \
     #   "#{shiki_domain}#{image_url_path}"
 
+    subdomain = is_cloudflare_subdomains ?
+      Shikimori::STATIC_CLOUDFLARE_SUBDOMAINS :
+      Shikimori::STATIC_SUBDOMAINS
+
     "#{Shikimori::PROTOCOLS[:production]}://" \
-      "#{Shikimori::STATIC_SUBDOMAINS[image_index]}." \
+      "#{subdomain[image_index]}." \
       "#{shiki_domain}#{image_url_path}"
   end
 
