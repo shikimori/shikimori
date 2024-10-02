@@ -56,8 +56,7 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   if Shikimori::PROTOCOL == 'https'
-    # config.force_ssl = ENV['SHIKI_TYPE'] != 'db'
-    config.force_ssl = true
+    config.force_ssl = false # disable force_ssl since CF requests will go through http protocol
     config.ssl_options = {
       hsts: { preload: true, subdomains: true, expires: 3.years }
     }

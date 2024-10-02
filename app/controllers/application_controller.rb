@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   before_action :mailer_set_url_options
   before_action :force_vary_accept
   before_action :force_no_cache, unless: :user_signed_in?
-  before_action :force_ssl_unless_cf, if: Rails.env.production?
+  before_action :force_ssl_unless_cf if Rails.env.production?
 
   helper_method :resource_class
   helper_method :json?
