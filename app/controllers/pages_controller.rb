@@ -248,7 +248,10 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def http_headers # rubocop:disable Metrics/AbcSize
-    raise CanCan::AccessDenied unless current_user&.admin?
+    unless current_user&.admin? ||
+        params[:token] == Rails.application.secrets[:api][:anime_videos][:token]
+      raise CanCan::AccessDenied
+    end
 
     render json: {
       'request.remote_ip': request.remote_ip,
@@ -257,6 +260,8 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
       "request.env['HTTP_X_REAL_IP']": request.env['HTTP_X_REAL_IP'],
       "request.env['REMOTE_ADDR']": request.env['REMOTE_ADDR'],
       "request.env['HTTP_CF_RAY']": request.env['HTTP_CF_RAY'],
+      "request.env['SERVER_PROTOCOL']": request.env['SERVER_PROTOCOL'],
+      "request.env['HTTP_X_FORWARDED_PROTO']": request.env['HTTP_X_FORWARDED_PROTO'],
       'request.env.keys': request.env.keys
     }
   end
