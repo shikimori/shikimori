@@ -247,7 +247,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   def vue
   end
 
-  def http_headers
+  def http_headers # rubocop:disable Metrics/AbcSize
     raise CanCan::AccessDenied unless current_user&.admin?
 
     render json: {
@@ -255,11 +255,12 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
       "request.env['HTTP_X_FORWARDED_FOR']": request.env['HTTP_X_FORWARDED_FOR'],
       "request.env['HTTP_X_REAL_IP']": request.env['HTTP_X_REAL_IP'],
       "request.env['REMOTE_ADDR']": request.env['REMOTE_ADDR'],
-      "request.env['CF-RAY']": request.env['CF-RAY'],
-      "request.env['CF-IPCOUNTRY']": request.env['CF-IPCOUNTRY'],
-      "request.env['CF-VISITOR']": request.env['CF-VISITOR'],
-      "request.env['CF-REQUEST-ID']": request.env['CF-REQUEST-ID'],
-      "request.env['CF-CACHE-STATUS']": request.env['CF-CACHE-STATUS']
+      "request.env['HTTP_CF_RAY']": request.env['HTTP_CF_RAY'],
+      "request.env['HTTP_CF_IPCOUNTRY']": request.env['HTTP_CF_IPCOUNTRY'],
+      "request.env['HTTP_CF_VISITOR']": request.env['HTTP_CF_VISITOR'],
+      "request.env['HTTP_CF_REQUEST_ID']": request.env['HTTP_CF_REQUEST_ID'],
+      "request.env['HTTP_CF_CACHE_STATUS']": request.env['HTTP_CF_CACHE_STATUS'],
+      'request.env.keys': request.env.keys
     }
   end
 
