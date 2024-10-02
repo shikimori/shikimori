@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
   before_action :mailer_set_url_options
   before_action :force_vary_accept
   before_action :force_no_cache, unless: :user_signed_in?
+  before_action :force_ssl_unless_cf, if: Rails.env.production?
 
   helper_method :resource_class
   helper_method :json?
@@ -119,6 +120,12 @@ private
     # https://blog.alex-miller.co/rails/2017/01/07/rails-authenticity-token-and-mobile-safari.html
     if request.env['HTTP_USER_AGENT']&.match?(/PlayStation|Android|Mobile Safari/)
       response.headers['Cache-Control'] = 'no-store, no-cache'
+    end
+  end
+
+  def force_ssl_unless_cf
+    if request.env['HTTP_CF_RAY'].blank? && !request.ssl?
+      redirect_to protocol: 'https://', status: :moved_permanently
     end
   end
 
