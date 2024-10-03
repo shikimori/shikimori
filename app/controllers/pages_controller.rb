@@ -259,6 +259,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
       **(
         request.env.keys
           .select { |key| key.starts_with? 'HTTP_' }
+          .sort
           .index_with { |key| request.env[key] }
       )
     }
