@@ -88,7 +88,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
   def feedback
     @feedback_message = FeedbackMessage.new(
-      from_id: (current_user.try(:id) || User::GUEST_ID),
+      from_id: current_user.try(:id) || User::GUEST_ID,
       to_id: User::MORR_ID,
       kind: MessageType::PRIVATE
     )
@@ -256,13 +256,11 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
     render json: {
       'request.remote_ip': request.remote_ip,
       'request.ssl?': request.ssl?,
-      "request.env['HTTP_X_FORWARDED_FOR']": request.env['HTTP_X_FORWARDED_FOR'],
-      "request.env['HTTP_X_REAL_IP']": request.env['HTTP_X_REAL_IP'],
-      "request.env['REMOTE_ADDR']": request.env['REMOTE_ADDR'],
-      "request.env['HTTP_CF_RAY']": request.env['HTTP_CF_RAY'],
-      "request.env['SERVER_PROTOCOL']": request.env['SERVER_PROTOCOL'],
-      "request.env['HTTP_X_FORWARDED_PROTO']": request.env['HTTP_X_FORWARDED_PROTO'],
-      'request.env.keys': request.env.keys.select { |key| key.starts_with? 'HTTP_' }
+      **(
+        request.env.keys
+          .select { |key| key.starts_with? 'HTTP_' }
+          .index_with { |key| request.env[key] }
+      )
     }
   end
 
