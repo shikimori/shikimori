@@ -115,9 +115,9 @@
       - if @view.own_profile?
         a href=profile_dialogs_url(@resource)
           = t '.my_mail'
-        a href=profile_list_history_url(@resource)
+        a.history-action href=profile_list_history_url(@resource)
           = i18n_io 'History', :one
-        a.history-action href=@resource.edit_url(section: :account)
+        a href=@resource.edit_url(section: :account)
           = t '.my_profile_settings'
         a href=moderation_profile_url(@resource)
           = t '.my_bans'
