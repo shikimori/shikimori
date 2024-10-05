@@ -9,6 +9,9 @@ class ImageUrlGenerator
     UserImage => false
   }
 
+  SELECTED_STATIC_SUBDOMAINS = Shikimori::STATIC_CLOUDFLARE_SUBDOMAINS +
+    Shikimori::STATIC_PROXIED_SUBDOMAINS
+
   def cdn_image_url entry, image_size # rubocop:disable all
     image_method = IMAGE_METHODS
       .find { |klass, _method| entry.is_a? klass }
@@ -31,7 +34,7 @@ class ImageUrlGenerator
   end
 
   def cdn_poster_url poster:, derivative: # rubocop:disable Metrics/AbcSize
-    image_index = poster.id % Shikimori::STATIC_CLOUDFLARE_SUBDOMAINS.size
+    # image_index = poster.id % Shikimori::STATIC_CLOUDFLARE_SUBDOMAINS.size
     image_path = derivative && poster.image_data['derivatives'] ?
       poster.image(derivative).url :
       poster.image.url
@@ -40,7 +43,8 @@ class ImageUrlGenerator
         (!Rails.env.production? && File.exist?(poster.image.storage.path(poster.image.id)))
       local_url image_path
     else
-      production_url image_path, image_index, is_cloudflare_subdomains: true
+      image_index = poster.id % SELECTED_STATIC_SUBDOMAINS.size
+      production_url image_path, image_index, is_selected_subdomains: true
     end
 
     # if Rails.env.development? && !File.exist?(poster.image.storage.path(poster.image.id))
@@ -73,12 +77,12 @@ private
     # end
   end
 
-  def production_url image_url_path, image_index, is_cloudflare_subdomains: false
+  def production_url image_url_path, image_index, is_selected_subdomains: false
     # "#{Shikimori::PROTOCOLS[:production]}://" \
     #   "#{shiki_domain}#{image_url_path}"
 
-    subdomain = is_cloudflare_subdomains ?
-      Shikimori::STATIC_CLOUDFLARE_SUBDOMAINS :
+    subdomain = is_selected_subdomains ?
+      SELECTED_STATIC_SUBDOMAINS :
       Shikimori::STATIC_SUBDOMAINS
 
     "#{Shikimori::PROTOCOLS[:production]}://" \
