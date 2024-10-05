@@ -9,8 +9,8 @@ class ImageUrlGenerator
     UserImage => false
   }
 
-  SELECTED_STATIC_SUBDOMAINS = Shikimori::STATIC_CLOUDFLARE_SUBDOMAINS +
-    Shikimori::STATIC_PROXIED_SUBDOMAINS
+  SELECTED_STATIC_SUBDOMAINS = Shikimori::STATIC_CLOUDFLARE_SUBDOMAINS # +
+    # Shikimori::STATIC_PROXIED_SUBDOMAINS
 
   def cdn_image_url entry, image_size # rubocop:disable all
     image_method = IMAGE_METHODS
