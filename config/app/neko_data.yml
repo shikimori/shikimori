@@ -4543,7 +4543,7 @@
         - 41590
         - 42364
         - 42776
-      :threshold: 100%
+      :threshold: 98%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :re_zero
@@ -4606,7 +4606,7 @@
         - 43683
         - 54624
         - 57519
-      :threshold: 94.9%
+      :threshold: 95%
       :generator: &208
         ignore_latest_ids:
         - 39565
@@ -6086,7 +6086,7 @@
         - 246
         - 11511
         - 12121
-      :threshold: 95.2%
+      :threshold: 95.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :fairy_tail
@@ -10144,6 +10144,8 @@
         - 52897
         - 55074
         - 56064
+        - 56712
+        - 56900
         - 57199
         - 57595
         - 57596
@@ -10153,6 +10155,7 @@
         - 58247
         - 58248
         - 58288
+        - 58439
         - 58507
         - 58508
         - 58835
@@ -10160,7 +10163,7 @@
         - 59372
         - 59615
         - 59656
-      :threshold: 94.8%
+      :threshold: 95%
       :generator: &509
         ignore_latest_ids:
         - 37966
@@ -11464,7 +11467,7 @@
         - 38653
         - 48617
         - 52282
-      :threshold: 95%
+      :threshold: 94.9%
       :generator: &576
         ignore_latest_ids:
         - 48903
@@ -14289,7 +14292,7 @@
         not_anime_ids:
         - 34453
         - 55392
-      :threshold: 78.6%
+      :threshold: 80.1%
       :generator: &730
         ignore_latest_ids:
         - 57647
@@ -14633,7 +14636,11 @@
         - 51842
         - 55393
         - 55517
-      :threshold: 87.4%
+        - 58823
+        - 58824
+        - 58825
+        - 58826
+      :threshold: 86.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :idolmaster
@@ -15772,7 +15779,7 @@
         - 55883
         - 56889
         - 58428
-      :threshold: 95.4%
+      :threshold: 95.6%
       :generator: &810
         not_ignored_ids:
         - 38986
@@ -17490,7 +17497,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 92%
+      :threshold: 91.7%
       :generator: &901
         ignore_latest_ids:
         - 38850
@@ -18925,7 +18932,7 @@
         - 38647
         - 38648
         - 40543
-      :threshold: 87.9%
+      :threshold: 88%
       :generator: &976
         ignore_latest_ids:
         - 59275
@@ -19045,7 +19052,7 @@
         franchise: a_mortal_s_journey
         not_anime_ids:
         - 54444
-      :threshold: 96.8%
+      :threshold: 96.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :a_mortal_s_journey
@@ -21045,7 +21052,7 @@
         - 1572
         - 2565
         - 42399
-      :threshold: 93.2%
+      :threshold: 93.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :jungle_taitei
@@ -21936,7 +21943,7 @@
   attributes:
     :neko_id: :soul_land
     :level: 1
-    :image: "/assets/achievements/anime/franchise/douluo_dalu.jpg"
+    :image: "/assets/achievements/anime/franchise/soul_land.jpg"
     :border_color:
     :title_ru: Боевой континент
     :text_ru:
@@ -21947,12 +21954,12 @@
       :algo: duration
       :filters: &1133
         franchise: soul_land
-      :threshold: 92.9%
+      :threshold: 93%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :soul_land
   level: 1
-  image: "/assets/achievements/anime/franchise/douluo_dalu.jpg"
+  image: "/assets/achievements/anime/franchise/soul_land.jpg"
   border_color:
   title_ru: Боевой континент
   text_ru:
@@ -21965,7 +21972,7 @@
   attributes:
     :neko_id: :soul_land
     :level: 0
-    :image: "/assets/achievements/anime/franchise/douluo_dalu.jpg"
+    :image: "/assets/achievements/anime/franchise/soul_land.jpg"
     :border_color:
     :title_ru: Боевой континент
     :text_ru:
@@ -21980,7 +21987,7 @@
   default_values: *4
   neko_id: :soul_land
   level: 0
-  image: "/assets/achievements/anime/franchise/douluo_dalu.jpg"
+  image: "/assets/achievements/anime/franchise/soul_land.jpg"
   border_color:
   title_ru: Боевой континент
   text_ru:
