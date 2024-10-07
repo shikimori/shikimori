@@ -28,7 +28,7 @@ class Review < ApplicationRecord
   alias topic_user user
 
   MIN_BODY_SIZE = 230
-  MAX_BODY_SIZE = 230
+  MAX_BODY_SIZE = 300_000
 
   validates :body,
     presence: true,
