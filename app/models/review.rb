@@ -28,10 +28,11 @@ class Review < ApplicationRecord
   alias topic_user user
 
   MIN_BODY_SIZE = 230
+  MAX_BODY_SIZE = 230
 
   validates :body,
     presence: true,
-    length: { minimum: MIN_BODY_SIZE },
+    length: { minimum: MIN_BODY_SIZE, maximum: MAX_BODY_SIZE },
     if: -> { !@is_conversion && will_save_change_to_body? }
   validates :user_id,
     uniqueness: { scope: %i[anime_id] },
