@@ -73,6 +73,7 @@ html[
           data-type='html'
         ]
           .marker-text data-text=t('application.aside.report_bug')
+    img src='https://mc.yandex.ru/pixel/4470808751782644043?rnd=%aw_random%'
     javascript[id='js_export']:
       window.JS_EXPORTS = #{{JsExports::Supervisor.instance.export(current_user).to_json}};
     = yield :tail

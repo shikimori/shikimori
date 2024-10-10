@@ -213,23 +213,21 @@ private
   SPECIAL_X300 = {
     provider: Types::Ad::Provider[:special],
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
-    # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
+    pixel: 'https://amc.yandex.ru/show?cmn_id=62234&plt_id=229850&crv_id=540021&evt_t=render&ad_type=banner&rnd=%system.random%',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.webp app/assets/images/globals/events/2022-06-18/menu_1.webp
-    # url: 'https://funpay.com/lots/1000/?utm_source=anime_site&utm_medium=referral&utm_campaign=genshin_impact&utm_content=shikimori&utm_term=genesis_crystals&erid=2VtzqxJT7Q8',
+    url: 'https://amc.yandex.ru/show?cmn_id=62234&plt_id=229850&crv_id=540021&evt_t=click&ad_type=banner',
     # images: (1..1).map do |i|
     #   {
-    #     src: "/assets/globals/events/2024-09-06/menu_#{i}.png",
-    #     src_2x: "/assets/globals/events/2024-09-06/menu_#{i}@2x.jpg"
+    #     src: "/assets/globals/events/2024-10-10/menu_#{i}.png",
+    #     src_2x: "/assets/globals/events/2024-10-10/menu_#{i}@2x.jpg"
     #   }
     # end,
     images: [{
-      src: '/assets/globals/events/2024-09-06/menu_1.png',
-      src_2x: '/assets/globals/events/2024-09-06/menu_1@2x.jpg',
-      url: 'https://funpay.com/lots/1000/?utm_source=anime_site&utm_medium=referral&utm_campaign=genshin_impact&utm_content=shikimori&utm_term=genesis_crystals&erid=2VtzqxJT7Q8'
+      src: '/assets/globals/events/2024-10-10/menu_1.png?v2',
+      src_2x: '/assets/globals/events/2024-10-10/menu_1@2x.png'
     }, {
-      src: '/assets/globals/events/2024-09-06/menu_1.png',
-      src_2x: '/assets/globals/events/2024-09-06/menu_1@2x.jpg',
-      url: 'https://funpay.com/lots/2407/?utm_source=anime_site&utm_medium=referral&utm_campaign=zzz&utm_content=shikimori&utm_term=top_up&erid=2VtzqxJT7Q8'
+      src: '/assets/globals/events/2024-10-10/menu_2.png?v2',
+      src_2x: '/assets/globals/events/2024-10-10/menu_2@2x.png'
     }],
     rules: {
       cookie: 'i1_20240325',
@@ -241,23 +239,21 @@ private
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
-    # pixel: 'https://ads.adfox.ru/707246/getCode?p1=cxdxi&p2=frfe&pfc=exzsj&pfb=nqxpb&pr=[RANDOM]&ptrc=b',
+    pixel: 'https://amc.yandex.ru/show?cmn_id=62234&plt_id=229848&crv_id=540017&evt_t=render&ad_type=banner&rnd=%system.random%',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/wide_1@2x.webp app/assets/images/globals/events/2022-06-18/wide_1.webp
-    # url: 'https://funpay.com/lots/2407/?utm_source=anime_site&utm_medium=referral&utm_campaign=honkai_star_rail&utm_content=shikimori&utm_term=top_up&erid=2Vtzqxdgbh6',
+    url: 'https://amc.yandex.ru/show?cmn_id=62234&plt_id=229848&crv_id=540017&evt_t=click&ad_type=banner',
     # images: (1..1).map do |i|
     #   {
-    #     src: "/assets/globals/events/2024-09-06/wide_#{i}.png",
-    #     src_2x: "/assets/globals/events/2024-09-06/wide_#{i}@2x.jpg"
+    #     src: "/assets/globals/events/2024-10-10/wide_#{i}.png",
+    #     src_2x: "/assets/globals/events/2024-10-10/wide_#{i}@2x.jpg"
     #   }
     # end,
     images: [{
-      src: '/assets/globals/events/2024-09-06/wide_1.png',
-      src_2x: '/assets/globals/events/2024-09-06/wide_1@2x.jpg',
-      url: 'https://funpay.com/lots/1000/?utm_source=anime_site&utm_medium=referral&utm_campaign=genshin_impact&utm_content=shikimori&utm_term=genesis_crystals&erid=2Vtzqxdgbh6'
+      src: '/assets/globals/events/2024-10-10/wide_1.png?v2',
+      src_2x: '/assets/globals/events/2024-10-10/wide_1@2x.png'
     }, {
-      src: '/assets/globals/events/2024-09-06/wide_1.png',
-      src_2x: '/assets/globals/events/2024-09-06/wide_1@2x.jpg',
-      url: 'https://funpay.com/lots/2407/?utm_source=anime_site&utm_medium=referral&utm_campaign=zzz&utm_content=shikimori&utm_term=top_up&erid=2Vtzqxdgbh6'
+      src: '/assets/globals/events/2024-10-10/wide_2.png?v2',
+      src_2x: '/assets/globals/events/2024-10-10/wide_2@2x.png'
     }],
     # end,
     # html: (
@@ -290,7 +286,7 @@ private
     provider: Types::Ad::Provider[:special],
     url: 'https://red.lesta.ru/z4essyf1/?&pub_id=adisom_august24_banners_shikimori&erid=2VtzqxJT7Q8',
     images: [{
-      src: '/assets/globals/events/2024-09-06/inner_1.png'
+      src: '/assets/globals/events/2024-10-10/inner_1.png'
       # src_2x: '/assets/globals/events/2024-03-25/wide_2@2x.png',
       # url: 'https://u.to/vXiEIA?erid=2VtzqxJT7Q8' # 'https://www.домовой.ru/film/5235275/?erid=2VtzqxJT7Q8'
     }],
@@ -436,13 +432,13 @@ private
     #   # Types::Ad::Type[:advrtr_240x400]
     # ],
     Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300], # funpay
+      Types::Ad::Type[:special_x300], # saga
       # # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x400]
       # # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300], # funpay
+      Types::Ad::Type[:special_x300], # saga
       # # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600]
       # # Types::Ad::Type[:advrtr_240x400],
@@ -462,7 +458,7 @@ private
       # Types::Ad::Type[:mt_footer_300x250]
     ],
     Types::Ad::Meta[:special_x1170] => [
-      # Types::Ad::Type[:special_x1170] # funpay
+      Types::Ad::Type[:special_x1170] # saga
       # # Types::Ad::Type[:yd_1170x200]
     ]
   }
