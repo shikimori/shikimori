@@ -20,7 +20,7 @@ Apipie.configure do |config|
 
   app_info = <<~MARKDOWN
     ## Welcome to Shikimori API #{version_placeholder}
-    This API has three versions:
+    The API has three versions:
       [**graphql**](/api/doc/graphql),
       outdated [**v2**](/api/doc/2.0.html) and
       outdated [**v1**](/api/doc/1.0.html).
@@ -31,6 +31,10 @@ Apipie.configure do |config|
     **NOTE:** New anime/manga/character/person posters available only in `graphql` API.
 
     API works with `HTTPS` protocol only.
+    <br><br>
+
+    ### Documentation for GraphQL
+    [Click here](/api/doc/graphql).
     <br><br>
 
     #{documentation_placeholder}
@@ -68,28 +72,28 @@ Apipie.configure do |config|
   MARKDOWN
 
   v1_documentation = <<~MARKDOWN
-    ### Documentation for v1
+    ### Documentation for V1
     On this page below.
     <br><br>
 
-    ### Documentation for v2
+    ### Documentation for V2
     [Click here](/api/doc/2.0.html).
     <br><br>
   MARKDOWN
 
   v2_documentation = <<~MARKDOWN
-    ### Documentation for v1
+    ### Documentation for V1
     [Click here](/api/doc/1.0.html).
     <br><br>
 
-    ### Documentation for v2
+    ### Documentation for V2
     On this page below.
     <br><br>
   MARKDOWN
 
   v1_pagination = <<~MARKDOWN
     ### Pagination in API
-    When you request `N` elements from paginated API, you will get `N+1` results if API has next page.
+    When you request `N` elements from paginated API, in most cases you will get `N+1` results if API has next page.
     <br><br>
 
   MARKDOWN
