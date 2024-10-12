@@ -339,9 +339,9 @@ spoiler content
 # Images
 [hr]
 Image
-[img no-zoom 225x317]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img no-zoom width=200]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img]https://kawai.shikimori.one/system/animes/original/38481.jpg?1592053805[/img] [img]https://kawai.shikimori.one/system/users/x160/1.png?1591612283[/img]
+[img no-zoom 225x317]https://desu.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img no-zoom width=200]https://desu.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img]https://desu.shikimori.one/system/animes/original/38481.jpg?1592053805[/img] [img]https://desu.shikimori.one/system/users/x160/1.png?1591612283[/img]
 Poster
-[poster]https://www.ljmu.ac.uk/~/media/ljmu/news/starsedit.jpg[/poster]
+[poster]https://m.media-amazon.com/images/I/81s+jxE5KEL._AC_SL1500_.jpg[/poster]
 
 # Divs and Spans
 [hr]
@@ -389,7 +389,7 @@ Instead use \`[span]\` bbcode [span=b-anime_status_tag anons]as inline element[/
 ### Old Quote
 [quote]Old style quote support[/quote]
 [quote=zxc]Old style quote with nickname[/quote]
-[quote=c1246;1945;Silentium°]Old style quote with user[/quote]
+[quote=c11001285;1;morr]Old style quote with user[/quote]
 
 [spoiler_block=Код is-fullwidth]
 ### Блочный код
@@ -558,5 +558,5 @@ after
 
 # Videos
 [hr]
-[video]https://www.youtube.com/watch?v=0d4rPwIpzNw[/video] [video]https://www.youtube.com/watch?v=00000000000[/video] [video]https://www.youtube.com/watch?v=JyTvVtUr_2g&t=762s[/video] [video]http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi[/video] [video]https://video.sibnet.ru/video305613-SouL_Eater__AMW/[/video] [video]http://vimeo.com/426453510[/video] [video]https://vk.com/video-186803452_456239969[/video] [video]http://vk.com/video98023184_165811692[/video] [video]https://coub.com/view/1itox4[/video] [video]https://ok.ru/video/2444260543117[/video]
+[video]https://www.youtube.com/watch?v=0d4rPwIpzNw[/video] [video]https://www.youtube.com/watch?v=00000000000[/video] [video]https://www.youtube.com/watch?v=JyTvVtUr_2g&t=762s[/video] [video]http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi[/video] [video]https://video.sibnet.ru/video305613-SouL_Eater__AMW/[/video] [video]http://vimeo.com/426453510[/video] [video]https://vk.com/video-186803452_456239969[/video] [video]https://vk.com/video-131324930_456239060[/video] [video]https://coub.com/view/1itox4[/video] [video]https://ok.ru/video/2444260543117[/video]
 `.trim();
