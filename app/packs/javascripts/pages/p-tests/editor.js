@@ -230,27 +230,27 @@ const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES && TEST_DEMO_CONTENT ?
 [spoiler_block=Заголовки is-fullwidth]
 [spoiler_block=Заголовки без подчёркивания is-fullwidth]
 # Заголовок уровень 1
-\`\`\`
+\`\`\`shiki
 # Заголовок уровень 1
 \`\`\`
 
 ## Заголовок уровень 2
-\`\`\`
+\`\`\`shiki
 ## Заголовок уровень 2
 \`\`\`
 
 ### Заголовок уровень 3
-\`\`\`
+\`\`\`shiki
 ### Заголовок уровень 3
 \`\`\`
 
 #### Спец заголовок 1
-\`\`\`
+\`\`\`shiki
 #### Спец заголовок 1
 \`\`\`
 
 ##### Спец заголовок 2
-\`\`\`
+\`\`\`shiki
 ##### Спец заголовок 2
 \`\`\`
 [/spoiler_block]
@@ -258,7 +258,7 @@ const DEMO_CONTENT = IS_LOCAL_SHIKI_PACKAGES && TEST_DEMO_CONTENT ?
 # Черта после заголовка уровень 1
 [hr]
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit lorem, eleifend auctor posuere eget, placerat quis augue. Nunc vitae dui nec lectus eleifend elementum. Duis iaculis quam quis mi ullamcorper, eget consequat felis finibus. Phasellus scelerisque lacus egestas, fermentum purus sit amet, mattis neque. Fusce non lorem malesuada, feugiat urna id, molestie diam. Vestibulum a turpis quis nulla pharetra posuere eu ac elit. Sed vitae felis venenatis, tempor magna at, efficitur ipsum.
-\`\`\`
+\`\`\`shiki
 # Черта после заголовка уровень 1
 [hr]
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit lorem, eleifend auctor posuere eget, placerat quis augue. Nunc vitae dui nec lectus eleifend elementum. Duis iaculis quam quis mi ullamcorper, eget consequat felis finibus. Phasellus scelerisque lacus egestas, fermentum purus sit amet, mattis neque. Fusce non lorem malesuada, feugiat urna id, molestie diam. Vestibulum a turpis quis nulla pharetra posuere eu ac elit. Sed vitae felis venenatis, tempor magna at, efficitur ipsum.
@@ -267,7 +267,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit lorem, eleif
 ## Черта после заголовка уровень 2
 [hr]
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit lorem, eleifend auctor posuere eget, placerat quis augue. Nunc vitae dui nec lectus eleifend elementum. Duis iaculis quam quis mi ullamcorper, eget consequat felis finibus. Phasellus scelerisque lacus egestas, fermentum purus sit amet, mattis neque. Fusce non lorem malesuada, feugiat urna id, molestie diam. Vestibulum a turpis quis nulla pharetra posuere eu ac elit. Sed vitae felis venenatis, tempor magna at, efficitur ipsum.
-\`\`\`
+\`\`\`shiki
 ## Черта после заголовка уровень 2
 [hr]
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit lorem, eleifend auctor posuere eget, placerat quis augue. Nunc vitae dui nec lectus eleifend elementum. Duis iaculis quam quis mi ullamcorper, eget consequat felis finibus. Phasellus scelerisque lacus egestas, fermentum purus sit amet, mattis neque. Fusce non lorem malesuada, feugiat urna id, molestie diam. Vestibulum a turpis quis nulla pharetra posuere eu ac elit. Sed vitae felis venenatis, tempor magna at, efficitur ipsum.
@@ -276,7 +276,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit lorem, eleif
 ### Черта после заголовка уровень 3
 [hr]
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit lorem, eleifend auctor posuere eget, placerat quis augue. Nunc vitae dui nec lectus eleifend elementum. Duis iaculis quam quis mi ullamcorper, eget consequat felis finibus. Phasellus scelerisque lacus egestas, fermentum purus sit amet, mattis neque. Fusce non lorem malesuada, feugiat urna id, molestie diam. Vestibulum a turpis quis nulla pharetra posuere eu ac elit. Sed vitae felis venenatis, tempor magna at, efficitur ipsum.
-\`\`\`
+\`\`\`shiki
 ### Черта после заголовка уровень 3
 [hr]
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit lorem, eleifend auctor posuere eget, placerat quis augue. Nunc vitae dui nec lectus eleifend elementum. Duis iaculis quam quis mi ullamcorper, eget consequat felis finibus. Phasellus scelerisque lacus egestas, fermentum purus sit amet, mattis neque. Fusce non lorem malesuada, feugiat urna id, molestie diam. Vestibulum a turpis quis nulla pharetra posuere eu ac elit. Sed vitae felis venenatis, tempor magna at, efficitur ipsum.
@@ -367,7 +367,7 @@ Poster
 
 div [div=b-link_button]inline divs are not parsed by editor[/div] div
 Instead use \`[span]\` bbcode [span=b-anime_status_tag anons]as inline element[/span]
-\`\`\`
+\`\`\`shiki
 Instead use \`[span]\` bbcode [span=b-anime_status_tag anons]as inline element[/span]
 \`\`\`
 
@@ -393,7 +393,7 @@ Instead use \`[span]\` bbcode [span=b-anime_status_tag anons]as inline element[/
 
 [spoiler_block=Код is-fullwidth]
 ### Блочный код
-\`\`\`
+\`\`\`shiki
 code block
 \`\`\`
 \`\`\`css
@@ -408,7 +408,7 @@ code block
 [div=c-column m0]
 before
 
-\`\`\`
+\`\`\`shiki
 123
 456
 \`\`\`
@@ -417,13 +417,13 @@ after
 [/div]
 [div=c-column m0]
 before
-\`\`\`
+\`\`\`shiki
 123
 456
 \`\`\`
 [/div]
 [div=c-column m0]
-\`\`\`
+\`\`\`shiki
 123
 456
 \`\`\`
@@ -431,7 +431,7 @@ after
 [/div]
 [div=c-column m0]
 before
-\`\`\`
+\`\`\`shiki
 123
 456
 \`\`\`
