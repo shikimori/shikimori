@@ -4537,13 +4537,12 @@
         franchise: re_zero
         not_anime_ids:
         - 33142
-        - 33569
         - 38389
         - 39921
         - 41590
-        - 42364
         - 42776
-      :threshold: 98%
+        - 60012
+      :threshold: 93.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :re_zero
@@ -5962,6 +5961,7 @@
         - 51060
         - 54171
         - 56442
+        - 60048
       :threshold: 96.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -12563,6 +12563,7 @@
         - 35077
         - 38676
         - 42748
+        - 58495
       :threshold: 95%
       :generator: &636
         ignore_latest_ids:
@@ -23171,6 +23172,7 @@
       :filters: &1176
         genre_v2_ids:
         - 10
+        - 197
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
   default_values: *4
   neko_id: :fantasy
@@ -26911,6 +26913,7 @@
         - 56674
         - 57960
         - 58173
+        - 60046
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *4
   neko_id: :mahou_shoujo
@@ -27788,6 +27791,9 @@
           - 54758
           - 55102
           - 54839
+          - 57217
+          - 57380
+          - 58985
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *4
   neko_id: :moe
@@ -31494,6 +31500,20 @@
         - 36049
         - 54714
         - 33031
+        - 55749
+        - 48418
+        - 52196
+        - 54309
+        - 55774
+        - 53488
+        - 53889
+        - 54829
+        - 53632
+        - 54275
+        - 53833
+        - 53237
+        - 57567
+        - 51498
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *4
   neko_id: :tsundere
