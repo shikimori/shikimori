@@ -70,34 +70,35 @@ module Shikimori
 
   IGNORED_EXCEPTIONS = %w[
     AbstractController::ActionNotFound
+    ActionController::BadRequest
     ActionController::InvalidAuthenticityToken
     ActionController::ParameterMissing
     ActionController::RoutingError
     ActionController::UnknownFormat
     ActionController::UnknownHttpMethod
-    ActionController::BadRequest
+    ActionDispatch::Http::MimeNegotiation::InvalidType
     ActionDispatch::RemoteIp::IpSpoofAttackError
     ActiveRecord::PreparedStatementCacheExpired
     ActiveRecord::RecordNotFound
-    CanCan::AccessDenied
-    I18n::InvalidLocale
-    Unicorn::ClientShutdown
     AgeRestricted
-    RknBanned
-    MismatchedEntries
-    InvalidEpisodesError
-    CopyrightedResource
-    Net::SMTPServerBusy
-    Net::SMTPFatalError
-    Interrupt
     Apipie::ParamMissing
+    CanCan::AccessDenied
+    CopyrightedResource
+    EmptyContentError
+    Errors::NotIdentifiedByImageMagickError
+    I18n::InvalidLocale
+    Interrupt
+    InvalidEpisodesError
     InvalidIdError
     InvalidParameterError
-    EmptyContentError
     MalParser::RecordNotFound
-    Errors::NotIdentifiedByImageMagickError
+    MismatchedEntries
+    Net::SMTPFatalError
+    Net::SMTPServerBusy
+    RknBanned
     Sidekiq::Shutdown
     Terrapin::ExitStatusError
+    Unicorn::ClientShutdown
   ]
 
   IS_SUMMARIES_ENABLED = !Rails.env.production?
