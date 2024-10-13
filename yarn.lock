@@ -5664,9 +5664,9 @@ shiki-decorators@^1.0.1:
     memoize-decorator "^1.0.2"
 
 shiki-editor@^2.7.3:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-2.8.0.tgz#f3722cc7c81647c301c97bd3a2d47d1a6e737e60"
-  integrity sha512-n9j6xx1gN1zkDojjlx+Eg6W7SqIa/4AJVBriGQ32oAE8/RL9ay4toSr07Uh/qjdwRDelxY8jYO4A4BPpYfIUkQ==
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/shiki-editor/-/shiki-editor-2.9.0.tgz#959b587f7af137b16ddc62722434d0e9cd6adbf7"
+  integrity sha512-9OxiL8f9kNQT+KsxknN5iEgfMplEeLa0mjeCwlx+jwJYhfAFLKxwWqXZmv7J6fV3bQr97CyTenSDaHHIqXOz9Q==
   dependencies:
     "@morr/withinviewport" "2.1.3-1"
     "@popperjs/core" "^2.11.5"
