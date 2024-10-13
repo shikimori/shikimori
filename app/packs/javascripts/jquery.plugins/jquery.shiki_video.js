@@ -56,6 +56,7 @@ $.fn.extend({
 
       const $link = $root.find('.video-link');
       // const isSpecialCoub = $root.hasClass('b-coub');
+      const isYoutubeShorts = $root.hasClass('youtube_shorts');
 
       $link.magnificPopup({
         preloader: false,
@@ -63,7 +64,7 @@ $.fn.extend({
         iframe: {
           // HTML markup of popup, `mfp-close` will be replaced by the close button
           markup: `
-            <div class='mfp-iframe-scaler'>
+            <div class='mfp-iframe-scaler${isYoutubeShorts ? ' youtube-shorts' : ''}'>
               <div class="mfp-close"></div>
               <iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>
             </div>

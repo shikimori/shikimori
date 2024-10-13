@@ -54,3 +54,22 @@
     &:hover
       .mfp-close
         opacity: 1
+
+.mfp-iframe-scaler.youtube-shorts
+  height: #{560px + 44px} // igrame height + close button container height
+  width: 315px
+
+  iframe
+    left: 50%
+    transform: translateX(-50%)
+    height: 560px
+    width: 315px
+
+  .mfp-close
+    +iphone
+
+    +ipad
+      right: 238px
+
+    +gte_laptop
+      right: 285px
