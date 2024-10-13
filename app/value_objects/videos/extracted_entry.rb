@@ -1,6 +1,6 @@
 Videos::ExtractedEntry = Struct.new(
   :hosting,
-  :format,
+  :ratio,
   :image_url,
   :player_url,
   :normalized_url

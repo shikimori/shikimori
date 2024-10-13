@@ -25,6 +25,15 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
       youtube\.com/(?:embed|v)/
       (?<key>[\w_-]+)
       (?:\?start=(?<time>\w+))?
+
+      |
+
+      youtube.com/(?<shorts>shorts)/
+      (?<key>[\w_-]+)
+      (?:
+        [?&]
+        [\w_-]+(?:=[\w_-]+)?
+      )*
     )
   }xi
 
@@ -34,8 +43,12 @@ private
     false
   end
 
+  def extract_ratio url
+    url.include?('/shorts/') ? Types::Video::Ratio[:'9x16'] : super
+  end
+
   def extract_image_url match
-    "//img.youtube.com/vi/#{match[:key]}/hqdefault.jpg"
+    "//img.youtube.com/vi/#{match[:key]}/#{match[:shorts] ? :oardefault : :hqdefault}.jpg"
   end
 
   def extract_player_url match

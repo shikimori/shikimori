@@ -54,13 +54,13 @@ describe Video do
       subject { video }
 
       context 'valid url' do
-        let(:video) { build :video, url: url }
+        let(:video) { build :video, url: }
         before { video.save }
         it { is_expected.to be_persisted }
       end
 
       context 'invalid url' do
-        let(:video) { build :video, url: url }
+        let(:video) { build :video, url: }
         before { video.save }
 
         describe 'bad youtube url' do
@@ -89,7 +89,7 @@ describe Video do
       let(:clean_url) { 'https://youtu.be/VdwKZ6JDENc' }
 
       context 'valid url' do
-        let(:video) { create(:video, url: url) }
+        let(:video) { create(:video, url:) }
         subject { video.url }
 
         describe 'https' do
@@ -146,7 +146,7 @@ describe Video do
       let(:clean_url) { 'https://vk.com/video98023184_165811692' }
 
       context 'valid url' do
-        let(:video) { build :video, url: url }
+        let(:video) { build :video, url: }
         subject { video.url }
 
         describe 'https' do

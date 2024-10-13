@@ -18,6 +18,7 @@ describe VideoExtractor::YoutubeExtractor do
         it do
           is_expected.to have_attributes(
             hosting: :youtube,
+
             image_url: '//img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg',
             player_url: '//youtube.com/embed/VdwKZ6JDENc',
             normalized_url: 'https://youtu.be/VdwKZ6JDENc'
@@ -32,6 +33,7 @@ describe VideoExtractor::YoutubeExtractor do
         it do
           is_expected.to have_attributes(
             hosting: :youtube,
+            ratio: Types::Video::Ratio[:default],
             image_url: '//img.youtube.com/vi/n5qqfOXRRaA/hqdefault.jpg',
             player_url: '//youtube.com/embed/n5qqfOXRRaA?start=3m3s',
             normalized_url: 'https://youtu.be/n5qqfOXRRaA'
@@ -46,6 +48,7 @@ describe VideoExtractor::YoutubeExtractor do
         it do
           is_expected.to have_attributes(
             hosting: :youtube,
+            ratio: Types::Video::Ratio[:default],
             image_url: '//img.youtube.com/vi/paezRkeNr5Q/hqdefault.jpg',
             player_url: '//youtube.com/embed/paezRkeNr5Q?start=3m3s',
             normalized_url: 'https://youtu.be/paezRkeNr5Q'
@@ -60,6 +63,7 @@ describe VideoExtractor::YoutubeExtractor do
         it do
           is_expected.to have_attributes(
             hosting: :youtube,
+            ratio: Types::Video::Ratio[:default],
             image_url: '//img.youtube.com/vi/paezRkeNr5Q/hqdefault.jpg',
             player_url: '//youtube.com/embed/paezRkeNr5Q?start=5s',
             normalized_url: 'https://youtu.be/paezRkeNr5Q'
@@ -79,6 +83,7 @@ describe VideoExtractor::YoutubeExtractor do
         it do
           is_expected.to have_attributes(
             hosting: :youtube,
+            ratio: Types::Video::Ratio[:default],
             image_url: '//img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg',
             player_url: '//youtube.com/embed/VdwKZ6JDENc?start=123',
             normalized_url: 'https://youtu.be/VdwKZ6JDENc'
@@ -128,6 +133,21 @@ describe VideoExtractor::YoutubeExtractor do
             end
           end
         end
+      end
+
+      context 'shorts' do
+        let(:url) { 'https://youtube.com/shorts/yFg1-tIfvjc?si=6VLqJBX6zoeXrja2' }
+
+        it do
+          is_expected.to have_attributes(
+            hosting: :youtube,
+            ratio: Types::Video::Ratio[:'9x16'],
+            image_url: '//img.youtube.com/vi/yFg1-tIfvjc/oardefault.jpg',
+            player_url: '//youtube.com/embed/yFg1-tIfvjc',
+            normalized_url: 'https://youtu.be/yFg1-tIfvjc'
+          )
+        end
+        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
     end
 
