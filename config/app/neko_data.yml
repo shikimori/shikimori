@@ -6086,6 +6086,7 @@
         - 246
         - 11511
         - 12121
+        - 60063
       :threshold: 95.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -26239,6 +26240,20 @@
         - 79
         - 29803
         - 52991
+        - 56165
+        - 57099
+        - 57217
+        - 53865
+        - 51180
+        - 54744
+        - 56738
+        - 53488
+        - 48418
+        - 55357
+        - 56063
+        - 52196
+        - 53439
+        - 53200
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *4
   neko_id: :kuudere
