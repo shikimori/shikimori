@@ -25,9 +25,9 @@ class BbCodes::Tags::Html5VideoTag
 
 private
 
-  def html_tag url
+  def html_tag url # rubocop:disable Metrics/MethodLength
     webm_video = Retryable.retryable(RETRY_OPTIONS) do
-      WebmVideo.find_or_create_by url: url
+      WebmVideo.find_or_create_by(url:)
     end
 
     <<-HTML.squish

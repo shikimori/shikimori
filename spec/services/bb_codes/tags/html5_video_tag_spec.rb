@@ -9,7 +9,7 @@ describe BbCodes::Tags::Html5VideoTag do
     expect(WebmVideo).to have(1).item
     expect(webm_video).to have_attributes(
       state: 'pending',
-      url: url
+      url:
     )
     expect(html).to eq <<-HTML.squish
       <div class="b-video fixed">
