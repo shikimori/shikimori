@@ -1,14 +1,14 @@
 describe Search::Character do
   before do
     allow(Elasticsearch::Query::Character).to receive(:call)
-      .with(phrase: phrase, limit: ids_limit)
+      .with(phrase:, limit: ids_limit)
       .and_return(
         character_3.id => 9,
         character_1.id => 8
       )
   end
 
-  subject { described_class.call scope: scope, phrase: phrase, ids_limit: ids_limit }
+  subject { described_class.call scope:, phrase:, ids_limit: }
 
   let(:scope) { Character.all }
   let(:phrase) { 'Kaichou' }

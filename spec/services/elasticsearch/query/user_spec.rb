@@ -4,7 +4,7 @@ describe Elasticsearch::Query::User, :vcr do
   include_context :chewy_indexes, %i[users]
   # include_context :chewy_logger
 
-  subject { described_class.call phrase: phrase, limit: ids_limit }
+  subject { described_class.call phrase:, limit: ids_limit }
 
   let!(:user_1) { create :user, nickname: 'test' }
   let!(:user_2) { create :user, nickname: 'test zxct' }

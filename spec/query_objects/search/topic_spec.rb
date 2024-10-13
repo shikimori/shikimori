@@ -2,16 +2,16 @@ describe Search::Topic do
   before do
     allow(Elasticsearch::Query::Topic)
       .to receive(:call)
-      .with(phrase: phrase, limit: ids_limit, forum_id: forum_id)
+      .with(phrase:, limit: ids_limit, forum_id:)
       .and_return results
   end
 
   subject do
     described_class.call(
-      scope: scope,
-      phrase: phrase,
-      forum_id: forum_id,
-      ids_limit: ids_limit
+      scope:,
+      phrase:,
+      forum_id:,
+      ids_limit:
     )
   end
 

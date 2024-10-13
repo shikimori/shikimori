@@ -4,7 +4,7 @@ describe Elasticsearch::Query::Anime, :vcr do
   include_context :chewy_indexes, %i[animes]
   # include_context :chewy_logger
 
-  subject { described_class.call phrase: phrase, limit: ids_limit }
+  subject { described_class.call phrase:, limit: ids_limit }
 
   let!(:anime_1) { create :anime, name: 'test', russian: 'аа' }
   let!(:anime_2) { create :anime, name: 'test zxct', russian: 'аа' }

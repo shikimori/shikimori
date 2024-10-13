@@ -1,20 +1,14 @@
 describe Search::Ranobe do
   before do
     allow(Elasticsearch::Query::Ranobe).to receive(:call)
-      .with(phrase: phrase, limit: ids_limit)
+      .with(phrase:, limit: ids_limit)
       .and_return(
         ranobe_3.id => 9,
         ranobe_1.id => 8
       )
   end
 
-  subject do
-    described_class.call(
-      scope: scope,
-      phrase: phrase,
-      ids_limit: ids_limit
-    )
-  end
+  subject { described_class.call scope:, phrase:, ids_limit: }
 
   let(:scope) { Ranobe.all }
   let(:phrase) { 'Kaichou' }

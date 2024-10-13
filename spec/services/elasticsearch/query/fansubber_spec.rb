@@ -5,11 +5,7 @@ describe Elasticsearch::Query::Fansubber, :vcr do
   # include_context :chewy_logger
 
   subject do
-    described_class.call(
-      phrase: phrase,
-      limit: ids_limit,
-      kind: kind
-    )
+    described_class.call phrase:, limit: ids_limit, kind:
   end
 
   let!(:anime_1) do

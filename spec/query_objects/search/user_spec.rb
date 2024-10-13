@@ -2,11 +2,11 @@ describe Search::User do
   before do
     allow(Elasticsearch::Query::User)
       .to receive(:call)
-      .with(phrase: phrase, limit: ids_limit)
+      .with(phrase:, limit: ids_limit)
       .and_return results
   end
 
-  subject { described_class.call scope: scope, phrase: phrase, ids_limit: ids_limit }
+  subject { described_class.call scope:, phrase:, ids_limit: }
 
   let(:scope) { User.all }
   let(:phrase) { 'zxct' }

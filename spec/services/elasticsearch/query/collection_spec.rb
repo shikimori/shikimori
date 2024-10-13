@@ -4,7 +4,7 @@ describe Elasticsearch::Query::Collection, :vcr do
   include_context :chewy_indexes, %i[collections]
   # include_context :chewy_logger
 
-  subject { described_class.call phrase: phrase, limit: ids_limit }
+  subject { described_class.call phrase:, limit: ids_limit }
 
   let!(:collection_1) { create :collection, name: 'test' }
   let!(:collection_2) { create :collection, name: 'test zxct' }

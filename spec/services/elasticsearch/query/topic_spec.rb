@@ -6,17 +6,17 @@ describe Elasticsearch::Query::Topic, :vcr do
 
   subject do
     described_class.call(
-      phrase: phrase,
+      phrase:,
       limit: ids_limit,
-      forum_id: forum_id
+      forum_id:
     )
   end
 
   let!(:topic_1) do
-    create :topic, title: 'test', forum_id: forum_id
+    create :topic, title: 'test', forum_id:
   end
   let!(:topic_2) do
-    create :topic, title: 'test zxct', forum_id: forum_id
+    create :topic, title: 'test zxct', forum_id:
   end
   let!(:topic_4) do
     create :topic,

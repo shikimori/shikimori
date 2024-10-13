@@ -6,11 +6,11 @@ describe Elasticsearch::Query::Person, :vcr do
 
   subject do
     described_class.call(
-      phrase: phrase,
+      phrase:,
       limit: ids_limit,
-      is_mangaka: is_mangaka,
-      is_seyu: is_seyu,
-      is_producer: is_producer
+      is_mangaka:,
+      is_seyu:,
+      is_producer:
     )
   end
 
@@ -18,9 +18,9 @@ describe Elasticsearch::Query::Person, :vcr do
     create :person,
       name: 'test',
       russian: 'аа',
-      is_mangaka: is_mangaka,
-      is_seyu: is_seyu,
-      is_producer: is_producer
+      is_mangaka:,
+      is_seyu:,
+      is_producer:
   end
   let!(:person_2) { create :person, name: 'test zxct', russian: 'аа' }
 

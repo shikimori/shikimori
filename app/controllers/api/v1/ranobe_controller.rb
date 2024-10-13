@@ -117,7 +117,7 @@ class Api::V1::RanobeController < Api::V1::MangasController
         klass: Ranobe,
         filters: params,
         user: current_user,
-        limit: limit
+        limit:
       ).collection
     end
 

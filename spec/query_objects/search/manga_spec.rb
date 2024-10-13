@@ -1,9 +1,9 @@
 describe Search::Manga do
-  subject { described_class.call scope: scope, phrase: phrase, ids_limit: ids_limit }
+  subject { described_class.call scope:, phrase:, ids_limit: }
 
   before do
     allow(Elasticsearch::Query::Manga).to receive(:call)
-      .with(phrase: phrase, limit: ids_limit)
+      .with(phrase:, limit: ids_limit)
       .and_return(
         manga_3.id => 9,
         manga_1.id => 8

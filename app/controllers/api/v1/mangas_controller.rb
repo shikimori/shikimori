@@ -173,7 +173,7 @@ class Api::V1::MangasController < Api::V1Controller # rubocop:disable ClassLengt
         klass: Manga,
         filters: params,
         user: current_user,
-        limit: limit
+        limit:
       ).collection
     end
 

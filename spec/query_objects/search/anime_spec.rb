@@ -1,16 +1,14 @@
 describe Search::Anime do
   before do
     allow(Elasticsearch::Query::Anime).to receive(:call)
-      .with(phrase: phrase, limit: ids_limit)
+      .with(phrase:, limit: ids_limit)
       .and_return(
         anime_3.id => 9,
         anime_1.id => 8
       )
   end
 
-  subject do
-    described_class.call scope: scope, phrase: phrase, ids_limit: ids_limit
-  end
+  subject { described_class.call scope:, phrase:, ids_limit: }
 
   let(:scope) { Anime.all }
   let(:phrase) { 'Kaichou' }

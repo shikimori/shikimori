@@ -2,17 +2,11 @@ describe Search::Fansubber do
   before do
     allow(Elasticsearch::Query::Fansubber)
       .to receive(:call)
-      .with(phrase: phrase, limit: ids_limit, kind: kind)
+      .with(phrase:, limit: ids_limit, kind:)
       .and_return results
   end
 
-  subject do
-    described_class.call(
-      phrase: phrase,
-      ids_limit: ids_limit,
-      kind: kind
-    )
-  end
+  subject { described_class.call phrase:, ids_limit:, kind: }
 
   let(:phrase) { 'zxct' }
   let(:ids_limit) { 2 }

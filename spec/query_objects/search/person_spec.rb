@@ -2,11 +2,11 @@ describe Search::Person do
   before do
     allow(Elasticsearch::Query::Person).to receive(:call)
       .with(
-        phrase: phrase,
+        phrase:,
         limit: ids_limit,
-        is_mangaka: is_mangaka,
-        is_producer: is_producer,
-        is_seyu: is_seyu
+        is_mangaka:,
+        is_producer:,
+        is_seyu:
       )
       .and_return(
         person_3.id => 9,
@@ -16,12 +16,12 @@ describe Search::Person do
 
   subject do
     described_class.call(
-      scope: scope,
-      phrase: phrase,
-      ids_limit: ids_limit,
-      is_mangaka: is_mangaka,
-      is_seyu: is_seyu,
-      is_producer: is_producer
+      scope:,
+      phrase:,
+      ids_limit:,
+      is_mangaka:,
+      is_seyu:,
+      is_producer:
     )
   end
 

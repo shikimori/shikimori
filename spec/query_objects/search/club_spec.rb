@@ -2,17 +2,11 @@ describe Search::Club do
   before do
     allow(Elasticsearch::Query::Club)
       .to receive(:call)
-      .with(phrase: phrase, limit: ids_limit)
+      .with(phrase:, limit: ids_limit)
       .and_return results
   end
 
-  subject do
-    described_class.call(
-      scope: scope,
-      phrase: phrase,
-      ids_limit: ids_limit
-    )
-  end
+  subject { described_class.call scope:, phrase:, ids_limit: }
 
   let(:scope) { Club.all }
   let(:phrase) { 'zxct' }

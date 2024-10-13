@@ -4,7 +4,7 @@ describe Elasticsearch::Query::Club, :vcr do
   include_context :chewy_indexes, %i[clubs]
   # include_context :chewy_logger
 
-  subject { described_class.call phrase: phrase, limit: ids_limit }
+  subject { described_class.call phrase:, limit: ids_limit }
 
   let!(:club_1) { create :club, name: 'test' }
   let!(:club_2) { create :club, name: 'test zxct' }
