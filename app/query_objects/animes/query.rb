@@ -12,7 +12,8 @@ class Animes::Query < QueryObjectBase
     params:,
     user:,
     is_apply_excludes: true,
-    is_apply_order: true
+    is_apply_order: true,
+    is_mangas_ranobe: false
   )
     new_scope = new(scope.respond_to?(:to_a) ? scope : scope.all)
       .by_achievement(params[:achievement])
@@ -45,7 +46,7 @@ class Animes::Query < QueryObjectBase
     end
 
     if search_term.present?
-      new_scope.search search_term
+      new_scope.search search_term, is_mangas_ranobe
     elsif is_apply_order
       new_scope.order_by params[:order]
     else
@@ -175,13 +176,19 @@ class Animes::Query < QueryObjectBase
     chain Animes::Filters::OrderBy.call(@scope, value)
   end
 
-  def search value
+  def search value, is_mangas_ranobe = false
     return self if value.blank?
 
-    chain "Search::#{@scope.name}".constantize.call(
-      scope: @scope.all,
-      phrase: value,
-      ids_limit: SEARCH_IDS_LIMIT
+    chain(
+      (
+        is_mangas_ranobe ?
+          Search::MangaRanobe :
+          "Search::#{@scope.name}".constantize
+      ).call(
+        scope: @scope.all,
+        phrase: value,
+        ids_limit: SEARCH_IDS_LIMIT
+      )
     )
   end
 

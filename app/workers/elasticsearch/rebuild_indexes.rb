@@ -10,6 +10,7 @@ class Elasticsearch::RebuildIndexes
     AnimesIndex.reset!
     MangasIndex.reset!
     RanobeIndex.reset!
+    MangasRanobeIndex.reset!
     PeopleIndex.reset!
     CharactersIndex.reset!
     TopicsIndex.reset!

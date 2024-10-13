@@ -677,4 +677,120 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"shikimori_test_fansubbers":{"aliases":{}}}'
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
-recorded_with: VCR 6.0.0
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_mangas_ranobe
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 3.2.5; darwin arm64; Faraday v1.10.3)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '13415'
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_mangas_ranobe/manga/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test","russian":"аа","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"synonyms_6":null,"synonyms_7":null,"synonyms_8":null,"license_name_ru":null}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 3.2.5; darwin arm64; Faraday v1.10.3)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '259'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":57,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas_ranobe","_type":"manga","_id":"1","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":4,"_primary_term":1,"status":200}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_mangas_ranobe
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 3.2.5; darwin arm64; Faraday v1.10.3)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '13415'
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_mangas_ranobe/manga/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct","russian":"аа","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"synonyms_6":null,"synonyms_7":null,"synonyms_8":null,"license_name_ru":null}
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.6.0 (RUBY_VERSION: 3.2.5; darwin arm64; Faraday v1.10.3)'
+      Content-Type:
+      - application/x-ndjson
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '259'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":37,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas_ranobe","_type":"manga","_id":"2","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":5,"_primary_term":1,"status":200}}]}'
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+recorded_with: VCR 6.3.1

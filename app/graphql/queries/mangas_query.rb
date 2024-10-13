@@ -90,7 +90,8 @@ class Queries::MangasQuery < Queries::BaseQuery
           exclude_ids:,
           search:
         },
-        user: current_user
+        user: current_user,
+        is_mangas_ranobe: true
       )
       .paginate(page, limit.to_i.clamp(1, LIMIT))
       .to_a

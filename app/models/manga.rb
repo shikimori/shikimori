@@ -26,6 +26,15 @@ class Manga < DbEntry
     end
   end
 
+  update_index('mangas_ranobe#manga') do
+    if saved_change_to_name? || saved_change_to_russian? ||
+        saved_change_to_english? || saved_change_to_japanese? ||
+        saved_change_to_synonyms? || saved_change_to_score? ||
+        saved_change_to_kind?
+      self
+    end
+  end
+
   update_index('licensors#licensor') do
     if saved_change_to_licensors?
       added = licensors

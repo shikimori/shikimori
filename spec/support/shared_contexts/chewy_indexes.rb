@@ -14,6 +14,11 @@ shared_context :chewy_indexes do |indexes|
       MangasIndex.purge!
       LicensorsIndex.purge!
       FansubbersIndex.purge!
+    elsif (%i[manga_ranobe] & Array(indexes)).any?
+      ActiveRecord::Base.connection.reset_pk_sequence! :mangas
+      MangasRanobeIndex.purge!
+      LicensorsIndex.purge!
+      FansubbersIndex.purge!
     elsif (%i[ranobe] & Array(indexes)).any?
       ActiveRecord::Base.connection.reset_pk_sequence! :mangas
       RanobeIndex.purge!
