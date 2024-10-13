@@ -65,7 +65,9 @@ private
   #   false
   # end
 
-  def normalize_matched_url _url, match
-    "https://youtu.be/#{match[:key]}"
+  def normalize_matched_url url, match
+    url.include?('/shorts/') ?
+      "https://www.youtube.com/shorts/#{match[:key]}" :
+      "https://youtu.be/#{match[:key]}"
   end
 end
