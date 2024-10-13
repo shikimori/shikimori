@@ -43,6 +43,7 @@ class VideoExtractor::BaseExtractor
 
     Videos::ExtractedEntry.new(
       extract_hosting(url),
+      extract_format(url),
       extract_image_url(match),
       extract_player_url(match),
       normalize_matched_url(url, match)
@@ -81,6 +82,7 @@ private
     if data.present?
       entry = Videos::ExtractedEntry.new(
         extract_hosting(url),
+        extract_format(url),
         extract_image_url(data),
         extract_player_url(data),
         url
@@ -102,8 +104,12 @@ private
       .name
       .to_underscore
       .sub(/.*::_?/, '')
-      .sub(/_extractor/, '')
+      .sub('_extractor', '')
       .to_sym
+  end
+
+  def extract_format _url
+    Types::Video::Format[:default]
   end
 
   def normalize_matched_url url, _match

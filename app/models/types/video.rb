@@ -17,6 +17,7 @@ module Types
       other
       episode_preview
     ]
+    FORMATS = %i[default x9_16]
 
     Hosting = Types::Strict::Symbol
       .constructor(&:to_sym)
@@ -28,5 +29,8 @@ module Types
     State = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(:uploaded, :confirmed, :deleted)
+    Format = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(*FORMATS)
   end
 end
