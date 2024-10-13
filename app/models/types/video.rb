@@ -1,7 +1,7 @@
 module Types
   module Video
     HOSTINGS = %i[
-      youtube shorts vk ok coub rutube vimeo sibnet yandex
+      youtube youtube_shorts vk ok coub rutube vimeo sibnet yandex
       streamable smotret_anime myvi youmite viuly stormo
       mediafile
     ]
@@ -17,7 +17,6 @@ module Types
       other
       episode_preview
     ]
-    RATIOS = %i[default 9x16]
 
     Hosting = Types::Strict::Symbol
       .constructor(&:to_sym)
@@ -29,8 +28,5 @@ module Types
     State = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(:uploaded, :confirmed, :deleted)
-    Ratio = Types::Strict::Symbol
-      .constructor(&:to_sym)
-      .enum(*RATIOS)
   end
 end

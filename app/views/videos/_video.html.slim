@@ -1,5 +1,5 @@
 .c-video.b-video.unprocessed[
-  class="#{video.hosting} ratio-#{video.ratio} #{"entry-#{video_counter+1}" if defined? video_counter} #{:fixed unless defined? video_counter}"
+  class="#{video.hosting} #{"entry-#{video_counter+1}" if defined? video_counter} #{:fixed unless defined? video_counter}"
 ]
   - if defined? edition
     .mobile-edit
@@ -34,4 +34,4 @@
     - if defined?(video_counter) || defined?(show_kind)
       = video.kind_text
     - else
-      = video.hosting
+      = video.hosting.gsub('youtube_shorts', 'shorts')

@@ -40,8 +40,6 @@ class Video < ApplicationRecord
     )
   }
 
-  attr_reader :ratio
-
   YOUTUBE_PARAM_REGEXP = /(?:&|\?)v=(.*?)(?:&|$)/
   VK_PARAM_REGEXP = %r{https?://vk.com/video-?(\d+)_(\d+)}
 
@@ -80,7 +78,6 @@ class Video < ApplicationRecord
     self.hosting = data&.hosting
     self.image_url = data&.image_url
     self.player_url = data&.player_url
-    @ratio = data&.ratio
     self[:url] = data.normalized_url if data&.normalized_url
 
     self[:url]

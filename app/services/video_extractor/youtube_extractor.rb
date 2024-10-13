@@ -44,11 +44,7 @@ private
   end
 
   def extract_hosting url
-    url.include?('/shorts/') ? Types::Video::Hosting[:shorts] : super
-  end
-
-  def extract_ratio url
-    url.include?('/shorts/') ? Types::Video::Ratio[:'9x16'] : super
+    url.include?('/shorts/') ? Types::Video::Hosting[:youtube_shorts] : super
   end
 
   def extract_image_url match

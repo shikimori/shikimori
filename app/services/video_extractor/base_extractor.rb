@@ -43,7 +43,6 @@ class VideoExtractor::BaseExtractor
 
     Videos::ExtractedEntry.new(
       extract_hosting(url),
-      extract_ratio(url),
       extract_image_url(match),
       extract_player_url(match),
       normalize_matched_url(url, match)
@@ -82,7 +81,6 @@ private
     if data.present?
       entry = Videos::ExtractedEntry.new(
         extract_hosting(url),
-        extract_ratio(url),
         extract_image_url(data),
         extract_player_url(data),
         url
@@ -106,10 +104,6 @@ private
       .sub(/.*::_?/, '')
       .sub('_extractor', '')
       .to_sym
-  end
-
-  def extract_ratio _url
-    Types::Video::Ratio[:default]
   end
 
   def normalize_matched_url url, _match
