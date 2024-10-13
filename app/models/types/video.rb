@@ -1,7 +1,7 @@
 module Types
   module Video
     HOSTINGS = %i[
-      youtube vk ok coub rutube vimeo sibnet yandex
+      youtube shorts vk ok coub rutube vimeo sibnet yandex
       streamable smotret_anime myvi youmite viuly stormo
       mediafile
     ]

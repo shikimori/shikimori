@@ -18,7 +18,7 @@ describe VideoExtractor::YoutubeExtractor do
         it do
           is_expected.to have_attributes(
             hosting: :youtube,
-
+            ratio: Types::Video::Ratio[:default],
             image_url: '//img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg',
             player_url: '//youtube.com/embed/VdwKZ6JDENc',
             normalized_url: 'https://youtu.be/VdwKZ6JDENc'
@@ -140,7 +140,7 @@ describe VideoExtractor::YoutubeExtractor do
 
         it do
           is_expected.to have_attributes(
-            hosting: :youtube,
+            hosting: :shorts,
             ratio: Types::Video::Ratio[:'9x16'],
             image_url: '//img.youtube.com/vi/yFg1-tIfvjc/oardefault.jpg',
             player_url: '//youtube.com/embed/yFg1-tIfvjc',

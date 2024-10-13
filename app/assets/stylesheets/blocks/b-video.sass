@@ -45,9 +45,9 @@
         width: 44px
 
       img
-        height: 170px
-        margin-bottom: -20%
-        margin-top: -20%
+        height: 155px // picked up so marker "shorts" can fit
+        margin-bottom: -13.5%
+        margin-top: -13.5%
         width: auto
 
   .video-link
@@ -100,8 +100,10 @@
       line-height: 20px
       padding: 0 7px 0 2px
 
-  &.youtube .marker:before
-    color: #ed443c
+  &.youtube,
+  &.shorts
+    .marker:before
+      color: #ed443c
 
   &.vk .marker:before
     color: #5992e8
