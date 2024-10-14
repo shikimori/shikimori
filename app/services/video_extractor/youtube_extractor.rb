@@ -44,7 +44,9 @@ private
   end
 
   def extract_hosting url
-    url.include?('/shorts/') ? Types::Video::Hosting[:youtube_shorts] : super
+    url.include?('/shorts/') ?
+      Types::Video::Hosting[:youtube_shorts] :
+      super
   end
 
   def extract_image_url match

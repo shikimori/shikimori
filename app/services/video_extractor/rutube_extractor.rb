@@ -1,7 +1,7 @@
 class VideoExtractor::RutubeExtractor < VideoExtractor::BaseExtractor
   URL_REGEX = %r{
     (?:https?:)? // (?:www\.)?
-    rutube\.ru/video/(?<key>[\w_-]+)
+    rutube\.ru/(?:video|shorts)/(?<key>[\w_-]+)
     (?:
       /?
       (?:
@@ -17,6 +17,12 @@ class VideoExtractor::RutubeExtractor < VideoExtractor::BaseExtractor
   PLAYER_URL_TEMPLATE = 'https://rutube.ru/play/embed/%<key>s'
 
 private
+
+  def extract_hosting url
+    url.include?('/shorts/') ?
+      Types::Video::Hosting[:rutube_shorts] :
+      super
+  end
 
   def video_api_url url
     format API_URL_TEMPLATE, key: extract_key(url)
