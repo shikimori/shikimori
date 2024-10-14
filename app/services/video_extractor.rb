@@ -4,9 +4,10 @@
 # 2. add hosting into Video if you want video urls to be parsed on forums
 #   after that add test into BbCodes::Tags::VideoUrlTag spec
 # 3. add new video hosting into shiki_video.js
+# 4. add new video hosting into shiki_editor link_url_paste_rule.js
 module VideoExtractor
   EXTRACTORS = %i[
-    vk ok youtube coub vimeo open_graph myvi
+    vk ok youtube rutube coub vimeo open_graph myvi
   ]
 
   class << self

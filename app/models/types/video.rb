@@ -1,9 +1,9 @@
 module Types
   module Video
     HOSTINGS = %i[
-      youtube youtube_shorts vk ok coub rutube vimeo sibnet yandex
-      streamable smotret_anime myvi youmite viuly stormo
-      mediafile
+      youtube youtube_shorts rutube
+      vk ok coub rutube vimeo sibnet yandex
+      streamable smotret_anime myvi youmite viuly stormo mediafile
     ]
     # dailymotion twitch
     KINDS = %i[

@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://rutube.ru/api/video/d1be34b762250dd49b5be35d805e5f9d/thumbnail/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML,
+        like Gecko) Chrome/39.0.2171.71 Safari/537.36
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - QRATOR
+      Date:
+      - Mon, 14 Oct 2024 18:39:19 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '85'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=15
+      Vary:
+      - Accept, origin, Cookie
+      Allow:
+      - GET, POST, DELETE, HEAD, OPTIONS
+      X-Request-Time:
+      - '0.04900050163269043'
+      Access-Control-Allow-Headers:
+      - Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With,X-Ally,cache,X-CSRFToken,jwt-without-personal-data
+      X-Proxy-Country:
+      - RU
+      X-Proxy-Tz:
+      - "+3"
+      X-Proxy-Cache:
+      - MISS
+      Access-Control-Allow-Methods:
+      - "*"
+      X-Frontend-Config-Version:
+      - 3.2.12
+      X-Request-Clock:
+      - '0.023652039000012337'
+      Access-Control-Allow-Credentials:
+      - 'true'
+    body:
+      encoding: UTF-8
+      string: '{"url": "https://pic.rutubelist.ru/video/c1/2e/c12e0ca1ee7133b823c302d0898ee901.jpg"}'
+  recorded_at: Mon, 14 Oct 2024 18:39:19 GMT
+recorded_with: VCR 6.3.1
