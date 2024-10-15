@@ -341,7 +341,7 @@ spoiler content
 Image
 [img no-zoom 225x317]https://desu.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img no-zoom width=200]https://desu.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img]https://desu.shikimori.one/system/animes/original/38481.jpg?1592053805[/img] [img]https://desu.shikimori.one/system/users/x160/1.png?1591612283[/img]
 Poster
-[poster]https://m.media-amazon.com/images/I/81s+jxE5KEL._AC_SL1500_.jpg[/poster]
+[poster]https://desu.shikimori.one/system/users/x160/1.png?1591612283[/poster]
 
 # Divs and Spans
 [hr]

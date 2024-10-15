@@ -25,11 +25,9 @@ const hostingPatterns = url => (
     // dailymotion_com: prepare('dailymotion.com', url),
     // streamable_com: prepare('streamable.com', url),
     // smotret_anime: prepare('smotretanime.ru', url),
-    ok_ru: prepare('ok.ru', url),
+    ok_ru: prepare('ok.ru', url)
     // youmite_ru: prepare('youmite.ru', url),
     // viuly_io: prepare('viuly.io', url),
-    stormo_xyz: prepare('stormo.xyz', url),
-    stormo_tv: prepare('stormo.tv', url)
     // mediafile_online: prepare('mediafile.online', url)
   }
 );
