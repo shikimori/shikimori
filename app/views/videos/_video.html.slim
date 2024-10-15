@@ -1,5 +1,7 @@
-.c-video.b-video.unprocessed[
-  class="#{video.hosting} #{"entry-#{video_counter+1}" if defined? video_counter} #{:fixed unless defined? video_counter}"
+.b-video.unprocessed[
+  class=video.hosting
+  class=(:fixed unless defined? video_counter)
+  class="#{"c-video entry-#{video_counter+1}" if defined? video_counter}"
 ]
   - if defined? edition
     .mobile-edit
