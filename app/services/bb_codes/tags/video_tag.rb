@@ -28,12 +28,12 @@ class BbCodes::Tags::VideoTag
 private
 
   def video_id_html id
-    video = Video.find_by id: id
+    video = Video.find_by(id:)
     html_for video if video
   end
 
   def video_url_html url
-    video = Video.new url: url
+    video = Video.new(url:)
     return url if video.hosting.blank?
 
     html_for video
@@ -42,6 +42,6 @@ private
   def html_for video
     Slim::Template
       .new(Rails.root.join('app/views/videos/_video.html.slim'))
-      .render(OpenStruct.new(video: video))
+      .render(OpenStruct.new(video:))
   end
 end

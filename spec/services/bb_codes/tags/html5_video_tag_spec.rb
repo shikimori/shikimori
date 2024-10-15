@@ -12,7 +12,7 @@ describe BbCodes::Tags::Html5VideoTag do
       url:
     )
     expect(html).to eq <<-HTML.squish
-      <div class="b-video fixed">
+      <div class="b-video">
         <div class="video-link">
           <img class="to-process" data-dynamic="html5_video"
             src="#{BbCodes::Tags::Html5VideoTag::DEFAULT_THUMBNAIL_NORMAL}"

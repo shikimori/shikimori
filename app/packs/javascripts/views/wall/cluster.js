@@ -59,7 +59,9 @@ export default class WallCluster {
     const images = this._positioned();
     if (images.length === 1) { return; }
 
-    const heights = images.map(v => v.height);
+    const heights = images
+      .map(v => v.height)
+      .filter(v => v); // exclude 0 height images (broken images)
     const minHeight = min(heights);
 
     if (minHeight !== max(heights)) {

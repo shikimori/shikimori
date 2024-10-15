@@ -341,7 +341,7 @@ spoiler content
 Image
 [img no-zoom 225x317]https://desu.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img no-zoom width=200]https://desu.shikimori.one/system/animes/original/38481.jpg?1592053805[/img]     [img]https://desu.shikimori.one/system/animes/original/38481.jpg?1592053805[/img] [img]https://desu.shikimori.one/system/users/x160/1.png?1591612283[/img]
 Poster
-[poster]https://m.media-amazon.com/images/I/81s+jxE5KEL._AC_SL1500_.jpg[/poster]
+[poster]https://desu.shikimori.one/system/users/x160/1.png?1591612283[/poster]
 
 # Divs and Spans
 [hr]
@@ -558,5 +558,5 @@ after
 
 # Videos
 [hr]
-[video]https://www.youtube.com/watch?v=0d4rPwIpzNw[/video] [video]https://www.youtube.com/watch?v=00000000000[/video] [video]https://www.youtube.com/watch?v=JyTvVtUr_2g&t=762s[/video] [video]http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi[/video] [video]https://video.sibnet.ru/video305613-SouL_Eater__AMW/[/video] [video]http://vimeo.com/426453510[/video] [video]https://vk.com/video-186803452_456239969[/video] [video]https://vk.com/video-131324930_456239060[/video] [video]https://coub.com/view/1itox4[/video] [video]https://ok.ru/video/2444260543117[/video]
+[video]https://www.youtube.com/watch?v=0d4rPwIpzNw[/video] [video]https://www.youtube.com/watch?v=00000000000[/video] [video]https://www.youtube.com/watch?v=JyTvVtUr_2g&t=762s[/video] [video]http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi[/video] [video]https://video.sibnet.ru/video305613-SouL_Eater__AMW/[/video] [video]http://vimeo.com/426453510[/video] [video]https://vk.com/video-186803452_456239969[/video] [video]https://vk.com/video-131324930_456239060[/video] [video]https://coub.com/view/1itox4[/video] [video]https://ok.ru/video/2444260543117[/video] [video]https://youtube.com/shorts/yFg1-tIfvjc?si=6VLqJBX6zoeXrja2[/video] [video]https://www.youtube.com/shorts/K0Dy2qww7HY[/video] [video]https://rutube.ru/video/d1be34b762250dd49b5be35d805e5f9d/[/video] [video]https://rutube.ru/shorts/c9c281676b7420be84f19b808f1e4349/[/video]
 `.trim();

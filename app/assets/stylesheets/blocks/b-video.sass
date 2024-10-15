@@ -7,54 +7,53 @@
 .cc > .c-video
   margin-bottom: 15px
 
+.ProseMirror span.b-video
+  display: inline-flex
+
 .b-video
   +image_editable
   +media
 
-  &.fixed
-    .video-link img
-      width: $media_width
-
-    &.twitch, &.coub
-      .video-link img
-        max-height: $media_height
-        width: auto
-
-    &.dailymotion
-      max-height: $media_height
-
-  &.shrinked-1_3
-    .video-link img
-      margin-top: -9.55%
-      margin-bottom: -9.55%
-
-  &.shrinked-1_5
-    .video-link img
-      margin-top: -5.25%
-      margin-bottom: -5.25%
-
-  &.youtube_shorts
-    max-height: $media_height
-
+  &.youtube_shorts,
+  &.rutube_shorts
     .video-link
-      &:before
-        height: 44px
-        line-height: 44px
-        margin-left: -22px
-        margin-top: -22px
-        width: 44px
+      width: 76px
+
+    .marker
+      font-size: 10px
+
+  &.c-video
+    .video-link
+      height: auto
+      width: auto
 
       img
-        height: 155px // picked up so marker "shorts" can fit
-        margin-bottom: -13.45%
-        margin-top: -13.45%
         width: auto
+        height: auto
+    
+    &.shrinked-1_3
+      .video-link img
+        margin-top: -9.55%
+        margin-bottom: -9.55%
+    
+    &.shrinked-1_5
+      .video-link img
+        margin-top: -5.25%
+        margin-bottom: -5.25%
 
   .video-link
     background: #212121
     cursor: pointer // it can be div for html5 video
-    display: inline-block
+    display: inline-flex
+    height: $media_height
     overflow: hidden
+    width: $media_width
+
+    img
+      height: 100%
+      object-fit: cover
+      object-position: center
+      width: 100%
 
     &:hover:before
       opacity: 1
@@ -78,6 +77,12 @@
       transition: all .24s ease-in-out
       width: 54px
       z-index: 1
+
+    .marker
+      font-size: 10px
+      letter-spacing: normal
+      padding: 0 6px
+      right: 3px
 
   .name
     +media_marker

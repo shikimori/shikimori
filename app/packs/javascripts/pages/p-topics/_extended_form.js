@@ -138,7 +138,9 @@ function attachVideo(videoData, $topicVideo, $wall) {
   $topicVideoForm.hide();
   $topicVideoRemove.removeClass('hidden');
 
-  const $video = $(videoData.content).prependTo($wall);
+  const $video = $(videoData.content)
+    .prependTo($wall)
+    .process(); // so shrinked-1_3 is added
   resetWall($wall);
 
   $topicVideoRemove.one('click', e => {

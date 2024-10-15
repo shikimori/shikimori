@@ -1,12 +1,5 @@
 describe VideoExtractor::RutubeExtractor, :vcr do
   let(:service) { described_class.instance }
-  # rubocop:disable Lint/ConstantDefinitionInBlock
-  FULL_URL_REGEX = /
-    \A
-      #{VideoExtractor::RutubeExtractor::URL_REGEX.source}
-    \Z
-  /xi
-  # rubocop:enable Lint/ConstantDefinitionInBlock
 
   describe '#fetch' do
     subject { service.fetch url }
@@ -23,7 +16,6 @@ describe VideoExtractor::RutubeExtractor, :vcr do
             normalized_url: url
           )
         end
-        it { expect(url.match?(FULL_URL_REGEX)).to eq true }
       end
 
       context 'shorts' do

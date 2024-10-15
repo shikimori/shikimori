@@ -82,18 +82,18 @@ describe BbCodes::Text do
 
     describe '[vkontakte]', :vcr do
       let(:text) { 'http://vk.com/video98023184_165811692' }
-      it { is_expected.to include '<div class="c-video b-video unprocessed vk' }
+      it { is_expected.to include '<div class="b-video unprocessed vk' }
     end
 
     describe '[youtube]', :vcr do
       context 'direct link' do
         let(:text) { 'https://www.youtube.com/watch?v=og2a5lngYeQ' }
-        it { is_expected.to include '<div class="c-video b-video unprocessed youtube' }
+        it { is_expected.to include '<div class="b-video unprocessed youtube' }
       end
 
       context 'link with &' do
         let(:text) { 'https://www.youtube.com/watch?feature=player_embedded&v=aX9j5KokIeE' }
-        it { is_expected.to include '<div class="c-video b-video unprocessed youtube' }
+        it { is_expected.to include '<div class="b-video unprocessed youtube' }
       end
     end
 
