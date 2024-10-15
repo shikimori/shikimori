@@ -15,6 +15,7 @@ const hostingPatterns = url => (
     youtube: prepare('youtube.com', url),
     vimeo: prepare('vimeo.com', url),
     youtu_be: prepare('youtu.be', url),
+    rutube: prepare('rutube.ru', url),
     // rutube_ru: prepare('rutube.ru', url),
     vk_com: prepare('vk.com', url),
     vkontakte_ru: prepare('vkontakte.ru', url),
@@ -51,7 +52,8 @@ $.fn.extend({
 
       const $link = $root.find('.video-link');
       // const isSpecialCoub = $root.hasClass('b-coub');
-      const isYoutubeShorts = $root.hasClass('youtube_shorts');
+      const isYoutubeShorts = $root.hasClass('youtube_shorts') ||
+        $root.hasClass('rutube_shorts');
 
       $link.magnificPopup({
         preloader: false,
