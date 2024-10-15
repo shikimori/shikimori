@@ -94,6 +94,10 @@ class Video < ApplicationRecord
     end
   end
 
+  def hosting_marker
+    hosting.gsub(/(?:you|ru)tube_shorts/, 'shorts')
+  end
+
 private
 
   def check_url

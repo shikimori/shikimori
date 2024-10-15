@@ -34,4 +34,4 @@
     - if defined?(video_counter) || defined?(show_kind)
       = video.kind_text
     - else
-      = video.hosting.gsub('youtube_shorts', 'shorts')
+      = video.hosting_marker
