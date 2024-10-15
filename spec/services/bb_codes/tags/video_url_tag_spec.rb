@@ -25,6 +25,11 @@ describe BbCodes::Tags::VideoUrlTag do
     it { is_expected.to eq text }
   end
 
+  context 'wrapped in video' do
+    let(:text) { '[video]https://video.sibnet.ru/video305613-SouL_Eater__AMW/[/video]' }
+    it { is_expected.to eq text }
+  end
+
   context 'two sequential youtube urls' do
     let(:text) { "https://www.youtube.com/\n#{url}" }
     let(:url) { 'https://www.youtube.com/watch?v=xzIlPzO_-Zg' }
