@@ -22,7 +22,8 @@ module Routing # rubocop:disable Metrics/ModuleLength
       fonts.gstatic.com |
       ([\w-]+\.)?bootstrapcdn.com |
       \d+\.media.tumblr.com |
-      media.tenor.com
+      media.tenor.com |
+      i.mycdn.me
     )
     \Z
   /mix
