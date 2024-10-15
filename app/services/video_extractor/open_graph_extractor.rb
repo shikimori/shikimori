@@ -18,9 +18,6 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   # freeze on attept to make request from shiki
   # (?<hosting>stormo).(?:xyz|tv)/videos/[\wА-я_-]+/[\wА-я_-]+/
 
-  # myvi is banned in RF
-  # (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS} |
-
   # twitch no long supports og video tags
   # (?:\w+\.)?(?<hosting>twitch).tv(/[\wА-я_-]+/[\wА-я_-]+|/videos)/
     # [\wА-я_-]+#{PARAMS} |

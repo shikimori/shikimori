@@ -7,7 +7,7 @@
 # 4. add new video hosting into shiki_editor link_url_paste_rule.js
 module VideoExtractor
   EXTRACTORS = %i[
-    vk ok youtube rutube coub vimeo open_graph myvi
+    vk ok youtube rutube coub vimeo open_graph
   ]
 
   class << self

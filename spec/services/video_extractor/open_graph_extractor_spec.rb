@@ -22,14 +22,6 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
     #   end
     # end
 
-    # context 'myvi' do
-    #   let(:url) { 'http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2' }
-
-    #   its(:hosting) { is_expected.to eq 'myvi' }
-    #   its(:image_url) { is_expected.to eq '//images.myvi.ru/animeicon/25/e6/58917.jpg' }
-    #   its(:player_url) { is_expected.to eq '//myvi.ru/player/flash/oI_SgyRHWdMLI6UU2pmRESiY4Y-Ie0wAnu3jBetGxgY9wJFPgg4yJA4JzsT1kQ7a35LOr3hG3K7g1' }
-    # end
-
     context 'sibnet' do
       let(:url) { 'http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi' }
 

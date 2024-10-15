@@ -251,7 +251,6 @@ ru:
         http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi
         http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a
       # https://www.twitch.tv/videos/168874638
-      # http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2
       video_link_notice: >-
         Сайт сам распознаёт ссылки на видео в тексте и преобразовывает их
         в блок просмотра видео. В данном примере перечислены все

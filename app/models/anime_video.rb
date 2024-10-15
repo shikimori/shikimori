@@ -20,7 +20,7 @@ class AnimeVideo < ApplicationRecord # rubocop:disable all
     #{ADULT_OVA_CONDITION}
   SQL
 
-  # kiwi.kz dailymotion.com myvi.ru myvi.tv - banned in RF
+  # kiwi.kz dailymotion.com
   # rutube.ru - banned play.shikimori.org for some reason
   BANNED_HOSTINGS = %w[kiwi.kz dailymotion.com myvi.ru play.aniland.org rutube.ru]
   # COPYRIGHTED_AUTHORS = /wakanim/i # |crunchyroll|crunchy|FreakCrSuBuS

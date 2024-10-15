@@ -32,7 +32,6 @@ class Users::CheckHacked
     google.ru
     mail.ru
     myanimelist.net
-    myvi.ru
     rutube.ru
     sibnet.ru
     smotretanime.ru
