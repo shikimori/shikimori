@@ -31,7 +31,7 @@ private
     end
 
     <<-HTML.squish
-      <div class="b-video fixed">
+      <div class="b-video">
         <div class="video-link">
           <img class="to-process" data-dynamic="html5_video" \
             src="#{DEFAULT_THUMBNAIL_NORMAL}" \
