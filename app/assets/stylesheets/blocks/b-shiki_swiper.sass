@@ -16,20 +16,22 @@
   .b-video
     transition: opacity 0.2s ease
 
-  .b-image,
-  .b-video
-    &.fixed .video-link img
-      width: auto
-
+  .b-image
     &.unprocessed img
       max-width: 100% !important
       max-height: none !important
 
+  .b-video
+    height: 100%
+    width: 100%
+
+    .video-link
+      height: 100%
+      width: 100%
+
   &.swiper-container-initialized
-    .b-image,
-    .b-video
-      img
-        max-width: none // need to make horizontal images to scale properly
+    .b-image img
+      max-width: none // need to make horizontal images to scale properly
 
   &.is-placeholder
     display: flex
