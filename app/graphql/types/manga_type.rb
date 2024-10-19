@@ -19,4 +19,8 @@ class Types::MangaType < Types::BaseObject
   end
 
   field :chronology, [Types::MangaType], complexity: 50
+
+  def opengraph_image_url
+    "http://cdn.anime-recommend.ru/previews/manga/#{object.id}.jpg"
+  end
 end

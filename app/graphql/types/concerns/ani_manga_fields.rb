@@ -68,5 +68,7 @@ module Types::Concerns::AniMangaFields
 
       Animes::ChronologyQuery.new(object).fetch.map(&:decorate)
     end
+
+    field :opengraph_image_url, String, null: true
   end
 end
