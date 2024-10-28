@@ -4542,7 +4542,7 @@
         - 41590
         - 42776
         - 60012
-      :threshold: 93.4%
+      :threshold: 93.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :re_zero
@@ -5962,7 +5962,7 @@
         - 54171
         - 56442
         - 60048
-      :threshold: 96.4%
+      :threshold: 95.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :bleach
@@ -7143,7 +7143,7 @@
         - 59832
         - 59908
         - 59959
-      :threshold: 96.3%
+      :threshold: 96.2%
       :generator: &344
         ignore_latest_ids:
         - 38234
@@ -8398,6 +8398,7 @@
         - 19727
         - 19845
         - 23363
+        - 60023
       :threshold: 100%
       :generator: &415
         threshold: 100%
@@ -9263,7 +9264,7 @@
         - 10334
         - 37537
         - 56621
-      :threshold: 94%
+      :threshold: 94.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :rurouni_kenshin
@@ -9571,7 +9572,7 @@
         - 38112
         - 38361
         - 46089
-      :threshold: 92.2%
+      :threshold: 92.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :tales_of
@@ -9761,7 +9762,8 @@
         - 52010
         - 52011
         - 59190
-      :threshold: 92.6%
+        - 60062
+      :threshold: 95%
       :generator: &491
         not_ignored_ids:
         - 11033
@@ -11325,7 +11327,7 @@
         - 55404
         - 59572
         - 59718
-      :threshold: 86.5%
+      :threshold: 86%
       :generator: &569
         ignore_latest_ids:
         - 38714
@@ -11468,7 +11470,8 @@
         - 38653
         - 48617
         - 52282
-      :threshold: 94.9%
+        - 59832
+      :threshold: 94.6%
       :generator: &576
         ignore_latest_ids:
         - 48903
@@ -11715,7 +11718,7 @@
         not_anime_ids:
         - 12665
         - 40369
-      :threshold: 91.3%
+      :threshold: 91.5%
       :generator: &590
         ignore_latest_ids:
         - 56175
@@ -12484,7 +12487,7 @@
         - 53976
         - 55134
         - 57441
-      :threshold: 92.8%
+      :threshold: 92.9%
       :generator: &632
         ignore_latest_ids:
         - 38770
@@ -13518,7 +13521,7 @@
         - 38087
         - 51266
         - 59790
-      :threshold: 94.9%
+      :threshold: 95%
       :generator: &688
         ignore_latest_ids:
         - 38201
@@ -14642,7 +14645,7 @@
         - 58824
         - 58825
         - 58826
-      :threshold: 86.9%
+      :threshold: 86.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :idolmaster
@@ -17128,7 +17131,7 @@
         - 51780
         - 53265
         - 54282
-      :threshold: 93%
+      :threshold: 93.6%
       :generator: &881
         ignore_latest_ids:
         - 38088
@@ -17499,7 +17502,7 @@
         - 30103
         - 33669
         - 37051
-      :threshold: 91.7%
+      :threshold: 91.8%
       :generator: &901
         ignore_latest_ids:
         - 38850
@@ -17688,7 +17691,8 @@
         - 10823
         - 10824
         - 10825
-      :threshold: 96%
+        - 60148
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :ranma
@@ -21956,7 +21960,7 @@
       :algo: duration
       :filters: &1133
         franchise: soul_land
-      :threshold: 93%
+      :threshold: 93.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :soul_land
