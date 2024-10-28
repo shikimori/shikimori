@@ -9799,6 +9799,8 @@
         - 57236
         ignore_latest_ids:
         - 55748
+        - 60159
+        - 60160
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :love_live
@@ -11268,7 +11270,6 @@
         - 91
         - 2269
         - 2294
-        - 2305
         - 2391
         - 2695
         - 2743
@@ -11277,11 +11278,8 @@
         - 3964
         - 5351
         - 6215
-        - 6792
         - 7270
         - 7953
-        - 8839
-        - 9098
         - 17655
         - 19977
         - 20355
@@ -11327,7 +11325,7 @@
         - 55404
         - 59572
         - 59718
-      :threshold: 86%
+      :threshold: 86.5%
       :generator: &569
         ignore_latest_ids:
         - 38714
@@ -20320,7 +20318,6 @@
         not_anime_ids:
         - 36757
         - 38539
-        - 40808
       :threshold: 90%
       :generator: &1050
         ignore_latest_ids:
@@ -28350,7 +28347,7 @@
       :algo: count
       :threshold: 50
       :filters: &1242
-        genre_ids:
+        genre_v2_ids:
         - 9
         - 12
         - 539
