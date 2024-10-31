@@ -284,10 +284,10 @@ private
   }
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
-    url: 'https://red.lesta.ru/z4essyf1/?&pub_id=adisom_august24_banners_shikimori&erid=2VtzqxJT7Q8',
+    url: 'https://www.chitai-gorod.ru/product/oglyanis-3058917?partnerId=1002188&utm_source=azbooka&utm_medium=cpa&utm_campaign=promocode-lookback',
     images: [{
-      src: '/assets/globals/events/2024-10-10/inner_1.png'
-      # src_2x: '/assets/globals/events/2024-03-25/wide_2@2x.png',
+      src: '/assets/globals/events/2024-10-31/inner_1.jpg',
+      src_2x: '/assets/globals/events/2024-10-31/inner_1@2x.jpg'
       # url: 'https://u.to/vXiEIA?erid=2VtzqxJT7Q8' # 'https://www.домовой.ru/film/5235275/?erid=2VtzqxJT7Q8'
     }],
     # images: [{
@@ -449,7 +449,7 @@ private
       # # Types::Ad::Type[:advrtr_x728]
     ],
     Types::Ad::Meta[:horizontal_x90] => [
-      # Types::Ad::Type[:special_x894],
+      Types::Ad::Type[:special_x894],
       # # Types::Ad::Type[:mt_728x90],
       # # Types::Ad::Type[:advrtr_x728]
       Types::Ad::Type[:yd_970x90]
