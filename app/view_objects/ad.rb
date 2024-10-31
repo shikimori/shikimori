@@ -284,7 +284,7 @@ private
   }
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
-    url: 'https://www.chitai-gorod.ru/product/oglyanis-3058917?partnerId=1002188&utm_source=azbooka&utm_medium=cpa&utm_campaign=promocode-lookback',
+    url: 'https://www.chitai-gorod.ru/product/oglyanis-3058917?partnerId=1002188&utm_source=azbooka&utm_medium=cpa&utm_campaign=promocode-lookback&erid=2VtzqxWEdsa',
     images: [{
       src: '/assets/globals/events/2024-10-31/inner_1.jpg',
       src_2x: '/assets/globals/events/2024-10-31/inner_1@2x.jpg'
