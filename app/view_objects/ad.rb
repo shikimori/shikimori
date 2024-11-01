@@ -223,11 +223,8 @@ private
     #   }
     # end,
     images: [{
-      src: '/assets/globals/events/2024-10-10/menu_1.png?v2',
-      src_2x: '/assets/globals/events/2024-10-10/menu_1@2x.png'
-    }, {
-      src: '/assets/globals/events/2024-10-10/menu_2.png?v2',
-      src_2x: '/assets/globals/events/2024-10-10/menu_2@2x.png'
+      src: '/assets/globals/events/2024-11-01/menu_1.jpg',
+      src_2x: '/assets/globals/events/2024-11-01/menu_1@2x.jpg'
     }],
     rules: {
       cookie: 'i1_20240325',
@@ -249,11 +246,8 @@ private
     #   }
     # end,
     images: [{
-      src: '/assets/globals/events/2024-10-10/wide_1.png?v2',
-      src_2x: '/assets/globals/events/2024-10-10/wide_1@2x.png'
-    }, {
-      src: '/assets/globals/events/2024-10-10/wide_2.png?v2',
-      src_2x: '/assets/globals/events/2024-10-10/wide_2@2x.png'
+      src: '/assets/globals/events/2024-11-01/wide_1.jpg',
+      src_2x: '/assets/globals/events/2024-11-01/wide_1@2x.jpg'
     }],
     # end,
     # html: (
