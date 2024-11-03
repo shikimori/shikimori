@@ -71,7 +71,7 @@ private
       .sort_by { |_ip, users| users.size }
       .map { |ip, users| [ip, users.size, users] }
       .reverse.select { |(_ip, size, _users)| size > MASS_REGISTRATION_THRESHOLD }
-      .sort_by(&:first)
+      .sort_by { |ip, size, _users| [-size, ip] }
       .each_with_object({}) { |(ip, size, _users), memo| memo[ip] = size }
   end
 
