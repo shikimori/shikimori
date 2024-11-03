@@ -27,7 +27,7 @@
     - if local_assigns[:f]
       footer
         = f.button :magic_submit, id: "submit_#{rand * 1000000}"
-        - if f.object.persisted?
+        - if f.object.persisted? || local_assigns[:cancel_url]
           - if local_assigns[:cancel_url]
             a.cancel tabindex='0' href=local_assigns[:cancel_url] = t 'actions.cancel'
           - else

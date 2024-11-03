@@ -25,5 +25,7 @@
     cache_key: critique.cache_key
 
   .buttons
-    a.cancel href=@back_url = t 'actions.cancel'
+    a.cancel[
+      href=(critique.persisted? ? UrlGenerator.instance.critique_url(critique) : resource.url)
+    ] = t 'actions.cancel'
     = f.button :magic_submit

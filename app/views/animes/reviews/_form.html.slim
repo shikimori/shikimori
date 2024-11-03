@@ -23,7 +23,7 @@
       field_name: 'review[body]',
       f: f,
       no_preview_avatar: true,
-      cancel_url: (UrlGenerator.instance.review_url(review) if review.persisted? && !local_assigns[:is_remote]),
+      cancel_url: review.persisted? && !local_assigns[:is_remote] ? UrlGenerator.instance.review_url(review) : resource.url,
       cache_key: review.cache_key do
     aside.markers
       - Review.opinion.options.each do |(name, key)|
