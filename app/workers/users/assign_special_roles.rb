@@ -8,10 +8,15 @@ class Users::AssignSpecialRoles
   MIN_USER_RATES_IN_LIST = 30
   MIN_AI_TITLES_IN_LIST = 4
 
+  MASS_REGISTRATION_INTERVAL = 1.month
+  MASS_REGISTRATION_THRESHOLD = 4
+
   def perform
     [Anime, Manga].each do |klass|
       process_klass klass
     end
+
+    process_mass_registrations
   end
 
 private
@@ -51,5 +56,23 @@ private
 
   def user_rates klass
     :"#{klass.name.downcase}_rates"
+  end
+
+  def process_mass_registrations
+    Users::Query
+      .fetch
+      .created_on(MASS_REGISTRATION_INTERVAL.ago.to_date.to_s, Users::Query::ConditionType[:gte])
+      .where(current_sign_in_ip: mass_registrations_ips)
+      .update_all "roles = roles || '{#{Types::User::Roles[:mass_registration]}}'"
+  end
+
+  def mass_registrations_ips
+    Users::Query
+      .fetch
+      .created_on(MASS_REGISTRATION_INTERVAL.ago.to_date.to_s, Users::Query::ConditionType[:gte])
+      .where(read_only_at: nil)
+      .group_by(&:current_sign_in_ip)
+      .select { |_ip, users| users.size >= MASS_REGISTRATION_THRESHOLD }
+      .map(&:first)
   end
 end
