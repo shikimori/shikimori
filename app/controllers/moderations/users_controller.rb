@@ -71,7 +71,8 @@ private
       .sort_by { |_ip, users| users.size }
       .map { |ip, users| [ip, users.size, users] }
       .reverse.select { |(_ip, size, _users)| size > MASS_REGISTRATION_THRESHOLD }
-      .map(&:first)
+      .sort_by(&:first)
+      .each_with_object({}) { |(ip, size, _users), memo| memo[ip] = size }
   end
 
   def changelog_logger
