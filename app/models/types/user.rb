@@ -48,6 +48,7 @@ module Types
       cheat_bot
       completed_announced_animes
       ignored_in_achievement_statistics
+      mass_registration
 
       ai_genres
       censored_genres
@@ -59,6 +60,7 @@ module Types
       cheat_bot
       completed_announced_animes
       ignored_in_achievement_statistics
+      mass_registration
     ]
 
     Roles = Types::Strict::Symbol

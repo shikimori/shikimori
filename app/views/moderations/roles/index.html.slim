@@ -22,5 +22,5 @@ ul.b-list.is-wide.block
       - if RolesPolicy.accessible?(role) && current_user&.send("#{role}?")
         .have-role ✓
 
-    - if %W[retired_moderator #{::Types::User::VERSION_ROLES.last} trusted_newsmaker not_trusted_links_changer genre_moderator not_trusted_collections_author ignored_in_achievement_statistics censored_genres video_super_moderator].include? role
+    - if %W[retired_moderator #{::Types::User::VERSION_ROLES.last} trusted_newsmaker not_trusted_links_changer genre_moderator not_trusted_collections_author mass_registration censored_genres video_super_moderator].include? role
       .m15

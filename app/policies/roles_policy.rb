@@ -23,6 +23,7 @@ class RolesPolicy
     cheat_bot
     completed_announced_animes
     ignored_in_achievement_statistics
+    mass_registration
   ]
 
   static_facade :accessible?, :role
