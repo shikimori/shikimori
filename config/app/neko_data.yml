@@ -330,6 +330,7 @@
         - 41168
         - 53432
         - 49303
+        - 60024
       :generator: &17
         person_id: 5978
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -1040,6 +1041,8 @@
         - 40752
         - 51068
         - 3642
+        - 57864
+        - 59612
       :generator: &49
         person_id: 5089
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -1731,6 +1734,9 @@
         - 41497
         - 42030
         - 53127
+        - 57691
+        - 54042
+        - 57691
       :generator: &77
         person_id: 2582
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -3766,6 +3772,9 @@
         - 87
         - 52168
         - 53199
+        - 55845
+        - 54902
+        - 49073
       :generator: &165
         person_id: 2337
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -27810,6 +27819,7 @@
           - 57217
           - 57380
           - 58985
+          - 50955
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *4
   neko_id: :moe
