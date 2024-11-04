@@ -38,7 +38,7 @@ describe Users::AssignSpecialRoles do
     end
     let(:not_ai_genre) { create :genre_v2, id: 999999 }
 
-    subject! { worker.perform }
+    subject! { worker.perform Time.zone.today.to_s }
 
     it do
       expect(user_1.reload).to be_ai_genres
@@ -60,7 +60,7 @@ describe Users::AssignSpecialRoles do
         created_at: described_class::MASS_REGISTRATION_INTERVAL.ago - 1.day
     end
 
-    subject! { worker.perform }
+    subject! { worker.perform Time.zone.today.to_s }
 
     it do
       expect(user_1.reload).to be_mass_registration

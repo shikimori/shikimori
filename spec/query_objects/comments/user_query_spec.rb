@@ -1,8 +1,8 @@
 describe Comments::UserQuery do
   subject(:query) { described_class.fetch user }
 
-  let!(:comment_1) { create :comment, user: user, body: 'zxc' }
-  let!(:comment_2) { create :comment, user: user }
+  let!(:comment_1) { create :comment, user:, body: 'zxc' }
+  let!(:comment_2) { create :comment, user: }
   let!(:comment_3) { create :comment, user: user_2 }
 
   it { is_expected.to eq [comment_2, comment_1] }
@@ -13,9 +13,9 @@ describe Comments::UserQuery do
   end
 
   describe '#restrictions_scope' do
-    let!(:comment_1) { create :comment, user: user, commentable: public_club_topic }
-    let!(:comment_2) { create :comment, user: user, commentable: private_club_topic }
-    let!(:comment_3) { create :comment, user: user, commentable: shadowbanned_club_topic }
+    let!(:comment_1) { create :comment, user:, commentable: public_club_topic }
+    let!(:comment_2) { create :comment, user:, commentable: private_club_topic }
+    let!(:comment_3) { create :comment, user:, commentable: shadowbanned_club_topic }
 
     let(:public_club_topic) { create :club_topic, linked: public_club }
     let(:private_club_topic) { create :club_topic, linked: private_club }
@@ -33,7 +33,11 @@ describe Comments::UserQuery do
 
     context 'user' do
       let(:decorated_user) { user.decorate }
-      before { allow(decorated_user).to receive(:moderation_staff?).and_return is_moderator }
+      before do
+        allow(decorated_user)
+          .to receive(:moderation_staff?)
+            .and_return is_moderator
+      end
 
       context 'not moderator' do
         let(:is_moderator) { false }

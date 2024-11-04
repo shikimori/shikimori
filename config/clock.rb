@@ -103,7 +103,7 @@ module Clockwork
     Votable::CleanupCheatBotVotes.perform_async
     Users::CleanupDoorkeeperTokens.perform_async
     Users::MarkAsCompletedUnavailableAnimes.perform_async
-    Users::AssignSpecialRoles.perform_async
+    Users::AssignSpecialRoles.perform_async Time.zone.today.to_s
 
     ListImports::Cleanup.perform_async
     Achievements::NekoRestart.perform_async

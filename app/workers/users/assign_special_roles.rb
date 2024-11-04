@@ -11,12 +11,12 @@ class Users::AssignSpecialRoles
   MASS_REGISTRATION_INTERVAL = 1.month
   MASS_REGISTRATION_THRESHOLD = 3
 
-  def perform
+  def perform finish_on
     [Anime, Manga].each do |klass|
       process_klass klass
     end
 
-    process_mass_registrations
+    process_mass_registrations Date.parse(finish_on)
   end
 
 private
@@ -58,24 +58,29 @@ private
     :"#{klass.name.downcase}_rates"
   end
 
-  def process_mass_registrations
-    mass_registartgions_users_scope
-      .where(current_sign_in_ip: mass_registrations_ips)
+  def process_mass_registrations finish_on
+    mass_registartgions_users_scope(finish_on)
+      .where(current_sign_in_ip: mass_registrations_ips(finish_on))
       .update_all "roles = roles || '{#{Types::User::Roles[:mass_registration]}}'"
   end
 
-  def mass_registrations_ips
-    mass_registartgions_users_scope
+  def mass_registrations_ips finish_on
+    mass_registartgions_users_scope(finish_on)
       .where(read_only_at: nil)
       .group_by(&:current_sign_in_ip)
       .select { |_ip, users| users.size >= MASS_REGISTRATION_THRESHOLD }
       .map(&:first)
   end
 
-  def mass_registartgions_users_scope
+  def mass_registartgions_users_scope finish_on
     Users::Query
       .fetch
-      .created_on(MASS_REGISTRATION_INTERVAL.ago.to_date.to_s, Users::Query::ConditionType[:gte])
+      .created_on(start_on(finish_on).to_s, Users::Query::ConditionType[:gte])
+      .created_on(finish_on.to_s, Users::Query::ConditionType[:lte])
       .where.not("roles && '{#{Types::User::Roles[:mass_registration]}}'")
+  end
+
+  def start_on finish_on
+    finish_on - MASS_REGISTRATION_INTERVAL
   end
 end
