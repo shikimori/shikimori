@@ -4,10 +4,10 @@ describe Animes::Filters::ByAchievement do
   let(:scope) { Anime.order :id }
   let(:terms) { 'otaku' }
 
-  let(:hentai) { create :genre, id: Genre::HENTAI_IDS.first }
+  let(:hentai) { create :genre_v2, id: GenreV2::HENTAI_IDS.first }
 
-  let!(:anime_1) { create :anime, genre_ids: [hentai.id] }
-  let!(:anime_2) { create :anime, genre_ids: [hentai.id] }
+  let!(:anime_1) { create :anime, genre_v2_ids: [hentai.id] }
+  let!(:anime_2) { create :anime, genre_v2_ids: [hentai.id] }
   let!(:anime_3) { create :anime }
 
   it { is_expected.to eq [anime_1, anime_2] }
