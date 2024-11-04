@@ -19,12 +19,7 @@ class RolesPolicy
 
     ai_genres
     censored_genres
-
-    cheat_bot
-    completed_announced_animes
-    ignored_in_achievement_statistics
-    mass_registration
-  ]
+  ] + ::Types::User::ROLES_EXCLUDED_FROM_STATISTICS
 
   static_facade :accessible?, :role
 

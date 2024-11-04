@@ -20,6 +20,6 @@ private
   end
 
   def club_invites
-    ClubInvite.where(dst_id: user_id, club_id: club_id)
+    ClubInvite.where(dst_id: user_id, club_id:)
   end
 end

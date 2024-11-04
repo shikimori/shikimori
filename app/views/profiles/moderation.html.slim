@@ -2,9 +2,13 @@
   - if @resource.read_only_at && @resource.banned?
     .errors.block
       .subheadline.red = t '.banned', gender: @resource.sex
-      p == t '.ban_removal',
-        formatted_date: l(@resource.read_only_at, format: :full),
-        iso_date: @resource.read_only_at.iso8601
+      p
+        - if @resource.permaban?
+          = t '.permaban'
+        - else
+          == t '.ban_removal',
+            formatted_date: l(@resource.read_only_at, format: :full),
+            iso_date: @resource.read_only_at.iso8601
 
   - roles = @resource.roles.select { |role| RolesPolicy.accessible? role }
   - if roles.any?

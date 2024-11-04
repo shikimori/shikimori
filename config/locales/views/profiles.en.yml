@@ -48,6 +48,7 @@ en:
         Ban will be removed at
         <span datetime="%{iso_date}" data-allow-future-time="true"
         class="ban-time">%{formatted_date}</span>.
+      permaban: Вечный бан
       ban_warning_for_moderator: >
         Use this page only if you cannot ban a user by comment.
         E.g. when a comment has been removed.

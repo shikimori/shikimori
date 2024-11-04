@@ -346,7 +346,8 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def banned?
-    !!(read_only_at && read_only_at > Time.zone.now)
+    permaban? ||
+      !!(read_only_at && read_only_at > Time.zone.now)
   end
 
   def active?

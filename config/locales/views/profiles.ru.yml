@@ -48,6 +48,7 @@ ru:
         Время снятия бана
         <span datetime="%{iso_date}" data-allow-future-time="true"
         class="ban-time">%{formatted_date}</span>.
+      permaban: Вечный бан
       ban_warning_for_moderator: >
         Данной страницей следует пользоваться только в случае невозможности
         бана по комментарию. Например, если комментарий удалён.
