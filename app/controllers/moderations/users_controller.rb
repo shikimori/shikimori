@@ -34,6 +34,10 @@ class Moderations::UsersController < ModerationsController
 
     @collection = users_scope.paginate(@page, PER_PAGE)
     @collection_size = @collection.except(:limit, :offset).size
+
+    @mass_registration_threshold = (
+      params[:mass_registration_threshold] || MASS_REGISTRATION_THRESHOLD
+    ).to_i
     @mass_ips = fetch_mass_ips
   end
 
@@ -69,7 +73,7 @@ private
       .where(read_only_at: nil)
       .group_by(&:current_sign_in_ip)
       .map { |ip, users| [ip, users.size, users] }
-      .select { |(_ip, size, _users)| size > MASS_REGISTRATION_THRESHOLD }
+      .select { |(_ip, size, _users)| size > @mass_registration_threshold }
       .sort_by { |ip, size, _users| [-size, ip] }
       .each_with_object({}) { |(ip, size, _users), memo| memo[ip] = size }
   end
