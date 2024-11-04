@@ -10,6 +10,14 @@ module Types
       version_links_moderator
     ]
 
+    ROLES_EXCLUDED_FROM_STATISTICS = %i[
+      cheat_bot
+      completed_announced_animes
+      ignored_in_achievement_statistics
+      mass_registration
+      permaban
+    ]
+
     ROLES = %i[
       super_moderator
       news_super_moderator
@@ -45,22 +53,14 @@ module Types
       censored_avatar
       censored_profile
       censored_nickname
-      cheat_bot
-      completed_announced_animes
-      ignored_in_achievement_statistics
-      mass_registration
+    ] + ROLES_EXCLUDED_FROM_STATISTICS + %i[
+      permaban
 
       ai_genres
       censored_genres
 
       bot
       admin
-    ]
-    ROLES_EXCLUDED_FROM_STATISTICS = %i[
-      cheat_bot
-      completed_announced_animes
-      ignored_in_achievement_statistics
-      mass_registration
     ]
 
     Roles = Types::Strict::Symbol
