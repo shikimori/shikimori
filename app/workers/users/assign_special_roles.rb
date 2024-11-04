@@ -11,12 +11,15 @@ class Users::AssignSpecialRoles
   MASS_REGISTRATION_INTERVAL = 1.month
   MASS_REGISTRATION_THRESHOLD = 3
 
-  def perform finish_on
+  PERMABAN_INTERVAL = 2.years
+
+  def perform current_date
     [Anime, Manga].each do |klass|
       process_klass klass
     end
 
-    process_mass_registrations Date.parse(finish_on)
+    process_mass_registrations Date.parse(current_date)
+    process_permaban Date.parse(current_date)
   end
 
 private
@@ -58,29 +61,42 @@ private
     :"#{klass.name.downcase}_rates"
   end
 
-  def process_mass_registrations finish_on
-    mass_registartgions_users_scope(finish_on)
-      .where(current_sign_in_ip: mass_registrations_ips(finish_on))
-      .update_all "roles = roles || '{#{Types::User::Roles[:mass_registration]}}'"
+  def process_mass_registrations current_date
+    mass_registartgions_users_scope(current_date)
+      .where(current_sign_in_ip: mass_registrations_ips(current_date))
+      .update_all(
+        "roles = roles || '{#{Types::User::Roles[:mass_registration]}}'"
+      )
   end
 
-  def mass_registrations_ips finish_on
-    mass_registartgions_users_scope(finish_on)
+  def mass_registrations_ips current_date
+    mass_registartgions_users_scope(current_date)
       .where(read_only_at: nil)
       .group_by(&:current_sign_in_ip)
       .select { |_ip, users| users.size >= MASS_REGISTRATION_THRESHOLD }
       .map(&:first)
   end
 
-  def mass_registartgions_users_scope finish_on
+  def mass_registartgions_users_scope current_date
     Users::Query
       .fetch
-      .created_on(start_on(finish_on).to_s, Users::Query::ConditionType[:gte])
-      .created_on(finish_on.to_s, Users::Query::ConditionType[:lte])
+      .created_on(
+        (current_date - MASS_REGISTRATION_INTERVAL).to_s,
+        Users::Query::ConditionType[:gte]
+      )
+      .created_on(current_date.to_s, Users::Query::ConditionType[:lte])
       .where.not("roles && '{#{Types::User::Roles[:mass_registration]}}'")
   end
 
-  def start_on finish_on
-    finish_on - MASS_REGISTRATION_INTERVAL
+  def process_permaban current_date
+    User
+      .where.not("roles && '{#{Types::User::Roles[:permaban]}}'")
+      .where(
+        'read_only_at is not null and read_only_at > ?',
+        current_date + PERMABAN_INTERVAL
+      )
+      .update_all(
+        "roles = roles || '{#{Types::User::Roles[:permaban]}}'"
+      )
   end
 end

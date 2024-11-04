@@ -1,5 +1,6 @@
 describe Users::AssignSpecialRoles do
   let(:worker) { described_class.new }
+  let(:current_date) { Time.zone.today }
 
   context 'ai_geners' do
     before do
@@ -38,7 +39,7 @@ describe Users::AssignSpecialRoles do
     end
     let(:not_ai_genre) { create :genre_v2, id: 999999 }
 
-    subject! { worker.perform Time.zone.today.to_s }
+    subject! { worker.perform current_date.to_s }
 
     it do
       expect(user_1.reload).to be_ai_genres
@@ -60,7 +61,7 @@ describe Users::AssignSpecialRoles do
         created_at: described_class::MASS_REGISTRATION_INTERVAL.ago - 1.day
     end
 
-    subject! { worker.perform Time.zone.today.to_s }
+    subject! { worker.perform current_date.to_s }
 
     it do
       expect(user_1.reload).to be_mass_registration
@@ -70,6 +71,24 @@ describe Users::AssignSpecialRoles do
       expect(user_11.reload).to_not be_mass_registration
       expect(user_12.reload).to_not be_mass_registration
       expect(user_13.reload).to_not be_mass_registration
+    end
+  end
+
+  context 'permaban' do
+    let!(:user_1) do
+      create :user,
+        read_only_at: described_class::PERMABAN_INTERVAL.from_now + 1.day
+    end
+    let!(:user_2) do
+      create :user,
+        read_only_at: described_class::PERMABAN_INTERVAL.from_now - 1.day
+    end
+
+    subject! { worker.perform current_date.to_s }
+
+    it do
+      expect(user_1.reload).to be_permaban
+      expect(user_2.reload).to_not be_permaban
     end
   end
 end
