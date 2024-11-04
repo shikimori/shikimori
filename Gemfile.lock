@@ -416,7 +416,8 @@ GEM
       i18n (>= 0.7)
       multi_json
       request_store (>= 1.0)
-    google-protobuf (4.26.0)
+    google-protobuf (4.27.5)
+      bigdecimal
       rake (>= 13)
     graphiql-rails (1.10.1)
       railties
