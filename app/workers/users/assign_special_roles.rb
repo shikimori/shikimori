@@ -9,7 +9,7 @@ class Users::AssignSpecialRoles
   MIN_AI_TITLES_IN_LIST = 4
 
   MASS_REGISTRATION_INTERVAL = 1.month
-  MASS_REGISTRATION_THRESHOLD = 4
+  MASS_REGISTRATION_THRESHOLD = 3
 
   def perform
     [Anime, Manga].each do |klass|

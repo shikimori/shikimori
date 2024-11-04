@@ -51,12 +51,10 @@ describe Users::AssignSpecialRoles do
     let!(:user_1) { create :user, current_sign_in_ip: '1.1.1.1' }
     let!(:user_2) { create :user, current_sign_in_ip: '1.1.1.1' }
     let!(:user_3) { create :user, current_sign_in_ip: '1.1.1.1' }
-    let!(:user_4) { create :user, current_sign_in_ip: '1.1.1.1' }
 
     let!(:user_11) { create :user, current_sign_in_ip: '1.1.1.2' }
     let!(:user_12) { create :user, current_sign_in_ip: '1.1.1.2' }
-    let!(:user_13) { create :user, current_sign_in_ip: '1.1.1.2' }
-    let!(:user_14) do
+    let!(:user_13) do
       create :user,
         current_sign_in_ip: '1.1.1.2',
         created_at: described_class::MASS_REGISTRATION_INTERVAL.ago - 1.day
@@ -68,12 +66,10 @@ describe Users::AssignSpecialRoles do
       expect(user_1.reload).to be_mass_registration
       expect(user_2.reload).to be_mass_registration
       expect(user_3.reload).to be_mass_registration
-      expect(user_4.reload).to be_mass_registration
 
       expect(user_11.reload).to_not be_mass_registration
       expect(user_12.reload).to_not be_mass_registration
       expect(user_13.reload).to_not be_mass_registration
-      expect(user_14.reload).to_not be_mass_registration
     end
   end
 end
