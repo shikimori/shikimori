@@ -414,9 +414,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def excluded_from_statistics?
-    cheat_bot? ||
-      completed_announced_animes? ||
-      ignored_in_achievement_statistics?
+    (roles.map(&:to_sym) & Types::User::ROLES_EXCLUDED_FROM_STATISTICS).any?
   end
 
   def age
