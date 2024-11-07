@@ -398,15 +398,15 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def staff?
-    (roles.to_a & STAFF_ROLES).any?
+    roles.to_a.intersect? STAFF_ROLES
   end
 
   def moderation_versions?
-    (roles.to_a & MODERATION_VERSIONS_ROLES).any?
+    roles.to_a.intersect? MODERATION_VERSIONS_ROLES
   end
 
   def moderation_staff?
-    (roles.to_a & MODERATION_STAFF_ROLES).any?
+    roles.to_a.intersect? MODERATION_STAFF_ROLES
   end
 
   def generated_email?
@@ -414,7 +414,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def excluded_from_statistics?
-    (roles.map(&:to_sym) & Types::User::ROLES_EXCLUDED_FROM_STATISTICS).any?
+    roles.map(&:to_sym).intersect? Types::User::ROLES_EXCLUDED_FROM_STATISTICS
   end
 
   def age
