@@ -2,17 +2,17 @@ describe Comment::Create do
   include_context :timecop
   subject(:comment) do
     described_class.call(
-      params: params,
-      faye: faye,
-      is_conversion: is_conversion,
-      is_forced: is_forced
+      params:,
+      faye:,
+      is_conversion:,
+      is_forced:
     )
   end
 
   let(:anime) { create :anime }
   let!(:topic) do
     create :anime_topic,
-      user: user,
+      user:,
       linked: anime,
       updated_at: 1.hour.ago
   end
@@ -20,11 +20,11 @@ describe Comment::Create do
   let(:faye) { FayeService.new user, nil }
   let(:params) do
     {
-      commentable_id: commentable_id,
-      commentable_type: commentable_type,
+      commentable_id:,
+      commentable_type:,
       body: 'xx',
-      is_offtopic: is_offtopic,
-      user: user
+      is_offtopic:,
+      user:
     }
   end
   let(:is_offtopic) { [true, false].sample }
@@ -40,8 +40,8 @@ describe Comment::Create do
       expect(comment).to have_attributes(
         commentable_type: Topic.name,
         body: 'xx',
-        is_offtopic: is_offtopic,
-        user: user
+        is_offtopic:,
+        user:
       )
     end
   end
@@ -69,8 +69,8 @@ describe Comment::Create do
         expect(comment).to have_attributes(
           commentable: user,
           body: 'xx',
-          is_offtopic: is_offtopic,
-          user: user
+          is_offtopic:,
+          user:
         )
         expect(User::NotifyProfileCommented)
           .to have_received(:call)
@@ -79,7 +79,7 @@ describe Comment::Create do
     end
 
     context 'commentable is review' do
-      let(:review) { create :review, anime: anime }
+      let(:review) { create :review, anime: }
       let(:anime) { create :anime }
       let(:commentable_id) { review.id }
       let(:commentable_type) { Review.name }
@@ -88,8 +88,8 @@ describe Comment::Create do
         expect(comment).to have_attributes(
           commentable: review,
           body: 'xx',
-          is_offtopic: is_offtopic,
-          user: user
+          is_offtopic:,
+          user:
         )
       end
     end

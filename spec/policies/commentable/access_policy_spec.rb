@@ -1,6 +1,6 @@
 describe Commentable::AccessPolicy do
   subject { described_class.allowed? commentable, current_user }
-  let(:current_user) { [user.decorate, user, nil].sample }
+  let(:current_user) { [nil, user, user.decorate].sample }
 
   context 'no commentable' do
     let(:commentable) { nil }

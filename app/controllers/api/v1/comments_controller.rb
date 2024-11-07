@@ -1,4 +1,4 @@
-class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLength
+class Api::V1::CommentsController < Api::V1Controller
   include CanCanGet404Concern
   before_action :check_post_permission, only: %i[create update destroy]
   load_and_authorize_resource only: %i[show create update destroy]
@@ -88,7 +88,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   def create
     @resource = Comment::Create.call(
       params: create_params,
-      faye: faye
+      faye:
     )
 
     if params[:broadcast] && @resource.persisted? && can?(:broadcast, @resource)
