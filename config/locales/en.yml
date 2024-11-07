@@ -448,6 +448,7 @@ en:
           in_club_black_list: You're banned in this club. Commenting is disabled
           not_a_friend: Commenting is allowed to friends only
           not_a_owner: Commenting is disabled
+          access_denied: Commenting is not allowed
         messages:
           ignored: You can't send messages to this user
         club_invite:

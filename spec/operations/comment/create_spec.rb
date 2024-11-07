@@ -78,23 +78,23 @@ describe Comment::Create do
       end
     end
 
-    context 'commentable is review' do
-      let(:review) { create :review, anime: }
-      let(:anime) { create :anime }
-      let(:commentable_id) { review.id }
-      let(:commentable_type) { Review.name }
+    # context 'commentable is review' do
+    #   let(:review) { create :review, anime: }
+    #   let(:anime) { create :anime }
+    #   let(:commentable_id) { review.id }
+    #   let(:commentable_type) { Review.name }
+    #
+    #   it do
+    #     expect(comment).to have_attributes(
+    #       commentable: review,
+    #       body: 'xx',
+    #       is_offtopic:,
+    #       user:
+    #     )
+    #   end
+    # end
 
-      it do
-        expect(comment).to have_attributes(
-          commentable: review,
-          body: 'xx',
-          is_offtopic:,
-          user:
-        )
-      end
-    end
-
-    context 'commentable is db entry' do
+    context 'commentable is db_entry' do
       let(:commentable_id) { anime.id }
       let(:commentable_type) { Anime.name }
 

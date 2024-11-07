@@ -13,11 +13,16 @@ class Comment::Create
     RedisMutex.with_lock(mutex_key, block: 30.seconds, expire: 30.seconds) do
       apply_commentable comment
     end
-    @faye.send @is_forced ? :create! : :create, comment
 
-    if comment.persisted?
-      notify_user comment if profile_comment?
-      touch_topic comment if topic_comment? || db_entry_comment?
+    if commenting_allowed? comment
+      @faye.send @is_forced ? :create! : :create, comment
+
+      if comment.persisted?
+        notify_user comment if profile_comment?
+        touch_topic comment if topic_comment? || db_entry_comment?
+      end
+    else
+      add_error comment
     end
 
     comment
@@ -41,6 +46,10 @@ private
     end
   end
 
+  def commenting_allowed? comment
+    Commentable::AccessPolicy.allowed? comment.commentable, comment.user
+  end
+
   def find_or_generate_topic
     commentable_object.topic || commentable_object.generate_topic
   end
@@ -51,6 +60,14 @@ private
 
   def touch_topic comment
     comment.commentable.touch
+  end
+
+  def add_error comment
+    comment.errors.add(
+      :base,
+      I18n.t('activerecord.errors.models.comments.access_denied')
+    )
+    raise ActiveRecord::RecordInvalid, comment if @is_forced
   end
 
   # NOTE: Topic, User, Review or DbEntry
