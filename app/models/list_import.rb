@@ -40,7 +40,9 @@ class ListImport < ApplicationRecord
     end
   end
 
-  has_attached_file :list
+  has_attached_file :list,
+    url: '/system/:class/:attachment/:id_partition/:style/:hash.:extension',
+    hash_secret: Rails.application.secrets.secret_key_base
 
   validates_attachment :list,
     presence: true,
