@@ -31,8 +31,7 @@
   - if video.name.present?
     span.name title=video.name = video.name
 
-  span.marker
-    - if defined?(video_counter) || defined?(show_kind)
-      = video.kind_text
-    - else
-      = video.hosting_marker
+  - if defined?(video_counter) || defined?(show_kind)
+    span.marker = video.kind_text
+  - elsif video.hosting
+    span.marker = video.hosting_marker
