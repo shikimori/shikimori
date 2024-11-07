@@ -38,6 +38,7 @@ class MessagesController < ProfilesController
   end
 
   def tooltip
+    og noindex: true
     show
   end
 

@@ -61,6 +61,7 @@ class PeopleController < DbEntriesController # rubocop:disable ClassLength
   end
 
   def tooltip
+    og noindex: true
   end
 
   def autocomplete

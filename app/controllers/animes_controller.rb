@@ -231,6 +231,7 @@ class AnimesController < DbEntriesController # rubocop:disable Metrics/ClassLeng
   end
 
   def tooltip
+    og noindex: true
     render formats: :html
   end
 

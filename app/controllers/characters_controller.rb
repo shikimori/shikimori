@@ -107,6 +107,7 @@ class CharactersController < PeopleController
   end
 
   def tooltip
+    og noindex: true
   end
 
   def autocomplete
