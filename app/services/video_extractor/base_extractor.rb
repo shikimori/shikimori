@@ -30,7 +30,7 @@ class VideoExtractor::BaseExtractor
 
   def fetch_remote url
     Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
-      PgCache.fetch url, expires_in: 2.years do
+      PgCache.fetch url, expires_in: 4.months do
         fetch_and_build_entry url
       end
     end
