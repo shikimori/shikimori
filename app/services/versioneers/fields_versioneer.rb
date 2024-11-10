@@ -7,6 +7,8 @@ class Versioneers::FieldsVersioneer
     $
   /mix
 
+  EMPTY_INCOMPLETE_DATE = { 'day' => '', 'year' => '', 'month' => '' }
+
   def premoderate params, author = nil, reason = nil
     create_version params, author, reason
   end
@@ -42,7 +44,7 @@ private
     convert_hash(new_values).each_with_object({}) do |(field, new_value), memo|
       truncated_value = version.truncate_value field, new_value
 
-      next unless item.send(field).to_s != truncated_value.to_s
+      next unless item.send(field).to_json != truncated_value.to_json
 
       memo[field.to_s] = [
         version.current_value(field),
@@ -62,6 +64,8 @@ private
       if key =~ SPLITTED_DATE_FIELD
         field = $LAST_MATCH_INFO[:field]
         memo[field] ||= convert_date hash, field
+      elsif value == EMPTY_INCOMPLETE_DATE
+        memo[key] = {}
       else
         memo[key] = value
       end

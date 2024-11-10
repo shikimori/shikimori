@@ -58,6 +58,19 @@ describe Versioneers::FieldsVersioneer do
       end
     end
 
+    describe 'incomplete date change' do
+      let(:anime) { create :anime, aired_on: {} }
+
+      describe 'no changes' do
+        let(:changes) do
+          {
+            aired_on: { 'day' => '', 'year' => '', 'month' => '' }
+          }
+        end
+        it { expect(version).to be_new_record }
+      end
+    end
+
     # describe 'date change' do
     #   let(:anime) { create :anime, aired_on: '2007-03-02' }
     #   let(:changes) do
