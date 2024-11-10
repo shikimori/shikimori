@@ -70,7 +70,7 @@ class ModerationsController < ShikimoriController
     end
 
     if can?(:search_user_id, UserImage) && params[:user_image_url].present?
-      @user_image_hash = params[:user_image_url].match(%r{user_images_h/original/(\w+)/})[1]
+      @user_image_hash = params[:user_image_url].match(%r{user_images_h/\w+/(\w+)/})[1]
 
       if @user_image_hash.present?
         @user_image_user_id = 1.upto(User.last.id).find { |user_id| Digest::SHA256.hexdigest("#{user_id}-#{Rails.application.secrets.secret_key_base}")[0..23] == @user_image_hash }
