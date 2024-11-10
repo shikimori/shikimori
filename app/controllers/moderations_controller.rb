@@ -1,4 +1,4 @@
-class ModerationsController < ShikimoriController # rubocop:disable ClassLength
+class ModerationsController < ShikimoriController
   include SidekiqPaginatorConcern
 
   AUTOCOMPLETE_LIMIT = 10
@@ -68,6 +68,18 @@ class ModerationsController < ShikimoriController # rubocop:disable ClassLength
         .select { |v| v['class'].match?(/MalParsers/) }
         .sort_by { |v| v['enqueued_at'] }
     end
+
+    if can?(:search_user_id, UserImage) && params[:user_image_url].present?
+      @user_image_hash = params[:user_image_url].match(%r{user_images_h/original/(\w+)/})[1]
+
+      if @user_image_hash.present?
+        @user_image_user_id = 1.upto(User.last.id).find { |user_id| Digest::SHA256.hexdigest("#{user_id}-#{Rails.application.secrets.secret_key_base}")[0..23] == @user_image_hash }
+      end
+
+      if @user_image_user_id
+        @user_image_user = User.find_by id: @user_image_user_id
+      end
+    end
   end
 
   def missing_screenshots
@@ -83,7 +95,7 @@ private
   def abuse_requests_stats
     Rails.cache.fetch %i[abuse_requests_stats v4], expires_in: 1.day do
       AbuseRequest
-        .where('created_at > ?', 4.month.ago)
+        .where('created_at > ?', 4.months.ago)
         .group(:approver_id)
         .select('approver_id, count(*) as count')
         .where(
@@ -97,7 +109,7 @@ private
   def bans_stats
     Rails.cache.fetch %i[bans_stats v4], expires_in: 1.day do
       Ban
-        .where('created_at > ?', 4.month.ago)
+        .where('created_at > ?', 4.months.ago)
         .group(:moderator_id)
         .select('moderator_id, count(*) as count')
         .where(
@@ -111,7 +123,7 @@ private
   def content_versions_stats
     Rails.cache.fetch %i[content_versions_stats v4], expires_in: 1.day do
       Version
-        .where('created_at > ?', 4.month.ago)
+        .where('created_at > ?', 4.months.ago)
         .where.not(item_type: AnimeVideo.name)
         .group(:moderator_id)
         .select('moderator_id, count(*) as count')
@@ -130,7 +142,7 @@ private
   def critiques_stats
     Rails.cache.fetch %i[critiques_stats v4], expires_in: 1.day do
       Critique
-        .where('created_at > ?', 4.month.ago)
+        .where('created_at > ?', 4.months.ago)
         .where.not(moderation_state: :pending)
         .where.not(approver_id: nil)
         .group(:approver_id)
@@ -143,7 +155,7 @@ private
   def collections_stats
     Rails.cache.fetch %i[collection_stats v4], expires_in: 1.day do
       Collection
-        .where('created_at > ?', 4.month.ago)
+        .where('created_at > ?', 4.months.ago)
         .where.not(moderation_state: :pending)
         .where.not(approver_id: nil)
         .group(:approver_id)
@@ -156,7 +168,7 @@ private
   def articles_stats
     Rails.cache.fetch %i[article_stats v1], expires_in: 1.day do
       Article
-        .where('created_at > ?', 4.month.ago)
+        .where('created_at > ?', 4.months.ago)
         .where.not(moderation_state: :pending)
         .where.not(approver_id: nil)
         .group(:approver_id)

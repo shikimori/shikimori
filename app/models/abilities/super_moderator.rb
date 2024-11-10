@@ -2,7 +2,7 @@ class Abilities::SuperModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 
-  def initialize _user
+  def initialize _user # rubocop:disable Metrics/MethodLength
     roles_abilities
 
     can :manage, Ban
@@ -23,6 +23,8 @@ class Abilities::SuperModerator
     poster_abilities
     comment_abilities
     clubs_abilities
+
+    can :search_user_id, UserImage
   end
 
   def roles_abilities # rubocop:disable MethodLength

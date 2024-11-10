@@ -11,6 +11,8 @@ class Abilities::NewsSuperModerator
       !user.staff?
     end
 
+    can :search_user_id, UserImage
+
     can :manage, Club
     can :manage, ClubPage
     can :manage, ClubImage

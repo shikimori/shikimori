@@ -199,7 +199,7 @@ header.head
   .block
     .fc-3
       .f-column
-        .subheadline.m15 = t '.mal_sync'
+        .subheadline = t '.mal_sync'
         form.b-form#sync[
           data-url_template=sync_animes_url
           method='post'
@@ -264,6 +264,42 @@ header.head
                 itemprop='dateCreated'
                 datetime=job['enqueued_at'].iso8601
               ] = l job['enqueued_at'], format: '%e %B %Y'
+
+- if can? :search_user_id, UserImage
+  .block
+    .fc-2
+      .f-column
+        .subheadline Поиск пользователя по ссылке на картинку
+        form.b-form.block[
+          method='get'
+        ]
+          = hidden_field_tag :authenticity_token, form_authenticity_token
+          .b-input
+            label Ссылка
+            input[
+              name='user_image_url'
+              type='text'
+              autocomplete='off'
+              value=params[:user_image_url]
+            ]
+
+          input[
+            type='submit'
+            value=t('.run')
+            data-disable-with=t('.running')
+          ]
+
+        - if @user_image_hash
+          .block
+            div Хеш: #{@user_image_hash}
+            div
+              - if @user_image_user
+                ' Пользователь:
+                - if @user_image_user
+                  = render 'users/user_16', user: @user_image_user
+              - else
+                | Пользователь не найден
+
 
 - if @abuse_requests_stats || @bans_stats || @content_versions_stats || @critiques_stats || @collections_stats || @articles_stats
   .subheadline.m15 Statistics for last 4 months
