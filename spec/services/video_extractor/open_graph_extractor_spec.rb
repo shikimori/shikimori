@@ -29,8 +29,8 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
       it do
         is_expected.to have_attributes(
           hosting: :sibnet,
-          image_url: '//video.sibnet.ru/upload/cover/video_1234982_0.jpg',
-          player_url: '//video.sibnet.ru/shell.php?videoid=1234982'
+          image_url: 'https://video.sibnet.ru/upload/cover/video_1234982_0.jpg',
+          player_url: 'https://video.sibnet.ru/shell.php?videoid=1234982'
         )
       end
 
@@ -45,8 +45,8 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
         it do
           is_expected.to have_attributes(
             hosting: :sibnet,
-            image_url: '//video.sibnet.ru/upload/cover/video_1234982_0.jpg',
-            player_url: '//video.sibnet.ru/shell.php?videoid=1234982'
+            image_url: 'https://video.sibnet.ru/upload/cover/video_1234982_0.jpg',
+            player_url: 'https://video.sibnet.ru/shell.php?videoid=1234982'
           )
         end
       end

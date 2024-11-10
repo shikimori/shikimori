@@ -21,7 +21,7 @@
 
   a.video-link[
     href=video.url
-    data-href=Url.new(video.player_url).without_protocol.to_s
+    data-href=Url.new(video.player_url).with_protocol.to_s
   ]
     img[
       src=video.camo_image_url

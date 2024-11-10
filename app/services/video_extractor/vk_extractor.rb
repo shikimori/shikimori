@@ -25,7 +25,6 @@ private
 
     Url
       .new(url)
-      .without_protocol
       .to_s
   end
 
@@ -35,7 +34,6 @@ private
 
     Url
       .new(url)
-      .without_protocol
       .to_s
       .gsub(/&__ref=[^&]+/, '')
       .gsub(/&api_hash=[^&]+/, '')

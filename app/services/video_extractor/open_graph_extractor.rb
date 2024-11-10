@@ -37,11 +37,11 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
 private
 
   def extract_image_url data
-    Url.new(data.first).without_protocol.to_s if data.first
+    Url.new(data.first).with_protocol.to_s if data.first
   end
 
   def extract_player_url data
-    Url.new(data.second).without_protocol.to_s if data.second
+    Url.new(data.second).with_protocol.to_s if data.second
   end
 
   def extract_hosting url

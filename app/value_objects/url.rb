@@ -22,7 +22,7 @@ class Url
     if protocol? @url
       self
     else
-      with_http
+      with_https
     end
   end
 
@@ -36,6 +36,10 @@ class Url
 
   def with_http
     chain @url.gsub(%r{\A// | \A(?!https?:/?/)}mix, 'http://')
+  end
+
+  def with_https
+    chain @url.gsub(%r{\A// | \A(?!https?:/?/)}mix, 'https://')
   end
 
   def without_http

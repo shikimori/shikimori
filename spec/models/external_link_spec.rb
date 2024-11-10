@@ -34,7 +34,7 @@ describe ExternalLink do
 
       context 'protocal' do
         let(:url) { 'zzz' }
-        its(:url) { is_expected.to eq 'http://zzz' }
+        its(:url) { is_expected.to eq 'https://zzz' }
       end
 
       context 'mangalib.me' do

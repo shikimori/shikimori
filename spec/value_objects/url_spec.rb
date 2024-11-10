@@ -2,6 +2,20 @@ describe Url do
   let(:string) { 'lenta.ru' }
   let(:url) { Url.new string }
 
+  describe '#with_protocol' do
+    subject { url.with_protocol.to_s }
+
+    context 'has_http' do
+      let(:string) { 'http://test.org' }
+      it { is_expected.to eq 'http://test.org' }
+    end
+
+    context 'no_http' do
+      let(:string) { 'test.org' }
+      it { is_expected.to eq 'https://test.org' }
+    end
+  end
+
   describe '#without_protocol' do
     subject { url.without_protocol.to_s }
 
