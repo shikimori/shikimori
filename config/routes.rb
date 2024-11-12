@@ -97,6 +97,7 @@ Rails.application.routes.draw do
       get :raise_exception
       get :timeout_120s
       get :http_headers
+      get :http_cf
       get :my_target_ad
       get :how_to_edit_achievements
       get :csrf_token

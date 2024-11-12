@@ -265,6 +265,12 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
     }
   end
 
+  def http_cf
+    render json: {
+      HTTP_CF_IPCOUNTRY: request.env['HTTP_CF_IPCOUNTRY']
+    }
+  end
+
   def my_target_ad
     raise 'allowed on production only' unless Rails.env.production?
   end
