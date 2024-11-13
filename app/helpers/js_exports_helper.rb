@@ -6,13 +6,6 @@ module JsExportsHelper
   def sweep_js_exports(&)
     html = capture(&)
     JsExports::Supervisor.instance.sweep current_user, html
-
-    if request.env['HTTP_CF_IPCOUNTRY'] == 'UA'
-      html.gsub('moe.shikimori', 'desu.shikimori').html_safe
-    else
-      html
-    end
-
-    # html
+    html
   end
 end

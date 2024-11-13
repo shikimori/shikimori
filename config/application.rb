@@ -160,6 +160,8 @@ module Shikimori
       config.middleware.use Redirecter
     end
 
+    config.middleware.use ImagesSubdomainReplacement
+
     config.middleware.insert 0, Rack::UTF8Sanitizer
     if defined?(ProxyTest) # not defined for clockwork
       config.middleware.insert 0, ProxyTest
