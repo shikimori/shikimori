@@ -37,6 +37,8 @@ private
     return url if video.hosting.blank?
 
     html_for video
+  rescue ActionView::Template::Error
+    url
   end
 
   def html_for video
