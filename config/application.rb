@@ -53,8 +53,9 @@ module Shikimori
   NAME_RU = 'Шикимори'
   NAME_EN = 'Shikimori'
 
-  STATIC_SUBDOMAINS = %w[desu]
+  # STATIC_SUBDOMAINS = %w[desu]
   STATIC_PROXIED_SUBDOMAINS = %w[moe]
+  STATIC_SUBDOMAINS = STATIC_PROXIED_SUBDOMAINS
   STATIC_CLOUDFLARE_SUBDOMAINS = %w[nyaa]
   # STATIC_SUBDOMAINS = %w[nyaa kawai moe desu dere]
   EMAIL = 'admin@shikimori.me'
