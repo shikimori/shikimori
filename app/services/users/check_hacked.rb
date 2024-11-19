@@ -23,6 +23,7 @@ class Users::CheckHacked
     discord.gg/HY8Jq8rHuM
     discord.gg/jfqC3zemym
     discord.gg/sphGbbkUnq
+    discord.gg/F8b975nnP5
   ]
   NOT_SPAM_DOMAINS = %w[
     shikimori.org
