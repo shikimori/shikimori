@@ -161,7 +161,9 @@ module Shikimori
       config.middleware.use Redirecter
     end
 
-    config.middleware.use ImagesSubdomainReplacement
+    unless Rails.env.test?
+      config.middleware.use ImagesSubdomainReplacement
+    end
 
     config.middleware.insert 0, Rack::UTF8Sanitizer
     if defined?(ProxyTest) # not defined for clockwork
