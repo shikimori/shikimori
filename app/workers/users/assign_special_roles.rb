@@ -65,7 +65,7 @@ private
     mass_registartgions_users_scope(current_date)
       .where(current_sign_in_ip: mass_registrations_ips(current_date))
       .update_all(
-        "roles = roles || '{#{Types::User::Roles[:mass_registration]}}'"
+        "roles = roles || '{#{Types::User::Roles[:mass_registration]},#{Types::User::Roles[:cheat_bot]}}'" # rubocop:disable Metrics/LineLength
       )
   end
 
