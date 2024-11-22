@@ -213,9 +213,9 @@ private
   SPECIAL_X300 = {
     provider: Types::Ad::Provider[:special],
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
-    pixel: 'https://amc.yandex.ru/show?cmn_id=62234&plt_id=229850&crv_id=540021&evt_t=render&ad_type=banner&rnd=%system.random%',
+    pixel: 'https://mc.yandex.ru/pixel/3519699458667845727?rnd=%aw_random%',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.webp app/assets/images/globals/events/2022-06-18/menu_1.webp
-    url: 'https://amc.yandex.ru/show?cmn_id=62234&plt_id=229850&crv_id=540021&evt_t=click&ad_type=banner',
+    url: 'https://ru.4game.com/gransaga/?utm_source=branding&utm_medium=cpm&utm_campaign=[gs-ru]_211124&utm_content=600x1000&utm_placement=shikimori',
     # images: (1..1).map do |i|
     #   {
     #     src: "/assets/globals/events/2024-10-10/menu_#{i}.png",
@@ -236,9 +236,9 @@ private
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
-    pixel: 'https://amc.yandex.ru/show?cmn_id=62234&plt_id=229848&crv_id=540017&evt_t=render&ad_type=banner&rnd=%system.random%',
+    pixel: 'https://mc.yandex.ru/pixel/3519699458667845727?rnd=%aw_random%',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/wide_1@2x.webp app/assets/images/globals/events/2022-06-18/wide_1.webp
-    url: 'https://amc.yandex.ru/show?cmn_id=62234&plt_id=229848&crv_id=540017&evt_t=click&ad_type=banner',
+    url: 'https://ru.4game.com/gransaga/?utm_source=branding&utm_medium=cpm&utm_campaign=[gs-ru]_211124&utm_content=mainbanner&utm_placement=shikimori',
     # images: (1..1).map do |i|
     #   {
     #     src: "/assets/globals/events/2024-10-10/wide_#{i}.png",
