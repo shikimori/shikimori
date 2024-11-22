@@ -223,8 +223,8 @@ private
     #   }
     # end,
     images: [{
-      src: '/assets/globals/events/2024-11-01/menu_1.jpg',
-      src_2x: '/assets/globals/events/2024-11-01/menu_1@2x.jpg'
+      src: '/assets/globals/events/2024-11-20/menu_1.jpg',
+      src_2x: '/assets/globals/events/2024-11-20/menu_1@2x.jpg'
     }],
     rules: {
       cookie: 'i1_20240325',
@@ -246,8 +246,8 @@ private
     #   }
     # end,
     images: [{
-      src: '/assets/globals/events/2024-11-01/wide_1.jpg',
-      src_2x: '/assets/globals/events/2024-11-01/wide_1@2x.jpg'
+      src: '/assets/globals/events/2024-11-20/wide_1.jpg',
+      src_2x: '/assets/globals/events/2024-11-20/wide_1@2x.jpg'
     }],
     # end,
     # html: (
@@ -425,13 +425,13 @@ private
     #   # Types::Ad::Type[:advrtr_240x400]
     # ],
     Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300], # saga
+      Types::Ad::Type[:special_x300], # saga
       # # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x400]
       # # Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300], # saga
+      Types::Ad::Type[:special_x300], # saga
       # # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600]
       # # Types::Ad::Type[:advrtr_240x400],
@@ -451,7 +451,7 @@ private
       # Types::Ad::Type[:mt_footer_300x250]
     ],
     Types::Ad::Meta[:special_x1170] => [
-      # Types::Ad::Type[:special_x1170] # saga
+      Types::Ad::Type[:special_x1170] # saga
       # # Types::Ad::Type[:yd_1170x200]
     ]
   }
