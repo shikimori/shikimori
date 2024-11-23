@@ -14244,7 +14244,7 @@
       :algo: duration
       :filters: &726
         franchise: zhen_hun_jie
-      :threshold: 100%
+      :threshold: 98%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
   neko_id: :zhen_hun_jie
