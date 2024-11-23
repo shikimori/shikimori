@@ -18754,7 +18754,7 @@
         - 58331
         - 58345
         - 58346
-      :threshold: 95%
+      :threshold: 95.7%
       :generator: &966
         ignore_latest_ids:
         - 48426
@@ -21550,13 +21550,8 @@
         - 34677
         - 37098
         - 40439
-        - 44135
-        - 44137
         - 44140
-        - 57416
-        - 58375
         - 58376
-        - 58377
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
