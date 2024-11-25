@@ -215,7 +215,7 @@ private
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     pixel: 'https://mc.yandex.ru/pixel/3519699458667845727?rnd=%aw_random%',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.webp app/assets/images/globals/events/2022-06-18/menu_1.webp
-    url: 'https://ru.4game.com/gransaga/?utm_source=branding&utm_medium=cpm&utm_campaign=[gs-ru]_211124&utm_content=600x1000&utm_placement=shikimori',
+    url: 'https://trk.mail.ru/c/wht689',
     # images: (1..1).map do |i|
     #   {
     #     src: "/assets/globals/events/2024-10-10/menu_#{i}.png",
@@ -238,7 +238,7 @@ private
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
     pixel: 'https://mc.yandex.ru/pixel/3519699458667845727?rnd=%aw_random%',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/wide_1@2x.webp app/assets/images/globals/events/2022-06-18/wide_1.webp
-    url: 'https://ru.4game.com/gransaga/?utm_source=branding&utm_medium=cpm&utm_campaign=[gs-ru]_211124&utm_content=mainbanner&utm_placement=shikimori',
+    url: 'https://trk.mail.ru/c/e0oq35',
     # images: (1..1).map do |i|
     #   {
     #     src: "/assets/globals/events/2024-10-10/wide_#{i}.png",
