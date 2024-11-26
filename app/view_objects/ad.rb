@@ -213,9 +213,9 @@ private
   SPECIAL_X300 = {
     provider: Types::Ad::Provider[:special],
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
-    pixel: 'https://mc.yandex.ru/pixel/3519699458667845727?rnd=%aw_random%',
+    pixel: 'https://trk.mail.ru/i/v2u4c0',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.webp app/assets/images/globals/events/2022-06-18/menu_1.webp
-    url: 'https://trk.mail.ru/c/wht689',
+    url: 'https://trk.mail.ru/c/v2u4c0',
     # images: (1..1).map do |i|
     #   {
     #     src: "/assets/globals/events/2024-10-10/menu_#{i}.png",
@@ -236,9 +236,9 @@ private
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
-    pixel: 'https://mc.yandex.ru/pixel/3519699458667845727?rnd=%aw_random%',
+    pixel: 'https://trk.mail.ru/i/v2u4c0',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/wide_1@2x.webp app/assets/images/globals/events/2022-06-18/wide_1.webp
-    url: 'https://trk.mail.ru/c/e0oq35',
+    url: 'https://trk.mail.ru/c/v2u4c0',
     # images: (1..1).map do |i|
     #   {
     #     src: "/assets/globals/events/2024-10-10/wide_#{i}.png",
