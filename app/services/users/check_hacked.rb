@@ -70,7 +70,8 @@ private
   def spam?
     links = follow(links(@text))
 
-    (domains(links) & SPAM_DOMAINS).any? || (wo_protocol(links) & SPAM_LINKS).any?
+    domains(links).intersect?(SPAM_DOMAINS) ||
+      wo_protocol(links).intersect?(SPAM_LINKS)
   end
 
   def ban_text
@@ -93,10 +94,10 @@ private
 
   def follow urls
     urls
-      .map do |url|
-        Rails.cache.fetch([url, :follow]) { Network::FinalUrl.call(url) || url }
+      .flat_map do |url|
+        Rails.cache.fetch([url, :follow]) { [url, Network::FinalUrl.call(url)] }
       end
-      .select(&:present?)
+      .compact_blank
   end
 
   def domains urls
