@@ -232,7 +232,7 @@ private
       url: 'https://bit.ly/4cTv3G5'
     }],
     rules: {
-      cookie: 'i1_20240325',
+      cookie: 'i1_20241201',
       shows_per_week: 480 # 380 # 420 # 540
     },
     placement: Types::Ad::Placement[:menu],
