@@ -213,9 +213,9 @@ private
   SPECIAL_X300 = {
     provider: Types::Ad::Provider[:special],
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
-    pixel: 'https://trk.mail.ru/i/v2u4c0',
+    # pixel: 'https://trk.mail.ru/i/v2u4c0',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/menu_1@2x.webp app/assets/images/globals/events/2022-06-18/menu_1.webp
-    url: 'https://trk.mail.ru/c/v2u4c0',
+    # url: 'https://trk.mail.ru/c/v2u4c0',
     # images: (1..1).map do |i|
     #   {
     #     src: "/assets/globals/events/2024-10-10/menu_#{i}.png",
@@ -223,8 +223,13 @@ private
     #   }
     # end,
     images: [{
-      src: '/assets/globals/events/2024-11-20/menu_1.jpg',
-      src_2x: '/assets/globals/events/2024-11-20/menu_1@2x.jpg'
+      src: '/assets/globals/events/2024-12-01/menu_gen.jpg',
+      src_2x: '/assets/globals/events/2024-12-01/menu_gen@2x.jpg',
+      url: 'https://bit.ly/3AVbgZL'
+    }, {
+      src: '/assets/globals/events/2024-12-01/menu_zzz.jpg',
+      src_2x: '/assets/globals/events/2024-12-01/menu_zzz@2x.jpg',
+      url: 'https://bit.ly/4cTv3G5'
     }],
     rules: {
       cookie: 'i1_20240325',
@@ -236,9 +241,9 @@ private
   SPECIAL_X1170 = {
     provider: Types::Ad::Provider[:special],
     # url: 'https://ads.adfox.ru/707246/goLink?p1=cxdxi&p2=frfe&p5=nqxpb&pr=[RANDOM]',
-    pixel: 'https://trk.mail.ru/i/v2u4c0',
+    # pixel: 'https://trk.mail.ru/i/v2u4c0',
     # convert -resize 50% app/assets/images/globals/events/2022-06-18/wide_1@2x.webp app/assets/images/globals/events/2022-06-18/wide_1.webp
-    url: 'https://trk.mail.ru/c/v2u4c0',
+    # url: 'https://trk.mail.ru/c/v2u4c0',
     # images: (1..1).map do |i|
     #   {
     #     src: "/assets/globals/events/2024-10-10/wide_#{i}.png",
@@ -246,8 +251,13 @@ private
     #   }
     # end,
     images: [{
-      src: '/assets/globals/events/2024-11-20/wide_1.jpg',
-      src_2x: '/assets/globals/events/2024-11-20/wide_1@2x.jpg'
+      src: '/assets/globals/events/2024-12-01/wide_gen.jpg',
+      src_2x: '/assets/globals/events/2024-12-01/wide_gen@2x.jpg',
+      url: 'https://bit.ly/3AVbgZL'
+    }, {
+      src: '/assets/globals/events/2024-12-01/wide_zzz.jpg',
+      src_2x: '/assets/globals/events/2024-12-01/wide_zzz@2x.jpg',
+      url: 'https://bit.ly/4cTv3G5'
     }],
     # end,
     # html: (
