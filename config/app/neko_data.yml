@@ -25267,6 +25267,9 @@
         - 44081
         - 53200
         - 51498
+        - 53128
+        - 610
+        - 50739
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *4
   neko_id: :genki
@@ -26259,6 +26262,7 @@
         - 52196
         - 53439
         - 53200
+        - 37450
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *4
   neko_id: :kuudere
@@ -29352,6 +29356,8 @@
         - 21639
         - 12901
         - 53237
+        - 54744
+        - 49766
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *4
   neko_id: :sovietanime
@@ -31973,6 +31979,8 @@
         - 41619
         - 52505
         - 33031
+        - 37979
+        - 52196
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
   default_values: *4
   neko_id: :yandere
