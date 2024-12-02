@@ -20,10 +20,12 @@ class Users::CheckHacked
   SPAM_LINKS = %w[
     discord.com/invite/4mgGDtjpaS
     discord.com/invite/hVybUWQQGS
+    discord.com/invite/bCj6hMUGHR
     discord.gg/HY8Jq8rHuM
     discord.gg/jfqC3zemym
     discord.gg/sphGbbkUnq
     discord.gg/F8b975nnP5
+    discord.gg/bCj6hMUGHR
   ]
   NOT_SPAM_DOMAINS = %w[
     shikimori.org
