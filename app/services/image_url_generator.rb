@@ -5,6 +5,9 @@ class ImageUrlGenerator
     User => :avatar,
     Club => :logo
   }
+  USE_SUBDOMAINS = {
+    User => false
+  }
   ONLY_PATH = {
     UserImage => false
   }
@@ -21,8 +24,6 @@ class ImageUrlGenerator
       ONLY_PATH[entry.class] :
       true
 
-    image_index = entry.id % Shikimori::STATIC_SUBDOMAINS.size
-
     image_file_path = entry.send(image_method).path image_size
     image_url_path = entry.send(image_method).url image_size, is_only_path
 
@@ -30,7 +31,11 @@ class ImageUrlGenerator
         (!Rails.env.production? && image_file_path && File.exist?(image_file_path))
       local_url image_url_path
     else
-      production_url image_url_path, image_index, is_selected_subdomains: true
+      image_index = entry.id % SELECTED_STATIC_SUBDOMAINS.size
+      production_url(
+        image_url_path,
+        USE_SUBDOMAINS[entry.class] == false ? nil : image_index
+      )
     end
   end
 
@@ -45,7 +50,10 @@ class ImageUrlGenerator
       local_url image_path
     else
       image_index = poster.id % SELECTED_STATIC_SUBDOMAINS.size
-      production_url image_path, image_index, is_selected_subdomains: true
+      production_url(
+        image_path,
+        USE_SUBDOMAINS[Poster] == false ? nil : image_index
+      )
     end
 
     # if Rails.env.development? && !File.exist?(poster.image.storage.path(poster.image.id))
@@ -78,16 +86,9 @@ private
     # end
   end
 
-  def production_url image_url_path, image_index, is_selected_subdomains: false
-    # "#{Shikimori::PROTOCOLS[:production]}://" \
-    #   "#{shiki_domain}#{image_url_path}"
-
-    subdomain = is_selected_subdomains ?
-      SELECTED_STATIC_SUBDOMAINS :
-      Shikimori::STATIC_SUBDOMAINS
-
-    "#{Shikimori::PROTOCOLS[:production]}://" \
-      "#{subdomain[image_index]}." \
+  def production_url image_url_path, image_index
+    "#{Shikimori::PROTOCOLS[:production]}://" +
+      (image_index ? "#{SELECTED_STATIC_SUBDOMAINS[image_index]}." : '') +
       "#{shiki_domain}#{image_url_path}"
   end
 
