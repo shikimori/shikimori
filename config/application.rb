@@ -54,9 +54,9 @@ module Shikimori
   NAME_EN = 'Shikimori'
 
   # STATIC_SUBDOMAINS = %w[desu]
-  STATIC_PROXIED_SUBDOMAINS = %w[moe]
+  STATIC_PROXIED_SUBDOMAINS = %w[moe dere] # moe - shiki_images_proxy, dere - shiki_proxy
   STATIC_SUBDOMAINS = STATIC_PROXIED_SUBDOMAINS
-  STATIC_CLOUDFLARE_SUBDOMAINS = %w[nyaa]
+  STATIC_CLOUDFLARE_SUBDOMAINS = %w[nyaa] # subdomain proxied by cloudflare into the main server
   # STATIC_SUBDOMAINS = %w[nyaa kawai moe desu dere]
   EMAIL = 'admin@shikimori.me'
   # EMAIL_DATA_DELETION = 'mail+data_deletion@shikimori.org'
