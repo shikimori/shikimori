@@ -30,7 +30,7 @@ class ImageUrlGenerator
         (!Rails.env.production? && image_file_path && File.exist?(image_file_path))
       local_url image_url_path
     else
-      production_url image_url_path, image_index
+      production_url image_url_path, image_index, is_selected_subdomains: true
     end
   end
 
