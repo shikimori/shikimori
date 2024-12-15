@@ -288,10 +288,10 @@ private
   }
   SPECIAL_X894 = {
     provider: Types::Ad::Provider[:special],
-    url: 'https://senku.cc/P8qYpW',
+    url: 'https://clck.ru/3F3swp',
     images: [{
-      src: '/assets/globals/events/2024-11-16/inner_1.png',
-      src_2x: '/assets/globals/events/2024-11-16/inner_1@2x.png'
+      src: '/assets/globals/events/2024-12-15/inner_1.jpg',
+      src_2x: '/assets/globals/events/2024-12-15/inner_1@2x.jpg'
     }],
     # images: [{
     #   src: '/assets/globals/events/2023-10-20/wide_1.png',
