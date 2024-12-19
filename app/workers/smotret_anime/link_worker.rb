@@ -6,7 +6,7 @@ class SmotretAnime::LinkWorker
     'https://smotret-anime.online/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
   API_HENTAI365_URL =
     'https://hentai365.ru/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
-  ANIME365_URL = 'https://smotret-anime.com/catalog/%<smotret_anime_id>i'
+  ANIME365_URL = 'https://smotret-anime.org/catalog/%<smotret_anime_id>i'
 
   GIVE_UP_INTERVAL = 2.months
   BROKEN_URLS = %w[

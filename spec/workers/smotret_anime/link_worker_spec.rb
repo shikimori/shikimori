@@ -48,7 +48,7 @@ describe SmotretAnime::LinkWorker, :vcr do
       expect(anime.all_external_links[1]).to eq external_link_3
       expect(anime.all_external_links[2]).to have_attributes(
         kind: 'smotret_anime',
-        url: 'https://smotret-anime.com/catalog/19351',
+        url: 'https://smotret-anime.org/catalog/19351',
         source: 'smotret_anime'
       )
       expect(anime.all_external_links[2].imported_at).to be_within(0.1).of Time.zone.now
@@ -112,7 +112,7 @@ describe SmotretAnime::LinkWorker, :vcr do
         expect(anime.all_external_links).to have(4).items
         expect(anime.all_external_links[2]).to have_attributes(
           kind: 'smotret_anime',
-          url: 'https://smotret-anime.com/catalog/26152',
+          url: 'https://smotret-anime.org/catalog/26152',
           source: 'smotret_anime'
         )
       end
