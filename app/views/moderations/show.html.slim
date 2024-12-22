@@ -307,18 +307,24 @@ header.head
             = spoiler 'Сервер (супер модератор)' do
               .subheadline.red Сервер
               .cc-2
-                .c-column
+                .c-column.m10
                   a.b-link_button.light-red[
                     href=restart_unicorn_moderations_url
                     data-method='post'
                     data-confirm=t('actions.confirm_simple')
                   ] Перезапустить Unicorn
-                .c-column
+                .c-column.m10
                   a.b-link_button.light-red[
                     href=restart_sidekiq_moderations_url
                     data-method='post'
                     data-confirm=t('actions.confirm_simple')
                   ] Перезапустить Sidekiq
+                .c-column
+                  a.b-link_button.light-red[
+                    href=clear_cache_moderations_url
+                    data-method='post'
+                    data-confirm=t('actions.confirm_simple')
+                  ] Очистить кэш
 
 - if @abuse_requests_stats || @bans_stats || @content_versions_stats || @critiques_stats || @collections_stats || @articles_stats
   .subheadline.m15 Statistics for last 4 months

@@ -672,6 +672,7 @@ Rails.application.routes.draw do
       get :missing_screenshots
       post :restart_unicorn
       post :restart_sidekiq
+      post :clear_cache
     end
   end
 

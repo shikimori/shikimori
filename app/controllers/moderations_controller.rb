@@ -104,6 +104,12 @@ class ModerationsController < ShikimoriController
     redirect_back fallback_location: moderations_url, notice: command
   end
 
+  def clear_cache
+    authorize! :restart, Shikimori
+    Rails.cache.clear
+    redirect_back fallback_location: moderations_url, notice: 'Rails.cache.clear' # rubocop:disable Rails/I18nLocaleTexts
+  end
+
 private
 
   def abuse_requests_stats
