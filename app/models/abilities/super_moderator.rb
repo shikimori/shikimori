@@ -25,6 +25,7 @@ class Abilities::SuperModerator
     clubs_abilities
 
     can :search_user_id, UserImage
+    can :restart, Shikimori
   end
 
   def roles_abilities # rubocop:disable MethodLength

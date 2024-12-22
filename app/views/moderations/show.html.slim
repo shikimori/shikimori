@@ -265,41 +265,60 @@ header.head
                 datetime=job['enqueued_at'].iso8601
               ] = l job['enqueued_at'], format: '%e %B %Y'
 
-- if can? :search_user_id, UserImage
+- if can?(:search_user_id, UserImage) || can?(:restart, Shikimori)
   .block
     .fc-2
-      .f-column
-        .subheadline Поиск пользователя по ссылке на картинку
-        form.b-form.block[
-          method='get'
-        ]
-          = hidden_field_tag :authenticity_token, form_authenticity_token
-          .b-input
-            label Ссылка
+      - if can? :search_user_id, UserImage
+        .f-column
+          .subheadline Поиск пользователя по ссылке на картинку
+          form.b-form.block[
+            method='get'
+          ]
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+            .b-input
+              label Ссылка
+              input[
+                name='user_image_url'
+                type='text'
+                autocomplete='off'
+                value=params[:user_image_url]
+              ]
+
             input[
-              name='user_image_url'
-              type='text'
-              autocomplete='off'
-              value=params[:user_image_url]
+              type='submit'
+              value=t('.run')
+              data-disable-with=t('.running')
             ]
 
-          input[
-            type='submit'
-            value=t('.run')
-            data-disable-with=t('.running')
-          ]
-
-        - if @user_image_hash
-          .block
-            div Хеш: #{@user_image_hash}
-            div
-              - if @user_image_user
-                ' Пользователь:
+          - if @user_image_hash
+            .block
+              div Хеш: #{@user_image_hash}
+              div
                 - if @user_image_user
-                  = render 'users/user_16', user: @user_image_user
-              - else
-                | Пользователь не найден
+                  ' Пользователь:
+                  - if @user_image_user
+                    = render 'users/user_16', user: @user_image_user
+                - else
+                  | Пользователь не найден
 
+      - if can? :restart, Shikimori
+        .f-column
+          .b-dangerous-actions
+            = spoiler 'Сервер (супер модератор)' do
+              .subheadline.red Сервер
+              .cc-2
+                .c-column
+                  a.b-link_button.light-red[
+                    href=restart_unicorn_moderations_url
+                    data-method='post'
+                    data-confirm=t('actions.confirm_simple')
+                  ] Перезапустить Unicorn
+                .c-column
+                  a.b-link_button.light-red[
+                    href=restart_sidekiq_moderations_url
+                    data-method='post'
+                    data-confirm=t('actions.confirm_simple')
+                  ] Перезапустить Sidekiq
 
 - if @abuse_requests_stats || @bans_stats || @content_versions_stats || @critiques_stats || @collections_stats || @articles_stats
   .subheadline.m15 Statistics for last 4 months

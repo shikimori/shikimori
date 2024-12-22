@@ -90,6 +90,20 @@ class ModerationsController < ShikimoriController
     end
   end
 
+  def restart_unicorn
+    authorize! :restart, Shikimori
+    command = 'sudo systemctl reload shikimori_unicorn_production'
+    `#{command}`
+    redirect_back fallback_location: moderations_url, notice: command
+  end
+
+  def restart_sidekiq
+    authorize! :restart, Shikimori
+    command = 'sudo systemctl reload shikimori_sidekiq_production'
+    `#{command}`
+    redirect_back fallback_location: moderations_url, notice: command
+  end
+
 private
 
   def abuse_requests_stats

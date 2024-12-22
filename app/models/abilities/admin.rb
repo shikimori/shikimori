@@ -49,5 +49,7 @@ class Abilities::Admin
     can :manage, OauthApplication
 
     can :destroy, Ban
+
+    can :restart, Shikimori
   end
 end

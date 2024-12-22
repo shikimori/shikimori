@@ -668,7 +668,11 @@ Rails.application.routes.draw do
   end
 
   resource :moderations, only: %i[show] do
-    get :missing_screenshots, on: :collection
+    collection do
+      get :missing_screenshots
+      post :restart_unicorn
+      post :restart_sidekiq
+    end
   end
 
   resource :tests, only: %i[show] do
