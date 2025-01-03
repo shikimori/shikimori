@@ -48,6 +48,7 @@ describe Anime do
     it { is_expected.to have_many(:episode_notifications).dependent :destroy }
 
     it { is_expected.to have_many(:name_matches).dependent :destroy }
+    it { is_expected.to belong_to(:origin_manga).optional }
 
     it { is_expected.to have_many(:links).dependent :destroy }
     it { is_expected.to have_many :external_links }
