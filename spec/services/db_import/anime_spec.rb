@@ -14,7 +14,8 @@ describe DbImport::Anime do
       synopsis:,
       external_links:,
       image:,
-      is_more_info:
+      is_more_info:,
+      origin_manga_id: 123
     }
   end
   let(:id) { 987_654_321 }
