@@ -280,9 +280,9 @@ private
 
   def headline_array
     if russian_names?
-      [russian, name].select(&:present?).compact
+      [russian, name].compact_blank
     else
-      [name, russian].select(&:present?).compact
+      [name, russian].compact_blank
     end
   end
 

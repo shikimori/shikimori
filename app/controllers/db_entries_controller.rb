@@ -137,7 +137,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def merge_into_other
-    authorize! :merge, resource_klass
+    authorize! :dangerous_action, resource_klass
 
     DbEntries::MergeIntoOther.perform_in(
       DANGEROUS_ACTION_DELAY_INTERVAL,
@@ -154,7 +154,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def merge_as_episode # rubocop:disable AbcSize
-    authorize! :merge, resource_klass
+    authorize! :dangerous_action, resource_klass
 
     DbEntries::MergeAsEpisode.perform_in(
       DANGEROUS_ACTION_DELAY_INTERVAL,

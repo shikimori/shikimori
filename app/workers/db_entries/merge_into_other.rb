@@ -6,7 +6,7 @@ class DbEntries::MergeIntoOther
     .enum(Anime.name, Manga.name, Character.name, Person.name)
 
   def perform type, from_id, to_id, user_id
-    NamedLogger.merge_into_other.info "#{type}##{from_id} -> #{type}#{to_id} User##{user_id}"
+    NamedLogger.dangerous_action.info "#{type}##{from_id} -> #{type}#{to_id} User##{user_id}"
 
     klass = Type[type].constantize
 

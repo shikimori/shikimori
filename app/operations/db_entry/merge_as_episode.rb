@@ -1,4 +1,4 @@
-class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther # rubocop:disable ClassLength
+class DbEntry::MergeAsEpisode < DbEntry::MergeIntoOther
   method_object %i[entry! other! as_episode! episode_label episode_field!]
 
   RELATIONS = %i[
