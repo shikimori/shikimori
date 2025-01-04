@@ -6,23 +6,36 @@
           .fc-actions
             - if can? :dangerous_action, resource
               .f-column
-                a.b-link_button.light-red[
-                  href=resource.clear_related_characters_url
-                  data-method='post'
-                  data-confirm=t('actions.confirm')
-                ] Оборвать связи с персонажами
+                - unless resource.is_a? Character
+                  - if resource.person_roles.where.not(character_id: nil).any?
+                    a.b-link_button.light-red[
+                      href=resource.clear_related_characters_url
+                      data-method='post'
+                      data-confirm=t('actions.confirm')
+                    ] Оборвать связи с персонажами
               .f-column
-                a.b-link_button.light-red[
-                  href=resource.clear_related_people_url
-                  data-method='post'
-                  data-confirm=t('actions.confirm')
-                ] Оборвать связи с людьми
+                - unless resource.is_a? Person
+                  - if resource.person_roles.where.not(person_id: nil).any?
+                    a.b-link_button.light-red[
+                      href=resource.clear_related_people_url
+                      data-method='post'
+                      data-confirm=t('actions.confirm')
+                    ] Оборвать связи с людьми
               .f-column
-                a.b-link_button.light-red[
-                  href=resource.clear_related_titles_url
-                  data-method='post'
-                  data-confirm=t('actions.confirm')
-                ] Оборвать связи с тайтлами
+                - if resource.anime? || resource.kinda_manga?
+                  - if resource.related.any?
+                    a.b-link_button.light-red[
+                      href=resource.clear_related_titles_url
+                      data-method='post'
+                      data-confirm=t('actions.confirm')
+                    ] Оборвать связи с тайтлами
+                - else
+                  - if resource.person_roles.where.not(anime_id: nil).any? || resource.person_roles.where.not(manga_id: nil).any?
+                    a.b-link_button.light-red[
+                      href=resource.clear_related_titles_url
+                      data-method='post'
+                      data-confirm=t('actions.confirm')
+                    ] Оборвать связи с тайтлами
 
               .f-column
                 .b-link_button.light-red[
