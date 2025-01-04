@@ -49,6 +49,9 @@ Rails.application.routes.draw do
       delete :destroy
       delete :merge_into_other
       delete :merge_as_episode
+      post :clear_related_characters
+      post :clear_related_people
+      post :clear_related_titles
     end
 
     collection do

@@ -173,6 +173,42 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
     )
   end
 
+  def clear_related_characters
+    authorize! :dangerous_action, resource_klass
+    NamedLogger.dangerous_action.info 'clear_related_characters' \
+      "#{@resource.object.class.name}##{@resource.id} User##{current_user.id}"
+    @resource.person_roles.where.not(character_id: nil).destroy_all
+
+    redirect_back(
+      fallback_location: @resource.edit_url,
+      notice: i18n_t('done')
+    )
+  end
+
+  def clear_related_people
+    authorize! :dangerous_action, resource_klass
+    NamedLogger.dangerous_action.info 'clear_related_people' \
+      "#{@resource.object.class.name}##{@resource.id} User##{current_user.id}"
+    @resource.person_roles.where.not(person_id: nil).destroy_all
+
+    redirect_back(
+      fallback_location: @resource.edit_url,
+      notice: i18n_t('done')
+    )
+  end
+
+  def clear_related_titles
+    authorize! :dangerous_action, resource_klass
+    NamedLogger.dangerous_action.info 'clear_related_titles' \
+      "#{@resource.object.class.name}##{@resource.id} User##{current_user.id}"
+    @resource.related.destroy_all
+
+    redirect_back(
+      fallback_location: @resource.edit_url,
+      notice: i18n_t('done')
+    )
+  end
+
   def destroy
     authorize! :destroy, resource_klass
 

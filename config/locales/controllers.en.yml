@@ -359,6 +359,7 @@ en:
     merge_scheduled: Merging scheduled
     destroy_scheduled: Deletion scheduled
     refresh_completed: Refresh completed
+    done: Done
 
   mangas_controller:
     <<: *animes_controller

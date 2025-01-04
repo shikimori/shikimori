@@ -266,6 +266,18 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     h.send :"merge_as_episode_#{klass_lower}_url"
   end
 
+  def clear_related_characters_url
+    h.send :"clear_related_characters_#{klass_lower}_url"
+  end
+
+  def clear_related_people_url
+    h.send :"clear_related_people_#{klass_lower}_url"
+  end
+
+  def clear_related_titles_url
+    h.send :"clear_related_titles_#{klass_lower}_url"
+  end
+
 private
 
   def versions_scope

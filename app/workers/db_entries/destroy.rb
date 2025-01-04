@@ -6,7 +6,8 @@ class DbEntries::Destroy
     .enum(Anime.name, Manga.name, Character.name, Person.name)
 
   def perform type, id, user_id
-    NamedLogger.dangerous_action.info "#{type}##{id} User##{user_id}"
+    NamedLogger.dangerous_action.info 'destroy' \
+      "#{type}##{id} User##{user_id}"
 
     klass = Type[type].constantize
 

@@ -6,6 +6,25 @@
           .fc-actions
             - if can? :dangerous_action, resource
               .f-column
+                a.b-link_button.light-red[
+                  href=resource.clear_related_characters_url
+                  data-method='post'
+                  data-confirm=t('actions.confirm')
+                ] Оборвать связи с персонажами
+              .f-column
+                a.b-link_button.light-red[
+                  href=resource.clear_related_people_url
+                  data-method='post'
+                  data-confirm=t('actions.confirm')
+                ] Оборвать связи с людьми
+              .f-column
+                a.b-link_button.light-red[
+                  href=resource.clear_related_titles_url
+                  data-method='post'
+                  data-confirm=t('actions.confirm')
+                ] Оборвать связи с тайтлами
+
+              .f-column
                 .b-link_button.light-red[
                   data-tab-switch
                 ] = t('.merge_as_duplicate')

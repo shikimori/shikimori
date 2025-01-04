@@ -359,6 +359,7 @@ ru:
     merge_scheduled: Слияние запущено
     destroy_scheduled: Удаление запущено
     refresh_completed: Обновление завершено
+    done: Сделано
 
   mangas_controller:
     <<: *animes_controller
