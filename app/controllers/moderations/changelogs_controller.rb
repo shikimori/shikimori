@@ -1,6 +1,6 @@
 class Moderations::ChangelogsController < ModerationsController
-  MAX_LOG_LINES = 1_000
-  PER_PAGE = 20
+  MAX_LOG_LINES = 10_000
+  PER_PAGE = 100
 
   TAIL_COMMAND = "tail -n #{MAX_LOG_LINES}"
 
@@ -122,6 +122,27 @@ class Moderations::ChangelogsController < ModerationsController
           tooltip_url changelog[:model]
       end
     end
+  end
+
+  def dangerous_actions# rubocop:disable all
+    og page_title: 'Журнал опасных действий'
+
+    log_file = Rails.root.join 'log/dangerous_action.log'
+
+    raise ActiveRecord::RecordNotFound unless File.exist? log_file
+
+    command =
+      if params[:search].present?
+        "grep \"#{safe_search}\" #{log_file} | #{TAIL_COMMAND}"
+      else
+        "#{TAIL_COMMAND} #{log_file}"
+      end
+
+    log_lines = `#{command}`.strip.each_line.map(&:strip).reverse
+
+    @collection = QueryObjectBase
+      .new(log_lines[PER_PAGE * (page - 1), PER_PAGE])
+      .paginated_slice(page, PER_PAGE)
   end
 
 private

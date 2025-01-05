@@ -227,7 +227,9 @@ Rails.application.routes.draw do
     resources :mal_more_infos, only: [] do
       get '(/page/:page)' => :index, as: '', on: :collection
     end
-    resources :changelogs, only: %i[index show]
+    resources :changelogs, only: %i[index show] do
+      get :dangerous_actions, on: :collection
+    end
 
     resource :authors, only: %i[show edit update]
 

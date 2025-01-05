@@ -1,0 +1,20 @@
+header.head
+  h1 = og.headline
+  = render 'application/breadcrumbs'
+
+form
+  .b-collection_search
+    .field
+      input[
+        type='text'
+        placeholder=t('search.search')
+        value=params[:search]
+        name='search'
+      ]
+      - if params[:search]
+        a.clear href=current_url(search: nil)
+
+.block
+  = render partial: 'moderations/changelogs/dangerous_action', collection: @collection
+  - if @collection.next_page?
+    = render 'blocks/postloader', next_url: current_url(page: @page + 1)
