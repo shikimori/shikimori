@@ -175,7 +175,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
 
   def clear_related_characters
     authorize! :dangerous_action, resource_klass
-    NamedLogger.dangerous_action.info 'clear_related_characters' \
+    NamedLogger.dangerous_action.info 'clear_related_characters  ' \
       "#{@resource.object.class.name}##{@resource.id} User##{current_user.id}"
 
     @resource.person_roles.where.not(character_id: nil).destroy_all
@@ -188,7 +188,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
 
   def clear_related_people
     authorize! :dangerous_action, resource_klass
-    NamedLogger.dangerous_action.info 'clear_related_people' \
+    NamedLogger.dangerous_action.info 'clear_related_people ' \
       "#{@resource.object.class.name}##{@resource.id} User##{current_user.id}"
 
     @resource.person_roles.where.not(person_id: nil).destroy_all
@@ -201,7 +201,7 @@ class DbEntriesController < ShikimoriController # rubocop:disable ClassLength
 
   def clear_related_titles # rubocop:disable Metrics/AbcSize
     authorize! :dangerous_action, resource_klass
-    NamedLogger.dangerous_action.info 'clear_related_titles' \
+    NamedLogger.dangerous_action.info 'clear_related_titles ' \
       "#{@resource.object.class.name}##{@resource.id} User##{current_user.id}"
 
     if @resource.anime? || @resource.kinda_manga?
