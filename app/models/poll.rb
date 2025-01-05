@@ -1,8 +1,13 @@
 class Poll < ApplicationRecord
   include AASM
   include Translation
+  include AntispamConcern
 
   acts_as_votable
+  antispam(
+    per_day: 15,
+    user_id_key: :user_id
+  )
 
   belongs_to :user
   has_many :variants, -> { order :id },
