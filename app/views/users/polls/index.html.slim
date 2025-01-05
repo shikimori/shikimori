@@ -6,9 +6,10 @@
 
 = render layout: 'page' do
   - if @collection.any?
-    = render partial: 'users/polls/poll',
-      collection: @collection,
-      locals: { user: @user }
+    = cache @collection do
+      = render partial: 'users/polls/poll',
+        collection: @collection,
+        locals: { user: @user }
     - if @collection.next_page
       = render 'blocks/postloader',
         next_url: current_url(page: @collection.next_page)
