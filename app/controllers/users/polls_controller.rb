@@ -14,9 +14,11 @@ class Users::PollsController < ProfilesController
     variants_attributes: %i[label]
   }]
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
+  PER_PAGE = 25
 
   def index
-    @collection = @user.polls
+    @collection = QueryObjectBase.new(@user.polls)
+      .paginate(page, PER_PAGE)
   end
 
   def show
@@ -29,17 +31,17 @@ class Users::PollsController < ProfilesController
     render :form
   end
 
+  def edit
+    og page_title: @resource.name
+    render :form
+  end
+
   def create
     if @resource.save
       redirect_to edit_profile_poll_url(@user, @resource)
     else
       new
     end
-  end
-
-  def edit
-    og page_title: @resource.name
-    render :form
   end
 
   def update

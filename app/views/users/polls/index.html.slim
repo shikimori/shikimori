@@ -5,10 +5,12 @@
   ] = t('actions.create').downcase
 
 = render layout: 'page' do
-  = cache @collection do
-    - if @collection.any?
-      = render partial: 'users/polls/poll',
-        collection: @collection,
-        locals: { user: @user }
-    - else
-      .b-nothing_here = t 'polls.index.no_polls'
+  - if @collection.any?
+    = render partial: 'users/polls/poll',
+      collection: @collection,
+      locals: { user: @user }
+    - if @collection.next_page
+      = render 'blocks/postloader',
+        next_url: current_url(page: @collection.next_page)
+  - else
+    .b-nothing_here = t 'polls.index.no_polls'
