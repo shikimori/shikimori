@@ -5,7 +5,9 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
     all.map do |relation|
       RelatedEntry.new(
         (relation.anime || relation.manga).decorate,
-        relation.relation_kind_text
+        other_adaptation?(relation) ?
+          I18n.t('enumerize.related_anime.relation_kind.other') :
+          relation.relation_kind_text
       )
     end
   end
@@ -42,5 +44,13 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
           relation.manga&.aired_on.presence ||
           Date.new(9999)
       end
+  end
+
+  def other_adaptation? relation
+    relation.adaptation? &&
+      relation.manga &&
+      anime? &&
+      origin.present? &&
+      relation.manga.kind != origin
   end
 end
