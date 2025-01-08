@@ -18,6 +18,7 @@ class BbCodes::CleanupCssClass
     b-video
     ban
     bubbled
+    collection_score
     CodeMirror
     CodeMirror-activeline-background
     CodeMirror-cursor
