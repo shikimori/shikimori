@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_03_173941) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_08_151944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
@@ -178,7 +178,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_03_173941) do
     t.date "released_on_computed"
     t.integer "genre_v2_ids", default: [], null: false, array: true
     t.string "more_info"
-    t.bigint "origin_manga_id"
     t.index ["aired_on_computed"], name: "index_animes_on_aired_on_computed"
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
