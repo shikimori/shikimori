@@ -1,6 +1,8 @@
 class AniMangaDecorator::RelatedDecorator < BaseDecorator
   instance_cache :related, :similar, :all
 
+  ADAPTATION_ORIGINS = %i[light_novel manga]
+
   def related
     all.map do |relation|
       RelatedEntry.new(
@@ -50,7 +52,7 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
     relation.adaptation? &&
       relation.manga &&
       anime? &&
-      origin.present? &&
+      origin.in?(ADAPTATION_ORIGINS) &&
       relation.manga.kind != origin
   end
 end
