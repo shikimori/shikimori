@@ -170,8 +170,6 @@ class Anime < DbEntry
     foreign_key: :target_id,
     dependent: :destroy
 
-  belongs_to :origin_manga, class_name: 'Manga', optional: true
-
   has_many :links,
     class_name: 'AnimeLink',
     dependent: :destroy
