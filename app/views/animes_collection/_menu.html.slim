@@ -243,6 +243,19 @@
                   data-href=tooltip_moderations_genre_v2_url(genre)
                 ]
 
+  - if menu.anime?
+    .block
+      .subheadline.m5 = Anime.human_attribute_name :origin
+      = text_spoiler t('.show_list') do
+        ul.b-block_list.origin.anime-params.m10
+          - Anime.origin.options.each do |title, origin|
+            li[
+              data-field='origin'
+              data-value=origin
+            ]
+              input type='checkbox' autocomplete='off'
+              = title
+
   .block
     .subheadline.m5 = Anime.human_attribute_name :licensors
     ul.b-block_list.licensors.anime-params.m10

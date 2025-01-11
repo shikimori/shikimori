@@ -22,6 +22,7 @@ const DEFAULT_DATA = {
   publisher: [],
   duration: [],
   rating: [],
+  origin: [],
   score: [],
   options: [],
   mylist: [],
@@ -38,7 +39,8 @@ const GET_FILTERS = [
   'options',
   'mylist',
   ORDER_FIELD,
-  'licensor'
+  'licensor',
+  'origin'
 ];
 
 // поля, разбитые на несколько фильтров
