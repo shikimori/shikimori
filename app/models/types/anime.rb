@@ -18,7 +18,6 @@ module Types
       original
       manga
       web_manga
-      digital_manga
       4-koma_manga
       novel
       web_novel
