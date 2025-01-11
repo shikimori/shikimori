@@ -584,7 +584,7 @@ ru:
         visual_novel: Визуальная новелла
         other: Прочее (иное) 
         web_manga: Веб-манга
-        4-koma_manga: Енкома
+        four_koma_manga: Енкома
         mixed_media: Более одного
     manga: &manga_enumerize
       status:

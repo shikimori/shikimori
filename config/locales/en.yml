@@ -584,7 +584,7 @@ en:
         visual_novel: Visual novel
         other: Other
         web_manga: Web manga
-        4-koma_manga: 4-koma manga
+        four_koma_manga: 4-koma manga
         mixed_media: Mixed media
     manga: &manga_enumerize
       status:
