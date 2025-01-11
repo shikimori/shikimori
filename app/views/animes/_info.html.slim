@@ -58,6 +58,10 @@
         span
           | . В РФ только по достижению 18 лет.
 
+  - if entry.anime? && entry.origin.present?
+    = info_line Anime.human_attribute_name(:origin) do
+      = entry.origin_text
+
   - if entry.licensors.any?
     = info_line Anime.human_attribute_name(:licensors), entry.licensors.join(', ')
 
