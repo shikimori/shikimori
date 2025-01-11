@@ -67,7 +67,7 @@ describe DbImport::MalPoster do
         end
       end
 
-      context 'corrupted image on second download attempt', :focus do
+      context 'corrupted image on second download attempt' do
         let(:second_io) { Rails.root.join('spec/files/poster_incomplete.jpg').open('r') }
 
         it do

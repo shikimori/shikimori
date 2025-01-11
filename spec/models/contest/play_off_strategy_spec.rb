@@ -52,7 +52,7 @@ describe Contest::PlayOffStrategy do
         ContestRound::Finish.call contest.current_round
       end
 
-      it 'winners&losers', :focus do
+      it 'winners&losers' do
         expect(contest.current_round.matches[0].left).to eq w1
         expect(contest.current_round.matches[0].right).to eq w2
 
