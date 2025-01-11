@@ -138,8 +138,8 @@ describe Video do
     context 'saved' do
       before { video.save! }
 
-      its(:image_url) { is_expected.to eq '//pp.userapi.com/c514511/u98023184/video/l_81cce630.jpg' }
-      its(:player_url) { is_expected.to eq '//vk.com/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892' }
+      its(:image_url) { is_expected.to eq 'https://pp.userapi.com/c514511/u98023184/video/l_81cce630.jpg' }
+      its(:player_url) { is_expected.to eq 'https://vk.com/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892' }
     end
 
     describe 'url=' do
