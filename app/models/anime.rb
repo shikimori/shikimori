@@ -114,6 +114,9 @@ class Anime < DbEntry
     class_name: 'Topics::NewsTopic',
     as: :linked
 
+  belongs_to :origin_manga,
+    class_name: 'Manga',
+    optional: true
   has_many :related,
     class_name: 'RelatedAnime',
     foreign_key: :source_id,
