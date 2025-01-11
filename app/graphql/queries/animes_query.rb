@@ -36,7 +36,7 @@ class Queries::AnimesQuery < Queries::BaseQuery
     description: 'Minimal anime score'
   argument :duration, Types::Scalars::DurationString, required: false
   argument :rating, Types::Scalars::RatingString, required: false
-  argument :origin, Types::Scalars::OriginString, required: false
+  argument :origin, Types::Scalars::Anime::OriginString, required: false
   argument :genre, String,
     required: false,
     description: 'List of comma separated genre ids'
