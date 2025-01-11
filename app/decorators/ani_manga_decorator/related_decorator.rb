@@ -52,7 +52,7 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
     relation.adaptation? &&
       relation.manga &&
       anime? &&
-      origin.in?(ADAPTATION_ORIGINS) &&
+      origin.to_sym.in?(ADAPTATION_ORIGINS) &&
       relation.manga.kind != origin
   end
 end
