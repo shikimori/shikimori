@@ -585,7 +585,7 @@ ru:
         other: Прочее (иное) 
         web_manga: Веб-манга
         4-koma_manga: Енкома
-        mixed_media: Несколько/более одного
+        mixed_media: Более одного
     manga: &manga_enumerize
       status:
         anons: Анонс
