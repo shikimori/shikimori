@@ -47,14 +47,14 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
           Date.new(9999)
       end
   end
-
-  def other_adaptation? relation
+ 
+  def other_adaptation? relation # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     relation.adaptation? &&
       relation.manga &&
       anime? &&
       (
         (
-          origin.to_sym.in?(ADAPTATION_ORIGINS) &&
+          origin&.to_sym&.in?(ADAPTATION_ORIGINS) &&
           relation.manga.kind != origin
         ) || (
           origin_manga_id.present? &&
