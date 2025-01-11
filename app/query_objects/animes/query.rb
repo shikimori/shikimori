@@ -27,6 +27,7 @@ class Animes::Query < QueryObjectBase
       .by_licensor(params[:licensor])
       .by_publisher(params[:publisher])
       .by_rating(params[:rating])
+      .by_origin(params[:origin])
       .by_score(params[:score])
       .by_season(params[:season])
       .by_status(params[:status])
@@ -126,6 +127,12 @@ class Animes::Query < QueryObjectBase
     return self if value.blank?
 
     chain Animes::Filters::ByRating.call(@scope, value)
+  end
+
+  def by_origin value
+    return self if value.blank?
+
+    chain Animes::Filters::ByOrigin.call(@scope, value)
   end
 
   def by_score value

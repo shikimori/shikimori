@@ -248,6 +248,18 @@ describe Animes::Query do
       it { is_expected.to eq [anime] }
     end
 
+    context '#by_origin' do
+      let(:params) { { origin: 'manga' } }
+      before do
+        allow(Animes::Filters::ByOrigin)
+          .to receive(:call)
+          .with(any_args, 'manga')
+          .and_return animes_scope
+      end
+
+      it { is_expected.to eq [anime] }
+    end
+
     context '#by_score' do
       let(:params) { { score: 'zzz' } }
       before do
