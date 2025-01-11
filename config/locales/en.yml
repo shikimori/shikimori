@@ -130,6 +130,7 @@ en:
         russia_released_on_hint: Date of release in Russia - on hover hint
         more_info: More info
         origin: Origin
+        origin_manga_id: Origin manga/light novel id
       manga: &manga_attributes
         <<: *anime_attributes
 

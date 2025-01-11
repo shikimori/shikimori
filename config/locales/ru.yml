@@ -130,6 +130,7 @@ ru:
         russia_released_on_hint: Премьера в РФ - подсказка при наведении
         more_info: Доп. информация
         origin: Первоисточник
+        origin_manga_id: ID манги/ранобэ первоисточника
       manga: &manga_attributes
         <<: *anime_attributes
         aired_on: Дата начала издания

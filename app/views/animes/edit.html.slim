@@ -24,8 +24,8 @@
               resource: @resource,
               field: :torrents_name
 
-          - %i[licensors kind rating origin genres genres_v2 status aired_on released_on duration].each do |field|
-            - next if (field == :rating || field == :origin) && @resource.kinda_manga?
+          - %i[licensors kind rating origin origin_manga_id genres genres_v2 status aired_on released_on duration].each do |field|
+            - next if field.in?(%i[rating origin origin_manga_id]) && @resource.kinda_manga?
             - next if field == :genres
             = render 'db_entries/edit_field_li',
               resource: @resource,

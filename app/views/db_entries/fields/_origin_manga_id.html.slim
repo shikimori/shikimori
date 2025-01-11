@@ -1,0 +1,11 @@
+.cc-2
+  .c-column
+    = simple_form_for resource.object do |f|
+      = f.input :origin_manga_id,
+        hint: 'Если в связанном у аниме отображается несколько "Адаптаций", то тут можно задать ID манги, у которой останется "Адаптация", у остальной манги при этом связь станет отображаться как "Прочее"'
+      = render 'versions/reason'
+
+      .buttons
+        a.cancel href=resource.edit_url = t 'actions.cancel'
+        = f.button :magic_submit
+

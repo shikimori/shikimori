@@ -862,7 +862,7 @@ Rails.application.routes.draw do
   resources :animes, only: %i[edit update] do
     concerns :db_entry, fields: Regexp.new(%w[
       name russian synonyms japanese license_name_ru description_ru description_en image poster
-      status kind episodes rating origin duration
+      status kind episodes rating origin origin_manga_id duration
       screenshots videos torrents_name imageboard_tag coub_tags aired_on released_on genre_ids genre_v2_ids
       external_links fansubbers fandubbers desynced options licensors
       is_censored digital_released_on russia_released_on more_info

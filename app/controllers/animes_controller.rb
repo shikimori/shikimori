@@ -23,6 +23,7 @@ class AnimesController < DbEntriesController # rubocop:disable Metrics/ClassLeng
     russia_released_on
     russia_released_on_hint
     more_info
+    origin_manga_id
   ] + DbEntriesController::POSTER_FIELDS + [
     *Anime::DESYNCABLE - %i[aired_on released_on digital_released_on russia_released_on],
     external_links: [EXTERNAL_LINK_PARAMS],
