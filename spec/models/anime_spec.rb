@@ -69,7 +69,7 @@ describe Anime do
     it { is_expected.to enumerize(:kind).in(*Types::Anime::Kind.values) }
     it { is_expected.to enumerize(:status).in(*Types::Anime::Status.values) }
     it { is_expected.to enumerize(:rating).in(*Types::Anime::Rating.values) }
-    it { is_expected.to enumerize(:origin) }
+    it { is_expected.to enumerize(:origin).in(*Types::Anime::Origin.values) }
     # it { is_expected.to enumerize(:options).in(*Types::Anime::Options.values) }
   end
 

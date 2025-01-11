@@ -225,26 +225,7 @@ class Anime < DbEntry
     in: Types::Anime::Kind.values,
     predicates: { prefix: true }
   enumerize :origin,
-    in: %i[
-      original
-      manga
-      web_manga
-      digital_manga
-      4-koma_manga
-      novel
-      web_novel
-      visual_novel
-      light_novel
-      game
-      card_game
-      music
-      radio
-      book
-      picture_book
-      mixed_media
-      other
-      unknown
-    ]
+    in: Types::Anime::Origin.values
   enumerize :status,
     in: Types::Anime::Status.values,
     predicates: true
