@@ -5974,6 +5974,7 @@
         - 54171
         - 56442
         - 60048
+        - 60447
       :threshold: 95.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *4
@@ -12050,6 +12051,7 @@
         not_anime_ids:
         - 25755
         - 30790
+        - 33522
         - 35880
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -13957,6 +13959,7 @@
         - 4941
         - 7229
         - 18669
+        - 35859
         - 42400
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
