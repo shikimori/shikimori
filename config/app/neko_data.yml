@@ -10182,6 +10182,7 @@
         - 59372
         - 59615
         - 59656
+        - 60674
       :threshold: 95%
       :generator: &508
         ignore_latest_ids:
@@ -15797,8 +15798,9 @@
         - 55378
         - 55883
         - 56889
+        - 57754
         - 58428
-      :threshold: 86.6%
+      :threshold: 85.2%
       :generator: &809
         not_ignored_ids:
         - 38986
@@ -16776,7 +16778,7 @@
       :algo: duration
       :filters: &858
         franchise: binan_koukou_chikyuu_boueibu_love
-      :threshold: 100%
+      :threshold: 91.9%
       :generator: &859
         ignore_latest_ids:
         - 59406
@@ -27076,6 +27078,7 @@
         - 60407
         - 60552
         - 60637
+        - 60773
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
   default_values: *4
   neko_id: :mahou_shoujo
