@@ -6,8 +6,10 @@ class FixName < ServiceObjectBase
   # .ord.to_s(16) to get unicode code
   SPACES = /(?:[[:space:]]|[\u2060-\u2069\u2000-\u200f\u202a-\u202f\u034f ឵⠀ᅠ­ ]|\p{C})+/
   ALL_EXTENSIONS = %w[
-    css js json xml jpg jpeg png gif webp css js ttf eot otf svg woff php woff2 bmp html
-    rar zip gz tar rss slim jbuilder txt os
+      css js json xml jpg jpeg png gif webp css js ttf eot otf svg woff php woff2 bmp html
+      rar zip gz tar rss slim jbuilder txt os log ini conf bak swp tmp yml yaml md rb py sh
+      cgi pl exe dll bin so dat db lock sql sqlite csv tsv xls xlsx doc docx ppt pptx pdf
+      php3 php4 php5 php7 php8 asp aspx cgi jsp jspa do action pdf
   ]
   EXTENSIONS = /
     \.(#{ALL_EXTENSIONS.join('|')})$
