@@ -663,6 +663,7 @@ Rails.application.routes.draw do
       get :news_feed, format: :rss
 
       get :tableau
+      post :'csp_vr'
     end
   end
 

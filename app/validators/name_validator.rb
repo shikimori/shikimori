@@ -34,6 +34,7 @@ class NameValidator < ActiveModel::EachValidator
     cosplay_galleries
     coubs
     country
+    cspvr
     csrf_token
     dashboards
     development
@@ -74,8 +75,8 @@ class NameValidator < ActiveModel::EachValidator
     nginx_stub_status
     o
     oauth
-    oauth_request
     oauth2
+    oauth_request
     ongoings
     p
     packs

@@ -1,6 +1,9 @@
 - if Rails.env.production?
   = render 'adsense'
 
+.block.m20
+  a.b-link.bubbled data-href="https://shikimori.one/zxc.html" cors test
+
 .block
   .m20
     .headline.m20 Большой заголовок
@@ -25,3 +28,4 @@
 = cache :test do
   div = Time.zone.now
   = render 'test'
+

@@ -9,6 +9,8 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   respond_to :html, except: [:news]
   respond_to :rss, only: [:news]
 
+  skip_before_action :verify_authenticity_token, only: %i[csp_vr]
+
   ONGOINGS_TOPIC_ID = 94_879
   ABOUT_TOPIC_ID = 84_739
 
@@ -307,5 +309,9 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
   def graphql
     render :graphql, layout: false
+  end
+
+  def csp_vr
+    NamedLogger.csp_vr.info JSON.parse(request.body.read).to_yaml
   end
 end
