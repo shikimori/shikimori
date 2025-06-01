@@ -1,8 +1,17 @@
 class RecommendationIgnoresController < ShikimoriController
   before_action :authenticate_user!
 
+  TARGET_TYPES = %w[
+    Anime
+    Manga
+  ]
+
   def create
-    render json: RecommendationIgnore.block(entry, current_user)
+    if(TARGET_TYPES.include?(params[:target_type]))
+      render json: RecommendationIgnore.block(entry, current_user)
+    else
+      render json: { error: 'Incompatible target_type supplied' }, status: 422
+    end
   end
 
   def cleanup
