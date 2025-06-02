@@ -17,12 +17,18 @@ class ContestSuggestionsController < ShikimoriController
   end
 
   def create
-    item = params[:contest_suggestion][:item_type].constantize.find(
-      params[:contest_suggestion][:item_id]
-    )
-    ContestSuggestion.suggest @contest, current_user, item
+    item_type = create_params[:item_type]
 
-    redirect_to contest_url(@contest)
+    if(Types::Contest::MemberType.include?(item_type.downcase.to_sym))
+      item = item_type.constantize.find(
+        create_params[:item_id]
+      )
+      ContestSuggestion.suggest @contest, current_user, item
+
+      redirect_to contest_url(@contest)
+    else
+      render json: { error: 'Incompatible item_type supplied' }, status: 422
+    end
   end
 
   def destroy
@@ -40,5 +46,9 @@ private
 
   def fetch_contest
     @contest = Contest.where(id: params[:contest_id], state: 'proposing').first!
+  end
+
+  def create_params
+    params.require(:contest_suggestion).permit(:item_type, :item_id)
   end
 end
