@@ -103,31 +103,35 @@ class TopicsController < ShikimoriController # rubocop:disable Metris/ClassLengt
       params: topic_params
     )
 
-    if @resource.persisted?
-      redirect_to(
-        UrlGenerator.instance.topic_url(@resource),
-        notice: i18n_t('topic.created')
-      )
+    if(@resource)
+      if @resource.persisted?
+        redirect_to(
+          UrlGenerator.instance.topic_url(@resource),
+          notice: i18n_t('topic.created')
+        )
+      else
+        new
+        flash[:alert] = t('changes_not_saved')
+        render :new
+      end
     else
-      new
-      flash[:alert] = t('changes_not_saved')
-      render :new
+      render json: { error: 'Incompatible linked_type supplied' }, status: 422
     end
   end
 
   def update
-    is_updated = Topic::Update.call @resource, topic_params, faye
+      is_updated = Topic::Update.call @resource, topic_params, faye
 
-    if is_updated
-      redirect_to(
-        UrlGenerator.instance.topic_url(@resource),
-        notice: i18n_t('topic.updated')
-      )
-    else
-      edit
-      flash[:alert] = t('changes_not_saved')
-      render :edit
-    end
+      if is_updated
+        redirect_to(
+          UrlGenerator.instance.topic_url(@resource),
+          notice: i18n_t('topic.updated')
+        )
+      else
+        edit
+        flash[:alert] = t('changes_not_saved')
+        render :edit
+      end
   end
 
   def destroy

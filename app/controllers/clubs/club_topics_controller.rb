@@ -31,14 +31,18 @@ class Clubs::ClubTopicsController < ClubsController
       params: create_params
     )
 
-    if @resource.persisted?
-      redirect_to(
-        UrlGenerator.instance.topic_url(@resource),
-        notice: i18n_t('topic.created')
-      )
+    if(@resource)
+      if @resource.persisted?
+        redirect_to(
+          UrlGenerator.instance.topic_url(@resource),
+          notice: i18n_t('topic.created')
+        )
+      else
+        flash[:alert] = t('changes_not_saved')
+        new
+      end
     else
-      flash[:alert] = t('changes_not_saved')
-      new
+      render json: { error: 'Incompatible linked_type supplied' }, status: 422
     end
   end
 

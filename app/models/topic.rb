@@ -67,6 +67,7 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
 
   validates :forum, :user, presence: true
   validates :title, :body, presence: true, unless: :generated?
+  validates :linked, presence: true, if: -> { linked_id.present? }
 
   boolean_attribute :censored
 
@@ -130,7 +131,7 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
 private
 
   def validate_linked
-    return if linked_type.blank? || LINKED_TYPES.include?(linked_type)
+    return if TopicsHelper.valid_linked linked_type
 
     errors.add :linked_type, 'Forbidden Linked Type'
     throw :abort

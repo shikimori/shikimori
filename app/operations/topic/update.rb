@@ -4,10 +4,14 @@ class Topic::Update
   method_object :model, :params, :faye
 
   def call
-    is_updated = @faye.update @model, @params
-    Changelog::LogUpdate.call @model, @faye.actor if is_updated
-    broadcast if is_updated && broadcast?
-    is_updated
+    if(TopicsHelper.valid_linked params[:linked_type])
+      is_updated = @faye.update @model, @params
+      Changelog::LogUpdate.call @model, @faye.actor if is_updated
+      broadcast if is_updated && broadcast?
+      is_updated
+    else
+      false
+    end
   end
 
 private

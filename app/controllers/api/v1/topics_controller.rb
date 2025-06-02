@@ -118,11 +118,15 @@ class Api::V1::TopicsController < Api::V1Controller
       params: topic_params
     )
 
-    if @resource.persisted?
-      view = Topics::TopicViewFactory.new(false, false).build(@resource)
-      respond_with view, serializer: TopicSerializer
+    if(@resource)
+      if @resource.persisted?
+        view = Topics::TopicViewFactory.new(false, false).build(@resource)
+        respond_with view, serializer: TopicSerializer
+      else
+        respond_with @resource
+      end
     else
-      respond_with @resource
+      render json: { error: 'Incompatible linked_type or id supplied' }, status: 422
     end
   end
 
