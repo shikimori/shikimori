@@ -62,22 +62,26 @@ class Api::V1::ShikiEditorsController < Api::V1Controller # rubocop:disable Clas
   def preview # rubocop:disable AbcSize, MethodLength
     censored_text = Moderations::Banhammer.instance.censor params[:text] || '', nil
 
-    html =
-      if params[:target_type] && params[:target_id]
-        BbCodes::EntryText.call(
-          censored_text,
-          entry: params[:target_type].constantize.find_by(id: params[:target_id]),
-          lang: params[:lang],
-          is_event: true
-        )
-      else
-        BbCodes::Text.call censored_text, is_event: true
-      end
+    if(!params[:target_type] || SUPPORTED_TYPES.include?(params[:target_type].downcase.to_sym))
+      html =
+        if params[:target_type] && params[:target_id]
+          BbCodes::EntryText.call(
+            censored_text,
+            entry: params[:target_type].constantize.find_by(id: params[:target_id]),
+            lang: params[:lang],
+            is_event: true
+          )
+        else
+          BbCodes::Text.call censored_text, is_event: true
+        end
 
-    render json: {
-      html: JsExports::Supervisor.instance.sweep(current_user, html),
-      JS_EXPORTS: JsExports::Supervisor.instance.export(current_user)
-    }
+      render json: {
+        html: JsExports::Supervisor.instance.sweep(current_user, html),
+        JS_EXPORTS: JsExports::Supervisor.instance.export(current_user)
+      }
+    else
+       render json: { error: 'Incompatible target_type supplied' }, status: 422
+    end
   end
 
 private

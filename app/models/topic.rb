@@ -45,6 +45,8 @@ class Topic < ApplicationRecord # rubocop:disable ClassLength
     socials: 270_099
   }
 
+  # спросите у мора, возможно удалённые типы всё таки зачем-то нужны
+  # в этом случае надо идти дальше по коду и чекать на nil
   LINKED_TYPES = %w[
     Anime
     Manga
